@@ -7,14 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A03E60A19D8806800D857BD /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A03E60919D8806800D857BD /* JCJoystick.m */; };
+		7A2BB79219D87889005C27D2 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2BB79019D87889005C27D2 /* fireButton.png */; };
+		7A2BB79319D87889005C27D2 /* fireButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2BB79119D87889005C27D2 /* fireButtonPressed.png */; };
+		7A3D7ED619D27D3E00C39131 /* zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* zombie.swift */; };
+		7A4E1DA119D7702C00001C55 /* prince.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1D9F19D7702C00001C55 /* prince.png */; };
+		7A4E1DA219D7702C00001C55 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA019D7702C00001C55 /* speech.png */; };
+		7A4E1DA819D7703700001C55 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA319D7703700001C55 /* background.png */; };
+		7A4E1DA919D7703700001C55 /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA419D7703700001C55 /* brush.png */; };
+		7A4E1DAA19D7703700001C55 /* princess.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA519D7703700001C55 /* princess.png */; };
+		7A4E1DAB19D7703700001C55 /* startButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA619D7703700001C55 /* startButton.png */; };
+		7A4E1DAC19D7703700001C55 /* zombie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA719D7703700001C55 /* zombie.png */; };
+		7A4E1DAE19D7970900001C55 /* SKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E1DAD19D7970800001C55 /* SKButton.swift */; };
 		7A4E783C19C735B900C5E9B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E783B19C735B900C5E9B3 /* AppDelegate.swift */; };
-		7A4E783E19C735B900C5E9B3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E783D19C735B900C5E9B3 /* GameScene.sks */; };
-		7A4E784019C735B900C5E9B3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E783F19C735B900C5E9B3 /* GameScene.swift */; };
+		7A4E783E19C735B900C5E9B3 /* TitleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E783D19C735B900C5E9B3 /* TitleScene.sks */; };
 		7A4E784219C735B900C5E9B3 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E784119C735B900C5E9B3 /* GameViewController.swift */; };
 		7A4E784519C735B900C5E9B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784319C735B900C5E9B3 /* Main.storyboard */; };
 		7A4E784719C735B900C5E9B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784619C735B900C5E9B3 /* Images.xcassets */; };
 		7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784819C735B900C5E9B3 /* LaunchScreen.xib */; };
 		7A4E785619C735B900C5E9B3 /* PrVZ_DevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */; };
+		7A92656F19CF2A280090595F /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92656E19CF2A280090595F /* TitleScene.swift */; };
+		7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92657019CF2DEB0090595F /* TutorialScene.swift */; };
+		7AA9647D19DC51BC005384E2 /* ash.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA9647C19DC51BC005384E2 /* ash.png */; };
+		7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC7DCEA19DD04450040897E /* GameScene.swift */; };
+		7AF744C719D739AC00B95D08 /* princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* princess.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,11 +44,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7A03E60719D8806800D857BD /* PrVZ Dev-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrVZ Dev-Bridging-Header.h"; sourceTree = "<group>"; };
+		7A03E60819D8806800D857BD /* JCJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCJoystick.h; path = "../../../Downloads/JCInput-master/JCInput/JCJoystick.h"; sourceTree = "<group>"; };
+		7A03E60919D8806800D857BD /* JCJoystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JCJoystick.m; path = "../../../Downloads/JCInput-master/JCInput/JCJoystick.m"; sourceTree = "<group>"; };
+		7A2BB79019D87889005C27D2 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButton.png; path = Images/InGame/fireButton.png; sourceTree = "<group>"; };
+		7A2BB79119D87889005C27D2 /* fireButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButtonPressed.png; path = Images/InGame/fireButtonPressed.png; sourceTree = "<group>"; };
+		7A3D7ED519D27D3E00C39131 /* zombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zombie.swift; sourceTree = "<group>"; };
+		7A4E1D9F19D7702C00001C55 /* prince.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prince.png; path = Images/Tutorial/prince.png; sourceTree = "<group>"; };
+		7A4E1DA019D7702C00001C55 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = speech.png; path = Images/Tutorial/speech.png; sourceTree = "<group>"; };
+		7A4E1DA319D7703700001C55 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Images/InGame/background.png; sourceTree = "<group>"; };
+		7A4E1DA419D7703700001C55 /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush.png; path = Images/InGame/brush.png; sourceTree = "<group>"; };
+		7A4E1DA519D7703700001C55 /* princess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = princess.png; path = Images/InGame/princess.png; sourceTree = "<group>"; };
+		7A4E1DA619D7703700001C55 /* startButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButton.png; path = Images/InGame/startButton.png; sourceTree = "<group>"; };
+		7A4E1DA719D7703700001C55 /* zombie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zombie.png; path = Images/InGame/zombie.png; sourceTree = "<group>"; };
+		7A4E1DAD19D7970800001C55 /* SKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButton.swift; sourceTree = "<group>"; };
 		7A4E783619C735B900C5E9B3 /* PrVZ Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PrVZ Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4E783A19C735B900C5E9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A4E783B19C735B900C5E9B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7A4E783D19C735B900C5E9B3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		7A4E783F19C735B900C5E9B3 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		7A4E783D19C735B900C5E9B3 /* TitleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TitleScene.sks; sourceTree = "<group>"; };
 		7A4E784119C735B900C5E9B3 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		7A4E784419C735B900C5E9B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7A4E784619C735B900C5E9B3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -40,6 +69,11 @@
 		7A4E784F19C735B900C5E9B3 /* PrVZ DevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PrVZ DevTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4E785419C735B900C5E9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrVZ_DevTests.swift; sourceTree = "<group>"; };
+		7A92656E19CF2A280090595F /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
+		7A92657019CF2DEB0090595F /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
+		7AA9647C19DC51BC005384E2 /* ash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ash.png; path = Images/InGame/ash.png; sourceTree = "<group>"; };
+		7AC7DCEA19DD04450040897E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		7AF744C619D739AC00B95D08 /* princess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = princess.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,14 +115,23 @@
 		7A4E783819C735B900C5E9B3 /* PrVZ Dev */ = {
 			isa = PBXGroup;
 			children = (
+				7A8D8F2119C7E72D001D8C72 /* Images */,
+				7A03E60819D8806800D857BD /* JCJoystick.h */,
+				7A03E60919D8806800D857BD /* JCJoystick.m */,
+				7A03E60719D8806800D857BD /* PrVZ Dev-Bridging-Header.h */,
 				7A4E783B19C735B900C5E9B3 /* AppDelegate.swift */,
-				7A4E783D19C735B900C5E9B3 /* GameScene.sks */,
-				7A4E783F19C735B900C5E9B3 /* GameScene.swift */,
+				7A4E783D19C735B900C5E9B3 /* TitleScene.sks */,
 				7A4E784119C735B900C5E9B3 /* GameViewController.swift */,
 				7A4E784319C735B900C5E9B3 /* Main.storyboard */,
 				7A4E784619C735B900C5E9B3 /* Images.xcassets */,
 				7A4E784819C735B900C5E9B3 /* LaunchScreen.xib */,
 				7A4E783919C735B900C5E9B3 /* Supporting Files */,
+				7A92656E19CF2A280090595F /* TitleScene.swift */,
+				7A92657019CF2DEB0090595F /* TutorialScene.swift */,
+				7A3D7ED519D27D3E00C39131 /* zombie.swift */,
+				7AF744C619D739AC00B95D08 /* princess.swift */,
+				7A4E1DAD19D7970800001C55 /* SKButton.swift */,
+				7AC7DCEA19DD04450040897E /* GameScene.swift */,
 			);
 			path = "PrVZ Dev";
 			sourceTree = "<group>";
@@ -116,6 +159,39 @@
 				7A4E785419C735B900C5E9B3 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7A8D8F2119C7E72D001D8C72 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				7AF744CB19D74B1000B95D08 /* Tutorial */,
+				7AF744CA19D74AC200B95D08 /* InGame */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		7AF744CA19D74AC200B95D08 /* InGame */ = {
+			isa = PBXGroup;
+			children = (
+				7AA9647C19DC51BC005384E2 /* ash.png */,
+				7A2BB79019D87889005C27D2 /* fireButton.png */,
+				7A2BB79119D87889005C27D2 /* fireButtonPressed.png */,
+				7A4E1DA319D7703700001C55 /* background.png */,
+				7A4E1DA419D7703700001C55 /* brush.png */,
+				7A4E1DA519D7703700001C55 /* princess.png */,
+				7A4E1DA619D7703700001C55 /* startButton.png */,
+				7A4E1DA719D7703700001C55 /* zombie.png */,
+			);
+			name = InGame;
+			sourceTree = "<group>";
+		};
+		7AF744CB19D74B1000B95D08 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				7A4E1D9F19D7702C00001C55 /* prince.png */,
+				7A4E1DA019D7702C00001C55 /* speech.png */,
+			);
+			name = Tutorial;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,9 +274,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A4E1DAB19D7703700001C55 /* startButton.png in Resources */,
+				7A4E1DAA19D7703700001C55 /* princess.png in Resources */,
+				7A4E1DA919D7703700001C55 /* brush.png in Resources */,
 				7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */,
+				7A2BB79319D87889005C27D2 /* fireButtonPressed.png in Resources */,
 				7A4E784719C735B900C5E9B3 /* Images.xcassets in Resources */,
-				7A4E783E19C735B900C5E9B3 /* GameScene.sks in Resources */,
+				7A4E1DA819D7703700001C55 /* background.png in Resources */,
+				7A4E1DA119D7702C00001C55 /* prince.png in Resources */,
+				7A2BB79219D87889005C27D2 /* fireButton.png in Resources */,
+				7A4E1DA219D7702C00001C55 /* speech.png in Resources */,
+				7A4E783E19C735B900C5E9B3 /* TitleScene.sks in Resources */,
+				7A4E1DAC19D7703700001C55 /* zombie.png in Resources */,
+				7AA9647D19DC51BC005384E2 /* ash.png in Resources */,
 				7A4E784519C735B900C5E9B3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,9 +305,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A4E784019C735B900C5E9B3 /* GameScene.swift in Sources */,
+				7AF744C719D739AC00B95D08 /* princess.swift in Sources */,
+				7A3D7ED619D27D3E00C39131 /* zombie.swift in Sources */,
+				7A4E1DAE19D7970900001C55 /* SKButton.swift in Sources */,
+				7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */,
 				7A4E784219C735B900C5E9B3 /* GameViewController.swift in Sources */,
+				7A03E60A19D8806800D857BD /* JCJoystick.m in Sources */,
 				7A4E783C19C735B900C5E9B3 /* AppDelegate.swift in Sources */,
+				7A92656F19CF2A280090595F /* TitleScene.swift in Sources */,
+				7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,9 +438,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "PrVZ Dev/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrVZ Dev/PrVZ Dev-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -356,9 +451,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "PrVZ Dev/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrVZ Dev/PrVZ Dev-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -415,6 +512,7 @@
 				7A4E785B19C735B900C5E9B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7A4E785C19C735B900C5E9B3 /* Build configuration list for PBXNativeTarget "PrVZ DevTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +521,7 @@
 				7A4E785E19C735B900C5E9B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
