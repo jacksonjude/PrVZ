@@ -23,6 +23,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var zombieSpeed = 1.0
     var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blueColor(), joystickRadius:50, joystickColor:SKColor.redColor())
     var buttons = SKNode()
+    var brushInWorld = false
     
     override func didMoveToView(view: SKView)
     {
@@ -86,7 +87,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             var zombie1 = zombie()
             var yPos = CGFloat((arc4random()%150)+150)
-            var xPos = CGFloat((arc4random()%150))
+            var xPos = CGFloat((arc4random()%150)+150)
             zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
             zombie1.name = "zombie"
             zombie1.physicsBody = SKPhysicsBody(circleOfRadius:zombie1.size.width/2)
@@ -175,22 +176,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func addBrush()
     {
-        var brush = SKSpriteNode(imageNamed: "brush.png")
-        var princess1 = self.childNodeWithName("princess") as SKSpriteNode
-        brush.position = CGPoint(x: princess1.position.x, y: princess1.position.y)
-        self.addChild(brush)
-        brush.runAction(SKAction.moveToX(1000, duration: 1))
-        brush.runAction(SKAction.waitForDuration(1))
-        brush.physicsBody = SKPhysicsBody(circleOfRadius:brush.size.width/2)
-        brush.physicsBody?.dynamic = true
-        brush.physicsBody?.categoryBitMask = projectileCategory
-        brush.physicsBody?.contactTestBitMask = monsterCategory
-        brush.physicsBody?.collisionBitMask = 0
-        brush.physicsBody?.usesPreciseCollisionDetection = true
-        var move = SKAction.moveToX(1000, duration: 1)
-        var vanish = SKAction.removeFromParent()
-        var sequence = SKAction.sequence([move, vanish])
-        brush.runAction(sequence)
+        if brushInWorld == false
+        {
+            var brush = SKSpriteNode(imageNamed: "brush.png")
+            brush.name = "brush"
+            var princess1 = self.childNodeWithName("princess") as SKSpriteNode
+            brush.position = CGPoint(x: princess1.position.x, y: princess1.position.y)
+            self.addChild(brush)
+            brush.runAction(SKAction.moveToX(1000, duration: 1))
+            brush.runAction(SKAction.waitForDuration(1))
+            brush.physicsBody = SKPhysicsBody(circleOfRadius:brush.size.width/2)
+            brush.physicsBody?.dynamic = true
+            brush.physicsBody?.categoryBitMask = projectileCategory
+            brush.physicsBody?.contactTestBitMask = monsterCategory
+            brush.physicsBody?.collisionBitMask = 0
+            brush.physicsBody?.usesPreciseCollisionDetection = true
+            var move = SKAction.moveToX(1000, duration: 1)
+            var vanish = SKAction.removeFromParent()
+            var sequence = SKAction.sequence([move, vanish])
+            brush.runAction(sequence)
+        }
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
@@ -234,6 +239,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 zombies.removeObject(i)
                 i.removeFromParent()
             }
+        }
+        var brush = self.childNodeWithName("brush")
+        if brush != nil
+        {
+            brushInWorld = true
+        }else{
+            brushInWorld = false
         }
     }
 }
