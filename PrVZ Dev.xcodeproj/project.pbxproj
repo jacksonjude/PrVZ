@@ -8,16 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7A03E60A19D8806800D857BD /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A03E60919D8806800D857BD /* JCJoystick.m */; };
-		7A2BB79219D87889005C27D2 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2BB79019D87889005C27D2 /* fireButton.png */; };
-		7A2BB79319D87889005C27D2 /* fireButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2BB79119D87889005C27D2 /* fireButtonPressed.png */; };
 		7A3D7ED619D27D3E00C39131 /* zombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* zombie.swift */; };
 		7A4E1DA119D7702C00001C55 /* prince.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1D9F19D7702C00001C55 /* prince.png */; };
 		7A4E1DA219D7702C00001C55 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA019D7702C00001C55 /* speech.png */; };
 		7A4E1DA819D7703700001C55 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA319D7703700001C55 /* background.png */; };
-		7A4E1DA919D7703700001C55 /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA419D7703700001C55 /* brush.png */; };
-		7A4E1DAA19D7703700001C55 /* princess.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA519D7703700001C55 /* princess.png */; };
-		7A4E1DAB19D7703700001C55 /* startButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA619D7703700001C55 /* startButton.png */; };
-		7A4E1DAC19D7703700001C55 /* zombie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA719D7703700001C55 /* zombie.png */; };
 		7A4E1DAE19D7970900001C55 /* SKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E1DAD19D7970800001C55 /* SKButton.swift */; };
 		7A4E783C19C735B900C5E9B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E783B19C735B900C5E9B3 /* AppDelegate.swift */; };
 		7A4E783E19C735B900C5E9B3 /* TitleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E783D19C735B900C5E9B3 /* TitleScene.sks */; };
@@ -26,9 +20,18 @@
 		7A4E784719C735B900C5E9B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784619C735B900C5E9B3 /* Images.xcassets */; };
 		7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784819C735B900C5E9B3 /* LaunchScreen.xib */; };
 		7A4E785619C735B900C5E9B3 /* PrVZ_DevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */; };
+		7A5D744C19DF8475009EEBD8 /* button 150.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744719DF8475009EEBD8 /* button 150.png */; };
+		7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744819DF8475009EEBD8 /* fireButton.png */; };
+		7A5D744E19DF8475009EEBD8 /* fireButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */; };
+		7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744A19DF8475009EEBD8 /* startButton.png */; };
+		7A5D745019DF8475009EEBD8 /* startButtonGame.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744B19DF8475009EEBD8 /* startButtonGame.png */; };
+		7A5D745519DF847E009EEBD8 /* ash.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745119DF847E009EEBD8 /* ash.png */; };
+		7A5D745619DF847E009EEBD8 /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745219DF847E009EEBD8 /* brush.png */; };
+		7A5D745719DF847E009EEBD8 /* princess.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745319DF847E009EEBD8 /* princess.png */; };
+		7A5D745819DF847E009EEBD8 /* zombie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745419DF847E009EEBD8 /* zombie.png */; };
 		7A92656F19CF2A280090595F /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92656E19CF2A280090595F /* TitleScene.swift */; };
 		7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92657019CF2DEB0090595F /* TutorialScene.swift */; };
-		7AA9647D19DC51BC005384E2 /* ash.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA9647C19DC51BC005384E2 /* ash.png */; };
+		7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */; };
 		7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC7DCEA19DD04450040897E /* GameScene.swift */; };
 		7AF744C719D739AC00B95D08 /* princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* princess.swift */; };
 /* End PBXBuildFile section */
@@ -47,16 +50,10 @@
 		7A03E60719D8806800D857BD /* PrVZ Dev-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrVZ Dev-Bridging-Header.h"; sourceTree = "<group>"; };
 		7A03E60819D8806800D857BD /* JCJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCJoystick.h; path = "../../../Downloads/JCInput-master/JCInput/JCJoystick.h"; sourceTree = "<group>"; };
 		7A03E60919D8806800D857BD /* JCJoystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JCJoystick.m; path = "../../../Downloads/JCInput-master/JCInput/JCJoystick.m"; sourceTree = "<group>"; };
-		7A2BB79019D87889005C27D2 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButton.png; path = Images/InGame/fireButton.png; sourceTree = "<group>"; };
-		7A2BB79119D87889005C27D2 /* fireButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButtonPressed.png; path = Images/InGame/fireButtonPressed.png; sourceTree = "<group>"; };
 		7A3D7ED519D27D3E00C39131 /* zombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zombie.swift; sourceTree = "<group>"; };
 		7A4E1D9F19D7702C00001C55 /* prince.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prince.png; path = Images/Tutorial/prince.png; sourceTree = "<group>"; };
 		7A4E1DA019D7702C00001C55 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = speech.png; path = Images/Tutorial/speech.png; sourceTree = "<group>"; };
 		7A4E1DA319D7703700001C55 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Images/InGame/background.png; sourceTree = "<group>"; };
-		7A4E1DA419D7703700001C55 /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush.png; path = Images/InGame/brush.png; sourceTree = "<group>"; };
-		7A4E1DA519D7703700001C55 /* princess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = princess.png; path = Images/InGame/princess.png; sourceTree = "<group>"; };
-		7A4E1DA619D7703700001C55 /* startButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButton.png; path = Images/InGame/startButton.png; sourceTree = "<group>"; };
-		7A4E1DA719D7703700001C55 /* zombie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zombie.png; path = Images/InGame/zombie.png; sourceTree = "<group>"; };
 		7A4E1DAD19D7970800001C55 /* SKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButton.swift; sourceTree = "<group>"; };
 		7A4E783619C735B900C5E9B3 /* PrVZ Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PrVZ Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4E783A19C735B900C5E9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,9 +66,18 @@
 		7A4E784F19C735B900C5E9B3 /* PrVZ DevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PrVZ DevTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4E785419C735B900C5E9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrVZ_DevTests.swift; sourceTree = "<group>"; };
+		7A5D744719DF8475009EEBD8 /* button 150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button 150.png"; path = "Images/InGame/Buttons/button 150.png"; sourceTree = "<group>"; };
+		7A5D744819DF8475009EEBD8 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButton.png; path = Images/InGame/Buttons/fireButton.png; sourceTree = "<group>"; };
+		7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButtonPressed.png; path = Images/InGame/Buttons/fireButtonPressed.png; sourceTree = "<group>"; };
+		7A5D744A19DF8475009EEBD8 /* startButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButton.png; path = Images/InGame/Buttons/startButton.png; sourceTree = "<group>"; };
+		7A5D744B19DF8475009EEBD8 /* startButtonGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButtonGame.png; path = Images/InGame/Buttons/startButtonGame.png; sourceTree = "<group>"; };
+		7A5D745119DF847E009EEBD8 /* ash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ash.png; path = Images/InGame/Characters/ash.png; sourceTree = "<group>"; };
+		7A5D745219DF847E009EEBD8 /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush.png; path = Images/InGame/Characters/brush.png; sourceTree = "<group>"; };
+		7A5D745319DF847E009EEBD8 /* princess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = princess.png; path = Images/InGame/Characters/princess.png; sourceTree = "<group>"; };
+		7A5D745419DF847E009EEBD8 /* zombie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zombie.png; path = Images/InGame/Characters/zombie.png; sourceTree = "<group>"; };
 		7A92656E19CF2A280090595F /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
 		7A92657019CF2DEB0090595F /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
-		7AA9647C19DC51BC005384E2 /* ash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ash.png; path = Images/InGame/ash.png; sourceTree = "<group>"; };
+		7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButtonGamePressed.png; path = Images/InGame/Buttons/startButtonGamePressed.png; sourceTree = "<group>"; };
 		7AC7DCEA19DD04450040897E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		7AF744C619D739AC00B95D08 /* princess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = princess.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,6 +167,30 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		7A5D744519DF8462009EEBD8 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				7A5D744719DF8475009EEBD8 /* button 150.png */,
+				7A5D744819DF8475009EEBD8 /* fireButton.png */,
+				7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */,
+				7A5D744A19DF8475009EEBD8 /* startButton.png */,
+				7A5D744B19DF8475009EEBD8 /* startButtonGame.png */,
+				7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
+		7A5D744619DF846A009EEBD8 /* Characters */ = {
+			isa = PBXGroup;
+			children = (
+				7A5D745119DF847E009EEBD8 /* ash.png */,
+				7A5D745219DF847E009EEBD8 /* brush.png */,
+				7A5D745319DF847E009EEBD8 /* princess.png */,
+				7A5D745419DF847E009EEBD8 /* zombie.png */,
+			);
+			name = Characters;
+			sourceTree = "<group>";
+		};
 		7A8D8F2119C7E72D001D8C72 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,14 +203,9 @@
 		7AF744CA19D74AC200B95D08 /* InGame */ = {
 			isa = PBXGroup;
 			children = (
-				7AA9647C19DC51BC005384E2 /* ash.png */,
-				7A2BB79019D87889005C27D2 /* fireButton.png */,
-				7A2BB79119D87889005C27D2 /* fireButtonPressed.png */,
+				7A5D744619DF846A009EEBD8 /* Characters */,
+				7A5D744519DF8462009EEBD8 /* Buttons */,
 				7A4E1DA319D7703700001C55 /* background.png */,
-				7A4E1DA419D7703700001C55 /* brush.png */,
-				7A4E1DA519D7703700001C55 /* princess.png */,
-				7A4E1DA619D7703700001C55 /* startButton.png */,
-				7A4E1DA719D7703700001C55 /* zombie.png */,
 			);
 			name = InGame;
 			sourceTree = "<group>";
@@ -274,19 +299,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A4E1DAB19D7703700001C55 /* startButton.png in Resources */,
-				7A4E1DAA19D7703700001C55 /* princess.png in Resources */,
-				7A4E1DA919D7703700001C55 /* brush.png in Resources */,
 				7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */,
-				7A2BB79319D87889005C27D2 /* fireButtonPressed.png in Resources */,
+				7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */,
+				7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */,
+				7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */,
+				7A5D745819DF847E009EEBD8 /* zombie.png in Resources */,
+				7A5D744E19DF8475009EEBD8 /* fireButtonPressed.png in Resources */,
 				7A4E784719C735B900C5E9B3 /* Images.xcassets in Resources */,
+				7A5D745519DF847E009EEBD8 /* ash.png in Resources */,
 				7A4E1DA819D7703700001C55 /* background.png in Resources */,
+				7A5D745019DF8475009EEBD8 /* startButtonGame.png in Resources */,
+				7A5D744C19DF8475009EEBD8 /* button 150.png in Resources */,
 				7A4E1DA119D7702C00001C55 /* prince.png in Resources */,
-				7A2BB79219D87889005C27D2 /* fireButton.png in Resources */,
+				7A5D745619DF847E009EEBD8 /* brush.png in Resources */,
 				7A4E1DA219D7702C00001C55 /* speech.png in Resources */,
+				7A5D745719DF847E009EEBD8 /* princess.png in Resources */,
 				7A4E783E19C735B900C5E9B3 /* TitleScene.sks in Resources */,
-				7A4E1DAC19D7703700001C55 /* zombie.png in Resources */,
-				7AA9647D19DC51BC005384E2 /* ash.png in Resources */,
 				7A4E784519C735B900C5E9B3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
