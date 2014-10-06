@@ -18,12 +18,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     var zombies = NSMutableArray()
     var gameIsRunning = false
-    var canPressStart = true
-    var canGoToStore = true
+    var canPressButtons = true
     var zombieSpeed = 1.0
     var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blueColor(), joystickRadius:50, joystickColor:SKColor.redColor())
     var buttons = SKNode()
     var brushInWorld = false
+    var storeIsOpen = false
     
     override func didMoveToView(view: SKView)
     {
@@ -63,16 +63,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var fireButton = SKButton(defaultButtonImage: "fireButton", activeButtonImage: "fireButtonPressed", buttonAction: self.addBrush)
         fireButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-200)
         fireButton.name = "fire"
-        buttons.addChild(fireButton)
+        self.addChild(fireButton)
+        
+        joystick.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: CGRectGetMidY(self.frame)-200)
+        joystick.name = "joystick"
+        self.addChild(joystick)
         
         var startButton = SKButton(defaultButtonImage: "startButtonGame", activeButtonImage: "startButtonGamePressed", buttonAction: runGame)
         startButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)+200)
         startButton.name = "start"
         buttons.addChild(startButton)
         
-        joystick.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: CGRectGetMidY(self.frame)-200)
-        joystick.name = "joystick"
-        buttons.addChild(joystick)
+        /*var storeButton = SKButton(defaultButtonImage: "storeButton", activeButtonImage: "storeButtonPressed", buttonAction: store)
+        storeButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame))
+        storeButton.name = "store"
+        buttons.addChild(storeButton)*/
         
         self.addChild(buttons)
     }
@@ -108,7 +113,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         
         gameIsRunning = true
-        canPressStart = false
+        canPressButtons = false
     }
     
     func didBeginContact(contact: SKPhysicsContact)
@@ -198,6 +203,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
+    func store()
+    {
+        storeIsOpen = true
+        
+        var storeNode = SKNode()
+        storeNode.name = "store"
+        
+        var backGround = SKShapeNode(circleOfRadius: 10)
+        backGround.path = CGPathCreateWithRect(CGRectMake(0, 0, 960, 720), nil)
+        backGround.fillColor = SKColor.grayColor()
+        backGround.name = "bg"
+        backGround.position = CGPoint(x: 0, y: 0)
+        backGround.zPosition = 5
+        storeNode.addChild(backGround)
+        
+        buttons.hidden = true
+        buttons.userInteractionEnabled = false
+        
+        var backButton = SKButton(defaultButtonImage: "backButton", activeButtonImage: "backButtonPressed", buttonAction: hideStore)
+        backButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame))
+        backButton.zPosition = 6
+        storeNode.addChild(backButton)
+        
+        self.addChild(storeNode)
+    }
+    
+    func hideStore()
+    {
+        var storeNode = self.childNodeWithName("store")
+        storeNode?.hidden = true
+        buttons.hidden = false
+        buttons.userInteractionEnabled = true
+        storeIsOpen = false
+    }
+    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
     {
         
@@ -209,15 +249,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
         princess1.position = position1
         
-        if canPressStart == false
+        if storeIsOpen == false
         {
-            var startButton = buttons.childNodeWithName("start")
-            startButton?.hidden = true
-            startButton?.userInteractionEnabled = false
-        }else{
-            var startButton = buttons.childNodeWithName("start")
-            startButton?.hidden = false
-            startButton?.userInteractionEnabled = true
+            if canPressButtons == false
+            {
+                buttons.hidden = true
+                buttons.userInteractionEnabled = false
+            }else{
+                buttons.hidden = false
+                buttons.userInteractionEnabled = true
+            }
         }
         
         var zombiesAlive = 0
@@ -232,8 +273,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if zombiesAlive == 0 && gameIsRunning == true
         {
             gameIsRunning = false
-            canPressStart = true
-            canGoToStore = true
+            canPressButtons = true
             for i in zombies
             {
                 zombies.removeObject(i)
