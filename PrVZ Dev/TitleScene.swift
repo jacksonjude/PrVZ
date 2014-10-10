@@ -9,8 +9,6 @@
 import Foundation
 import Spritekit
 
-
-
 class TitleScene: SKScene
 {
     let start = SKLabelNode(fontNamed: "TimesNewRoman")
@@ -18,6 +16,7 @@ class TitleScene: SKScene
     let wait = SKAction.waitForDuration(1.0)
     let hide = SKAction.hide()
     let unhide = SKAction.unhide()
+    var gameViewController1: GameViewController?
     
     override func didMoveToView(view: SKView)
     {
@@ -40,7 +39,7 @@ class TitleScene: SKScene
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
     {
-        let tutorialScene = TutorialScene(size: self.size)
+        /*let tutorialScene = TutorialScene(size: self.size)
         
         let skView = self.view! as SKView
         skView.showsFPS = true
@@ -49,7 +48,9 @@ class TitleScene: SKScene
         
         tutorialScene.scaleMode = SKSceneScaleMode.AspectFill
         
-        skView.presentScene(tutorialScene)
+        skView.presentScene(tutorialScene)*/
+        
+        self.gameViewController1?.presentTutorialScene()
     }
     
     override func update(currentTime: CFTimeInterval)

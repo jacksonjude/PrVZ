@@ -14,7 +14,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var projectileCategory: UInt32 =  1 << 0
     var monsterCategory: UInt32 =  1 << 1
     var princessCategory: UInt32 =  1 << 2
-    var wallCategory: UInt32 =  1 << 3
     
     var zombies = NSMutableArray()
     var gameIsRunning = false
@@ -24,6 +23,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var buttons = SKNode()
     var brushInWorld = false
     var storeIsOpen = false
+    var zombiesKilled = 0
+    var coins = 0
+    //var slider1: UISlider?
+    
+    //init(slider: UISlider)
+    //{
+    //    self.slider1 = slider
+    //    super.init()
+    //}
     
     override func didMoveToView(view: SKView)
     {
@@ -42,11 +50,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         wallEnd.fillColor = SKColor.grayColor()
         wallEnd.position = CGPoint(x: CGRectGetMidX(self.frame)-450, y: CGRectGetMidY(self.frame)-400)
         wallEnd.name = "wallEnd"
-        wallEnd.physicsBody = SKPhysicsBody(circleOfRadius:20/2)
-        wallEnd.physicsBody?.dynamic = true
-        wallEnd.physicsBody?.categoryBitMask = wallCategory
-        wallEnd.physicsBody?.contactTestBitMask = monsterCategory
-        wallEnd.physicsBody?.usesPreciseCollisionDetection = true
         self.addChild(wallEnd)
         
         let princess1 = princess()
@@ -74,16 +77,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         startButton.name = "start"
         buttons.addChild(startButton)
         
-        /*var storeButton = SKButton(defaultButtonImage: "storeButton", activeButtonImage: "storeButtonPressed", buttonAction: store)
-        storeButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame))
+        var storeButton = SKButton(defaultButtonImage: "storeButton", activeButtonImage: "storeButtonPressed", buttonAction: store)
+        storeButton.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)+200)
         storeButton.name = "store"
-        buttons.addChild(storeButton)*/
+        buttons.addChild(storeButton)
         
         self.addChild(buttons)
+        
+        var bar = SKShapeNode()
+        bar.path = CGPathCreateWithRect(CGRectMake(32, 0, 960, 175), nil)
+        bar.fillColor = SKColor.grayColor()
+        bar.name = "bar"
+        bar.position = CGPoint(x: 0, y: CGRectGetMidY(self.frame)+125)
+        self.addChild(bar)
     }
     
     func runGame()
     {
+        var princess1 = self.childNodeWithName("princess")
+        princess1?.runAction(SKAction.fadeInWithDuration(0))
+        
         var zombiesToSpawn = 3
         //Later Will add Slider
         
@@ -145,11 +158,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             self.monsterDidCollideWithPrincess(firstBody.node!, princess1: secondBody.node!)
         }
-        if ((firstBody.categoryBitMask & monsterCategory) != 0 &&
-            (secondBody.categoryBitMask & wallCategory) != 0)
-        {
-            self.monsterDidCollideWithWall(firstBody.node!, wall: secondBody.node!)
-        }
     }
     
     func projectileDidCollideWithMonster(projectile: SKNode, monster: SKNode)
@@ -162,6 +170,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         zombies.removeObject(monster)
         zombies.addObject(deadZombie)
         self.addChild(deadZombie)
+        
+        zombiesKilled++
+        coins++
     }
     
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
@@ -169,14 +180,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         gameOver()
     }
     
-    func monsterDidCollideWithWall(monster: SKNode, wall: SKNode)
-    {
-        gameOver()
-    }
-    
     func gameOver()
     {
-        //Game Over Code
+        var princess1 = self.childNodeWithName("princess")
+        var hide = SKAction.fadeOutWithDuration(0)
+        var show = SKAction.fadeInWithDuration(0)
+        var wait = SKAction.waitForDuration(1)
+        princess1?.runAction(SKAction.sequence([hide, wait, show, wait, hide, wait, show, wait, hide, wait, show, wait, hide]))
+        for i in zombies
+        {
+            i.removeFromParent()
+        }
+        
+        var zombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        zombiesKilledLabel.text = NSString(format: "Zombies Killed %f", zombiesKilled)
+        zombiesKilledLabel.name = "zombiesKilledLabel"
+        zombiesKilledLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        self.addChild(zombiesKilledLabel)
+        
+        gameIsRunning = false
+        canPressButtons = true
     }
     
     func addBrush()
@@ -211,20 +234,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         storeNode.name = "store"
         
         var backGround = SKShapeNode(circleOfRadius: 10)
-        backGround.path = CGPathCreateWithRect(CGRectMake(0, 0, 960, 720), nil)
+        backGround.path = CGPathCreateWithRect(CGRectMake(32, 0, 960, 720), nil)
         backGround.fillColor = SKColor.grayColor()
         backGround.name = "bg"
         backGround.position = CGPoint(x: 0, y: 0)
         backGround.zPosition = 5
         storeNode.addChild(backGround)
         
-        buttons.hidden = true
-        buttons.userInteractionEnabled = false
+        canPressButtons = false
         
         var backButton = SKButton(defaultButtonImage: "backButton", activeButtonImage: "backButtonPressed", buttonAction: hideStore)
-        backButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame))
+        backButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame)-140)
         backButton.zPosition = 6
         storeNode.addChild(backButton)
+        
+        var products = SKNode()
+        products.name = "products"
+        
+        var infiniteBrush = SKSpriteNode(imageNamed: "infBrush")
+        infiniteBrush.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        products.addChild(infiniteBrush)
+        var infiniteBrushLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        infiniteBrushLabel.text = "Infinite Brush"
+        infiniteBrushLabel.fontSize = 64
+        infiniteBrush.addChild(infiniteBrushLabel)
         
         self.addChild(storeNode)
     }
@@ -233,8 +266,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         var storeNode = self.childNodeWithName("store")
         storeNode?.hidden = true
-        buttons.hidden = false
-        buttons.userInteractionEnabled = true
+        storeNode?.removeFromParent()
+        canPressButtons = true
         storeIsOpen = false
     }
     
@@ -286,6 +319,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             brushInWorld = true
         }else{
             brushInWorld = false
+        }
+        
+        for i in zombies
+        {
+            var wallEnd = self.childNodeWithName("wallEnd")
+            if i.position.x == wallEnd?.position.x
+            {
+                gameOver()
+            }
         }
     }
 }

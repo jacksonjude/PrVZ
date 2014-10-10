@@ -16,21 +16,68 @@ extension SKNode {
             var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as TitleScene
+            var scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as SKNode
             archiver.finishDecoding()
             return scene
-        } else {
+        }
+        else
+        {
             return nil
         }
     }
 }
 
 class GameViewController: UIViewController {
-
+    @IBOutlet var slider : UISlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let scene = TitleScene.unarchiveFromFile("TitleScene") as? TitleScene {
+            
+            scene.gameViewController1 = self;
+            
+            // Configure the view.
+            let skView = self.view as SKView
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            
+            skView.presentScene(scene)
+        }
+    }
+    
+    func presentTutorialScene()
+    {
+        if let scene = TutorialScene.unarchiveFromFile("TutorialScene") as? TutorialScene
+        {
+            scene.gameViewController1 = self
+            // Configure the view.
+            let skView = self.view as SKView
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            
+            skView.presentScene(scene)
+        }
+    }
+    
+    func presentGameScene()
+    {
+        if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene
+        {
+            //var scene = GameScene(slider: slider)
+            
             // Configure the view.
             let skView = self.view as SKView
             skView.showsFPS = true

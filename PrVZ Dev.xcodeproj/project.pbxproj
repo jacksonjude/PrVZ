@@ -33,6 +33,8 @@
 		7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92657019CF2DEB0090595F /* TutorialScene.swift */; };
 		7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */; };
 		7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC7DCEA19DD04450040897E /* GameScene.swift */; };
+		7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DAF19E5915800697FE2 /* TutorialScene.sks */; };
+		7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DB119E591E700697FE2 /* GameScene.sks */; };
 		7AF5C31619E2113A0003A332 /* storeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AF5C31419E2113A0003A332 /* storeButton.png */; };
 		7AF5C31719E2113A0003A332 /* storeButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AF5C31519E2113A0003A332 /* storeButtonPressed.png */; };
 		7AF744C719D739AC00B95D08 /* princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* princess.swift */; };
@@ -81,6 +83,8 @@
 		7A92657019CF2DEB0090595F /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButtonGamePressed.png; path = Images/InGame/Buttons/startButtonGamePressed.png; sourceTree = "<group>"; };
 		7AC7DCEA19DD04450040897E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		7AD62DAF19E5915800697FE2 /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
+		7AD62DB119E591E700697FE2 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		7AF5C31419E2113A0003A332 /* storeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = storeButton.png; path = Images/InGame/Buttons/storeButton.png; sourceTree = "<group>"; };
 		7AF5C31519E2113A0003A332 /* storeButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = storeButtonPressed.png; path = Images/InGame/Buttons/storeButtonPressed.png; sourceTree = "<group>"; };
 		7AF744C619D739AC00B95D08 /* princess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = princess.swift; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 				7A8D8F2119C7E72D001D8C72 /* Images */,
 				7AF5C31319E208E50003A332 /* Other */,
 				7A4E783D19C735B900C5E9B3 /* TitleScene.sks */,
+				7AD62DAF19E5915800697FE2 /* TutorialScene.sks */,
+				7AD62DB119E591E700697FE2 /* GameScene.sks */,
 				7A4E783B19C735B900C5E9B3 /* AppDelegate.swift */,
 				7A4E784119C735B900C5E9B3 /* GameViewController.swift */,
 				7A4E784319C735B900C5E9B3 /* Main.storyboard */,
@@ -333,8 +339,10 @@
 				7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */,
 				7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */,
 				7AF5C31719E2113A0003A332 /* storeButtonPressed.png in Resources */,
+				7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */,
 				7AF5C31619E2113A0003A332 /* storeButton.png in Resources */,
 				7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */,
+				7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */,
 				7A5D745819DF847E009EEBD8 /* zombie.png in Resources */,
 				7A5D744E19DF8475009EEBD8 /* fireButtonPressed.png in Resources */,
 				7A4E784719C735B900C5E9B3 /* Images.xcassets in Resources */,
