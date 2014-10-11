@@ -22,7 +22,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blueColor(), joystickRadius:50, joystickColor:SKColor.redColor())
     var buttons = SKNode()
     var brushInWorld = false
-    var storeIsOpen = false
+    var windowIsOpen = false
     var zombiesKilled = 0
     var coins = 0
     var coinsLabel = SKLabelNode(fontNamed: "TimesNewRoman")
@@ -79,6 +79,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         storeButton.name = "store"
         buttons.addChild(storeButton)
         
+        var settingsButton = SKButton(defaultButtonImage: "settingsButton", activeButtonImage: "settingsButtonPressed", buttonAction: settings)
+        settingsButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+200)
+        settingsButton.name = "settingsButton"
+        buttons.addChild(settingsButton)
+        
         self.addChild(buttons)
         
         var bar = SKShapeNode()
@@ -89,6 +94,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.addChild(bar)
         
         slider1?.hidden = true
+        slider1?.userInteractionEnabled = false
+        slider1?.maximumValue = 9
+        slider1?.minimumValue = 3
         
         coinsLabel.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)+90)
         coinsLabel.fontColor = SKColor.redColor()
@@ -103,10 +111,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var princess1 = self.childNodeWithName("princess")
         princess1?.runAction(SKAction.fadeInWithDuration(0))
         
-        var zombiesToSpawn = 3
-        //Later Will add Slider
+        var zombiesToSpawn = slider1?.value
         
-        var zombiesSpawned = 0
+        var zombiesSpawned:Float = 0
         while zombiesSpawned != zombiesToSpawn
         {
             var zombie1 = zombie()
@@ -133,6 +140,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         gameIsRunning = true
         canPressButtons = false
+    }
+    
+    func addBrush()
+    {
+        if brushInWorld == false
+        {
+            var brush = SKSpriteNode(imageNamed: "brush.png")
+            brush.name = "brush"
+            var princess1 = self.childNodeWithName("princess") as SKSpriteNode
+            brush.position = CGPoint(x: princess1.position.x, y: princess1.position.y)
+            self.addChild(brush)
+            brush.runAction(SKAction.moveToX(1000, duration: 1))
+            brush.runAction(SKAction.waitForDuration(1))
+            brush.physicsBody = SKPhysicsBody(circleOfRadius:brush.size.width/2)
+            brush.physicsBody?.dynamic = true
+            brush.physicsBody?.categoryBitMask = projectileCategory
+            brush.physicsBody?.contactTestBitMask = monsterCategory
+            brush.physicsBody?.collisionBitMask = 0
+            brush.physicsBody?.usesPreciseCollisionDetection = true
+            var move = SKAction.moveToX(1000, duration: 1)
+            var vanish = SKAction.removeFromParent()
+            var sequence = SKAction.sequence([move, vanish])
+            brush.runAction(sequence)
+        }
     }
     
     func didBeginContact(contact: SKPhysicsContact)
@@ -208,33 +239,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         canPressButtons = true
     }
     
-    func addBrush()
+    func settings()
     {
-        if brushInWorld == false
+        windowIsOpen = true
+        canPressButtons = false
+        
+        var settingsNode = SKNode()
+        settingsNode.name = "settings"
+        
+        var backGround = SKShapeNode(circleOfRadius: 10)
+        backGround.path = CGPathCreateWithRect(CGRectMake(32, 0, 960, 720), nil)
+        backGround.fillColor = SKColor.grayColor()
+        backGround.name = "bg"
+        backGround.position = CGPoint(x: 0, y: 0)
+        backGround.zPosition = 5
+        settingsNode.addChild(backGround)
+        
+        slider1?.hidden = false
+        slider1?.userInteractionEnabled = true
+        
+        self.addChild(settingsNode)
+    }
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
+    {
+        var settingsNode = self.childNodeWithName("settings")
+        if settingsNode != nil
         {
-            var brush = SKSpriteNode(imageNamed: "brush.png")
-            brush.name = "brush"
-            var princess1 = self.childNodeWithName("princess") as SKSpriteNode
-            brush.position = CGPoint(x: princess1.position.x, y: princess1.position.y)
-            self.addChild(brush)
-            brush.runAction(SKAction.moveToX(1000, duration: 1))
-            brush.runAction(SKAction.waitForDuration(1))
-            brush.physicsBody = SKPhysicsBody(circleOfRadius:brush.size.width/2)
-            brush.physicsBody?.dynamic = true
-            brush.physicsBody?.categoryBitMask = projectileCategory
-            brush.physicsBody?.contactTestBitMask = monsterCategory
-            brush.physicsBody?.collisionBitMask = 0
-            brush.physicsBody?.usesPreciseCollisionDetection = true
-            var move = SKAction.moveToX(1000, duration: 1)
-            var vanish = SKAction.removeFromParent()
-            var sequence = SKAction.sequence([move, vanish])
-            brush.runAction(sequence)
+            hideSettings()
         }
+    }
+    
+    func hideSettings()
+    {
+        windowIsOpen = false
+        canPressButtons = true
+        
+        var settingsNode = self.childNodeWithName("settings")
+        settingsNode?.hidden = true
+        settingsNode?.removeFromParent()
+        
+        slider1?.userInteractionEnabled = false
+        slider1?.hidden = true
     }
     
     func store()
     {
-        storeIsOpen = true
+        windowIsOpen = true
+        canPressButtons = false
         
         var storeNode = SKNode()
         storeNode.name = "store"
@@ -246,8 +298,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         backGround.position = CGPoint(x: 0, y: 0)
         backGround.zPosition = 5
         storeNode.addChild(backGround)
-        
-        canPressButtons = false
         
         var backButton = SKButton(defaultButtonImage: "backButton", activeButtonImage: "backButtonPressed", buttonAction: hideStore)
         backButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame)-140)
@@ -291,12 +341,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         storeNode?.hidden = true
         storeNode?.removeFromParent()
         canPressButtons = true
-        storeIsOpen = false
-    }
-    
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
-    {
-        
+        windowIsOpen = false
     }
     
     override func update(currentTime: NSTimeInterval)
@@ -305,7 +350,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
         princess1.position = position1
         
-        if storeIsOpen == false
+        if windowIsOpen == false
         {
             if canPressButtons == false
             {
@@ -338,6 +383,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 i.removeFromParent()
             }
         }
+        
         if item1 == false
         {
             var brush = self.childNodeWithName("brush")
