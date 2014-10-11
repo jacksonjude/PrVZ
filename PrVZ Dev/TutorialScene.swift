@@ -25,9 +25,12 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     var zombieSpeed = 1.0
     var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blueColor(), joystickRadius:50, joystickColor:SKColor.redColor())
     var gameViewController1: GameViewController?
+    var slider1: UISlider?
     
     override func didMoveToView(view: SKView)
     {
+        slider1?.hidden = true
+        
         let background = SKSpriteNode(imageNamed: "background.png");
         background.zPosition = -2
         background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
@@ -239,27 +242,16 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
                     text3.hidden == true
                     
                 case 5:
-                    /*let gameScene = GameScene(size: self.size, slider)
-                    
-                    let skView = self.view! as SKView
-                    skView.showsFPS = true
-                    skView.showsNodeCount = true
-                    skView.ignoresSiblingOrder = true
-                    
-                    gameScene.scaleMode = SKSceneScaleMode.AspectFill
-                    
-                    skView.presentScene(gameScene)*/
-                    
                     var test = self.view?.window?.rootViewController
                     if test == self.gameViewController1
                     {
-                        gameViewController1?.presentGameScene()
+                        println("rootViewController == GameViewController")
                     }
                     
                     self.gameViewController1?.presentGameScene()
                     
                 default:
-                    let NOTHING = ""
+                    let NOTHING = 0
                 }
             }
         }

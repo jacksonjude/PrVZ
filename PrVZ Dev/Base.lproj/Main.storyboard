@@ -16,11 +16,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7u1-Bc-DKQ">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7u1-Bc-DKQ">
                                 <rect key="frame" x="241" y="420" width="118" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="114" id="5Ax-Kg-HBk"/>
+                                </constraints>
                             </slider>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="khH-OB-KpY" firstAttribute="top" secondItem="7u1-Bc-DKQ" secondAttribute="bottom" constant="150" id="fGo-iC-mFj"/>
+                            <constraint firstItem="7u1-Bc-DKQ" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="jq9-Yj-dhr"/>
+                        </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>

@@ -33,10 +33,16 @@
 		7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92657019CF2DEB0090595F /* TutorialScene.swift */; };
 		7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */; };
 		7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC7DCEA19DD04450040897E /* GameScene.swift */; };
+		7AC8237919E99656005B8124 /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237319E99656005B8124 /* backButton.png */; };
+		7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237419E99656005B8124 /* backButtonPressed.png */; };
+		7AC8237B19E99656005B8124 /* buyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237519E99656005B8124 /* buyButton.png */; };
+		7AC8237C19E99656005B8124 /* buyButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237619E99656005B8124 /* buyButtonPressed.png */; };
+		7AC8237D19E99656005B8124 /* storeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237719E99656005B8124 /* storeButton.png */; };
+		7AC8237E19E99656005B8124 /* storeButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237819E99656005B8124 /* storeButtonPressed.png */; };
+		7AC8238019E9AF10005B8124 /* infiniteBrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237F19E9AF10005B8124 /* infiniteBrush.png */; };
+		7AC8238219E9B88B005B8124 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238119E9B88B005B8124 /* coin.png */; };
 		7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DAF19E5915800697FE2 /* TutorialScene.sks */; };
 		7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DB119E591E700697FE2 /* GameScene.sks */; };
-		7AF5C31619E2113A0003A332 /* storeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AF5C31419E2113A0003A332 /* storeButton.png */; };
-		7AF5C31719E2113A0003A332 /* storeButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AF5C31519E2113A0003A332 /* storeButtonPressed.png */; };
 		7AF744C719D739AC00B95D08 /* princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* princess.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,10 +89,16 @@
 		7A92657019CF2DEB0090595F /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButtonGamePressed.png; path = Images/InGame/Buttons/startButtonGamePressed.png; sourceTree = "<group>"; };
 		7AC7DCEA19DD04450040897E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		7AC8237319E99656005B8124 /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backButton.png; path = Images/InGame/Store/backButton.png; sourceTree = "<group>"; };
+		7AC8237419E99656005B8124 /* backButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backButtonPressed.png; path = Images/InGame/Store/backButtonPressed.png; sourceTree = "<group>"; };
+		7AC8237519E99656005B8124 /* buyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buyButton.png; path = Images/InGame/Store/buyButton.png; sourceTree = "<group>"; };
+		7AC8237619E99656005B8124 /* buyButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buyButtonPressed.png; path = Images/InGame/Store/buyButtonPressed.png; sourceTree = "<group>"; };
+		7AC8237719E99656005B8124 /* storeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = storeButton.png; path = Images/InGame/Store/storeButton.png; sourceTree = "<group>"; };
+		7AC8237819E99656005B8124 /* storeButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = storeButtonPressed.png; path = Images/InGame/Store/storeButtonPressed.png; sourceTree = "<group>"; };
+		7AC8237F19E9AF10005B8124 /* infiniteBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infiniteBrush.png; path = Images/InGame/Store/infiniteBrush.png; sourceTree = "<group>"; };
+		7AC8238119E9B88B005B8124 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = ../../../Desktop/PrVZ/Images/coin.png; sourceTree = "<group>"; };
 		7AD62DAF19E5915800697FE2 /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
 		7AD62DB119E591E700697FE2 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		7AF5C31419E2113A0003A332 /* storeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = storeButton.png; path = Images/InGame/Buttons/storeButton.png; sourceTree = "<group>"; };
-		7AF5C31519E2113A0003A332 /* storeButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = storeButtonPressed.png; path = Images/InGame/Buttons/storeButtonPressed.png; sourceTree = "<group>"; };
 		7AF744C619D739AC00B95D08 /* princess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = princess.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,8 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				7A5D744719DF8475009EEBD8 /* button 150.png */,
-				7AF5C31419E2113A0003A332 /* storeButton.png */,
-				7AF5C31519E2113A0003A332 /* storeButtonPressed.png */,
 				7A5D744819DF8475009EEBD8 /* fireButton.png */,
 				7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */,
 				7A5D744A19DF8475009EEBD8 /* startButton.png */,
@@ -204,6 +214,21 @@
 				7AF744CA19D74AC200B95D08 /* InGame */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		7AC8237219E9962E005B8124 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				7AC8238119E9B88B005B8124 /* coin.png */,
+				7AC8237F19E9AF10005B8124 /* infiniteBrush.png */,
+				7AC8237319E99656005B8124 /* backButton.png */,
+				7AC8237419E99656005B8124 /* backButtonPressed.png */,
+				7AC8237519E99656005B8124 /* buyButton.png */,
+				7AC8237619E99656005B8124 /* buyButtonPressed.png */,
+				7AC8237719E99656005B8124 /* storeButton.png */,
+				7AC8237819E99656005B8124 /* storeButtonPressed.png */,
+			);
+			name = Store;
 			sourceTree = "<group>";
 		};
 		7AF5C31119E208A50003A332 /* Scenes */ = {
@@ -239,6 +264,7 @@
 		7AF744CA19D74AC200B95D08 /* InGame */ = {
 			isa = PBXGroup;
 			children = (
+				7AC8237219E9962E005B8124 /* Store */,
 				7A5D744619DF846A009EEBD8 /* Characters */,
 				7A5D744519DF8462009EEBD8 /* Buttons */,
 				7A4E1DA319D7703700001C55 /* background.png */,
@@ -335,16 +361,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */,
 				7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */,
+				7AC8238219E9B88B005B8124 /* coin.png in Resources */,
 				7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */,
+				7AC8237D19E99656005B8124 /* storeButton.png in Resources */,
+				7AC8237919E99656005B8124 /* backButton.png in Resources */,
 				7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */,
-				7AF5C31719E2113A0003A332 /* storeButtonPressed.png in Resources */,
 				7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */,
-				7AF5C31619E2113A0003A332 /* storeButton.png in Resources */,
+				7AC8237C19E99656005B8124 /* buyButtonPressed.png in Resources */,
+				7AC8237E19E99656005B8124 /* storeButtonPressed.png in Resources */,
 				7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */,
 				7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */,
 				7A5D745819DF847E009EEBD8 /* zombie.png in Resources */,
+				7AC8238019E9AF10005B8124 /* infiniteBrush.png in Resources */,
 				7A5D744E19DF8475009EEBD8 /* fireButtonPressed.png in Resources */,
+				7AC8237B19E99656005B8124 /* buyButton.png in Resources */,
 				7A4E784719C735B900C5E9B3 /* Images.xcassets in Resources */,
 				7A5D745519DF847E009EEBD8 /* ash.png in Resources */,
 				7A4E1DA819D7703700001C55 /* background.png in Resources */,

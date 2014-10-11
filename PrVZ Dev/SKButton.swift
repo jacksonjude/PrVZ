@@ -12,6 +12,7 @@ class SKButton: SKNode {
     var defaultButton: SKSpriteNode
     var activeButton: SKSpriteNode
     var action: () -> Void
+    var pressed = Bool()
     
     init(defaultButtonImage: String, activeButtonImage: String, buttonAction: () -> Void) {
         defaultButton = SKSpriteNode(imageNamed: defaultButtonImage)
@@ -50,10 +51,12 @@ class SKButton: SKNode {
         
         if defaultButton.containsPoint(location) {
             action()
+            pressed = true
         }
         
         activeButton.hidden = true
         defaultButton.hidden = false
+        pressed = false
     }
     
     required init(coder aDecoder: NSCoder) {

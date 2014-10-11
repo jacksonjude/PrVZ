@@ -25,13 +25,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var storeIsOpen = false
     var zombiesKilled = 0
     var coins = 0
-    //var slider1: UISlider?
-    
-    //init(slider: UISlider)
-    //{
-    //    self.slider1 = slider
-    //    super.init()
-    //}
+    var coinsLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+    var slider1: UISlider?
+    var item1 = Bool()
+    var item2 = Bool()
     
     override func didMoveToView(view: SKView)
     {
@@ -85,11 +82,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.addChild(buttons)
         
         var bar = SKShapeNode()
-        bar.path = CGPathCreateWithRect(CGRectMake(32, 0, 960, 175), nil)
+        bar.path = CGPathCreateWithRect(CGRectMake(32, 0, 960, 235), nil)
         bar.fillColor = SKColor.grayColor()
         bar.name = "bar"
         bar.position = CGPoint(x: 0, y: CGRectGetMidY(self.frame)+125)
         self.addChild(bar)
+        
+        slider1?.hidden = true
+        
+        coinsLabel.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)+90)
+        coinsLabel.fontColor = SKColor.redColor()
+        self.addChild(coinsLabel)
+        var coinsImage = SKSpriteNode(imageNamed: "coin.png")
+        coinsImage.position = CGPoint(x: coinsImage.position.x-30, y: coinsImage.position.y+10)
+        coinsLabel.addChild(coinsImage)
     }
     
     func runGame()
@@ -251,15 +257,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var products = SKNode()
         products.name = "products"
         
-        var infiniteBrush = SKSpriteNode(imageNamed: "infBrush")
+        var infiniteBrush = SKSpriteNode(imageNamed: "infiniteBrush")
         infiniteBrush.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        infiniteBrush.zPosition = 7
         products.addChild(infiniteBrush)
         var infiniteBrushLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         infiniteBrushLabel.text = "Infinite Brush"
         infiniteBrushLabel.fontSize = 64
+        infiniteBrushLabel.fontColor = SKColor.redColor()
+        infiniteBrushLabel.position = CGPoint(x: infiniteBrushLabel.position.x, y: infiniteBrushLabel.position.y+50)
         infiniteBrush.addChild(infiniteBrushLabel)
+        var infiniteBrushBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemInfBrush)
+        infiniteBrushBuyButton.position = CGPoint(x: infiniteBrushBuyButton.position.x, y: infiniteBrushBuyButton.position.y-200)
+        infiniteBrush.addChild(infiniteBrushBuyButton)
         
+        storeNode.addChild(products)
         self.addChild(storeNode)
+    }
+    
+    func buyItemInfBrush()
+    {
+        if coins > 4
+        {
+            coins-=5
+            item1 = true
+            brushInWorld = false
+        }
     }
     
     func hideStore()
@@ -303,6 +326,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         
+        coinsLabel.text = NSString(format: "%i", coins)
+        
         if zombiesAlive == 0 && gameIsRunning == true
         {
             gameIsRunning = false
@@ -313,12 +338,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 i.removeFromParent()
             }
         }
-        var brush = self.childNodeWithName("brush")
-        if brush != nil
+        if item1 == false
         {
-            brushInWorld = true
-        }else{
-            brushInWorld = false
+            var brush = self.childNodeWithName("brush")
+            if brush != nil
+            {
+                brushInWorld = true
+            }else{
+                brushInWorld = false
+            }
         }
         
         for i in zombies

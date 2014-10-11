@@ -17,10 +17,11 @@ class TitleScene: SKScene
     let hide = SKAction.hide()
     let unhide = SKAction.unhide()
     var gameViewController1: GameViewController?
+    var slider1: UISlider?
     
     override func didMoveToView(view: SKView)
     {
-        /* Setup your scene here */
+        slider1?.hidden = true
         start.text = "Start"
         start.name = "start"
         start.fontSize = 85
@@ -39,22 +40,11 @@ class TitleScene: SKScene
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
     {
-        /*let tutorialScene = TutorialScene(size: self.size)
-        
-        let skView = self.view! as SKView
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.ignoresSiblingOrder = true
-        
-        tutorialScene.scaleMode = SKSceneScaleMode.AspectFill
-        
-        skView.presentScene(tutorialScene)*/
-        
         self.gameViewController1?.presentTutorialScene()
     }
     
     override func update(currentTime: CFTimeInterval)
     {
-        /* Called before each frame is rendered */
+        
     }
 }

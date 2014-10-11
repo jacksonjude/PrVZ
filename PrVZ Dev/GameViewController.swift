@@ -48,6 +48,8 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
+            scene.slider1 = slider
+            
             skView.presentScene(scene)
         }
     }
@@ -68,6 +70,8 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
+            scene.slider1 = slider
+            
             skView.presentScene(scene)
         }
     }
@@ -76,8 +80,6 @@ class GameViewController: UIViewController {
     {
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene
         {
-            //var scene = GameScene(slider: slider)
-            
             // Configure the view.
             let skView = self.view as SKView
             skView.showsFPS = true
@@ -88,6 +90,8 @@ class GameViewController: UIViewController {
             
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
+            
+            scene.slider1 = slider
             
             skView.presentScene(scene)
         }
