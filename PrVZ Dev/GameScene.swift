@@ -27,12 +27,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var coins = 0
     var coinsLabel = SKLabelNode(fontNamed: "TimesNewRoman")
     var slider1: UISlider?
-    var item1 = Bool()
+    var gameViewController1: GameViewController?
+    var infBrushItem = Bool()
     var item2 = Bool()
     
     override func didMoveToView(view: SKView)
     {
-        let background = SKSpriteNode(imageNamed: "background.png");
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(1, forKey: "Tutorial")
+        
+        let background = SKSpriteNode(imageNamed: "background.png")
         background.zPosition = -2
         background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(background)
@@ -108,8 +112,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func runGame()
     {
-        var princess1 = self.childNodeWithName("princess")
-        princess1?.runAction(SKAction.fadeInWithDuration(0))
+        if let zombiesKilledLabel = self.childNodeWithName("zombiesKilledLabel")
+        {
+            zombiesKilledLabel.removeFromParent()
+        }
         
         var zombiesToSpawn = slider1?.value
         
@@ -133,9 +139,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             zombiesSpawned++
         }
         
-        for i in zombies
+        for aZombie in zombies
         {
-            self.addChild(i as SKNode)
+            self.addChild(aZombie as SKNode)
         }
         
         gameIsRunning = true
@@ -224,16 +230,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var show = SKAction.fadeInWithDuration(0)
         var wait = SKAction.waitForDuration(1)
         princess1?.runAction(SKAction.sequence([hide, wait, show, wait, hide, wait, show, wait, hide, wait, show, wait, hide]))
-        for i in zombies
+        
+        for aZombie in zombies
         {
-            i.removeFromParent()
+            aZombie.removeFromParent()
+        }
+        
+        zombies.removeAllObjects()
+        
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if let highScore = defaults.objectForKey("highScore") as? NSInteger
+        {
+            if highScore < zombiesKilled
+            {
+                defaults.setObject(zombiesKilled, forKey: "highScore")
+                
+                NSLog("New High Score: %i", zombiesKilled)
+            }
+            else
+            {
+                NSLog("High Score: %i", highScore)
+            }
+        }
+        else
+        {
+            defaults.setObject(zombiesKilled, forKey: "highScore")
+            NSLog("New High Score: %i", zombiesKilled)
         }
         
         var zombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        zombiesKilledLabel.text = NSString(format: "Zombies Killed %f", zombiesKilled)
+        zombiesKilledLabel.text = NSString(format: "Zombies Killed: %i", zombiesKilled)
         zombiesKilledLabel.name = "zombiesKilledLabel"
+        zombiesKilledLabel.fontColor = SKColor.redColor()
         zombiesKilledLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(zombiesKilledLabel)
+        
+        zombiesKilled = 0
         
         gameIsRunning = false
         canPressButtons = true
@@ -258,7 +290,47 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         slider1?.hidden = false
         slider1?.userInteractionEnabled = true
         
+        var resetGameButton = SKButton(defaultButtonImage: "resetButton", activeButtonImage: "resetButtonPressed", buttonAction: resetGame)
+        resetGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
+        resetGameButton.zPosition = 6
+        settingsNode.addChild(resetGameButton)
+        
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if let highScore = defaults.objectForKey("highScore") as? NSInteger
+        {
+            var highScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+            highScoreLabel.text = NSString(format: "High Score: %i", highScore)
+            highScoreLabel.fontColor = SKColor.orangeColor()
+            highScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+200)
+            highScoreLabel.zPosition = 6
+            settingsNode.addChild(highScoreLabel)
+        }
+        
+        var currentScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        currentScoreLabel.fontColor = SKColor.redColor()
+        currentScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
+        currentScoreLabel.zPosition = 6
+        
+        if zombiesKilled > 0
+        {
+            currentScoreLabel.text = NSString(format: "Curent Score: %i", zombiesKilled)
+        }
+        else
+        {
+            currentScoreLabel.text = "Current Score: 0"
+        }
+        settingsNode.addChild(currentScoreLabel)
+        
         self.addChild(settingsNode)
+    }
+    
+    func resetGame()
+    {
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(0, forKey: "Tutorial")
+        defaults.setObject(0, forKey: "highScore")
+        
+        gameViewController1?.presentTitleScene()
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
@@ -267,6 +339,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if settingsNode != nil
         {
             hideSettings()
+        }
+        
+        if gameIsRunning == false
+        {
+            if let zombiesKilledLabel = self.childNodeWithName("zombiesKilledLabel")
+            {
+                zombiesKilledLabel.removeFromParent()
+            }
+            
+            if let princess1 = self.childNodeWithName("princess")
+            {
+                princess1.runAction(SKAction.fadeInWithDuration(0))
+            }
         }
     }
     
@@ -330,7 +415,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if coins > 4
         {
             coins-=5
-            item1 = true
+            infBrushItem = true
             brushInWorld = false
         }
     }
@@ -363,9 +448,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         
         var zombiesAlive = 0
-        for i in zombies
+        for aZombie in zombies
         {
-            if i.name == "zombie"
+            if aZombie.name == "zombie"
             {
                 zombiesAlive++
             }
@@ -377,14 +462,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             gameIsRunning = false
             canPressButtons = true
-            for i in zombies
+            for aZombie in zombies
             {
-                zombies.removeObject(i)
-                i.removeFromParent()
+                zombies.removeObject(aZombie)
+                aZombie.removeFromParent()
             }
         }
         
-        if item1 == false
+        if infBrushItem == false
         {
             var brush = self.childNodeWithName("brush")
             if brush != nil
@@ -395,10 +480,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         
-        for i in zombies
+        for aZombie in zombies
         {
             var wallEnd = self.childNodeWithName("wallEnd")
-            if i.position.x == wallEnd?.position.x
+            if aZombie.position.x == wallEnd?.position.x
             {
                 gameOver()
             }

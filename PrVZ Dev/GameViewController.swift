@@ -35,7 +35,7 @@ class GameViewController: UIViewController {
         
         if let scene = TitleScene.unarchiveFromFile("TitleScene") as? TitleScene {
             
-            scene.gameViewController1 = self;
+            scene.gameViewController1 = self
             
             // Configure the view.
             let skView = self.view as SKView
@@ -49,6 +49,28 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             
             scene.slider1 = slider
+            
+            skView.presentScene(scene)
+        }
+    }
+    
+    func presentTitleScene()
+    {
+        if let scene = TitleScene.unarchiveFromFile("TitleScene") as? TitleScene {
+            
+            scene.gameViewController1 = self
+            scene.slider1 = slider
+            
+            // Configure the view.
+            let skView = self.view as SKView
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
             
             skView.presentScene(scene)
         }
@@ -92,6 +114,7 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             
             scene.slider1 = slider
+            scene.gameViewController1 = self
             
             skView.presentScene(scene)
         }

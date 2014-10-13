@@ -29,9 +29,18 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     
     override func didMoveToView(view: SKView)
     {
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if let doneWave = defaults.objectForKey("Tutorial") as? NSInteger
+        {
+            if doneWave == 1
+            {
+                gameViewController1?.presentGameScene()
+            }
+        }
+        
         slider1?.hidden = true
         
-        let background = SKSpriteNode(imageNamed: "background.png");
+        let background = SKSpriteNode(imageNamed: "background.png")
         background.zPosition = -2
         background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(background)

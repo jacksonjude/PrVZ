@@ -32,6 +32,8 @@
 		7A92656F19CF2A280090595F /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92656E19CF2A280090595F /* TitleScene.swift */; };
 		7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92657019CF2DEB0090595F /* TutorialScene.swift */; };
 		7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */; };
+		7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABEBFBA19EB4309001DEF2E /* resetButton.png */; };
+		7ABEBFBD19EB4309001DEF2E /* resetButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */; };
 		7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC7DCEA19DD04450040897E /* GameScene.swift */; };
 		7AC8237919E99656005B8124 /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237319E99656005B8124 /* backButton.png */; };
 		7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237419E99656005B8124 /* backButtonPressed.png */; };
@@ -90,6 +92,8 @@
 		7A92656E19CF2A280090595F /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
 		7A92657019CF2DEB0090595F /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButtonGamePressed.png; path = Images/InGame/Buttons/startButtonGamePressed.png; sourceTree = "<group>"; };
+		7ABEBFBA19EB4309001DEF2E /* resetButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resetButton.png; path = Images/InGame/Buttons/resetButton.png; sourceTree = "<group>"; };
+		7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resetButtonPressed.png; path = Images/InGame/Buttons/resetButtonPressed.png; sourceTree = "<group>"; };
 		7AC7DCEA19DD04450040897E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		7AC8237319E99656005B8124 /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backButton.png; path = Images/InGame/Store/backButton.png; sourceTree = "<group>"; };
 		7AC8237419E99656005B8124 /* backButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backButtonPressed.png; path = Images/InGame/Store/backButtonPressed.png; sourceTree = "<group>"; };
@@ -190,6 +194,8 @@
 		7A5D744519DF8462009EEBD8 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				7ABEBFBA19EB4309001DEF2E /* resetButton.png */,
+				7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */,
 				7A5D744719DF8475009EEBD8 /* button 150.png */,
 				7AC8238319E9C33C005B8124 /* settingsButton.png */,
 				7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */,
@@ -378,6 +384,8 @@
 				7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */,
 				7AC8237C19E99656005B8124 /* buyButtonPressed.png in Resources */,
 				7AC8237E19E99656005B8124 /* storeButtonPressed.png in Resources */,
+				7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */,
+				7ABEBFBD19EB4309001DEF2E /* resetButtonPressed.png in Resources */,
 				7AC8238519E9C33C005B8124 /* settingsButton.png in Resources */,
 				7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */,
 				7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */,
