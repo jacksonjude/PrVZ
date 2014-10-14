@@ -30,16 +30,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var gameViewController1: GameViewController?
     var infBrushItem = Bool()
     var item2 = Bool()
+    var wavesCompleted = NSInteger()
+    var levelsCompletedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
     
     override func didMoveToView(view: SKView)
     {
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(1, forKey: "Tutorial")
         
-        let background = SKSpriteNode(imageNamed: "background.png")
-        background.zPosition = -2
-        background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-        self.addChild(background)
+        if let backgroundNumber = defaults.objectForKey("background") as? NSInteger
+        {
+            if backgroundNumber == 2
+            {
+                
+            }
+        }
+        else
+        {
+            let background = SKSpriteNode(imageNamed: "background.png")
+            background.zPosition = -2
+            background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+            self.addChild(background)
+        }
+        
+        if let coinsUser = defaults.objectForKey("coins") as? NSInteger
+        {
+            coins += coinsUser
+        }
+        
+        if let itemsBoughtInStore = defaults.objectForKey("items") as? NSArray
+        {
+            if itemsBoughtInStore[0] as Bool == true
+            {
+                infBrushItem = 1
+            }
+            if itemsBoughtInStore[1] as Bool == true
+            {
+                item2 = 1
+            }
+        }
         
         physicsWorld.gravity = CGVectorMake(0,0)
         self.physicsWorld.contactDelegate = self
@@ -216,6 +245,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         zombiesKilled++
         coins++
+        
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(coins, forKey: "coins")
     }
     
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
@@ -299,16 +331,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if let highScore = defaults.objectForKey("highScore") as? NSInteger
         {
             var highScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-            highScoreLabel.text = NSString(format: "High Score: %i", highScore)
             highScoreLabel.fontColor = SKColor.orangeColor()
             highScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+200)
             highScoreLabel.zPosition = 6
             settingsNode.addChild(highScoreLabel)
+            if highScore > 0
+            {
+                highScoreLabel.text = NSString(format: "High Score: %i", highScore)
+            }
+            else
+            {
+                highScoreLabel.text = NSString(format: "High Score: %i", zombiesKilled)
+            }
         }
+        
+        levelsCompletedLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
+        levelsCompletedLabel.fontColor = SKColor.blueColor()
+        levelsCompletedLabel.zPosition = 6
+        
+        if let levels = defaults.objectForKey("levels") as? NSInteger
+        {
+            levelsCompletedLabel.text = NSString(format: "Levels Completed: %i", levels)
+        }
+        else
+        {
+            levelsCompletedLabel.text = "Levels Completed: 0"
+        }
+        self.addChild(levelsCompletedLabel)
         
         var currentScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         currentScoreLabel.fontColor = SKColor.redColor()
-        currentScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
+        currentScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+150)
         currentScoreLabel.zPosition = 6
         
         if zombiesKilled > 0
@@ -329,6 +382,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(0, forKey: "Tutorial")
         defaults.setObject(0, forKey: "highScore")
+        defaults.setObject(0, forKey: "levels")
+        defaults.setObject(0, forKey: "coins")
+        defaults.setObject([false, false], forKey: "items")
         
         gameViewController1?.presentTitleScene()
     }
@@ -363,6 +419,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var settingsNode = self.childNodeWithName("settings")
         settingsNode?.hidden = true
         settingsNode?.removeFromParent()
+        
+        levelsCompletedLabel.removeFromParent()
         
         slider1?.userInteractionEnabled = false
         slider1?.hidden = true
@@ -460,13 +518,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if zombiesAlive == 0 && gameIsRunning == true
         {
+            wavesCompleted++
             gameIsRunning = false
             canPressButtons = true
             for aZombie in zombies
             {
                 zombies.removeObject(aZombie)
                 aZombie.removeFromParent()
+                
             }
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            if let levels = defaults.objectForKey("levels") as? NSInteger
+            {
+                var levelsNew = levels + wavesCompleted
+                defaults.setObject(levelsNew, forKey: "levels")
+                levelsCompletedLabel.text = NSString(format: "Levels completed: %i", levelsNew)
+                if levelsNew == 1
+                {
+                    NSLog("%i level completed", levelsNew)
+                }
+                else
+                {
+                    NSLog("%i levels completed", levelsNew)
+                }
+            }
+            else
+            {
+                defaults.setObject(1, forKey: "levels")
+                levelsCompletedLabel.text = "1"
+            }
+            
         }
         
         if infBrushItem == false
@@ -487,6 +568,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 gameOver()
             }
+        }
+        
+        if windowIsOpen == true
+        {
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            
+            defaults.setObject(zombiesKilled, forKey: "highScore")
+            
+            var tempArray = NSMutableArray()
+            
+            if infBrushItem == 1
+            {
+                tempArray[0] = true
+            }
+            else
+            {
+                tempArray[0] = false
+            }
+            
+            if item2 == 1
+            {
+                tempArray[1] = true
+            }
+            else
+            {
+                tempArray[1] = false
+            }
+            
+            defaults.setObject(tempArray, forKey: "items")
         }
     }
 }
