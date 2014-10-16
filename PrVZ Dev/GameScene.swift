@@ -32,6 +32,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var item2 = Bool()
     var wavesCompleted = NSInteger()
     var levelsCompletedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+    var currentBrushes = NSMutableArray()
+    var gamePaused = false
+    
+    deinit
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
     override func didMoveToView(view: SKView)
     {
@@ -42,7 +49,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             if backgroundNumber == 2
             {
-                
+                let background = SKSpriteNode(imageNamed: "background2.png")
+                background.zPosition = -2
+                background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                self.addChild(background)
             }
         }
         else
@@ -93,6 +103,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         princess1.physicsBody?.usesPreciseCollisionDetection = true
         self.addChild(princess1)
         
+        var pauseButton = SKButton(defaultButtonImage: "pause", activeButtonImage: "pause", buttonAction: pauseGame)
+        pauseButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)+100)
+        pauseButton.name = "pauseButton"
+        pauseButton.hidden = true
+        pauseButton.userInteractionEnabled = false
+        self.addChild(pauseButton)
+        
         var fireButton = SKButton(defaultButtonImage: "fireButton", activeButtonImage: "fireButtonPressed", buttonAction: self.addBrush)
         fireButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-200)
         fireButton.name = "fire"
@@ -137,10 +154,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var coinsImage = SKSpriteNode(imageNamed: "coin.png")
         coinsImage.position = CGPoint(x: coinsImage.position.x-30, y: coinsImage.position.y+10)
         coinsLabel.addChild(coinsImage)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
     
     func runGame()
     {
+        if let pauseButton = self.childNodeWithName("pauseButton")
+        {
+            pauseButton.hidden = false
+            pauseButton.userInteractionEnabled = true
+        }
+        
         if let zombiesKilledLabel = self.childNodeWithName("zombiesKilledLabel")
         {
             zombiesKilledLabel.removeFromParent()
@@ -194,9 +219,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             brush.physicsBody?.contactTestBitMask = monsterCategory
             brush.physicsBody?.collisionBitMask = 0
             brush.physicsBody?.usesPreciseCollisionDetection = true
+            currentBrushes.addObject(brush)
             var move = SKAction.moveToX(1000, duration: 1)
             var vanish = SKAction.removeFromParent()
-            var sequence = SKAction.sequence([move, vanish])
+            var removeBrush = SKAction.runBlock({
+                self.currentBrushes.removeObject(brush)
+            })
+            var sequence = SKAction.sequence([move, vanish, removeBrush])
             brush.runAction(sequence)
         }
     }
@@ -327,6 +356,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         resetGameButton.zPosition = 6
         settingsNode.addChild(resetGameButton)
         
+        var saveGameButton = SKButton(defaultButtonImage: "saveButton", activeButtonImage: "saveButtonPressed", buttonAction: saveData)
+        saveGameButton.position = CGPoint(x: CGRectGetMidX(self.frame)+200, y: CGRectGetMidY(self.frame)-200)
+        saveGameButton.zPosition = 6
+        settingsNode.addChild(saveGameButton)
+        
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if let highScore = defaults.objectForKey("highScore") as? NSInteger
         {
@@ -409,6 +443,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 princess1.runAction(SKAction.fadeInWithDuration(0))
             }
         }
+        
+        if gamePaused == true
+        {
+            resumeGame()
+        }
     }
     
     func hideSettings()
@@ -485,6 +524,120 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         storeNode?.removeFromParent()
         canPressButtons = true
         windowIsOpen = false
+    }
+    
+    func saveData()
+    {
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if let highScore = defaults.objectForKey("highScore") as? NSInteger
+        {
+            if gameIsRunning == true
+            {
+                var highScoreNew = highScore + zombiesKilled
+                defaults.setObject(highScoreNew, forKey: "highScore")
+            }
+        }
+        
+        var tempArray = NSMutableArray()
+        
+        if infBrushItem == 1
+        {
+            tempArray[0] = true
+        }
+        else
+        {
+            tempArray[0] = false
+        }
+        
+        if item2 == 1
+        {
+            tempArray[1] = true
+        }
+        else
+        {
+            tempArray[1] = false
+        }
+        
+        defaults.setObject(tempArray, forKey: "items")
+    }
+    
+    func pauseGame()
+    {
+        for aZombie in zombies
+        {
+            var aZombieSK = aZombie as SKSpriteNode
+            aZombieSK.removeAllActions()
+        }
+        
+        if let pauseButton = self.childNodeWithName("pauseButton")
+        {
+            pauseButton.hidden = true
+            pauseButton.userInteractionEnabled = false
+        }
+        
+        if let fireButton = self.childNodeWithName("fire")
+        {
+            fireButton.userInteractionEnabled = false
+        }
+        
+        for aBrush in currentBrushes
+        {
+            var aBrushSK = aBrush as SKSpriteNode
+            aBrushSK.removeAllActions()
+        }
+        
+        joystick.userInteractionEnabled = false
+        
+        var resumeButton = SKSpriteNode(imageNamed: "resume")
+        resumeButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        resumeButton.name = "resumeButton"
+        self.addChild(resumeButton)
+        
+        gamePaused = true
+        
+        saveData()
+    }
+    
+    func resumeGame()
+    {
+        for aZombie in zombies
+        {
+            if aZombie as SKSpriteNode != self.childNodeWithName("ash")
+            {
+                var aZombieSK = aZombie as SKSpriteNode
+                aZombieSK.runAction(SKAction.repeatActionForever(SKAction.moveByX(CGFloat(-zombieSpeed), y: 0, duration: 0.1)))
+            }
+        }
+        
+        for aBrush in currentBrushes
+        {
+            var aBrushSK = aBrush as SKSpriteNode
+            var move = SKAction.moveToX(1000, duration: 1)
+            var vanish = SKAction.removeFromParent()
+            var removeBrush = SKAction.runBlock({
+                self.currentBrushes.removeObject(aBrushSK)
+            })
+            var sequence = SKAction.sequence([move, vanish, removeBrush])
+            aBrushSK.runAction(sequence)
+        }
+        
+        joystick.userInteractionEnabled = true
+        
+        if let fireButton = self.childNodeWithName("fire")
+        {
+            fireButton.userInteractionEnabled = true
+        }
+        
+        if let pauseButton = self.childNodeWithName("pauseButton")
+        {
+            pauseButton.hidden = false
+            pauseButton.userInteractionEnabled = true
+        }
+        
+        if let resumeButton = self.childNodeWithName("resumeButton")
+        {
+            resumeButton.removeFromParent()
+        }
     }
     
     override func update(currentTime: NSTimeInterval)
