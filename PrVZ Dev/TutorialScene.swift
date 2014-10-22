@@ -103,7 +103,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         wallEnd.physicsBody?.usesPreciseCollisionDetection = true
         self.addChild(wallEnd)
         
-        var zombie1 = zombie()
+        var zombie1 = genericZombie()
         zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame))
         zombie1.zPosition = 2
         zombie1.name = "zombie"
@@ -115,7 +115,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         zombie1.physicsBody?.usesPreciseCollisionDetection = true
         self.addChild(zombie1)
         
-        let princess1 = princess()
+        let princess1 = Princess()
         princess1.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: zombie1.position.y)
         princess1.name = "princess"
         princess1.physicsBody = SKPhysicsBody(circleOfRadius:princess1.size.width/2)

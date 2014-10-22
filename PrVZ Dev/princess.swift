@@ -9,7 +9,7 @@
 import Foundation
 import Spritekit
 
-class princess: SKSpriteNode
+class Princess: SKSpriteNode
 {
     override init()
     {

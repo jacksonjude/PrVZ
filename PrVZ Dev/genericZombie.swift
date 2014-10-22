@@ -9,13 +9,29 @@
 import Foundation
 import SpriteKit
 
-class zombie: SKSpriteNode
+class genericZombie: SKSpriteNode
 {
+    var health: NSInteger = 1
+    var princess: Princess!
+    
     override init()
     {
         let zombieTexture = SKTexture(imageNamed: "zombie.png")
         var scaledSize = zombieTexture.size()
         scaledSize = CGSizeApplyAffineTransform(scaledSize, CGAffineTransformMakeScale(0.1, 0.1))
+        
+        self.princess = nil
+        
+        super.init(texture: zombieTexture, color:nil, size: scaledSize)
+    }
+    
+    init(texture zombieTexture: SKTexture!)
+    {
+        var scaledSize = zombieTexture.size()
+        scaledSize = CGSizeApplyAffineTransform(scaledSize, CGAffineTransformMakeScale(0.1, 0.1))
+        
+        self.princess = nil
+        
         super.init(texture: zombieTexture, color:nil, size: scaledSize)
     }
 
