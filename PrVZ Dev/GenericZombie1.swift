@@ -9,7 +9,7 @@
 import Foundation
 import SpriteKit
 
-class genericZombie: SKSpriteNode
+class GenericZombie: SKSpriteNode
 {
     var health: NSInteger = 1
     var princess: Princess!

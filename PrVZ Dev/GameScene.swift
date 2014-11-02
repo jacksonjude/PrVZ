@@ -14,7 +14,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     let brushCategory: UInt32 =  1 << 0
     let monsterCategory: UInt32 =  1 << 1
     let princessCategory: UInt32 =  1 << 2
+    let enemyProjectileCatagory: UInt32 =  1 << 3
     
+    var princess1 = Princess()
+    var princessHealth = CGFloat()
     var zombies = NSMutableArray()
     var gameIsRunning = false
     var canPressButtons = true
@@ -51,6 +54,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if let backgroundNumber = defaults.objectForKey("background") as? NSInteger
         {
+            if backgroundNumber == 1
+            {
+                let background = SKSpriteNode(imageNamed: "background.png")
+                background.zPosition = -2
+                background.name = "background"
+                background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                self.addChild(background)
+            }
             if backgroundNumber == 2
             {
                 let background = SKSpriteNode(imageNamed: "background2.png")
@@ -58,11 +69,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
                 self.addChild(background)
             }
+            if backgroundNumber == 3
+            {
+                
+            }
         }
         else
         {
             let background = SKSpriteNode(imageNamed: "background.png")
             background.zPosition = -2
+            background.name = "background"
             background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
             self.addChild(background)
         }
@@ -112,7 +128,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         wallEnd.name = "wallEnd"
         self.addChild(wallEnd)
         
-        let princess1 = Princess()
         princess1.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame))
         princess1.name = "princess"
         princess1.physicsBody = SKPhysicsBody(circleOfRadius:princess1.size.width/2)
@@ -154,6 +169,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         settingsButton.name = "settingsButton"
         self.buttons.addChild(settingsButton)
         
+        var mapButton = SKButton(defaultButtonImage: "mapButton", activeButtonImage: "mapButtonPressed", buttonAction: showMap)
+        mapButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)+50)
+        mapButton.name = "mapButton"
+        self.buttons.addChild(mapButton)
+        
         self.addChild(self.buttons)
         
         var bar = SKShapeNode()
@@ -176,11 +196,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         coinsImage.name = "coinsImage"
         self.coinsLabel.addChild(coinsImage)
         
+        self.princessHealth = 1
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
     
     func runGame()
     {
+        self.princessHealth = 1
+        
         if let pauseButton = self.childNodeWithName("pauseButton")
         {
             pauseButton.hidden = false
@@ -197,23 +221,83 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var zombiesSpawned:Float = 0
         while zombiesSpawned != zombiesToSpawn
         {
-            var zombie1 = genericZombie()
-            var yPos = CGFloat((arc4random()%150)+150)
-            var xPos = CGFloat((arc4random()%150)+150)
-            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            zombie1.health = self.wavesCompleted
-            zombie1.princess = self.childNodeWithName("princess") as Princess
-            zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
-            zombie1.name = "zombie"
-            zombie1.physicsBody = SKPhysicsBody(circleOfRadius:zombie1.size.width/2)
-            zombie1.physicsBody?.dynamic = true
-            zombie1.physicsBody?.categoryBitMask = self.monsterCategory
-            zombie1.physicsBody?.contactTestBitMask = self.princessCategory
-            zombie1.physicsBody?.collisionBitMask = 0
-            zombie1.physicsBody?.usesPreciseCollisionDetection = true
-            var moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
-            zombie1.runAction(SKAction.repeatActionForever(moveBy))
-            self.zombies.addObject(zombie1)
+            if wavesCompleted >= 3
+            {
+                var spawnCat = CGFloat(arc4random()%3)
+                if spawnCat == 2
+                {
+                    var cat1 = CatZombie()
+                    var yPos = CGFloat((arc4random()%150)+150)
+                    var xPos = CGFloat((arc4random()%150)+150)
+                    cat1.name = "zombie"
+                    cat1.physicsBody = SKPhysicsBody(circleOfRadius:cat1.size.width/2)
+                    cat1.physicsBody?.dynamic = true
+                    cat1.physicsBody?.categoryBitMask = self.monsterCategory
+                    cat1.physicsBody?.contactTestBitMask = self.princessCategory
+                    cat1.physicsBody?.collisionBitMask = 0
+                    cat1.physicsBody?.usesPreciseCollisionDetection = true
+                    cat1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
+                    var moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
+                    cat1.runAction(SKAction.repeatActionForever(moveBy))
+                    var moveToPrincess = SKAction.moveToY(self.princess1.position.y, duration: 1)
+                    var sequence = SKAction.sequence([moveToPrincess, SKAction.runBlock({
+                        var hairball = SKSpriteNode(imageNamed: "hairball")
+                        hairball.position = self.position
+                        hairball.runAction(SKAction.repeatActionForever(SKAction.moveToX(-1000, duration: 2)))
+                        hairball.name = "hairball"
+                        hairball.physicsBody = SKPhysicsBody(circleOfRadius:hairball.size.width/2)
+                        hairball.physicsBody?.dynamic = true
+                        hairball.physicsBody?.categoryBitMask = self.enemyProjectileCatagory
+                        hairball.physicsBody?.contactTestBitMask = self.princessCategory
+                        hairball.physicsBody?.collisionBitMask = 0
+                        hairball.physicsBody?.usesPreciseCollisionDetection = true
+                        cat1.addChild(hairball)
+                    }), SKAction.waitForDuration(2), SKAction.runBlock({
+                        NSLog("%f", self.princess1.position.y)
+                    })])
+                    cat1.runAction(SKAction.repeatActionForever(sequence))
+                    self.zombies.addObject(cat1)
+                }
+                else
+                {
+                    var zombie1 = GenericZombie()
+                    var yPos = CGFloat((arc4random()%150)+150)
+                    var xPos = CGFloat((arc4random()%150)+150)
+                    zombie1.health = self.wavesCompleted
+                    zombie1.princess = self.childNodeWithName("princess") as Princess
+                    zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
+                    zombie1.name = "zombie"
+                    zombie1.physicsBody = SKPhysicsBody(circleOfRadius:zombie1.size.width/2)
+                    zombie1.physicsBody?.dynamic = true
+                    zombie1.physicsBody?.categoryBitMask = self.monsterCategory
+                    zombie1.physicsBody?.contactTestBitMask = self.princessCategory
+                    zombie1.physicsBody?.collisionBitMask = 0
+                    zombie1.physicsBody?.usesPreciseCollisionDetection = true
+                    var moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
+                    zombie1.runAction(SKAction.repeatActionForever(moveBy))
+                    self.zombies.addObject(zombie1)
+                }
+
+            }
+            else
+            {
+                var zombie1 = GenericZombie()
+                var yPos = CGFloat((arc4random()%150)+150)
+                var xPos = CGFloat((arc4random()%150)+150)
+                zombie1.health = self.wavesCompleted
+                zombie1.princess = self.childNodeWithName("princess") as Princess
+                zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
+                zombie1.name = "zombie"
+                zombie1.physicsBody = SKPhysicsBody(circleOfRadius:zombie1.size.width/2)
+                zombie1.physicsBody?.dynamic = true
+                zombie1.physicsBody?.categoryBitMask = self.monsterCategory
+                zombie1.physicsBody?.contactTestBitMask = self.princessCategory
+                zombie1.physicsBody?.collisionBitMask = 0
+                zombie1.physicsBody?.usesPreciseCollisionDetection = true
+                var moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
+                zombie1.runAction(SKAction.repeatActionForever(moveBy))
+                self.zombies.addObject(zombie1)
+            }
             zombiesSpawned++
         }
         
@@ -232,8 +316,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             var brush = SKSpriteNode(imageNamed: "brush.png")
             brush.name = "brush"
-            var princess1 = self.childNodeWithName("princess") as SKSpriteNode
-            brush.position = CGPoint(x: princess1.position.x, y: princess1.position.y)
+            brush.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y)
             self.addChild(brush)
             brush.runAction(SKAction.moveToX(1000, duration: 1))
             brush.runAction(SKAction.waitForDuration(1))
@@ -283,12 +366,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             self.monsterDidCollideWithPrincess(firstBody.node!, princess1: secondBody.node!)
         }
+        if ((secondBody.categoryBitMask & self.enemyProjectileCatagory) != 0 &&
+        (firstBody.categoryBitMask & self.princessCategory) != 0)
+        {
+            self.enemyProjectileDidCollideWithPrincess(secondBody.node!, princess1: firstBody.node!)
+        }
     }
     
     func projectileDidCollideWithMonster(projectile: SKNode, monster: SKNode)
     {
         projectile.removeFromParent()
-        var monsterSK = monster as genericZombie
+        var monsterSK = monster as GenericZombie
         monsterSK.health--
         if monsterSK.health <= 0
         {
@@ -310,16 +398,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
     {
-        self.gameOver()
+        self.princessHealth--
+        if princessHealth <= 0
+        {
+            self.gameOver()
+        }
+    }
+    
+    func enemyProjectileDidCollideWithPrincess(enemyProjectile: SKNode, princess1: SKNode)
+    {
+        self.princessHealth-=0.25
+        if princessHealth <= 0
+        {
+            self.gameOver()
+        }
+        enemyProjectile.removeFromParent()
+        NSLog("%f", self.princessHealth)
     }
     
     func gameOver()
     {
-        var princess1 = self.childNodeWithName("princess")
         var hide = SKAction.fadeOutWithDuration(0)
         var show = SKAction.fadeInWithDuration(0)
         var wait = SKAction.waitForDuration(1)
-        princess1?.runAction(SKAction.sequence([hide, wait, show, wait, hide, wait, show, wait, hide, wait, show, wait, hide]))
+        self.princess1.runAction(SKAction.sequence([hide, wait, show, wait, hide, wait, show, wait, hide, wait, show, wait, hide]))
         
         for aZombie in self.zombies
         {
@@ -448,16 +550,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(0, forKey: "levels")
         defaults.setObject(0, forKey: "coins")
         defaults.setObject([false, false], forKey: "items")
+        defaults.setObject(1, forKey: "background")
         
         self.gameViewController1?.presentTitleScene()
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
     {
+        var map = self.childNodeWithName("map")
+        if map != nil
+        {
+            self.hideMap()
+        }
+        
         var settingsNode = self.childNodeWithName("settings")
         if settingsNode != nil
         {
-            hideSettings()
+            self.hideSettings()
         }
         
         if self.gameIsRunning == false
@@ -467,10 +576,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 zombiesKilledLabel.removeFromParent()
             }
             
-            if let princess1 = self.childNodeWithName("princess")
-            {
-                princess1.runAction(SKAction.fadeInWithDuration(0))
-            }
+            princess1.runAction(SKAction.fadeInWithDuration(0))
         }
         
         if self.gamePaused == true
@@ -559,6 +665,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.windowIsOpen = false
         self.storeIsOpen = false
         self.checkIsShowing = false
+    }
+    
+    func showMap()
+    {
+        var map = SKSpriteNode(imageNamed: "map.png")
+        map.zPosition = 10
+        map.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        map.name = "map"
+        var circle = CGRectMake(100.0, 100.0, 80.0, 80.0)
+        var progress = SKShapeNode()
+        progress.path = UIBezierPath(ovalInRect: circle).CGPath
+        progress.fillColor = SKColor.redColor()
+        progress.lineWidth = 5
+        progress.zPosition = 11
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if let background = defaults.objectForKey("background") as? NSInteger
+        {
+            if background == 1
+            {
+                progress.position = CGPoint(x: -300, y: -300)
+            }
+            if background == 2
+            {
+                progress.position = CGPoint(x: -300, y: -30)
+            }
+        }
+        map.addChild(progress)
+        self.addChild(map)
+        
+        self.windowIsOpen = true
+        self.canPressButtons = false
+    }
+    
+    func hideMap()
+    {
+        var map = self.childNodeWithName("map")
+        map?.removeFromParent()
+        
+        self.windowIsOpen = false
+        self.canPressButtons = true
     }
     
     func saveData()
@@ -679,9 +825,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func update(currentTime: NSTimeInterval)
     {
-        var princess1 = self.childNodeWithName("princess") as SKSpriteNode
         var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
-        princess1.position = position1
+        self.princess1.position = position1
         
         if self.windowIsOpen == false
         {
@@ -716,6 +861,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 self.zombies.removeObject(aZombie)
                 aZombie.removeFromParent()
                 
+            }
+            var range = NSRange(location: 4, length: 2)
+            var background2Bool = NSLocationInRange(wavesCompleted, range)
+            if background2Bool
+            {
+                var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                defaults.setObject(2, forKey: "background")
+                var background = self.childNodeWithName("background")
+                background?.removeFromParent()
+                var background2 = SKSpriteNode(imageNamed: "background2")
+                background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                background2.zPosition = -2
+                background2.name = "background"
+                self.addChild(background2)
             }
         }
         

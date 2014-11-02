@@ -12,7 +12,8 @@
 		7A1E69DA19EE2379007051C0 /* saveButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A1E69D819EE2379007051C0 /* saveButtonPressed.png */; };
 		7A2D0EEB19EF519100491A2F /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEA19EF519100491A2F /* pause.png */; };
 		7A2D0EED19EF51DE00491A2F /* resume.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEC19EF51DE00491A2F /* resume.png */; };
-		7A3D7ED619D27D3E00C39131 /* genericZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* genericZombie.swift */; };
+		7A3134631A06C3A4002124E2 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3134621A06C3A4002124E2 /* background2.png */; };
+		7A3D7ED619D27D3E00C39131 /* GenericZombie1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* GenericZombie1.swift */; };
 		7A4E1DA119D7702C00001C55 /* prince.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1D9F19D7702C00001C55 /* prince.png */; };
 		7A4E1DA219D7702C00001C55 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA019D7702C00001C55 /* speech.png */; };
 		7A4E1DA819D7703700001C55 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA319D7703700001C55 /* background.png */; };
@@ -33,11 +34,12 @@
 		7A5D745619DF847E009EEBD8 /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745219DF847E009EEBD8 /* brush.png */; };
 		7A5D745719DF847E009EEBD8 /* princess.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745319DF847E009EEBD8 /* princess.png */; };
 		7A5D745819DF847E009EEBD8 /* zombie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745419DF847E009EEBD8 /* zombie.png */; };
+		7A7073291A0694F20071F677 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7073281A0694F20071F677 /* map.png */; };
 		7A92656F19CF2A280090595F /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92656E19CF2A280090595F /* TitleScene.swift */; };
 		7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92657019CF2DEB0090595F /* TutorialScene.swift */; };
 		7A9665D719EF818A000F634C /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A9665D619EF818A000F634C /* check.png */; };
 		7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */; };
-		7AA751DB19F0D0C200AEF00C /* archerZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA751DA19F0D0C200AEF00C /* archerZombie.swift */; };
+		7AA751DB19F0D0C200AEF00C /* CatZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA751DA19F0D0C200AEF00C /* CatZombie.swift */; };
 		7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABEBFBA19EB4309001DEF2E /* resetButton.png */; };
 		7ABEBFBD19EB4309001DEF2E /* resetButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */; };
 		7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC7DCEA19DD04450040897E /* GameScene.swift */; };
@@ -53,7 +55,7 @@
 		7AC8238619E9C33C005B8124 /* settingsButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */; };
 		7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DAF19E5915800697FE2 /* TutorialScene.sks */; };
 		7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DB119E591E700697FE2 /* GameScene.sks */; };
-		7AF744C719D739AC00B95D08 /* princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* princess.swift */; };
+		7AF744C719D739AC00B95D08 /* Princess1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* Princess1.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +76,8 @@
 		7A1E69D819EE2379007051C0 /* saveButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = saveButtonPressed.png; path = Images/InGame/Buttons/saveButtonPressed.png; sourceTree = "<group>"; };
 		7A2D0EEA19EF519100491A2F /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Images/InGame/Buttons/pause.png; sourceTree = "<group>"; };
 		7A2D0EEC19EF51DE00491A2F /* resume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resume.png; path = Images/InGame/Buttons/resume.png; sourceTree = "<group>"; };
-		7A3D7ED519D27D3E00C39131 /* genericZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = genericZombie.swift; sourceTree = "<group>"; };
+		7A3134621A06C3A4002124E2 /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background2.png; path = Images/InGame/background2.png; sourceTree = "<group>"; };
+		7A3D7ED519D27D3E00C39131 /* GenericZombie1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericZombie1.swift; sourceTree = "<group>"; };
 		7A4E1D9F19D7702C00001C55 /* prince.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prince.png; path = Images/Tutorial/prince.png; sourceTree = "<group>"; };
 		7A4E1DA019D7702C00001C55 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = speech.png; path = Images/Tutorial/speech.png; sourceTree = "<group>"; };
 		7A4E1DA319D7703700001C55 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Images/InGame/background.png; sourceTree = "<group>"; };
@@ -99,11 +102,12 @@
 		7A5D745219DF847E009EEBD8 /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush.png; path = Images/InGame/Characters/brush.png; sourceTree = "<group>"; };
 		7A5D745319DF847E009EEBD8 /* princess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = princess.png; path = Images/InGame/Characters/princess.png; sourceTree = "<group>"; };
 		7A5D745419DF847E009EEBD8 /* zombie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zombie.png; path = Images/InGame/Characters/zombie.png; sourceTree = "<group>"; };
+		7A7073281A0694F20071F677 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = Images/InGame/map.png; sourceTree = "<group>"; };
 		7A92656E19CF2A280090595F /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
 		7A92657019CF2DEB0090595F /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		7A9665D619EF818A000F634C /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = check.png; path = Images/InGame/Store/check.png; sourceTree = "<group>"; };
 		7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButtonGamePressed.png; path = Images/InGame/Buttons/startButtonGamePressed.png; sourceTree = "<group>"; };
-		7AA751DA19F0D0C200AEF00C /* archerZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = archerZombie.swift; sourceTree = "<group>"; };
+		7AA751DA19F0D0C200AEF00C /* CatZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatZombie.swift; sourceTree = "<group>"; };
 		7ABEBFBA19EB4309001DEF2E /* resetButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resetButton.png; path = Images/InGame/Buttons/resetButton.png; sourceTree = "<group>"; };
 		7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resetButtonPressed.png; path = Images/InGame/Buttons/resetButtonPressed.png; sourceTree = "<group>"; };
 		7AC7DCEA19DD04450040897E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -119,7 +123,7 @@
 		7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settingsButtonPressed.png; path = Images/InGame/Buttons/settingsButtonPressed.png; sourceTree = "<group>"; };
 		7AD62DAF19E5915800697FE2 /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
 		7AD62DB119E591E700697FE2 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		7AF744C619D739AC00B95D08 /* princess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = princess.swift; sourceTree = "<group>"; };
+		7AF744C619D739AC00B95D08 /* Princess1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Princess1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,9 +277,9 @@
 		7AF5C31219E208BC0003A332 /* Characters */ = {
 			isa = PBXGroup;
 			children = (
-				7A3D7ED519D27D3E00C39131 /* genericZombie.swift */,
-				7AA751DA19F0D0C200AEF00C /* archerZombie.swift */,
-				7AF744C619D739AC00B95D08 /* princess.swift */,
+				7A3D7ED519D27D3E00C39131 /* GenericZombie1.swift */,
+				7AA751DA19F0D0C200AEF00C /* CatZombie.swift */,
+				7AF744C619D739AC00B95D08 /* Princess1.swift */,
 			);
 			name = Characters;
 			sourceTree = "<group>";
@@ -294,10 +298,12 @@
 		7AF744CA19D74AC200B95D08 /* InGame */ = {
 			isa = PBXGroup;
 			children = (
+				7A3134621A06C3A4002124E2 /* background2.png */,
+				7A4E1DA319D7703700001C55 /* background.png */,
+				7A7073281A0694F20071F677 /* map.png */,
 				7AC8237219E9962E005B8124 /* Store */,
 				7A5D744619DF846A009EEBD8 /* Characters */,
 				7A5D744519DF8462009EEBD8 /* Buttons */,
-				7A4E1DA319D7703700001C55 /* background.png */,
 			);
 			name = InGame;
 			sourceTree = "<group>";
@@ -401,6 +407,7 @@
 				7AC8237919E99656005B8124 /* backButton.png in Resources */,
 				7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */,
 				7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */,
+				7A7073291A0694F20071F677 /* map.png in Resources */,
 				7AC8237C19E99656005B8124 /* buyButtonPressed.png in Resources */,
 				7AC8237E19E99656005B8124 /* storeButtonPressed.png in Resources */,
 				7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */,
@@ -412,6 +419,7 @@
 				7A9665D719EF818A000F634C /* check.png in Resources */,
 				7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */,
 				7A5D745819DF847E009EEBD8 /* zombie.png in Resources */,
+				7A3134631A06C3A4002124E2 /* background2.png in Resources */,
 				7AC8238019E9AF10005B8124 /* infiniteBrush.png in Resources */,
 				7A5D744E19DF8475009EEBD8 /* fireButtonPressed.png in Resources */,
 				7AC8237B19E99656005B8124 /* buyButton.png in Resources */,
@@ -444,13 +452,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AF744C719D739AC00B95D08 /* princess.swift in Sources */,
-				7A3D7ED619D27D3E00C39131 /* genericZombie.swift in Sources */,
+				7AF744C719D739AC00B95D08 /* Princess1.swift in Sources */,
+				7A3D7ED619D27D3E00C39131 /* GenericZombie1.swift in Sources */,
 				7A4E1DAE19D7970900001C55 /* SKButton.swift in Sources */,
 				7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */,
 				7A4E784219C735B900C5E9B3 /* GameViewController.swift in Sources */,
 				7A03E60A19D8806800D857BD /* JCJoystick.m in Sources */,
-				7AA751DB19F0D0C200AEF00C /* archerZombie.swift in Sources */,
+				7AA751DB19F0D0C200AEF00C /* CatZombie.swift in Sources */,
 				7A4E783C19C735B900C5E9B3 /* AppDelegate.swift in Sources */,
 				7A92656F19CF2A280090595F /* TitleScene.swift in Sources */,
 				7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */,
