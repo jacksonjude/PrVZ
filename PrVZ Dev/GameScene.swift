@@ -30,6 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var coins = 0
     var coinsLabel = SKLabelNode(fontNamed: "TimesNewRoman")
     var slider1: UISlider?
+    var switch1: UISwitch?
     var gameViewController1: GameViewController?
     var infBrushItem = Bool()
     var item2 = Bool()
@@ -187,6 +188,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.slider1?.userInteractionEnabled = false
         self.slider1?.maximumValue = 9
         self.slider1?.minimumValue = 3
+        
+        self.switch1?.hidden = true
+        self.switch1?.userInteractionEnabled = false
         
         self.coinsLabel.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)+90)
         self.coinsLabel.fontColor = SKColor.redColor()
@@ -482,6 +486,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.slider1?.hidden = false
         self.slider1?.userInteractionEnabled = true
         
+        self.switch1?.hidden = false
+        self.switch1?.userInteractionEnabled = true
+        
         var resetGameButton = SKButton(defaultButtonImage: "resetButton", activeButtonImage: "resetButtonPressed", buttonAction: resetGame)
         resetGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
         resetGameButton.zPosition = 6
@@ -598,6 +605,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         self.slider1?.userInteractionEnabled = false
         self.slider1?.hidden = true
+        
+        self.switch1?.hidden = true
+        self.switch1?.userInteractionEnabled = false
+        
+        if switch1?.on == true
+        {
+            self.extraButtons(1)
+        }
+        else
+        {
+            self.extraButtons(0)
+        }
+    }
+    
+    func extraButtons(buttons: NSInteger)
+    {
+        var petyard = self.buttons.childNodeWithName("petyard")
+        var mapButton = self.buttons.childNodeWithName("mapButton")
+        
+        if buttons == 0
+        {
+            petyard?.hidden = true
+            petyard?.userInteractionEnabled = false
+            mapButton?.hidden = true
+            mapButton?.userInteractionEnabled = false
+        }
+        else
+        {
+            petyard?.hidden = false
+            petyard?.userInteractionEnabled = true
+            mapButton?.hidden = false
+            mapButton?.userInteractionEnabled = true
+        }
     }
     
     func store()

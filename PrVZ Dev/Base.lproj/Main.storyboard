@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -16,6 +16,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qzt-LO-zHB">
+                                <rect key="frame" x="172" y="419" width="51" height="31"/>
+                            </switch>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7u1-Bc-DKQ">
                                 <rect key="frame" x="241" y="420" width="118" height="31"/>
                                 <constraints>
@@ -25,18 +28,21 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="khH-OB-KpY" firstAttribute="top" secondItem="Qzt-LO-zHB" secondAttribute="bottom" constant="150" id="91a-dz-zSN"/>
                             <constraint firstItem="khH-OB-KpY" firstAttribute="top" secondItem="7u1-Bc-DKQ" secondAttribute="bottom" constant="150" id="fGo-iC-mFj"/>
+                            <constraint firstItem="7u1-Bc-DKQ" firstAttribute="leading" secondItem="Qzt-LO-zHB" secondAttribute="trailing" constant="22" id="fr9-Fj-ewo"/>
                             <constraint firstItem="7u1-Bc-DKQ" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="jq9-Yj-dhr"/>
                         </constraints>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="slider" destination="7u1-Bc-DKQ" id="v91-ur-pVQ"/>
+                        <outlet property="switch1" destination="Qzt-LO-zHB" id="Ap2-6A-57u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="115" y="186"/>
+            <point key="canvasLocation" x="113" y="184"/>
         </scene>
     </scenes>
 </document>

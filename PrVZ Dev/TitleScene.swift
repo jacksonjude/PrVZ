@@ -17,11 +17,11 @@ class TitleScene: SKScene
     let hide = SKAction.hide()
     let unhide = SKAction.unhide()
     var gameViewController1: GameViewController?
-    var slider1: UISlider?
+    var slider: UISlider?
+    var switch1: UISwitch?
     
     override func didMoveToView(view: SKView)
-    {
-        slider1?.hidden = true
+    {        
         start.text = "Start"
         start.name = "start"
         start.fontSize = 85

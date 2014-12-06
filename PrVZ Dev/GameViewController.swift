@@ -29,6 +29,7 @@ extension SKNode {
 
 class GameViewController: UIViewController {
     @IBOutlet var slider : UISlider!
+    @IBOutlet var switch1 : UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,11 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
-            scene.slider1 = slider
+            scene.slider = slider
+            scene.slider?.hidden = true
+            
+            scene.switch1 = switch1
+            scene.switch1?.hidden = true
             
             skView.presentScene(scene)
         }
@@ -59,7 +64,6 @@ class GameViewController: UIViewController {
         if let scene = TitleScene.unarchiveFromFile("TitleScene") as? TitleScene {
             
             scene.gameViewController1 = self
-            scene.slider1 = slider
             
             // Configure the view.
             let skView = self.view as SKView
@@ -71,6 +75,12 @@ class GameViewController: UIViewController {
             
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
+            
+            scene.slider = slider
+            scene.slider?.hidden = true
+            
+            scene.switch1 = switch1
+            scene.switch1?.hidden = true
             
             skView.presentScene(scene)
         }
@@ -92,7 +102,11 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
-            scene.slider1 = slider
+            scene.slider1 = self.slider
+            scene.slider1?.hidden = true
+            
+            scene.switch1 = switch1
+            scene.switch1?.hidden = true
             
             skView.presentScene(scene)
         }
@@ -113,7 +127,8 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
-            scene.slider1 = slider
+            scene.slider1 = self.slider
+            scene.switch1 = self.switch1
             scene.gameViewController1 = self
             
             skView.presentScene(scene)

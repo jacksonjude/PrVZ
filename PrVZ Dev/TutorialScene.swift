@@ -26,6 +26,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blueColor(), joystickRadius:50, joystickColor:SKColor.redColor())
     var gameViewController1: GameViewController?
     var slider1: UISlider?
+    var switch1: UISwitch?
     
     override func didMoveToView(view: SKView)
     {
@@ -37,9 +38,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
                 gameViewController1?.presentGameScene()
             }
         }
-        
-        slider1?.hidden = true
-        
+                
         let background = SKSpriteNode(imageNamed: "background.png")
         background.zPosition = -2
         background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
