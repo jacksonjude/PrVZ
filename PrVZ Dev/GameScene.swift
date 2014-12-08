@@ -109,12 +109,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             if itemsBoughtInStore[0] as Bool == true
             {
-                self.infBrushItem = 1
+                self.infBrushItem = true
             }
             if itemsBoughtInStore[1] as Bool == true
             {
-                self.item2 = 1
+                self.item2 = true
             }
+        }
+        
+        if let switchValue = defaults.objectForKey("switch1") as? Bool
+        {
+            switch1?.on = switchValue
+            extraButtons(1)
         }
         
         physicsWorld.gravity = CGVectorMake(0,0)
@@ -170,10 +176,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         settingsButton.name = "settingsButton"
         self.buttons.addChild(settingsButton)
         
-        var mapButton = SKButton(defaultButtonImage: "mapButton", activeButtonImage: "mapButtonPressed", buttonAction: showMap)
-        mapButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)+50)
-        mapButton.name = "mapButton"
-        self.buttons.addChild(mapButton)
+        if switch1?.on == true
+        {
+            var mapButton = SKButton(defaultButtonImage: "mapButton", activeButtonImage: "mapButtonPressed", buttonAction: showMap)
+            mapButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)+50)
+            mapButton.name = "mapButton"
+            self.buttons.addChild(mapButton)
+        }
         
         self.addChild(self.buttons)
         
@@ -558,6 +567,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(0, forKey: "coins")
         defaults.setObject([false, false], forKey: "items")
         defaults.setObject(1, forKey: "background")
+        defaults.setObject(1, forKey: "switch1")
         
         self.gameViewController1?.presentTitleScene()
     }
@@ -709,13 +719,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func showMap()
     {
-        var map = SKSpriteNode(imageNamed: "map.png")
+        var map = SKSpriteNode(imageNamed: "map1.png")
         map.zPosition = 10
         map.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         map.name = "map"
         var circle = CGRectMake(100.0, 100.0, 80.0, 80.0)
         var progress = SKShapeNode()
-        progress.path = UIBezierPath(ovalInRect: circle).CGPath
+        /*progress.path = UIBezierPath(ovalInRect: circle).CGPath
         progress.fillColor = SKColor.redColor()
         progress.lineWidth = 5
         progress.zPosition = 11
@@ -724,14 +734,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             if background == 1
             {
-                progress.position = CGPoint(x: -300, y: -300)
+                progress.position = CGPoint(x: CGRectGetMidX(self.frame)-920, y: CGRectGetMidY(self.frame)-670)
             }
             if background == 2
             {
-                progress.position = CGPoint(x: -300, y: -30)
+                progress.position = CGPoint(x: CGRectGetMidX(self.frame)-920, y: CGRectGetMidY(self.frame)-100)
             }
         }
-        map.addChild(progress)
+        map.addChild(progress)*/
+        //Will add later
         self.addChild(map)
         
         self.windowIsOpen = true
@@ -745,6 +756,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         self.windowIsOpen = false
         self.canPressButtons = true
+    }
+    
+    func showPetYard()
+    {
+        var petyard = SKNode()
+        petyard.name = "petyard"
+        
+        var backGround = SKShapeNode(circleOfRadius: 10)
+        backGround.path = CGPathCreateWithRect(CGRectMake(32, 0, 960, 720), nil)
+        backGround.fillColor = SKColor.grayColor()
+        backGround.name = "bg"
+        backGround.position = CGPoint(x: 0, y: 0)
+        backGround.zPosition = 5
+        petyard.addChild(backGround)
+        
+        self.addChild(petyard)
     }
     
     func saveData()
@@ -763,7 +790,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         var tempArray = NSMutableArray()
         
-        if self.infBrushItem == 1
+        if self.infBrushItem == true
         {
             tempArray[0] = true
         }
@@ -772,7 +799,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             tempArray[0] = false
         }
         
-        if self.item2 == 1
+        if self.item2 == true
         {
             tempArray[1] = true
         }
@@ -780,8 +807,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             tempArray[1] = false
         }
-        
         defaults.setObject(tempArray, forKey: "items")
+        
+        defaults.setObject(switch1?.on, forKey: "switch1")
     }
     
     func pauseGame()
@@ -946,7 +974,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             
             var tempArray = NSMutableArray()
             
-            if self.infBrushItem == 1
+            if self.infBrushItem == true
             {
                 tempArray[0] = true
             }
@@ -955,7 +983,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 tempArray[0] = false
             }
             
-            if self.item2 == 1
+            if self.item2 == true
             {
                 tempArray[1] = true
             }

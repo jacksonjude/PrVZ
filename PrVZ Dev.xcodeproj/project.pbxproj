@@ -40,6 +40,13 @@
 		7A9665D719EF818A000F634C /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A9665D619EF818A000F634C /* check.png */; };
 		7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */; };
 		7AA751DB19F0D0C200AEF00C /* CatZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA751DA19F0D0C200AEF00C /* CatZombie.swift */; };
+		7AB4C6B31A35377900D23A88 /* Castle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6AF1A35377900D23A88 /* Castle.png */; };
+		7AB4C6B41A35377900D23A88 /* jungle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6B01A35377900D23A88 /* jungle.png */; };
+		7AB4C6B51A35377900D23A88 /* Volcano.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6B11A35377900D23A88 /* Volcano.png */; };
+		7AB4C6B61A35377900D23A88 /* waterfall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6B21A35377900D23A88 /* waterfall.png */; };
+		7AB4C6B81A3538DF00D23A88 /* map1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6B71A3538DF00D23A88 /* map1.png */; };
+		7AB4C6BB1A35392A00D23A88 /* mapButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6B91A35392A00D23A88 /* mapButton.png */; };
+		7AB4C6BC1A35392A00D23A88 /* mapButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6BA1A35392A00D23A88 /* mapButtonPressed.png */; };
 		7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABEBFBA19EB4309001DEF2E /* resetButton.png */; };
 		7ABEBFBD19EB4309001DEF2E /* resetButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */; };
 		7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC7DCEA19DD04450040897E /* GameScene.swift */; };
@@ -108,6 +115,13 @@
 		7A9665D619EF818A000F634C /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = check.png; path = Images/InGame/Store/check.png; sourceTree = "<group>"; };
 		7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButtonGamePressed.png; path = Images/InGame/Buttons/startButtonGamePressed.png; sourceTree = "<group>"; };
 		7AA751DA19F0D0C200AEF00C /* CatZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatZombie.swift; sourceTree = "<group>"; };
+		7AB4C6AF1A35377900D23A88 /* Castle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Castle.png; path = Images/InGame/map/Castle.png; sourceTree = "<group>"; };
+		7AB4C6B01A35377900D23A88 /* jungle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = jungle.png; path = Images/InGame/map/jungle.png; sourceTree = "<group>"; };
+		7AB4C6B11A35377900D23A88 /* Volcano.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Volcano.png; path = Images/InGame/map/Volcano.png; sourceTree = "<group>"; };
+		7AB4C6B21A35377900D23A88 /* waterfall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = waterfall.png; path = Images/InGame/map/waterfall.png; sourceTree = "<group>"; };
+		7AB4C6B71A3538DF00D23A88 /* map1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map1.png; path = Images/InGame/map/map1.png; sourceTree = "<group>"; };
+		7AB4C6B91A35392A00D23A88 /* mapButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapButton.png; path = Images/InGame/Buttons/mapButton.png; sourceTree = "<group>"; };
+		7AB4C6BA1A35392A00D23A88 /* mapButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapButtonPressed.png; path = Images/InGame/Buttons/mapButtonPressed.png; sourceTree = "<group>"; };
 		7ABEBFBA19EB4309001DEF2E /* resetButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resetButton.png; path = Images/InGame/Buttons/resetButton.png; sourceTree = "<group>"; };
 		7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resetButtonPressed.png; path = Images/InGame/Buttons/resetButtonPressed.png; sourceTree = "<group>"; };
 		7AC7DCEA19DD04450040897E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -207,6 +221,8 @@
 		7A5D744519DF8462009EEBD8 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				7AB4C6B91A35392A00D23A88 /* mapButton.png */,
+				7AB4C6BA1A35392A00D23A88 /* mapButtonPressed.png */,
 				7A2D0EEC19EF51DE00491A2F /* resume.png */,
 				7A2D0EEA19EF519100491A2F /* pause.png */,
 				7A1E69D719EE2379007051C0 /* saveButton.png */,
@@ -243,6 +259,17 @@
 				7AF744CA19D74AC200B95D08 /* InGame */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		7AB4C6AE1A35375F00D23A88 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				7AB4C6AF1A35377900D23A88 /* Castle.png */,
+				7AB4C6B21A35377900D23A88 /* waterfall.png */,
+				7AB4C6B01A35377900D23A88 /* jungle.png */,
+				7AB4C6B11A35377900D23A88 /* Volcano.png */,
+			);
+			name = map;
 			sourceTree = "<group>";
 		};
 		7AC8237219E9962E005B8124 /* Store */ = {
@@ -300,7 +327,9 @@
 			children = (
 				7A3134621A06C3A4002124E2 /* background2.png */,
 				7A4E1DA319D7703700001C55 /* background.png */,
+				7AB4C6B71A3538DF00D23A88 /* map1.png */,
 				7A7073281A0694F20071F677 /* map.png */,
+				7AB4C6AE1A35375F00D23A88 /* map */,
 				7AC8237219E9962E005B8124 /* Store */,
 				7A5D744619DF846A009EEBD8 /* Characters */,
 				7A5D744519DF8462009EEBD8 /* Buttons */,
@@ -405,6 +434,7 @@
 				7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */,
 				7AC8237D19E99656005B8124 /* storeButton.png in Resources */,
 				7AC8237919E99656005B8124 /* backButton.png in Resources */,
+				7AB4C6B61A35377900D23A88 /* waterfall.png in Resources */,
 				7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */,
 				7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */,
 				7A7073291A0694F20071F677 /* map.png in Resources */,
@@ -413,13 +443,17 @@
 				7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */,
 				7A1E69D919EE2379007051C0 /* saveButton.png in Resources */,
 				7ABEBFBD19EB4309001DEF2E /* resetButtonPressed.png in Resources */,
+				7AB4C6BC1A35392A00D23A88 /* mapButtonPressed.png in Resources */,
 				7A2D0EEB19EF519100491A2F /* pause.png in Resources */,
 				7AC8238519E9C33C005B8124 /* settingsButton.png in Resources */,
+				7AB4C6B31A35377900D23A88 /* Castle.png in Resources */,
+				7AB4C6B51A35377900D23A88 /* Volcano.png in Resources */,
 				7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */,
 				7A9665D719EF818A000F634C /* check.png in Resources */,
 				7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */,
 				7A5D745819DF847E009EEBD8 /* zombie.png in Resources */,
 				7A3134631A06C3A4002124E2 /* background2.png in Resources */,
+				7AB4C6BB1A35392A00D23A88 /* mapButton.png in Resources */,
 				7AC8238019E9AF10005B8124 /* infiniteBrush.png in Resources */,
 				7A5D744E19DF8475009EEBD8 /* fireButtonPressed.png in Resources */,
 				7AC8237B19E99656005B8124 /* buyButton.png in Resources */,
@@ -430,10 +464,12 @@
 				7A5D744C19DF8475009EEBD8 /* button 150.png in Resources */,
 				7A4E1DA119D7702C00001C55 /* prince.png in Resources */,
 				7A5D745619DF847E009EEBD8 /* brush.png in Resources */,
+				7AB4C6B41A35377900D23A88 /* jungle.png in Resources */,
 				7A4E1DA219D7702C00001C55 /* speech.png in Resources */,
 				7A1E69DA19EE2379007051C0 /* saveButtonPressed.png in Resources */,
 				7A5D745719DF847E009EEBD8 /* princess.png in Resources */,
 				7A4E783E19C735B900C5E9B3 /* TitleScene.sks in Resources */,
+				7AB4C6B81A3538DF00D23A88 /* map1.png in Resources */,
 				7A4E784519C735B900C5E9B3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
