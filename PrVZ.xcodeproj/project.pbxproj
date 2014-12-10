@@ -1,0 +1,729 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7A03E60A19D8806800D857BD /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A03E60919D8806800D857BD /* JCJoystick.m */; };
+		7A1E69D919EE2379007051C0 /* saveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A1E69D719EE2379007051C0 /* saveButton.png */; };
+		7A1E69DA19EE2379007051C0 /* saveButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A1E69D819EE2379007051C0 /* saveButtonPressed.png */; };
+		7A2D0EEB19EF519100491A2F /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEA19EF519100491A2F /* pause.png */; };
+		7A2D0EED19EF51DE00491A2F /* resume.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEC19EF51DE00491A2F /* resume.png */; };
+		7A3134631A06C3A4002124E2 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3134621A06C3A4002124E2 /* background2.png */; };
+		7A3D7ED619D27D3E00C39131 /* GenericZombie1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* GenericZombie1.swift */; };
+		7A4E1DA119D7702C00001C55 /* prince.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1D9F19D7702C00001C55 /* prince.png */; };
+		7A4E1DA219D7702C00001C55 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA019D7702C00001C55 /* speech.png */; };
+		7A4E1DA819D7703700001C55 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA319D7703700001C55 /* background.png */; };
+		7A4E1DAE19D7970900001C55 /* SKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E1DAD19D7970800001C55 /* SKButton.swift */; };
+		7A4E783C19C735B900C5E9B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E783B19C735B900C5E9B3 /* AppDelegate.swift */; };
+		7A4E783E19C735B900C5E9B3 /* TitleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E783D19C735B900C5E9B3 /* TitleScene.sks */; };
+		7A4E784219C735B900C5E9B3 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E784119C735B900C5E9B3 /* GameViewController.swift */; };
+		7A4E784519C735B900C5E9B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784319C735B900C5E9B3 /* Main.storyboard */; };
+		7A4E784719C735B900C5E9B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784619C735B900C5E9B3 /* Images.xcassets */; };
+		7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784819C735B900C5E9B3 /* LaunchScreen.xib */; };
+		7A4E785619C735B900C5E9B3 /* PrVZ_DevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */; };
+		7A5D744C19DF8475009EEBD8 /* button 150.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744719DF8475009EEBD8 /* button 150.png */; };
+		7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744819DF8475009EEBD8 /* fireButton.png */; };
+		7A5D744E19DF8475009EEBD8 /* fireButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */; };
+		7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744A19DF8475009EEBD8 /* startButton.png */; };
+		7A5D745019DF8475009EEBD8 /* startButtonGame.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744B19DF8475009EEBD8 /* startButtonGame.png */; };
+		7A5D745519DF847E009EEBD8 /* ash.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745119DF847E009EEBD8 /* ash.png */; };
+		7A5D745619DF847E009EEBD8 /* brush.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745219DF847E009EEBD8 /* brush.png */; };
+		7A5D745719DF847E009EEBD8 /* princess.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745319DF847E009EEBD8 /* princess.png */; };
+		7A5D745819DF847E009EEBD8 /* zombie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745419DF847E009EEBD8 /* zombie.png */; };
+		7A7073291A0694F20071F677 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7073281A0694F20071F677 /* map.png */; };
+		7A92656F19CF2A280090595F /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92656E19CF2A280090595F /* TitleScene.swift */; };
+		7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92657019CF2DEB0090595F /* TutorialScene.swift */; };
+		7A9665D719EF818A000F634C /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A9665D619EF818A000F634C /* check.png */; };
+		7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */; };
+		7AA751DB19F0D0C200AEF00C /* CatZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA751DA19F0D0C200AEF00C /* CatZombie.swift */; };
+		7AB4C6B31A35377900D23A88 /* Castle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6AF1A35377900D23A88 /* Castle.png */; };
+		7AB4C6B41A35377900D23A88 /* jungle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6B01A35377900D23A88 /* jungle.png */; };
+		7AB4C6B51A35377900D23A88 /* Volcano.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6B11A35377900D23A88 /* Volcano.png */; };
+		7AB4C6B61A35377900D23A88 /* waterfall.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6B21A35377900D23A88 /* waterfall.png */; };
+		7AB4C6B81A3538DF00D23A88 /* map1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6B71A3538DF00D23A88 /* map1.png */; };
+		7AB4C6BB1A35392A00D23A88 /* mapButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6B91A35392A00D23A88 /* mapButton.png */; };
+		7AB4C6BC1A35392A00D23A88 /* mapButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6BA1A35392A00D23A88 /* mapButtonPressed.png */; };
+		7AB4C6BE1A3539F300D23A88 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4C6BD1A3539F300D23A88 /* MenuScene.swift */; };
+		7AB4C6C01A353B7900D23A88 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6BF1A353B7900D23A88 /* MenuScene.sks */; };
+		7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABEBFBA19EB4309001DEF2E /* resetButton.png */; };
+		7ABEBFBD19EB4309001DEF2E /* resetButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */; };
+		7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC7DCEA19DD04450040897E /* GameScene.swift */; };
+		7AC8237919E99656005B8124 /* backButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237319E99656005B8124 /* backButton.png */; };
+		7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237419E99656005B8124 /* backButtonPressed.png */; };
+		7AC8237B19E99656005B8124 /* buyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237519E99656005B8124 /* buyButton.png */; };
+		7AC8237C19E99656005B8124 /* buyButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237619E99656005B8124 /* buyButtonPressed.png */; };
+		7AC8237D19E99656005B8124 /* storeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237719E99656005B8124 /* storeButton.png */; };
+		7AC8237E19E99656005B8124 /* storeButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237819E99656005B8124 /* storeButtonPressed.png */; };
+		7AC8238019E9AF10005B8124 /* infiniteBrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237F19E9AF10005B8124 /* infiniteBrush.png */; };
+		7AC8238219E9B88B005B8124 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238119E9B88B005B8124 /* coin.png */; };
+		7AC8238519E9C33C005B8124 /* settingsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238319E9C33C005B8124 /* settingsButton.png */; };
+		7AC8238619E9C33C005B8124 /* settingsButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */; };
+		7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DAF19E5915800697FE2 /* TutorialScene.sks */; };
+		7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DB119E591E700697FE2 /* GameScene.sks */; };
+		7AF744C719D739AC00B95D08 /* Princess1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* Princess1.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7A4E785019C735B900C5E9B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A4E782E19C735B900C5E9B3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A4E783519C735B900C5E9B3;
+			remoteInfo = "PrVZ Dev";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7A03E60719D8806800D857BD /* PrVZ-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrVZ-Bridging-Header.h"; sourceTree = "<group>"; };
+		7A03E60819D8806800D857BD /* JCJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCJoystick.h; path = "../../../Downloads/JCInput-master/JCInput/JCJoystick.h"; sourceTree = "<group>"; };
+		7A03E60919D8806800D857BD /* JCJoystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JCJoystick.m; path = "../../../Downloads/JCInput-master/JCInput/JCJoystick.m"; sourceTree = "<group>"; };
+		7A1E69D719EE2379007051C0 /* saveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = saveButton.png; path = Images/InGame/Buttons/saveButton.png; sourceTree = "<group>"; };
+		7A1E69D819EE2379007051C0 /* saveButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = saveButtonPressed.png; path = Images/InGame/Buttons/saveButtonPressed.png; sourceTree = "<group>"; };
+		7A2D0EEA19EF519100491A2F /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Images/InGame/Buttons/pause.png; sourceTree = "<group>"; };
+		7A2D0EEC19EF51DE00491A2F /* resume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resume.png; path = Images/InGame/Buttons/resume.png; sourceTree = "<group>"; };
+		7A3134621A06C3A4002124E2 /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background2.png; path = Images/InGame/background2.png; sourceTree = "<group>"; };
+		7A3D7ED519D27D3E00C39131 /* GenericZombie1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericZombie1.swift; sourceTree = "<group>"; };
+		7A4E1D9F19D7702C00001C55 /* prince.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prince.png; path = Images/Tutorial/prince.png; sourceTree = "<group>"; };
+		7A4E1DA019D7702C00001C55 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = speech.png; path = Images/Tutorial/speech.png; sourceTree = "<group>"; };
+		7A4E1DA319D7703700001C55 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Images/InGame/background.png; sourceTree = "<group>"; };
+		7A4E1DAD19D7970800001C55 /* SKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKButton.swift; sourceTree = "<group>"; };
+		7A4E783619C735B900C5E9B3 /* PrVZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrVZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A4E783A19C735B900C5E9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A4E783B19C735B900C5E9B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7A4E783D19C735B900C5E9B3 /* TitleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TitleScene.sks; sourceTree = "<group>"; };
+		7A4E784119C735B900C5E9B3 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		7A4E784419C735B900C5E9B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7A4E784619C735B900C5E9B3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7A4E784919C735B900C5E9B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		7A4E784F19C735B900C5E9B3 /* PrVZTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrVZTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A4E785419C735B900C5E9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrVZ_DevTests.swift; sourceTree = "<group>"; };
+		7A5D744719DF8475009EEBD8 /* button 150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button 150.png"; path = "Images/InGame/Buttons/button 150.png"; sourceTree = "<group>"; };
+		7A5D744819DF8475009EEBD8 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButton.png; path = Images/InGame/Buttons/fireButton.png; sourceTree = "<group>"; };
+		7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButtonPressed.png; path = Images/InGame/Buttons/fireButtonPressed.png; sourceTree = "<group>"; };
+		7A5D744A19DF8475009EEBD8 /* startButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButton.png; path = Images/InGame/Buttons/startButton.png; sourceTree = "<group>"; };
+		7A5D744B19DF8475009EEBD8 /* startButtonGame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButtonGame.png; path = Images/InGame/Buttons/startButtonGame.png; sourceTree = "<group>"; };
+		7A5D745119DF847E009EEBD8 /* ash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ash.png; path = Images/InGame/Characters/ash.png; sourceTree = "<group>"; };
+		7A5D745219DF847E009EEBD8 /* brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brush.png; path = Images/InGame/Characters/brush.png; sourceTree = "<group>"; };
+		7A5D745319DF847E009EEBD8 /* princess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = princess.png; path = Images/InGame/Characters/princess.png; sourceTree = "<group>"; };
+		7A5D745419DF847E009EEBD8 /* zombie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zombie.png; path = Images/InGame/Characters/zombie.png; sourceTree = "<group>"; };
+		7A7073281A0694F20071F677 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = Images/InGame/map.png; sourceTree = "<group>"; };
+		7A92656E19CF2A280090595F /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
+		7A92657019CF2DEB0090595F /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
+		7A9665D619EF818A000F634C /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = check.png; path = Images/InGame/Store/check.png; sourceTree = "<group>"; };
+		7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = startButtonGamePressed.png; path = Images/InGame/Buttons/startButtonGamePressed.png; sourceTree = "<group>"; };
+		7AA751DA19F0D0C200AEF00C /* CatZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatZombie.swift; sourceTree = "<group>"; };
+		7AB4C6AF1A35377900D23A88 /* Castle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Castle.png; path = Images/InGame/map/Castle.png; sourceTree = "<group>"; };
+		7AB4C6B01A35377900D23A88 /* jungle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = jungle.png; path = Images/InGame/map/jungle.png; sourceTree = "<group>"; };
+		7AB4C6B11A35377900D23A88 /* Volcano.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Volcano.png; path = Images/InGame/map/Volcano.png; sourceTree = "<group>"; };
+		7AB4C6B21A35377900D23A88 /* waterfall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = waterfall.png; path = Images/InGame/map/waterfall.png; sourceTree = "<group>"; };
+		7AB4C6B71A3538DF00D23A88 /* map1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map1.png; path = Images/InGame/map/map1.png; sourceTree = "<group>"; };
+		7AB4C6B91A35392A00D23A88 /* mapButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapButton.png; path = Images/InGame/Buttons/mapButton.png; sourceTree = "<group>"; };
+		7AB4C6BA1A35392A00D23A88 /* mapButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapButtonPressed.png; path = Images/InGame/Buttons/mapButtonPressed.png; sourceTree = "<group>"; };
+		7AB4C6BD1A3539F300D23A88 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		7AB4C6BF1A353B7900D23A88 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
+		7ABEBFBA19EB4309001DEF2E /* resetButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resetButton.png; path = Images/InGame/Buttons/resetButton.png; sourceTree = "<group>"; };
+		7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resetButtonPressed.png; path = Images/InGame/Buttons/resetButtonPressed.png; sourceTree = "<group>"; };
+		7AC7DCEA19DD04450040897E /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		7AC8237319E99656005B8124 /* backButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backButton.png; path = Images/InGame/Store/backButton.png; sourceTree = "<group>"; };
+		7AC8237419E99656005B8124 /* backButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = backButtonPressed.png; path = Images/InGame/Store/backButtonPressed.png; sourceTree = "<group>"; };
+		7AC8237519E99656005B8124 /* buyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buyButton.png; path = Images/InGame/Store/buyButton.png; sourceTree = "<group>"; };
+		7AC8237619E99656005B8124 /* buyButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buyButtonPressed.png; path = Images/InGame/Store/buyButtonPressed.png; sourceTree = "<group>"; };
+		7AC8237719E99656005B8124 /* storeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = storeButton.png; path = Images/InGame/Store/storeButton.png; sourceTree = "<group>"; };
+		7AC8237819E99656005B8124 /* storeButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = storeButtonPressed.png; path = Images/InGame/Store/storeButtonPressed.png; sourceTree = "<group>"; };
+		7AC8237F19E9AF10005B8124 /* infiniteBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infiniteBrush.png; path = Images/InGame/Store/infiniteBrush.png; sourceTree = "<group>"; };
+		7AC8238119E9B88B005B8124 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = ../../../Desktop/PrVZ/Images/coin.png; sourceTree = "<group>"; };
+		7AC8238319E9C33C005B8124 /* settingsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settingsButton.png; path = Images/InGame/Buttons/settingsButton.png; sourceTree = "<group>"; };
+		7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settingsButtonPressed.png; path = Images/InGame/Buttons/settingsButtonPressed.png; sourceTree = "<group>"; };
+		7AD62DAF19E5915800697FE2 /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
+		7AD62DB119E591E700697FE2 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		7AF744C619D739AC00B95D08 /* Princess1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Princess1.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7A4E783319C735B900C5E9B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A4E784C19C735B900C5E9B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7A4E782D19C735B900C5E9B3 = {
+			isa = PBXGroup;
+			children = (
+				7A4E783819C735B900C5E9B3 /* PrVZ */,
+				7A4E785219C735B900C5E9B3 /* PrVZ DevTests */,
+				7A4E783719C735B900C5E9B3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7A4E783719C735B900C5E9B3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7A4E783619C735B900C5E9B3 /* PrVZ.app */,
+				7A4E784F19C735B900C5E9B3 /* PrVZTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7A4E783819C735B900C5E9B3 /* PrVZ */ = {
+			isa = PBXGroup;
+			children = (
+				7AF5C31219E208BC0003A332 /* Characters */,
+				7AF5C31119E208A50003A332 /* Scenes */,
+				7A8D8F2119C7E72D001D8C72 /* Images */,
+				7AF5C31319E208E50003A332 /* Other */,
+				7A4E783B19C735B900C5E9B3 /* AppDelegate.swift */,
+				7A4E784119C735B900C5E9B3 /* GameViewController.swift */,
+				7A4E784319C735B900C5E9B3 /* Main.storyboard */,
+				7A4E784619C735B900C5E9B3 /* Images.xcassets */,
+				7A4E784819C735B900C5E9B3 /* LaunchScreen.xib */,
+				7A4E783919C735B900C5E9B3 /* Supporting Files */,
+			);
+			name = PrVZ;
+			path = "PrVZ Dev";
+			sourceTree = "<group>";
+		};
+		7A4E783919C735B900C5E9B3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7A4E783A19C735B900C5E9B3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7A4E785219C735B900C5E9B3 /* PrVZ DevTests */ = {
+			isa = PBXGroup;
+			children = (
+				7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */,
+				7A4E785319C735B900C5E9B3 /* Supporting Files */,
+			);
+			path = "PrVZ DevTests";
+			sourceTree = "<group>";
+		};
+		7A4E785319C735B900C5E9B3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7A4E785419C735B900C5E9B3 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7A5D744519DF8462009EEBD8 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				7AB4C6B91A35392A00D23A88 /* mapButton.png */,
+				7AB4C6BA1A35392A00D23A88 /* mapButtonPressed.png */,
+				7A2D0EEC19EF51DE00491A2F /* resume.png */,
+				7A2D0EEA19EF519100491A2F /* pause.png */,
+				7A1E69D719EE2379007051C0 /* saveButton.png */,
+				7A1E69D819EE2379007051C0 /* saveButtonPressed.png */,
+				7ABEBFBA19EB4309001DEF2E /* resetButton.png */,
+				7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */,
+				7A5D744719DF8475009EEBD8 /* button 150.png */,
+				7AC8238319E9C33C005B8124 /* settingsButton.png */,
+				7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */,
+				7A5D744819DF8475009EEBD8 /* fireButton.png */,
+				7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */,
+				7A5D744A19DF8475009EEBD8 /* startButton.png */,
+				7A5D744B19DF8475009EEBD8 /* startButtonGame.png */,
+				7AA74FDA19DF89F4004D032E /* startButtonGamePressed.png */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
+		7A5D744619DF846A009EEBD8 /* Characters */ = {
+			isa = PBXGroup;
+			children = (
+				7A5D745119DF847E009EEBD8 /* ash.png */,
+				7A5D745219DF847E009EEBD8 /* brush.png */,
+				7A5D745319DF847E009EEBD8 /* princess.png */,
+				7A5D745419DF847E009EEBD8 /* zombie.png */,
+			);
+			name = Characters;
+			sourceTree = "<group>";
+		};
+		7A8D8F2119C7E72D001D8C72 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				7AF744CB19D74B1000B95D08 /* Tutorial */,
+				7AF744CA19D74AC200B95D08 /* InGame */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		7AB4C6AE1A35375F00D23A88 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				7AB4C6AF1A35377900D23A88 /* Castle.png */,
+				7AB4C6B21A35377900D23A88 /* waterfall.png */,
+				7AB4C6B01A35377900D23A88 /* jungle.png */,
+				7AB4C6B11A35377900D23A88 /* Volcano.png */,
+			);
+			name = map;
+			sourceTree = "<group>";
+		};
+		7AC8237219E9962E005B8124 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				7A9665D619EF818A000F634C /* check.png */,
+				7AC8238119E9B88B005B8124 /* coin.png */,
+				7AC8237F19E9AF10005B8124 /* infiniteBrush.png */,
+				7AC8237319E99656005B8124 /* backButton.png */,
+				7AC8237419E99656005B8124 /* backButtonPressed.png */,
+				7AC8237519E99656005B8124 /* buyButton.png */,
+				7AC8237619E99656005B8124 /* buyButtonPressed.png */,
+				7AC8237719E99656005B8124 /* storeButton.png */,
+				7AC8237819E99656005B8124 /* storeButtonPressed.png */,
+			);
+			name = Store;
+			sourceTree = "<group>";
+		};
+		7AF5C31119E208A50003A332 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				7A4E783D19C735B900C5E9B3 /* TitleScene.sks */,
+				7AD62DAF19E5915800697FE2 /* TutorialScene.sks */,
+				7AD62DB119E591E700697FE2 /* GameScene.sks */,
+				7AB4C6BF1A353B7900D23A88 /* MenuScene.sks */,
+				7A92656E19CF2A280090595F /* TitleScene.swift */,
+				7A92657019CF2DEB0090595F /* TutorialScene.swift */,
+				7AC7DCEA19DD04450040897E /* GameScene.swift */,
+				7AB4C6BD1A3539F300D23A88 /* MenuScene.swift */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		7AF5C31219E208BC0003A332 /* Characters */ = {
+			isa = PBXGroup;
+			children = (
+				7A3D7ED519D27D3E00C39131 /* GenericZombie1.swift */,
+				7AA751DA19F0D0C200AEF00C /* CatZombie.swift */,
+				7AF744C619D739AC00B95D08 /* Princess1.swift */,
+			);
+			name = Characters;
+			sourceTree = "<group>";
+		};
+		7AF5C31319E208E50003A332 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				7A4E1DAD19D7970800001C55 /* SKButton.swift */,
+				7A03E60819D8806800D857BD /* JCJoystick.h */,
+				7A03E60919D8806800D857BD /* JCJoystick.m */,
+				7A03E60719D8806800D857BD /* PrVZ-Bridging-Header.h */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
+		7AF744CA19D74AC200B95D08 /* InGame */ = {
+			isa = PBXGroup;
+			children = (
+				7A3134621A06C3A4002124E2 /* background2.png */,
+				7A4E1DA319D7703700001C55 /* background.png */,
+				7AB4C6B71A3538DF00D23A88 /* map1.png */,
+				7A7073281A0694F20071F677 /* map.png */,
+				7AB4C6AE1A35375F00D23A88 /* map */,
+				7AC8237219E9962E005B8124 /* Store */,
+				7A5D744619DF846A009EEBD8 /* Characters */,
+				7A5D744519DF8462009EEBD8 /* Buttons */,
+			);
+			name = InGame;
+			sourceTree = "<group>";
+		};
+		7AF744CB19D74B1000B95D08 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				7A4E1D9F19D7702C00001C55 /* prince.png */,
+				7A4E1DA019D7702C00001C55 /* speech.png */,
+			);
+			name = Tutorial;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7A4E783519C735B900C5E9B3 /* PrVZ */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A4E785919C735B900C5E9B3 /* Build configuration list for PBXNativeTarget "PrVZ" */;
+			buildPhases = (
+				7A4E783219C735B900C5E9B3 /* Sources */,
+				7A4E783319C735B900C5E9B3 /* Frameworks */,
+				7A4E783419C735B900C5E9B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrVZ;
+			productName = "PrVZ Dev";
+			productReference = 7A4E783619C735B900C5E9B3 /* PrVZ.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7A4E784E19C735B900C5E9B3 /* PrVZTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A4E785C19C735B900C5E9B3 /* Build configuration list for PBXNativeTarget "PrVZTests" */;
+			buildPhases = (
+				7A4E784B19C735B900C5E9B3 /* Sources */,
+				7A4E784C19C735B900C5E9B3 /* Frameworks */,
+				7A4E784D19C735B900C5E9B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A4E785119C735B900C5E9B3 /* PBXTargetDependency */,
+			);
+			name = PrVZTests;
+			productName = "PrVZ DevTests";
+			productReference = 7A4E784F19C735B900C5E9B3 /* PrVZTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7A4E782E19C735B900C5E9B3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = jackson;
+				TargetAttributes = {
+					7A4E783519C735B900C5E9B3 = {
+						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = 26Y8AQV29F;
+					};
+					7A4E784E19C735B900C5E9B3 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 7A4E783519C735B900C5E9B3;
+					};
+				};
+			};
+			buildConfigurationList = 7A4E783119C735B900C5E9B3 /* Build configuration list for PBXProject "PrVZ" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7A4E782D19C735B900C5E9B3;
+			productRefGroup = 7A4E783719C735B900C5E9B3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7A4E783519C735B900C5E9B3 /* PrVZ */,
+				7A4E784E19C735B900C5E9B3 /* PrVZTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7A4E783419C735B900C5E9B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AC8238619E9C33C005B8124 /* settingsButtonPressed.png in Resources */,
+				7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */,
+				7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */,
+				7AC8238219E9B88B005B8124 /* coin.png in Resources */,
+				7A2D0EED19EF51DE00491A2F /* resume.png in Resources */,
+				7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */,
+				7AC8237D19E99656005B8124 /* storeButton.png in Resources */,
+				7AC8237919E99656005B8124 /* backButton.png in Resources */,
+				7AB4C6B61A35377900D23A88 /* waterfall.png in Resources */,
+				7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */,
+				7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */,
+				7A7073291A0694F20071F677 /* map.png in Resources */,
+				7AC8237C19E99656005B8124 /* buyButtonPressed.png in Resources */,
+				7AB4C6C01A353B7900D23A88 /* MenuScene.sks in Resources */,
+				7AC8237E19E99656005B8124 /* storeButtonPressed.png in Resources */,
+				7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */,
+				7A1E69D919EE2379007051C0 /* saveButton.png in Resources */,
+				7ABEBFBD19EB4309001DEF2E /* resetButtonPressed.png in Resources */,
+				7AB4C6BC1A35392A00D23A88 /* mapButtonPressed.png in Resources */,
+				7A2D0EEB19EF519100491A2F /* pause.png in Resources */,
+				7AC8238519E9C33C005B8124 /* settingsButton.png in Resources */,
+				7AB4C6B31A35377900D23A88 /* Castle.png in Resources */,
+				7AB4C6B51A35377900D23A88 /* Volcano.png in Resources */,
+				7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */,
+				7A9665D719EF818A000F634C /* check.png in Resources */,
+				7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */,
+				7A5D745819DF847E009EEBD8 /* zombie.png in Resources */,
+				7A3134631A06C3A4002124E2 /* background2.png in Resources */,
+				7AB4C6BB1A35392A00D23A88 /* mapButton.png in Resources */,
+				7AC8238019E9AF10005B8124 /* infiniteBrush.png in Resources */,
+				7A5D744E19DF8475009EEBD8 /* fireButtonPressed.png in Resources */,
+				7AC8237B19E99656005B8124 /* buyButton.png in Resources */,
+				7A4E784719C735B900C5E9B3 /* Images.xcassets in Resources */,
+				7A5D745519DF847E009EEBD8 /* ash.png in Resources */,
+				7A4E1DA819D7703700001C55 /* background.png in Resources */,
+				7A5D745019DF8475009EEBD8 /* startButtonGame.png in Resources */,
+				7A5D744C19DF8475009EEBD8 /* button 150.png in Resources */,
+				7A4E1DA119D7702C00001C55 /* prince.png in Resources */,
+				7A5D745619DF847E009EEBD8 /* brush.png in Resources */,
+				7AB4C6B41A35377900D23A88 /* jungle.png in Resources */,
+				7A4E1DA219D7702C00001C55 /* speech.png in Resources */,
+				7A1E69DA19EE2379007051C0 /* saveButtonPressed.png in Resources */,
+				7A5D745719DF847E009EEBD8 /* princess.png in Resources */,
+				7A4E783E19C735B900C5E9B3 /* TitleScene.sks in Resources */,
+				7AB4C6B81A3538DF00D23A88 /* map1.png in Resources */,
+				7A4E784519C735B900C5E9B3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A4E784D19C735B900C5E9B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A4E783219C735B900C5E9B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AF744C719D739AC00B95D08 /* Princess1.swift in Sources */,
+				7A3D7ED619D27D3E00C39131 /* GenericZombie1.swift in Sources */,
+				7AB4C6BE1A3539F300D23A88 /* MenuScene.swift in Sources */,
+				7A4E1DAE19D7970900001C55 /* SKButton.swift in Sources */,
+				7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */,
+				7A4E784219C735B900C5E9B3 /* GameViewController.swift in Sources */,
+				7A03E60A19D8806800D857BD /* JCJoystick.m in Sources */,
+				7AA751DB19F0D0C200AEF00C /* CatZombie.swift in Sources */,
+				7A4E783C19C735B900C5E9B3 /* AppDelegate.swift in Sources */,
+				7A92656F19CF2A280090595F /* TitleScene.swift in Sources */,
+				7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A4E784B19C735B900C5E9B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A4E785619C735B900C5E9B3 /* PrVZ_DevTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7A4E785119C735B900C5E9B3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A4E783519C735B900C5E9B3 /* PrVZ */;
+			targetProxy = 7A4E785019C735B900C5E9B3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7A4E784319C735B900C5E9B3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A4E784419C735B900C5E9B3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		7A4E784819C735B900C5E9B3 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7A4E784919C735B900C5E9B3 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7A4E785719C735B900C5E9B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7A4E785819C735B900C5E9B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A4E785A19C735B900C5E9B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/PrVZ Dev/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrVZ Dev/PrVZ-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7A4E785B19C735B900C5E9B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/PrVZ Dev/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrVZ Dev/PrVZ-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		7A4E785D19C735B900C5E9B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PrVZ DevTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = PrVZTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrVZ.app/PrVZ";
+			};
+			name = Debug;
+		};
+		7A4E785E19C735B900C5E9B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PrVZ DevTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = PrVZTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrVZ.app/PrVZ";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7A4E783119C735B900C5E9B3 /* Build configuration list for PBXProject "PrVZ" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A4E785719C735B900C5E9B3 /* Debug */,
+				7A4E785819C735B900C5E9B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A4E785919C735B900C5E9B3 /* Build configuration list for PBXNativeTarget "PrVZ" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A4E785A19C735B900C5E9B3 /* Debug */,
+				7A4E785B19C735B900C5E9B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A4E785C19C735B900C5E9B3 /* Build configuration list for PBXNativeTarget "PrVZTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A4E785D19C735B900C5E9B3 /* Debug */,
+				7A4E785E19C735B900C5E9B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7A4E782E19C735B900C5E9B3 /* Project object */;
+}

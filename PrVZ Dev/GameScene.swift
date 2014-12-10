@@ -117,12 +117,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         
-        if let switchValue = defaults.objectForKey("switch1") as? Bool
-        {
-            switch1?.on = switchValue
-            extraButtons(1)
-        }
-        
         physicsWorld.gravity = CGVectorMake(0,0)
         self.physicsWorld.contactDelegate = self
         
@@ -567,7 +561,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(0, forKey: "coins")
         defaults.setObject([false, false], forKey: "items")
         defaults.setObject(1, forKey: "background")
-        defaults.setObject(1, forKey: "switch1")
         
         self.gameViewController1?.presentTitleScene()
     }
@@ -808,8 +801,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             tempArray[1] = false
         }
         defaults.setObject(tempArray, forKey: "items")
-        
-        defaults.setObject(switch1?.on, forKey: "switch1")
     }
     
     func pauseGame()

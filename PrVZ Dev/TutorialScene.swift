@@ -35,7 +35,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         {
             if doneWave == 1
             {
-                gameViewController1?.presentGameScene()
+                gameViewController1?.presentMenuScene()
             }
         }
                 
