@@ -42,6 +42,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var storeButtons = NSMutableArray()
     var storeIsOpen = false
     var checkIsShowing = false
+    var checkIsShowing2 = false
+    var gameOverDidOccur = false
+    var healthLostInLastRound = Float(0)
     
     deinit
     {
@@ -203,14 +206,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         coinsImage.name = "coinsImage"
         self.coinsLabel.addChild(coinsImage)
         
-        self.princessHealth = 1
+        if let princessHealth1 = defaults.objectForKey("health") as? Float
+        {
+            self.princessHealth = princessHealth1
+        }
+        else
+        {
+            self.princessHealth = 1
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationWillTerminateNotification, object: nil)
     }
     
     func runGame()
     {
-        self.princessHealth = 1
+        if self.gameOverDidOccur == true
+        {
+            self.princessHealth = 1
+            self.gameOverDidOccur = false
+        }
+        else
+        {
+            if self.healthLostInLastRound > 1.0
+            {
+                self.princessHealth += 1
+            }
+            else
+            {
+                self.princessHealth += self.healthLostInLastRound
+            }
+        }
+        
+        self.healthLostInLastRound = 0
+        
+        self.princess1.runAction(SKAction.fadeInWithDuration(0))
         
         if let pauseButton = self.childNodeWithName("pauseButton")
         {
@@ -406,6 +436,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
     {
         self.princessHealth--
+        self.healthLostInLastRound += 1.00
         if princessHealth <= 0
         {
             self.gameOver()
@@ -414,7 +445,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func enemyProjectileDidCollideWithPrincess(enemyProjectile: SKNode, princess1: SKNode)
     {
-        self.princessHealth-=0.25
+        self.princessHealth -= 0.25
+        self.healthLostInLastRound += 0.25
         if princessHealth <= 0
         {
             self.gameOver()
@@ -425,10 +457,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func gameOver()
     {
+        gameOverDidOccur = true
+        
         var hide = SKAction.fadeOutWithDuration(0)
         var show = SKAction.fadeInWithDuration(0)
         var wait = SKAction.waitForDuration(1)
-        self.princess1.runAction(SKAction.sequence([hide, wait, show, wait, hide, wait, show, wait, hide, wait, show, wait, hide]))
+        var sequence = SKAction.sequence([hide, wait, show, wait, hide, wait, show, wait, hide, wait, show, wait, hide])
+        self.princess1.runAction(SKAction.sequence([sequence, SKAction.runBlock({
+            self.canPressButtons = true
+            self.gameIsRunning = false
+        })]))
         
         for aZombie in self.zombies
         {
@@ -465,9 +503,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.addChild(zombiesKilledLabel)
         
         self.zombiesKilled = 0
-        
-        self.gameIsRunning = false
-        self.canPressButtons = true
     }
     
     func settings()
@@ -561,6 +596,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(0, forKey: "coins")
         defaults.setObject([false, false], forKey: "items")
         defaults.setObject(1, forKey: "background")
+        defaults.setObject(0, forKey: "health")
         
         self.gameViewController1?.presentTitleScene()
     }
@@ -665,6 +701,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         backButton.zPosition = 6
         storeNode.addChild(backButton)
         
+        var leftScrollButton = SKButton(defaultButtonImage: "leftScrollButton", activeButtonImage: "leftScrollButtonPressed", buttonAction: leftScroll)
+        leftScrollButton.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: backButton.position.y+200)
+        leftScrollButton.zPosition = 6
+        storeNode.addChild(leftScrollButton)
+        
+        var rightScrollButton = SKButton(defaultButtonImage: "rightScrollButton", activeButtonImage: "rightScrollButtonPressed", buttonAction: rightScroll)
+        rightScrollButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: backButton.position.y+200)
+        rightScrollButton.zPosition = 6
+        storeNode.addChild(rightScrollButton)
+        
         var products = SKNode()
         products.name = "products"
         
@@ -685,6 +731,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         infiniteBrush.addChild(infiniteBrushBuyButton)
         self.storeButtons.addObject(infiniteBrushBuyButton)
         
+        var healthPack = SKSpriteNode(imageNamed: "HealthPack")
+        healthPack.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        healthPack.name = "healthPack"
+        healthPack.zPosition = 7
+        products.addChild(healthPack)
+        var healthPackLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        healthPackLabel.text = "Health Pack"
+        healthPackLabel.fontSize = 64
+        healthPackLabel.fontColor = SKColor.redColor()
+        healthPackLabel.position = CGPoint(x: healthPack.position.x, y: healthPack.position.y+50)
+        var HealthPackBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemHealthPack)
+        HealthPackBuyButton.position = CGPoint(x: HealthPackBuyButton.position.x-40, y: HealthPackBuyButton.position.y-200)
+        HealthPackBuyButton.name = "HealthPackBuyButton"
+        healthPack.addChild(HealthPackBuyButton)
+        self.storeButtons.addObject(HealthPackBuyButton)
+        
+        healthPack.hidden = true
+        healthPack.userInteractionEnabled = false
+        
         storeNode.addChild(products)
         self.addChild(storeNode)
     }
@@ -699,6 +764,48 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
     }
     
+    func buyItemHealthPack()
+    {
+        if self.coins > 49
+        {
+            self.coins-=50
+            self.item2 = true
+            self.princessHealth+=1
+        }
+    }
+    
+    func leftScroll()
+    {
+        var store = self.childNodeWithName("store")
+        var products = store?.childNodeWithName("products")
+        var infiniteBrush = products?.childNodeWithName("infiniteBrush")
+        var healthPack = products?.childNodeWithName("healthPack")
+        var checkHealth = store?.childNodeWithName("checkHealth")
+        var checkInf = store?.childNodeWithName("checkInf")
+        checkHealth?.hidden = true
+        checkInf?.hidden = false
+        infiniteBrush?.hidden = false
+        infiniteBrush?.userInteractionEnabled = true
+        healthPack?.hidden = true
+        healthPack?.userInteractionEnabled = false
+    }
+    
+    func rightScroll()
+    {
+        var store = self.childNodeWithName("store")
+        var products = store?.childNodeWithName("products")
+        var infiniteBrush = products?.childNodeWithName("infiniteBrush")
+        var healthPack = products?.childNodeWithName("healthPack")
+        var checkHealth = store?.childNodeWithName("checkHealth")
+        var checkInf = store?.childNodeWithName("checkInf")
+        checkHealth?.hidden = false
+        checkInf?.hidden = true
+        infiniteBrush?.hidden = true
+        infiniteBrush?.userInteractionEnabled = false
+        healthPack?.hidden = false
+        healthPack?.userInteractionEnabled = true
+    }
+    
     func hideStore()
     {
         var storeNode = self.childNodeWithName("store")
@@ -708,6 +815,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.windowIsOpen = false
         self.storeIsOpen = false
         self.checkIsShowing = false
+        self.checkIsShowing2 = false
     }
     
     func showMap()
@@ -801,6 +909,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             tempArray[1] = false
         }
         defaults.setObject(tempArray, forKey: "items")
+        
+        defaults.setValue(self.princessHealth, forKey: "health")
     }
     
     func pauseGame()
@@ -906,22 +1016,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
         self.princess1.position = position1
         
-        var healthOLD = self.childNodeWithName("healthLabel")
-        if healthOLD != nil
-        {
-            healthOLD?.removeFromParent()
-        }
-        
         if windowIsOpen == false
         {
-            var healthLabel = SKLabelNode()
-            healthLabel.fontSize = 48
-            healthLabel.fontColor = SKColor.redColor()
-            healthLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
-            healthLabel.text = NSString(format: "Health: %f", self.princessHealth)
-            healthLabel.name = "healthLabel"
+            var healthLabelOLD = self.childNodeWithName("healthLabel")
+            if healthLabelOLD != nil
+            {
+                var healthLabelSK = healthLabelOLD as SKLabelNode
+                healthLabelSK.text = NSString(format: "Health: %.2f", self.princessHealth)
+            }
             
-            self.addChild(healthLabel)
+            if healthLabelOLD == nil
+            {
+                var healthLabel = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
+                healthLabel.fontSize = 48
+                healthLabel.fontColor = SKColor.redColor()
+                healthLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-250)
+                healthLabel.text = NSString(format: "Health: %f", self.princessHealth)
+                healthLabel.name = "healthLabel"
+                
+                self.addChild(healthLabel)
+            }
         }
         
         if self.windowIsOpen == false
@@ -955,7 +1069,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             self.wavesCompleted++
             self.gameIsRunning = false
-            self.canPressButtons = true
             for aZombie in self.zombies
             {
                 self.zombies.removeObject(aZombie)
@@ -975,6 +1088,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 background2.zPosition = -2
                 background2.name = "background"
                 self.addChild(background2)
+            }
+            
+            if self.princessHealth != 0
+            {
+                canPressButtons = true
             }
         }
         
@@ -1030,20 +1148,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if self.infBrushItem == true
                 {
-                    for aButton in self.storeButtons
-                    {
-                        aButton.removeFromParent()
-                    }
+                    var store = self.childNodeWithName("store")
+                    var products = store?.childNodeWithName("products")
+                    var infiniteBrush = products?.childNodeWithName("infiniteBrush")
+                    var aButton = infiniteBrush?.childNodeWithName("infBrushButton")
+                    aButton?.removeFromParent()
                     
                     if self.checkIsShowing == false
                     {
                         var infBrushCheck = SKSpriteNode(imageNamed: "check.png")
                         infBrushCheck.zPosition = 8
-                        infBrushCheck.name = "check"
+                        infBrushCheck.name = "checkInf"
                         infBrushCheck.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
                         var storeNode = self.childNodeWithName("store")
                         storeNode?.addChild(infBrushCheck)
                         self.checkIsShowing = true
+                    }
+                }
+                if self.item2 == true
+                {
+                    var store = self.childNodeWithName("store")
+                    var products = store?.childNodeWithName("products")
+                    var healthPack = products?.childNodeWithName("healthPack")
+                    var aButton = healthPack?.childNodeWithName("HealthPackBuyButton")
+                    aButton?.removeFromParent()
+                    
+                    if self.checkIsShowing2 == false
+                    {
+                        var healthPackCheck = SKSpriteNode(imageNamed: "check.png")
+                        healthPackCheck.zPosition = 8
+                        healthPackCheck.name = "checkHealth"
+                        healthPackCheck.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        var storeNode = self.childNodeWithName("store")
+                        storeNode?.addChild(healthPackCheck)
+                        self.checkIsShowing2 = true
                     }
                 }
             }
