@@ -17,7 +17,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     let enemyProjectileCatagory: UInt32 =  1 << 3
     
     var princess1 = Princess()
-    var princessHealth = CGFloat()
+    var princessHealth = Float()
     var zombies = NSMutableArray()
     var gameIsRunning = false
     var canPressButtons = true
@@ -236,7 +236,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     var cat1 = CatZombie()
                     var yPos = CGFloat((arc4random()%150)+150)
                     var xPos = CGFloat((arc4random()%150)+150)
-                    cat1.name = "zombie"
+                    cat1.name = "catZombie"
                     cat1.physicsBody = SKPhysicsBody(circleOfRadius:cat1.size.width/2)
                     cat1.physicsBody?.dynamic = true
                     cat1.physicsBody?.categoryBitMask = self.monsterCategory
@@ -848,6 +848,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 var aZombieSK = aZombie as SKSpriteNode
                 aZombieSK.runAction(SKAction.repeatActionForever(SKAction.moveByX(CGFloat(-zombieSpeed), y: 0, duration: 0.1)))
+                if aZombie.name == "catZombie"
+                {
+                    var sequence = SKAction.sequence([SKAction.runBlock({
+                        var hairball = SKSpriteNode(imageNamed: "hairball")
+                        hairball.position = self.position
+                        hairball.runAction(SKAction.repeatActionForever(SKAction.moveToX(-1000, duration: 2)))
+                        hairball.name = "hairball"
+                        hairball.physicsBody = SKPhysicsBody(circleOfRadius:hairball.size.width/2)
+                        hairball.physicsBody?.dynamic = true
+                        hairball.physicsBody?.categoryBitMask = self.enemyProjectileCatagory
+                        hairball.physicsBody?.contactTestBitMask = self.princessCategory
+                        hairball.physicsBody?.collisionBitMask = 0
+                        hairball.physicsBody?.usesPreciseCollisionDetection = true
+                        aZombieSK.addChild(hairball)
+                    }), SKAction.waitForDuration(2), SKAction.runBlock({
+                        NSLog("%f", self.princessHealth)
+                    })])
+                    aZombieSK.runAction(SKAction.repeatActionForever(sequence))
+                }
             }
         }
         
@@ -887,6 +906,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
         self.princess1.position = position1
         
+        var healthOLD = self.childNodeWithName("healthLabel")
+        if healthOLD != nil
+        {
+            healthOLD?.removeFromParent()
+        }
+        
+        if windowIsOpen == false
+        {
+            var healthLabel = SKLabelNode()
+            healthLabel.fontSize = 48
+            healthLabel.fontColor = SKColor.redColor()
+            healthLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
+            healthLabel.text = NSString(format: "Health: %f", self.princessHealth)
+            healthLabel.name = "healthLabel"
+            
+            self.addChild(healthLabel)
+        }
+        
         if self.windowIsOpen == false
         {
             if self.canPressButtons == false
@@ -903,6 +940,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         for aZombie in self.zombies
         {
             if aZombie.name == "zombie"
+            {
+                zombiesAlive++
+            }
+            if aZombie.name == "catZombie"
             {
                 zombiesAlive++
             }
