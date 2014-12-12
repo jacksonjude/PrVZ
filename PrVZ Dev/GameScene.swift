@@ -278,6 +278,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     cat1.runAction(SKAction.repeatActionForever(moveBy))
                     var moveToPrincess = SKAction.moveToY(self.princess1.position.y, duration: 1)
                     var sequence = SKAction.sequence([moveToPrincess, SKAction.runBlock({
+                        cat1.texture = SKTexture(imageNamed: "catOpen.png")
+                    }), SKAction.waitForDuration(1),SKAction.runBlock({
                         var hairball = SKSpriteNode(imageNamed: "hairball")
                         hairball.position = self.position
                         hairball.runAction(SKAction.repeatActionForever(SKAction.moveToX(-1000, duration: 2)))
@@ -289,7 +291,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         hairball.physicsBody?.collisionBitMask = 0
                         hairball.physicsBody?.usesPreciseCollisionDetection = true
                         cat1.addChild(hairball)
-                    }), SKAction.waitForDuration(2), SKAction.runBlock({
+                    }), SKAction.waitForDuration(1), SKAction.runBlock({
+                        cat1.texture = SKTexture(imageNamed: "cat.png")
+                    }), SKAction.waitForDuration(1),SKAction.runBlock({
                         NSLog("%f", self.princess1.position.y)
                     })])
                     cat1.runAction(SKAction.repeatActionForever(sequence))
@@ -1181,6 +1185,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         healthPackCheck.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
                         var storeNode = self.childNodeWithName("store")
                         storeNode?.addChild(healthPackCheck)
+                        healthPackCheck.hidden = true
                         self.checkIsShowing2 = true
                     }
                 }
