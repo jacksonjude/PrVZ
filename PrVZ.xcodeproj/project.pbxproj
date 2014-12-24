@@ -35,6 +35,11 @@
 		7A5D745719DF847E009EEBD8 /* princess.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745319DF847E009EEBD8 /* princess.png */; };
 		7A5D745819DF847E009EEBD8 /* zombie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745419DF847E009EEBD8 /* zombie.png */; };
 		7A7073291A0694F20071F677 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7073281A0694F20071F677 /* map.png */; };
+		7A7F16261A4A85D500F00743 /* leftScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16241A4A85D500F00743 /* leftScrollButton.png */; };
+		7A7F16271A4A85D500F00743 /* rightScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16251A4A85D500F00743 /* rightScrollButton.png */; };
+		7A7F162A1A4A877400F00743 /* leftScrollButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */; };
+		7A7F162B1A4A877400F00743 /* rightScrollButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16291A4A877400F00743 /* rightScrollButtonPressed.png */; };
+		7A7F162D1A4A88DB00F00743 /* hairball.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F162C1A4A88DB00F00743 /* hairball.png */; };
 		7A92656F19CF2A280090595F /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92656E19CF2A280090595F /* TitleScene.swift */; };
 		7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92657019CF2DEB0090595F /* TutorialScene.swift */; };
 		7A9665D719EF818A000F634C /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A9665D619EF818A000F634C /* check.png */; };
@@ -114,6 +119,11 @@
 		7A5D745319DF847E009EEBD8 /* princess.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = princess.png; path = Images/InGame/Characters/princess.png; sourceTree = "<group>"; };
 		7A5D745419DF847E009EEBD8 /* zombie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zombie.png; path = Images/InGame/Characters/zombie.png; sourceTree = "<group>"; };
 		7A7073281A0694F20071F677 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = Images/InGame/map.png; sourceTree = "<group>"; };
+		7A7F16241A4A85D500F00743 /* leftScrollButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leftScrollButton.png; path = Images/InGame/Store/leftScrollButton.png; sourceTree = "<group>"; };
+		7A7F16251A4A85D500F00743 /* rightScrollButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rightScrollButton.png; path = Images/InGame/Store/rightScrollButton.png; sourceTree = "<group>"; };
+		7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leftScrollButtonPressed.png; path = Images/InGame/Store/leftScrollButtonPressed.png; sourceTree = "<group>"; };
+		7A7F16291A4A877400F00743 /* rightScrollButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rightScrollButtonPressed.png; path = Images/InGame/Store/rightScrollButtonPressed.png; sourceTree = "<group>"; };
+		7A7F162C1A4A88DB00F00743 /* hairball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hairball.png; path = Images/InGame/Characters/hairball.png; sourceTree = "<group>"; };
 		7A92656E19CF2A280090595F /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
 		7A92657019CF2DEB0090595F /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		7A9665D619EF818A000F634C /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = check.png; path = Images/InGame/Store/check.png; sourceTree = "<group>"; };
@@ -253,6 +263,7 @@
 		7A5D744619DF846A009EEBD8 /* Characters */ = {
 			isa = PBXGroup;
 			children = (
+				7A7F162C1A4A88DB00F00743 /* hairball.png */,
 				7AD0E3771A3A70CE00E25BFF /* cat.png */,
 				7AD0E3781A3A70CE00E25BFF /* catOpen.png */,
 				7A5D745119DF847E009EEBD8 /* ash.png */,
@@ -286,6 +297,10 @@
 		7AC8237219E9962E005B8124 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */,
+				7A7F16291A4A877400F00743 /* rightScrollButtonPressed.png */,
+				7A7F16241A4A85D500F00743 /* leftScrollButton.png */,
+				7A7F16251A4A85D500F00743 /* rightScrollButton.png */,
 				7A9665D619EF818A000F634C /* check.png */,
 				7AC8238119E9B88B005B8124 /* coin.png */,
 				7AC8237F19E9AF10005B8124 /* infiniteBrush.png */,
@@ -444,6 +459,7 @@
 				7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */,
 				7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */,
 				7AC8238219E9B88B005B8124 /* coin.png in Resources */,
+				7A7F162D1A4A88DB00F00743 /* hairball.png in Resources */,
 				7A2D0EED19EF51DE00491A2F /* resume.png in Resources */,
 				7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */,
 				7AC8237D19E99656005B8124 /* storeButton.png in Resources */,
@@ -457,6 +473,7 @@
 				7AC8237E19E99656005B8124 /* storeButtonPressed.png in Resources */,
 				7AD0E3791A3A70CE00E25BFF /* cat.png in Resources */,
 				7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */,
+				7A7F16271A4A85D500F00743 /* rightScrollButton.png in Resources */,
 				7A1E69D919EE2379007051C0 /* saveButton.png in Resources */,
 				7ABEBFBD19EB4309001DEF2E /* resetButtonPressed.png in Resources */,
 				7AB4C6BC1A35392A00D23A88 /* mapButtonPressed.png in Resources */,
@@ -479,9 +496,12 @@
 				7A4E1DA819D7703700001C55 /* background.png in Resources */,
 				7A5D745019DF8475009EEBD8 /* startButtonGame.png in Resources */,
 				7A5D744C19DF8475009EEBD8 /* button 150.png in Resources */,
+				7A7F162A1A4A877400F00743 /* leftScrollButtonPressed.png in Resources */,
 				7A4E1DA119D7702C00001C55 /* prince.png in Resources */,
+				7A7F162B1A4A877400F00743 /* rightScrollButtonPressed.png in Resources */,
 				7A5D745619DF847E009EEBD8 /* brush.png in Resources */,
 				7AB4C6B41A35377900D23A88 /* jungle.png in Resources */,
+				7A7F16261A4A85D500F00743 /* leftScrollButton.png in Resources */,
 				7A4E1DA219D7702C00001C55 /* speech.png in Resources */,
 				7A1E69DA19EE2379007051C0 /* saveButtonPressed.png in Resources */,
 				7A5D745719DF847E009EEBD8 /* princess.png in Resources */,

@@ -215,6 +215,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             self.princessHealth = 1
         }
         
+        if let healthLost = defaults.objectForKey("healthLost") as? Float
+        {
+            self.healthLostInLastRound = healthLost
+        }
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationWillTerminateNotification, object: nil)
     }
@@ -280,7 +285,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     var sequence = SKAction.sequence([moveToPrincess, SKAction.runBlock({
                         cat1.texture = SKTexture(imageNamed: "catOpen.png")
                     }), SKAction.waitForDuration(1),SKAction.runBlock({
-                        var hairball = SKSpriteNode(imageNamed: "hairball")
+                        var hairball = SKSpriteNode(imageNamed: "hairball.png")
                         hairball.position = self.position
                         hairball.runAction(SKAction.repeatActionForever(SKAction.moveToX(-1000, duration: 2)))
                         hairball.name = "hairball"
@@ -600,7 +605,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(0, forKey: "coins")
         defaults.setObject([false, false], forKey: "items")
         defaults.setObject(1, forKey: "background")
-        defaults.setObject(0, forKey: "health")
+        defaults.setObject(1, forKey: "health")
         
         self.gameViewController1?.presentTitleScene()
     }
@@ -706,12 +711,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         storeNode.addChild(backButton)
         
         var leftScrollButton = SKButton(defaultButtonImage: "leftScrollButton", activeButtonImage: "leftScrollButtonPressed", buttonAction: leftScroll)
-        leftScrollButton.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: backButton.position.y+200)
+        leftScrollButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: backButton.position.y+200)
         leftScrollButton.zPosition = 6
         storeNode.addChild(leftScrollButton)
         
         var rightScrollButton = SKButton(defaultButtonImage: "rightScrollButton", activeButtonImage: "rightScrollButtonPressed", buttonAction: rightScroll)
-        rightScrollButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: backButton.position.y+200)
+        rightScrollButton.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: backButton.position.y+200)
         rightScrollButton.zPosition = 6
         storeNode.addChild(rightScrollButton)
         
@@ -915,6 +920,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(tempArray, forKey: "items")
         
         defaults.setValue(self.princessHealth, forKey: "health")
+        
+        defaults.setObject(self.healthLostInLastRound, forKey: "healthLost")
     }
     
     func pauseGame()
