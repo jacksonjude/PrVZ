@@ -751,13 +751,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         healthPackLabel.fontColor = SKColor.redColor()
         healthPackLabel.position = CGPoint(x: healthPack.position.x, y: healthPack.position.y+50)
         var HealthPackBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemHealthPack)
-        HealthPackBuyButton.position = CGPoint(x: HealthPackBuyButton.position.x-40, y: HealthPackBuyButton.position.y-200)
+        HealthPackBuyButton.position = CGPoint(x: HealthPackBuyButton.position.x, y: HealthPackBuyButton.position.y-200)
         HealthPackBuyButton.name = "HealthPackBuyButton"
         healthPack.addChild(HealthPackBuyButton)
         self.storeButtons.addObject(HealthPackBuyButton)
         
         healthPack.hidden = true
         healthPack.userInteractionEnabled = false
+        var button = healthPack.childNodeWithName("HealthPackBuyButton")
+        button?.removeFromParent()
         
         storeNode.addChild(products)
         self.addChild(storeNode)
@@ -797,6 +799,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         infiniteBrush?.userInteractionEnabled = true
         healthPack?.hidden = true
         healthPack?.userInteractionEnabled = false
+        
+        var button = healthPack?.childNodeWithName("HealthPackBuyButton")
+        button?.removeFromParent()
     }
     
     func rightScroll()
@@ -813,6 +818,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         infiniteBrush?.userInteractionEnabled = false
         healthPack?.hidden = false
         healthPack?.userInteractionEnabled = true
+        
+        var HealthPackBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemHealthPack)
+        HealthPackBuyButton.position = CGPoint(x: HealthPackBuyButton.position.x, y: HealthPackBuyButton.position.y-200)
+        HealthPackBuyButton.name = "HealthPackBuyButton"
+        healthPack?.addChild(HealthPackBuyButton)
     }
     
     func hideStore()
@@ -1192,7 +1202,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         healthPackCheck.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
                         var storeNode = self.childNodeWithName("store")
                         storeNode?.addChild(healthPackCheck)
-                        healthPackCheck.hidden = true
                         self.checkIsShowing2 = true
                     }
                 }
