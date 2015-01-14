@@ -173,12 +173,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         settingsButton.name = "settingsButton"
         self.buttons.addChild(settingsButton)
         
+        var mapButton = SKButton(defaultButtonImage: "mapButton", activeButtonImage: "mapButtonPressed", buttonAction: showMap)
+        mapButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)+50)
+        mapButton.name = "mapButton"
+        self.buttons.addChild(mapButton)
+        
         if switch1?.on == true
         {
-            var mapButton = SKButton(defaultButtonImage: "mapButton", activeButtonImage: "mapButtonPressed", buttonAction: showMap)
-            mapButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)+50)
-            mapButton.name = "mapButton"
-            self.buttons.addChild(mapButton)
+            mapButton.hidden = true
+            mapButton.userInteractionEnabled = false
         }
         
         self.addChild(self.buttons)
@@ -554,6 +557,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         saveGameButton.zPosition = 6
         settingsNode.addChild(saveGameButton)
         
+        var menuButton = SKButton(defaultButtonImage: "menuButton", activeButtonImage: "menuButtonPressed", buttonAction: presentMenuScene)
+        menuButton.position = CGPoint(x: CGRectGetMidX(self.frame)-200, y: CGRectGetMidY(self.frame)-200)
+        menuButton.zPosition = 6
+        settingsNode.addChild(menuButton)
+        
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if let highScore = defaults.objectForKey("highScore") as? NSInteger
         {
@@ -626,6 +634,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.gameViewController1?.presentTitleScene()
     }
     
+    func presentMenuScene()
+    {
+        hideSettings()
+        self.gameViewController1?.presentMenuScene()
+    }
+    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
     {
         var map = self.childNodeWithName("map")
@@ -675,11 +689,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if switch1?.on == true
         {
-            self.extraButtons(1)
+            self.extraButtons(0)
         }
         else
         {
-            self.extraButtons(0)
+            self.extraButtons(1)
         }
     }
     
