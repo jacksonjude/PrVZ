@@ -1065,14 +1065,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if windowIsOpen == false
         {
+            if self.canPressButtons == true
+            {
+                if (self.buttons.hidden == true)
+                {
+                    self.buttons.hidden = false
+                    for aButton in self.buttons.children
+                    {
+                        let aButtonSK = aButton as SKNode
+                        aButtonSK.userInteractionEnabled = true
+                    }
+                }
+            }
+            else
+            {
+                if (self.buttons.hidden == false)
+                {
+                    self.buttons.hidden = true
+                    for aButton in self.buttons.children
+                    {
+                        let aButtonSK = aButton as SKNode
+                        aButtonSK.userInteractionEnabled = false
+                    }
+                }
+            }
+            
             var healthLabelOLD = self.childNodeWithName("healthLabel")
             if healthLabelOLD != nil
             {
                 var healthLabelSK = healthLabelOLD as SKLabelNode
                 healthLabelSK.text = NSString(format: "Health: %.2f", self.princessHealth)
             }
-            
-            if healthLabelOLD == nil
+            else
             {
                 var healthLabel = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
                 healthLabel.fontSize = 48
@@ -1084,94 +1108,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 self.addChild(healthLabel)
             }
         }
-        
-        if self.windowIsOpen == false
-        {
-            if self.canPressButtons == true
-            {
-                self.buttons.hidden = false
-                self.buttons.userInteractionEnabled = true
-            }
-            else
-            {
-                self.buttons.hidden = true
-                self.buttons.userInteractionEnabled = false
-            }
-        }
-        
-        var zombiesAlive = 0
-        for aZombie in self.zombies
-        {
-            if aZombie.name == "zombie"
-            {
-                zombiesAlive++
-            }
-            if aZombie.name == "catZombie"
-            {
-                zombiesAlive++
-            }
-        }
-        
-        self.coinsLabel.text = NSString(format: "%i", self.coins)
-        
-        if zombiesAlive == 0 && self.gameIsRunning == true
-        {
-            self.wavesCompleted++
-            self.gameIsRunning = false
-            for innerZombie in self.zombies
-            {
-                self.zombies.removeObject(innerZombie)
-                innerZombie.removeFromParent()
-                
-            }
-            var range = NSRange(location: 4, length: 2)
-            var background2Bool = NSLocationInRange(wavesCompleted, range)
-            if background2Bool
-            {
-                var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                defaults.setObject(2, forKey: "background")
-                var background = self.childNodeWithName("background")
-                background?.removeFromParent()
-                var background2 = SKSpriteNode(imageNamed: "background2")
-                background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                background2.zPosition = -2
-                background2.name = "background"
-                self.addChild(background2)
-            }
-            
-            if self.princessHealth != 0
-            {
-                canPressButtons = true
-            }
-            
-            self.saveData()
-        }
-        
-        if self.infBrushItem == false
-        {
-            var brush = self.childNodeWithName("brush")
-            if brush != nil
-            {
-                self.brushInWorld = true
-            }else{
-                self.brushInWorld = false
-            }
-        }
-        
-        for aZombie in self.zombies
-        {
-            var wallEnd = self.childNodeWithName("wallEnd")
-            var range = NSRange(location: 0, length: 50)
-            var gameOverRange = NSLocationInRange(Int(aZombie.position.x), range)
-            if gameOverRange
-            {
-                self.healthLostInLastRound += princessHealth
-                princessHealth = 0.0
-                gameOver()
-            }
-        }
-        
-        if self.windowIsOpen == true
+        else
         {
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             
@@ -1242,17 +1179,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
             else
             {
-                var settingsNode = self.childNodeWithName("settings")
-                var highScoreLabel = settingsNode?.childNodeWithName("highScoreLabel") as SKLabelNode
-                if let highScore = defaults.objectForKey("highScore") as? NSInteger
+                if let settingsNode = self.childNodeWithName("settings")
                 {
-                    if highScore > 0
+                    var highScoreLabel = settingsNode.childNodeWithName("highScoreLabel") as SKLabelNode
+                    if let highScore = defaults.objectForKey("highScore") as? NSInteger
                     {
-                        highScoreLabel.text = NSString(format: "High Score: %i", highScore)
-                    }
-                    else
-                    {
-                        highScoreLabel.text = NSString(format: "High Score: %i", self.zombiesKilled)
+                        if highScore > 0
+                        {
+                            highScoreLabel.text = NSString(format: "High Score: %i", highScore)
+                        }
+                        else
+                        {
+                            highScoreLabel.text = NSString(format: "High Score: %i", self.zombiesKilled)
+                        }
                     }
                 }
             }
@@ -1267,6 +1206,78 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     coinsImage.position.x = coinsImage.position.x-20
                     self.movedCoinsImage = true
                 }
+            }
+        }
+        
+        var zombiesAlive = 0
+        for aZombie in self.zombies
+        {
+            if aZombie.name == "zombie"
+            {
+                zombiesAlive++
+            }
+            if aZombie.name == "catZombie"
+            {
+                zombiesAlive++
+            }
+        }
+        
+        self.coinsLabel.text = NSString(format: "%i", self.coins)
+        
+        if zombiesAlive == 0 && self.gameIsRunning == true
+        {
+            self.wavesCompleted++
+            self.gameIsRunning = false
+            for innerZombie in self.zombies
+            {
+                self.zombies.removeObject(innerZombie)
+                innerZombie.removeFromParent()
+                
+            }
+            var range = NSRange(location: 4, length: 2)
+            var background2Bool = NSLocationInRange(wavesCompleted, range)
+            if background2Bool
+            {
+                var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                defaults.setObject(2, forKey: "background")
+                var background = self.childNodeWithName("background")
+                background?.removeFromParent()
+                var background2 = SKSpriteNode(imageNamed: "background2")
+                background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                background2.zPosition = -2
+                background2.name = "background"
+                self.addChild(background2)
+            }
+            
+            if self.princessHealth != 0
+            {
+                canPressButtons = true
+            }
+            
+            self.saveData()
+        }
+        
+        if self.infBrushItem == false
+        {
+            var brush = self.childNodeWithName("brush")
+            if brush != nil
+            {
+                self.brushInWorld = true
+            }else{
+                self.brushInWorld = false
+            }
+        }
+        
+        for aZombie in self.zombies
+        {
+            var wallEnd = self.childNodeWithName("wallEnd")
+            var range = NSRange(location: 0, length: 50)
+            var gameOverRange = NSLocationInRange(Int(aZombie.position.x), range)
+            if gameOverRange
+            {
+                self.healthLostInLastRound += princessHealth
+                self.princessHealth = 0.0
+                self.gameOver()
             }
         }
     }
