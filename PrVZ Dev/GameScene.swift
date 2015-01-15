@@ -223,6 +223,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             self.healthLostInLastRound = healthLost
         }
         
+        if let currentScore = defaults.objectForKey("currentScore") as? NSInteger
+        {
+            self.zombiesKilled = currentScore
+        }
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationWillTerminateNotification, object: nil)
     }
@@ -519,6 +524,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         
+        if var currentScore = defaults.objectForKey("currentScore") as? NSInteger
+        {
+            defaults.setObject(0, forKey: "currentScore")
+        }
+        
         defaults.setObject(0, forKey: "highScoreToBeTested")
         
         self.zombiesKilled = 0
@@ -582,6 +592,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 else
                 {
                     highScoreLabel.text = NSString(format: "High Score: %i", highScore)
+                    NSLog("%i", highScore)
                 }
             }
         }
@@ -605,14 +616,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         currentScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+150)
         currentScoreLabel.zPosition = 6
         
-        if self.zombiesKilled > 0
-        {
-            currentScoreLabel.text = NSString(format: "Curent Score: %i", self.zombiesKilled)
-        }
-        else
-        {
-            currentScoreLabel.text = "Current Score: 0"
-        }
+        currentScoreLabel.text = NSString(format: "Curent Score: %i", self.zombiesKilled)
+        
         settingsNode.addChild(currentScoreLabel)
         
         self.addChild(settingsNode)
@@ -630,6 +635,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(1, forKey: "background")
         defaults.setObject(1, forKey: "health")
         defaults.setObject(0, forKey: "healthLost")
+        defaults.setObject(0, forKey: "currentScore")
         
         self.gameViewController1?.presentTitleScene()
     }
@@ -637,6 +643,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func presentMenuScene()
     {
         hideSettings()
+        saveData()
         self.gameViewController1?.presentMenuScene()
     }
     
@@ -927,21 +934,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func saveData()
     {
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        
+        if let currentScore = defaults.objectForKey("currentScore") as? NSInteger
+        {
+            defaults.setObject(self.zombiesKilled, forKey: "currentScore")
+        }
+        
         if var highScore = defaults.objectForKey("highScore") as? NSInteger
         {
-            if var highScoreToBeTested = defaults.objectForKey("highScoreToBeTested") as? NSInteger
+            if let highScoreToBeTested = defaults.objectForKey("highScoreToBeTested") as? NSInteger
             {
-                if highScoreToBeTested == 0 && highScore == 0
+                if highScore < highScoreToBeTested
                 {
-                    if highScore < highScoreToBeTested
-                    {
-                        defaults.setObject(highScoreToBeTested, forKey: "highScore")
-                        NSLog("New High Score: %i", highScoreToBeTested)
-                    }
-                    else
-                    {
-                        NSLog("No New High Score: %i", highScoreToBeTested)
-                    }
+                    defaults.setObject(highScoreToBeTested, forKey: "highScore")
+                    NSLog("New High Score: %i", highScoreToBeTested)
+                }
+                else
+                {
+                    NSLog("No New High Score: %i", highScoreToBeTested)
                 }
             }
         }
@@ -1198,13 +1208,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     var highScoreLabel = settingsNode.childNodeWithName("highScoreLabel") as SKLabelNode
                     if let highScore = defaults.objectForKey("highScore") as? NSInteger
                     {
-                        if highScore > 0
+                        if let highScoreToBeTested = defaults.objectForKey("highScoreToBeTested") as? Int
                         {
-                            highScoreLabel.text = NSString(format: "High Score: %i", highScore)
-                        }
-                        else
-                        {
-                            highScoreLabel.text = NSString(format: "High Score: %i", self.zombiesKilled)
+                            if highScore < highScoreToBeTested
+                            {
+                                highScoreLabel.text = NSString(format: "High Score: %i", highScoreToBeTested)
+                            }
+                            else
+                            {
+                                highScoreLabel.text = NSString(format: "High Score: %i", highScore)
+                            }
                         }
                     }
                 }
