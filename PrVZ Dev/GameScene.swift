@@ -444,11 +444,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             
             self.zombiesKilled++
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            if var highScoreToBeTested = defaults.objectForKey("highScoreToBeTested") as? NSInteger
+            if var highScore = defaults.objectForKey("highScore") as? NSInteger
             {
-                highScoreToBeTested++
+                if self.zombiesKilled > highScore
+                {
+                    highScore++
+                }
                 
-                defaults.setObject(highScoreToBeTested, forKey: "highScoreToBeTested")
+                defaults.setObject(highScore, forKey: "highScore")
             }
         }
         self.coins++
@@ -508,20 +511,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if var highScore = defaults.objectForKey("highScore") as? NSInteger
         {
-            if var highScoreToBeTested = defaults.objectForKey("highScoreToBeTested") as? NSInteger
-            {
-                if highScore < highScoreToBeTested
-                {
-                    defaults.setObject(highScoreToBeTested, forKey: "highScore")
-                    NSLog("New High Score: %i", highScoreToBeTested)
-                    zombiesKilledLabel.text = NSString(format: "Zombies Killed: %i", highScoreToBeTested)
-                }
-                else
-                {
-                    NSLog("No New High Score: %i", highScoreToBeTested)
-                    zombiesKilledLabel.text = NSString(format: "Zombies Killed: %i", highScoreToBeTested)
-                }
-            }
+            zombiesKilledLabel.text = NSString(format: "Zombies Killed: %i", highScore)
         }
         
         if var currentScore = defaults.objectForKey("currentScore") as? NSInteger
@@ -529,7 +519,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             defaults.setObject(0, forKey: "currentScore")
         }
         
-        defaults.setObject(0, forKey: "highScoreToBeTested")
+        if var levels = defaults.objectForKey("levels") as? NSInteger
+        {
+            defaults.setObject(0, forKey: "levels")
+            self.wavesCompleted = 0
+        }
         
         self.zombiesKilled = 0
     }
@@ -583,18 +577,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             highScoreLabel.zPosition = 6
             settingsNode.addChild(highScoreLabel)
             
-            if var highScoreToBeTested = defaults.objectForKey("highScoreToBeTested") as? NSInteger
-            {
-                if highScore < highScoreToBeTested
-                {
-                    highScoreLabel.text = NSString(format: "High Score: %i", highScoreToBeTested)
-                }
-                else
-                {
-                    highScoreLabel.text = NSString(format: "High Score: %i", highScore)
-                    NSLog("%i", highScore)
-                }
-            }
+            highScoreLabel.text = NSString(format: "High Score: %i", highScore)
         }
         
         self.levelsCompletedLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
@@ -628,7 +611,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(0, forKey: "Tutorial")
         defaults.setObject(0, forKey: "highScore")
-        defaults.setObject(0, forKey: "highScoreToBeTested")
         defaults.setObject(0, forKey: "levels")
         defaults.setObject(0, forKey: "coins")
         defaults.setObject([false, false], forKey: "items")
@@ -777,7 +759,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         infiniteBrush.addChild(infiniteBrushBuyButton)
         self.storeButtons.addObject(infiniteBrushBuyButton)
         
-        var healthPack = SKSpriteNode(imageNamed: "HealthPack")
+        var healthPack = SKSpriteNode(imageNamed: "healthPack.png")
         healthPack.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         healthPack.name = "healthPack"
         healthPack.zPosition = 7
@@ -938,22 +920,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if let currentScore = defaults.objectForKey("currentScore") as? NSInteger
         {
             defaults.setObject(self.zombiesKilled, forKey: "currentScore")
-        }
-        
-        if var highScore = defaults.objectForKey("highScore") as? NSInteger
-        {
-            if let highScoreToBeTested = defaults.objectForKey("highScoreToBeTested") as? NSInteger
-            {
-                if highScore < highScoreToBeTested
-                {
-                    defaults.setObject(highScoreToBeTested, forKey: "highScore")
-                    NSLog("New High Score: %i", highScoreToBeTested)
-                }
-                else
-                {
-                    NSLog("No New High Score: %i", highScoreToBeTested)
-                }
-            }
         }
         
         defaults.setObject(self.wavesCompleted, forKey: "levels")
@@ -1136,8 +1102,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             
-            defaults.setObject(self.zombiesKilled, forKey: "highScore")
-            
             var tempArray = NSMutableArray()
             
             if self.infBrushItem == true
@@ -1205,21 +1169,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if let settingsNode = self.childNodeWithName("settings")
                 {
-                    var highScoreLabel = settingsNode.childNodeWithName("highScoreLabel") as SKLabelNode
-                    if let highScore = defaults.objectForKey("highScore") as? NSInteger
-                    {
-                        if let highScoreToBeTested = defaults.objectForKey("highScoreToBeTested") as? Int
-                        {
-                            if highScore < highScoreToBeTested
-                            {
-                                highScoreLabel.text = NSString(format: "High Score: %i", highScoreToBeTested)
-                            }
-                            else
-                            {
-                                highScoreLabel.text = NSString(format: "High Score: %i", highScore)
-                            }
-                        }
-                    }
+                    
                 }
             }
         }
