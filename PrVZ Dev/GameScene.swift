@@ -177,12 +177,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         mapButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)+50)
         mapButton.name = "mapButton"
         self.buttons.addChild(mapButton)
-        
-        if switch1?.on == true
-        {
-            mapButton.hidden = true
-            mapButton.userInteractionEnabled = false
-        }
+        mapButton.hidden = true
+        mapButton.userInteractionEnabled = false
         
         self.addChild(self.buttons)
         
@@ -524,6 +520,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             defaults.setObject(0, forKey: "levels")
             self.wavesCompleted = 0
         }
+        
+        defaults.setObject(1, forKey: "background")
+        var background2 = self.childNodeWithName("background2")
+        background2?.removeFromParent()
+        var background = SKSpriteNode(imageNamed: "background")
+        background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        background.zPosition = -2
+        background.name = "background"
+        self.addChild(background)
         
         self.zombiesKilled = 0
     }
