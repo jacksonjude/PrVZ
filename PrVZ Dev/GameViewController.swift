@@ -149,7 +149,7 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             
             scene.zombiesToSpawnSlider = self.zombiesToSpawnSlider
-            scene.switch1 = self.moreButtonsSwitch
+            scene.moreButtonsSwitch = self.moreButtonsSwitch
             scene.gameViewController1 = self
             
             skView.presentScene(scene)
