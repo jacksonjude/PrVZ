@@ -13,7 +13,7 @@
 		7A2D0EEB19EF519100491A2F /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEA19EF519100491A2F /* pause.png */; };
 		7A2D0EED19EF51DE00491A2F /* resume.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEC19EF51DE00491A2F /* resume.png */; };
 		7A3134631A06C3A4002124E2 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3134621A06C3A4002124E2 /* background2.png */; };
-		7A3D7ED619D27D3E00C39131 /* GenericZombie1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* GenericZombie1.swift */; };
+		7A3D7ED619D27D3E00C39131 /* GenericZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* GenericZombie.swift */; };
 		7A4E1DA119D7702C00001C55 /* prince.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1D9F19D7702C00001C55 /* prince.png */; };
 		7A4E1DA219D7702C00001C55 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA019D7702C00001C55 /* speech.png */; };
 		7A4E1DA819D7703700001C55 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA319D7703700001C55 /* background.png */; };
@@ -25,6 +25,8 @@
 		7A4E784719C735B900C5E9B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784619C735B900C5E9B3 /* Images.xcassets */; };
 		7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784819C735B900C5E9B3 /* LaunchScreen.xib */; };
 		7A4E785619C735B900C5E9B3 /* PrVZ_DevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */; };
+		7A5AEC651A6B3A7100F114FF /* infoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5AEC631A6B3A7100F114FF /* infoButton.png */; };
+		7A5AEC661A6B3A7100F114FF /* infoButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5AEC641A6B3A7100F114FF /* infoButtonPressed.png */; };
 		7A5D744C19DF8475009EEBD8 /* button 150.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744719DF8475009EEBD8 /* button 150.png */; };
 		7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744819DF8475009EEBD8 /* fireButton.png */; };
 		7A5D744E19DF8475009EEBD8 /* fireButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */; };
@@ -75,7 +77,7 @@
 		7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DAF19E5915800697FE2 /* TutorialScene.sks */; };
 		7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DB119E591E700697FE2 /* GameScene.sks */; };
 		7AE93A9D1A6ACEF600B5F817 /* background3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE93A9C1A6ACEF600B5F817 /* background3.png */; };
-		7AF744C719D739AC00B95D08 /* Princess1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* Princess1.swift */; };
+		7AF744C719D739AC00B95D08 /* Princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* Princess.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,7 +99,7 @@
 		7A2D0EEA19EF519100491A2F /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Images/InGame/Buttons/pause.png; sourceTree = "<group>"; };
 		7A2D0EEC19EF51DE00491A2F /* resume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resume.png; path = Images/InGame/Buttons/resume.png; sourceTree = "<group>"; };
 		7A3134621A06C3A4002124E2 /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background2.png; path = Images/InGame/background2.png; sourceTree = "<group>"; };
-		7A3D7ED519D27D3E00C39131 /* GenericZombie1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericZombie1.swift; sourceTree = "<group>"; };
+		7A3D7ED519D27D3E00C39131 /* GenericZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericZombie.swift; sourceTree = "<group>"; };
 		7A4E1D9F19D7702C00001C55 /* prince.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prince.png; path = Images/Tutorial/prince.png; sourceTree = "<group>"; };
 		7A4E1DA019D7702C00001C55 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = speech.png; path = Images/Tutorial/speech.png; sourceTree = "<group>"; };
 		7A4E1DA319D7703700001C55 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Images/InGame/background.png; sourceTree = "<group>"; };
@@ -113,6 +115,8 @@
 		7A4E784F19C735B900C5E9B3 /* PrVZTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrVZTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4E785419C735B900C5E9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrVZ_DevTests.swift; sourceTree = "<group>"; };
+		7A5AEC631A6B3A7100F114FF /* infoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infoButton.png; path = Images/InGame/Buttons/infoButton.png; sourceTree = "<group>"; };
+		7A5AEC641A6B3A7100F114FF /* infoButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infoButtonPressed.png; path = Images/InGame/Buttons/infoButtonPressed.png; sourceTree = "<group>"; };
 		7A5D744719DF8475009EEBD8 /* button 150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button 150.png"; path = "Images/InGame/Buttons/button 150.png"; sourceTree = "<group>"; };
 		7A5D744819DF8475009EEBD8 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButton.png; path = Images/InGame/Buttons/fireButton.png; sourceTree = "<group>"; };
 		7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButtonPressed.png; path = Images/InGame/Buttons/fireButtonPressed.png; sourceTree = "<group>"; };
@@ -163,7 +167,7 @@
 		7AD62DAF19E5915800697FE2 /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
 		7AD62DB119E591E700697FE2 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		7AE93A9C1A6ACEF600B5F817 /* background3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background3.png; path = Images/InGame/background3.png; sourceTree = "<group>"; };
-		7AF744C619D739AC00B95D08 /* Princess1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Princess1.swift; sourceTree = "<group>"; };
+		7AF744C619D739AC00B95D08 /* Princess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Princess.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +252,8 @@
 		7A5D744519DF8462009EEBD8 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				7A5AEC631A6B3A7100F114FF /* infoButton.png */,
+				7A5AEC641A6B3A7100F114FF /* infoButtonPressed.png */,
 				7A83D1191A663335006B594B /* menuButtonPressed.png */,
 				7A83D1161A663307006B594B /* menuButton.png */,
 				7AB4C6B91A35392A00D23A88 /* mapButton.png */,
@@ -343,9 +349,9 @@
 		7AF5C31219E208BC0003A332 /* Characters */ = {
 			isa = PBXGroup;
 			children = (
-				7A3D7ED519D27D3E00C39131 /* GenericZombie1.swift */,
+				7A3D7ED519D27D3E00C39131 /* GenericZombie.swift */,
 				7AA751DA19F0D0C200AEF00C /* CatZombie.swift */,
-				7AF744C619D739AC00B95D08 /* Princess1.swift */,
+				7AF744C619D739AC00B95D08 /* Princess.swift */,
 			);
 			name = Characters;
 			sourceTree = "<group>";
@@ -497,6 +503,7 @@
 				7AB4C6B51A35377900D23A88 /* Volcano.png in Resources */,
 				7AD0E37A1A3A70CE00E25BFF /* catOpen.png in Resources */,
 				7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */,
+				7A5AEC661A6B3A7100F114FF /* infoButtonPressed.png in Resources */,
 				7A9665D719EF818A000F634C /* check.png in Resources */,
 				7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */,
 				7A5D745819DF847E009EEBD8 /* zombie.png in Resources */,
@@ -518,6 +525,7 @@
 				7A5D745619DF847E009EEBD8 /* brush.png in Resources */,
 				7AB4C6B41A35377900D23A88 /* jungle.png in Resources */,
 				7A7F16261A4A85D500F00743 /* leftScrollButton.png in Resources */,
+				7A5AEC651A6B3A7100F114FF /* infoButton.png in Resources */,
 				7A4E1DA219D7702C00001C55 /* speech.png in Resources */,
 				7A1E69DA19EE2379007051C0 /* saveButtonPressed.png in Resources */,
 				7A5D745719DF847E009EEBD8 /* princess.png in Resources */,
@@ -541,8 +549,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AF744C719D739AC00B95D08 /* Princess1.swift in Sources */,
-				7A3D7ED619D27D3E00C39131 /* GenericZombie1.swift in Sources */,
+				7AF744C719D739AC00B95D08 /* Princess.swift in Sources */,
+				7A3D7ED619D27D3E00C39131 /* GenericZombie.swift in Sources */,
 				7AB4C6BE1A3539F300D23A88 /* MenuScene.swift in Sources */,
 				7A4E1DAE19D7970900001C55 /* SKButton.swift in Sources */,
 				7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */,

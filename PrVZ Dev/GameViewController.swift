@@ -28,8 +28,8 @@ extension SKNode {
 }
 
 class GameViewController: UIViewController {
-    @IBOutlet var slider : UISlider!
-    @IBOutlet var switch1 : UISwitch!
+    @IBOutlet var zombiesToSpawnSlider : UISlider!
+    @IBOutlet var moreButtonsSwitch : UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,10 +49,10 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
-            scene.slider = slider
+            scene.slider = self.zombiesToSpawnSlider
             scene.slider?.hidden = true
             
-            scene.switch1 = switch1
+            scene.switch1 = self.moreButtonsSwitch
             scene.switch1?.hidden = true
             
             skView.presentScene(scene)
@@ -76,10 +76,10 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
-            scene.slider = slider
+            scene.slider = self.zombiesToSpawnSlider
             scene.slider?.hidden = true
             
-            scene.switch1 = switch1
+            scene.switch1 = self.moreButtonsSwitch
             scene.switch1?.hidden = true
             
             skView.presentScene(scene)
@@ -102,10 +102,10 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
-            scene.slider1 = self.slider
+            scene.slider1 = self.zombiesToSpawnSlider
             scene.slider1?.hidden = true
             
-            scene.switch1 = switch1
+            scene.switch1 = self.moreButtonsSwitch
             scene.switch1?.hidden = true
             
             skView.presentScene(scene)
@@ -148,8 +148,8 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
-            scene.slider1 = self.slider
-            scene.switch1 = self.switch1
+            scene.zombiesToSpawnSlider = self.zombiesToSpawnSlider
+            scene.switch1 = self.moreButtonsSwitch
             scene.gameViewController1 = self
             
             skView.presentScene(scene)

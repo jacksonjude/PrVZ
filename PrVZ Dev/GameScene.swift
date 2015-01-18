@@ -29,8 +29,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var zombiesKilled = 0
     var coins = 0
     var coinsLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-    var slider1: UISlider?
-    var switch1: UISwitch?
+    var zombiesToSpawnSlider: UISlider?
+    var moreButtonsSwitch: UISwitch?
     var gameViewController1: GameViewController?
     var infBrushItem = Bool()
     var item2 = Bool()
@@ -192,13 +192,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         bar.position = CGPoint(x: 0, y: CGRectGetMidY(self.frame)+125)
         self.addChild(bar)
         
-        self.slider1?.hidden = true
-        self.slider1?.userInteractionEnabled = false
-        self.slider1?.maximumValue = 9
-        self.slider1?.minimumValue = 3
+        self.zombiesToSpawnSlider?.hidden = true
+        self.zombiesToSpawnSlider?.userInteractionEnabled = false
+        self.zombiesToSpawnSlider?.maximumValue = 9
+        self.zombiesToSpawnSlider?.minimumValue = 3
         
-        self.switch1?.hidden = true
-        self.switch1?.userInteractionEnabled = false
+        self.moreButtonsSwitch?.hidden = true
+        self.moreButtonsSwitch?.userInteractionEnabled = false
         
         self.coinsLabel.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)+90)
         self.coinsLabel.fontColor = SKColor.redColor()
@@ -227,8 +227,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             self.zombiesKilled = currentScore
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationWillTerminateNotification, object: nil)
+        
+        if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? NSInteger
+        {
+            if didComeBackFromBackground == 1
+            {
+                defaults.setObject(0, forKey: "didComeBackFromBackground")
+                self.gameIsRunning = true
+                self.canPressButtons = false
+                if let zombiesData = defaults.objectForKey("zombies") as? NSData
+                {
+                    let zombiesUnarchived = NSKeyedUnarchiver.unarchiveObjectWithData(zombiesData) as NSMutableArray
+                    self.zombies = zombiesUnarchived
+                    
+                    for aZombie in zombies
+                    {
+                        var aZombieSK = aZombie as SKSpriteNode
+                        self.addChild(aZombieSK)
+                    }
+                }
+                self.pauseGame()
+            }
+        }
     }
     
     func runGame()
@@ -265,9 +287,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             zombiesKilledLabel.removeFromParent()
         }
         
-        var zombiesToSpawn = self.slider1?.value
+        let numberOfZombiesToMakeAsAFloat = self.zombiesToSpawnSlider?.value
         
-        var zombiesSpawned:Float = 0
+        var zombiesToSpawn = NSInteger(numberOfZombiesToMakeAsAFloat!)
+        
+        var zombiesSpawned = 0
         while zombiesSpawned != zombiesToSpawn
         {
             if wavesCompleted >= 3
@@ -279,7 +303,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     var yPos = CGFloat((arc4random()%150)+150)
                     var xPos = CGFloat((arc4random()%150)+150)
                     cat1.name = "catZombie"
-                    cat1.health = self.wavesCompleted
+                    cat1.health = self.wavesCompleted / 4
                     cat1.physicsBody = SKPhysicsBody(circleOfRadius:cat1.size.width/2)
                     cat1.physicsBody?.dynamic = true
                     cat1.physicsBody?.categoryBitMask = self.monsterCategory
@@ -560,11 +584,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         backGround.zPosition = 5
         settingsNode.addChild(backGround)
         
-        self.slider1?.hidden = false
-        self.slider1?.userInteractionEnabled = true
+        self.zombiesToSpawnSlider?.hidden = false
+        self.zombiesToSpawnSlider?.userInteractionEnabled = true
         
-        self.switch1?.hidden = false
-        self.switch1?.userInteractionEnabled = true
+        self.moreButtonsSwitch?.hidden = false
+        self.moreButtonsSwitch?.userInteractionEnabled = true
         
         var resetGameButton = SKButton(defaultButtonImage: "resetButton", activeButtonImage: "resetButtonPressed", buttonAction: resetGame)
         resetGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
@@ -685,13 +709,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         self.levelsCompletedLabel.removeFromParent()
         
-        self.slider1?.userInteractionEnabled = false
-        self.slider1?.hidden = true
+        self.zombiesToSpawnSlider?.userInteractionEnabled = false
+        self.zombiesToSpawnSlider?.hidden = true
         
-        self.switch1?.hidden = true
-        self.switch1?.userInteractionEnabled = false
+        self.moreButtonsSwitch?.hidden = true
+        self.moreButtonsSwitch?.userInteractionEnabled = false
         
-        if switch1?.on == true
+        if moreButtonsSwitch?.on == true
         {
             self.extraButtons(0)
         }
@@ -965,6 +989,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(self.healthLostInLastRound, forKey: "healthLost")
     }
     
+    func saveDataBackground()
+    {
+        for aZombie in self.zombies
+        {
+            var aZombieSK = aZombie as SKSpriteNode
+            aZombieSK.removeAllActions()
+        }
+        
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        
+        let zombieData = NSKeyedArchiver.archivedDataWithRootObject(self.zombies)
+        defaults.setObject(zombieData, forKey: "zombies")
+        
+        defaults.setObject(1, forKey: "didComeBackFromBackground")
+        
+        self.saveData()
+    }
+    
     func pauseGame()
     {
         for aZombie in self.zombies
@@ -988,6 +1030,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             var aBrushSK = aBrush as SKSpriteNode
             aBrushSK.removeAllActions()
+        }
+        
+        for aZombie in self.zombies
+        {
+            if aZombie.name == "catZombie"
+            {
+                if let hairball = aZombie.childNodeWithName("hairball")
+                {
+                    hairball.removeFromParent()
+                }
+            }
         }
         
         self.joystick.userInteractionEnabled = false
@@ -1227,7 +1280,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 
             }
             var range = NSRange(location: 4, length: 2)
-            var range2 = NSRange(location: 7, length: 2)
+            var range2 = NSRange(location: 7, length: 9999999999)
             var background2Bool = NSLocationInRange(wavesCompleted, range)
             if background2Bool
             {
