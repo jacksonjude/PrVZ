@@ -75,7 +75,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
             if backgroundNumber == 3
             {
-                
+                let background = SKSpriteNode(imageNamed: "background3.png")
+                background.zPosition = -2
+                background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                self.addChild(background)
             }
         }
         else
@@ -276,6 +279,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     var yPos = CGFloat((arc4random()%150)+150)
                     var xPos = CGFloat((arc4random()%150)+150)
                     cat1.name = "catZombie"
+                    cat1.health = self.wavesCompleted
                     cat1.physicsBody = SKPhysicsBody(circleOfRadius:cat1.size.width/2)
                     cat1.physicsBody?.dynamic = true
                     cat1.physicsBody?.categoryBitMask = self.monsterCategory
@@ -428,7 +432,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         projectile.removeFromParent()
         var monsterSK = monster as GenericZombie
         monsterSK.health--
-        if monsterSK.health <= 0
+        if monsterSK.health < 1
         {
             var deadZombie = SKSpriteNode(imageNamed: "ash.png")
             deadZombie.name = "ash"
@@ -522,8 +526,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         
         defaults.setObject(1, forKey: "background")
-        var background2 = self.childNodeWithName("background2")
-        background2?.removeFromParent()
+        if let background2 = self.childNodeWithName("background2")
+        {
+            background2.removeFromParent()
+        }
+        if let background3 = self.childNodeWithName("background3")
+        {
+            background3.removeFromParent()
+        }
         var background = SKSpriteNode(imageNamed: "background")
         background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         background.zPosition = -2
@@ -1217,18 +1227,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 
             }
             var range = NSRange(location: 4, length: 2)
+            var range2 = NSRange(location: 7, length: 2)
             var background2Bool = NSLocationInRange(wavesCompleted, range)
             if background2Bool
             {
                 var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(2, forKey: "background")
-                var background = self.childNodeWithName("background")
-                background?.removeFromParent()
+                if let background = self.childNodeWithName("background")
+                {
+                    background.removeFromParent()
+                }
+                if let background3 = self.childNodeWithName("background3")
+                {
+                    background3.removeFromParent()
+                }
                 var background2 = SKSpriteNode(imageNamed: "background2")
                 background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
                 background2.zPosition = -2
                 background2.name = "background"
                 self.addChild(background2)
+            }
+            
+            var background3Bool = NSLocationInRange(wavesCompleted, range2)
+            if background3Bool
+            {
+                var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                defaults.setObject(3, forKey: "background")
+                if let background2 = self.childNodeWithName("background2")
+                {
+                    background2.removeFromParent()
+                }
+                if let background2 = self.childNodeWithName("background2")
+                {
+                    background2.removeFromParent()
+                }
+                var background3 = SKSpriteNode(imageNamed: "background3")
+                background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                background3.zPosition = -2
+                background3.name = "background"
+                self.addChild(background3)
             }
             
             if self.princessHealth != 0

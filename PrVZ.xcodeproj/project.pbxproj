@@ -74,6 +74,7 @@
 		7AD0E37A1A3A70CE00E25BFF /* catOpen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD0E3781A3A70CE00E25BFF /* catOpen.png */; };
 		7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DAF19E5915800697FE2 /* TutorialScene.sks */; };
 		7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DB119E591E700697FE2 /* GameScene.sks */; };
+		7AE93A9D1A6ACEF600B5F817 /* background3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE93A9C1A6ACEF600B5F817 /* background3.png */; };
 		7AF744C719D739AC00B95D08 /* Princess1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* Princess1.swift */; };
 /* End PBXBuildFile section */
 
@@ -161,6 +162,7 @@
 		7AD0E3781A3A70CE00E25BFF /* catOpen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = catOpen.png; path = Images/InGame/Characters/catOpen.png; sourceTree = "<group>"; };
 		7AD62DAF19E5915800697FE2 /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
 		7AD62DB119E591E700697FE2 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		7AE93A9C1A6ACEF600B5F817 /* background3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background3.png; path = Images/InGame/background3.png; sourceTree = "<group>"; };
 		7AF744C619D739AC00B95D08 /* Princess1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Princess1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -362,6 +364,7 @@
 		7AF744CA19D74AC200B95D08 /* InGame */ = {
 			isa = PBXGroup;
 			children = (
+				7AE93A9C1A6ACEF600B5F817 /* background3.png */,
 				7A3134621A06C3A4002124E2 /* background2.png */,
 				7A4E1DA319D7703700001C55 /* background.png */,
 				7AB4C6B71A3538DF00D23A88 /* map1.png */,
@@ -507,6 +510,7 @@
 				7A4E1DA819D7703700001C55 /* background.png in Resources */,
 				7A5D745019DF8475009EEBD8 /* startButtonGame.png in Resources */,
 				7A5D744C19DF8475009EEBD8 /* button 150.png in Resources */,
+				7AE93A9D1A6ACEF600B5F817 /* background3.png in Resources */,
 				7A7F162A1A4A877400F00743 /* leftScrollButtonPressed.png in Resources */,
 				7A4E1DA119D7702C00001C55 /* prince.png in Resources */,
 				7A7F162B1A4A877400F00743 /* rightScrollButtonPressed.png in Resources */,
