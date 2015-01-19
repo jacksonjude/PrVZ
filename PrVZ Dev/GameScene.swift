@@ -230,9 +230,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationWillTerminateNotification, object: nil)
         
-        if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? NSInteger
+        if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
         {
-            if didComeBackFromBackground == 1
+            if didComeBackFromBackground == true
             {
                 defaults.setObject(0, forKey: "didComeBackFromBackground")
                 self.gameIsRunning = true
@@ -765,17 +765,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         var backButton = SKButton(defaultButtonImage: "backButton", activeButtonImage: "backButtonPressed", buttonAction: hideStore)
         backButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame)-140)
-        backButton.zPosition = 6
+        backButton.zPosition = 8
         storeNode.addChild(backButton)
         
         var leftScrollButton = SKButton(defaultButtonImage: "leftScrollButton", activeButtonImage: "leftScrollButtonPressed", buttonAction: leftScroll)
         leftScrollButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: backButton.position.y+200)
-        leftScrollButton.zPosition = 6
+        leftScrollButton.zPosition = 8
         storeNode.addChild(leftScrollButton)
         
         var rightScrollButton = SKButton(defaultButtonImage: "rightScrollButton", activeButtonImage: "rightScrollButtonPressed", buttonAction: rightScroll)
         rightScrollButton.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: backButton.position.y+200)
-        rightScrollButton.zPosition = 6
+        rightScrollButton.zPosition = 8
         storeNode.addChild(rightScrollButton)
         
         var products = SKNode()
@@ -786,12 +786,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         infiniteBrush.name = "infiniteBrush"
         infiniteBrush.zPosition = 7
         products.addChild(infiniteBrush)
-        var infiniteBrushLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        infiniteBrushLabel.text = "Infinite Brush"
-        infiniteBrushLabel.fontSize = 64
-        infiniteBrushLabel.fontColor = SKColor.redColor()
-        infiniteBrushLabel.position = CGPoint(x: infiniteBrushLabel.position.x, y: infiniteBrushLabel.position.y+50)
-        infiniteBrush.addChild(infiniteBrushLabel)
+            var infiniteBrushLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+            infiniteBrushLabel.text = "Infinite Brush"
+            infiniteBrushLabel.fontSize = 64
+            infiniteBrushLabel.fontColor = SKColor.redColor()
+            infiniteBrushLabel.position = CGPoint(x: infiniteBrushLabel.position.x, y: infiniteBrushLabel.position.y+50)
+            infiniteBrush.addChild(infiniteBrushLabel)
         var infiniteBrushBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemInfBrush)
         infiniteBrushBuyButton.position = CGPoint(x: infiniteBrushBuyButton.position.x, y: infiniteBrushBuyButton.position.y-200)
         infiniteBrushBuyButton.name = "infBrushButton"
@@ -803,11 +803,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         healthPack.name = "healthPack"
         healthPack.zPosition = 7
         products.addChild(healthPack)
-        var healthPackLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        healthPackLabel.text = "Health Pack"
-        healthPackLabel.fontSize = 64
-        healthPackLabel.fontColor = SKColor.redColor()
-        healthPackLabel.position = CGPoint(x: healthPack.position.x, y: healthPack.position.y+50)
         var HealthPackBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemHealthPack)
         HealthPackBuyButton.position = CGPoint(x: HealthPackBuyButton.position.x, y: HealthPackBuyButton.position.y-200)
         HealthPackBuyButton.name = "HealthPackBuyButton"
@@ -845,12 +840,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func leftScroll()
     {
-        var store = self.childNodeWithName("store")
-        var products = store?.childNodeWithName("products")
-        var infiniteBrush = products?.childNodeWithName("infiniteBrush")
-        var healthPack = products?.childNodeWithName("healthPack")
-        var checkHealth = store?.childNodeWithName("checkHealth")
-        var checkInf = store?.childNodeWithName("checkInf")
+        let store = self.childNodeWithName("store")
+        let products = store?.childNodeWithName("products")
+        let infiniteBrush = products?.childNodeWithName("infiniteBrush")
+        let healthPack = products?.childNodeWithName("healthPack")
+        let checkHealth = store?.childNodeWithName("checkHealth")
+        let checkInf = store?.childNodeWithName("checkInf")
         checkHealth?.hidden = true
         checkInf?.hidden = false
         infiniteBrush?.hidden = false
@@ -858,7 +853,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         healthPack?.hidden = true
         healthPack?.userInteractionEnabled = false
         
-        var button = healthPack?.childNodeWithName("HealthPackBuyButton")
+        let button = healthPack?.childNodeWithName("HealthPackBuyButton")
         button?.removeFromParent()
     }
     
@@ -881,6 +876,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         HealthPackBuyButton.position = CGPoint(x: HealthPackBuyButton.position.x, y: HealthPackBuyButton.position.y-200)
         HealthPackBuyButton.name = "HealthPackBuyButton"
         healthPack?.addChild(HealthPackBuyButton)
+        
+        var healthPackLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        healthPackLabel.text = "Health Pack"
+        healthPackLabel.fontSize = 64
+        healthPackLabel.fontColor = SKColor.redColor()
+        healthPackLabel.position = CGPoint(x: 0, y: 100)
+        healthPack?.addChild(healthPackLabel)
     }
     
     func hideStore()
@@ -991,19 +993,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func saveDataBackground()
     {
-        for aZombie in self.zombies
+        if self.gameIsRunning == true
         {
-            var aZombieSK = aZombie as SKSpriteNode
-            aZombieSK.removeAllActions()
+            for aZombie in self.zombies
+            {
+                var aZombieSK = aZombie as SKSpriteNode
+                aZombieSK.removeAllActions()
+            }
+            
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            
+            let zombieData = NSKeyedArchiver.archivedDataWithRootObject(self.zombies)
+            defaults.setObject(zombieData, forKey: "zombies")
+            
+            defaults.setBool(true, forKey: "didComeBackFromBackground")
         }
-        
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        
-        let zombieData = NSKeyedArchiver.archivedDataWithRootObject(self.zombies)
-        defaults.setObject(zombieData, forKey: "zombies")
-        
-        defaults.setObject(1, forKey: "didComeBackFromBackground")
-        
         self.saveData()
     }
     
@@ -1080,6 +1084,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     }), SKAction.waitForDuration(2), SKAction.runBlock({
                         NSLog("%f", self.princessHealth)
                     })])
+                    aZombieSK.runAction(SKAction.waitForDuration(0.5))
                     aZombieSK.runAction(SKAction.repeatActionForever(sequence))
                 }
             }
@@ -1254,80 +1259,90 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         
-        var zombiesAlive = 0
-        for aZombie in self.zombies
+        if gameIsRunning == true
         {
-            if aZombie.name == "zombie"
+            var zombiesAlive = 0
+            for aZombie in self.zombies
             {
-                zombiesAlive++
+                if aZombie.name == "zombie"
+                {
+                    zombiesAlive++
+                }
+                if aZombie.name == "catZombie"
+                {
+                    zombiesAlive++
+                }
             }
-            if aZombie.name == "catZombie"
+            
+            if zombiesAlive == 0
             {
-                zombiesAlive++
+                self.wavesCompleted++
+                self.gameIsRunning = false
+                
+                if let pauseButton = self.childNodeWithName("pauseButton")
+                {
+                    pauseButton.hidden = true
+                    pauseButton.userInteractionEnabled = false
+                }
+                
+                for innerZombie in self.zombies
+                {
+                    self.zombies.removeObject(innerZombie)
+                    innerZombie.removeFromParent()
+                    
+                }
+                var range = NSRange(location: 4, length: 2)
+                var range2 = NSRange(location: 7, length: 9999999999)
+                var background2Bool = NSLocationInRange(wavesCompleted, range)
+                if background2Bool
+                {
+                    var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setObject(2, forKey: "background")
+                    if let background = self.childNodeWithName("background")
+                    {
+                        background.removeFromParent()
+                    }
+                    if let background3 = self.childNodeWithName("background3")
+                    {
+                        background3.removeFromParent()
+                    }
+                    var background2 = SKSpriteNode(imageNamed: "background2")
+                    background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                    background2.zPosition = -2
+                    background2.name = "background"
+                    self.addChild(background2)
+                }
+                
+                var background3Bool = NSLocationInRange(wavesCompleted, range2)
+                if background3Bool
+                {
+                    var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setObject(3, forKey: "background")
+                    if let background2 = self.childNodeWithName("background2")
+                    {
+                        background2.removeFromParent()
+                    }
+                    if let background2 = self.childNodeWithName("background2")
+                    {
+                        background2.removeFromParent()
+                    }
+                    var background3 = SKSpriteNode(imageNamed: "background3")
+                    background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                    background3.zPosition = -2
+                    background3.name = "background"
+                    self.addChild(background3)
+                }
+                
+                if self.princessHealth != 0
+                {
+                    canPressButtons = true
+                }
+                
+                self.saveData()
             }
         }
         
         self.coinsLabel.text = NSString(format: "%i", self.coins)
-        
-        if zombiesAlive == 0 && self.gameIsRunning == true
-        {
-            self.wavesCompleted++
-            self.gameIsRunning = false
-            for innerZombie in self.zombies
-            {
-                self.zombies.removeObject(innerZombie)
-                innerZombie.removeFromParent()
-                
-            }
-            var range = NSRange(location: 4, length: 2)
-            var range2 = NSRange(location: 7, length: 9999999999)
-            var background2Bool = NSLocationInRange(wavesCompleted, range)
-            if background2Bool
-            {
-                var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                defaults.setObject(2, forKey: "background")
-                if let background = self.childNodeWithName("background")
-                {
-                    background.removeFromParent()
-                }
-                if let background3 = self.childNodeWithName("background3")
-                {
-                    background3.removeFromParent()
-                }
-                var background2 = SKSpriteNode(imageNamed: "background2")
-                background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                background2.zPosition = -2
-                background2.name = "background"
-                self.addChild(background2)
-            }
-            
-            var background3Bool = NSLocationInRange(wavesCompleted, range2)
-            if background3Bool
-            {
-                var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                defaults.setObject(3, forKey: "background")
-                if let background2 = self.childNodeWithName("background2")
-                {
-                    background2.removeFromParent()
-                }
-                if let background2 = self.childNodeWithName("background2")
-                {
-                    background2.removeFromParent()
-                }
-                var background3 = SKSpriteNode(imageNamed: "background3")
-                background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                background3.zPosition = -2
-                background3.name = "background"
-                self.addChild(background3)
-            }
-            
-            if self.princessHealth != 0
-            {
-                canPressButtons = true
-            }
-            
-            self.saveData()
-        }
         
         if self.infBrushItem == false
         {
