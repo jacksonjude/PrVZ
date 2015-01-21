@@ -33,7 +33,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var moreButtonsSwitch: UISwitch?
     var gameViewController1: GameViewController?
     var infBrushItem = Bool()
-    var item2 = Bool()
+    var healthPack = Bool()
+    var battery = Bool()
     var wavesCompleted = NSInteger()
     var levelsCompletedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
     var currentBrushes = NSMutableArray()
@@ -43,6 +44,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var storeIsOpen = false
     var checkIsShowing = false
     var checkIsShowing2 = false
+    var checkIsShowing3 = false
+    var scrolled = 0
     var gameOverDidOccur = false
     var healthLostInLastRound = Float(0)
     
@@ -119,7 +122,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
             if itemsBoughtInStore[1] as Bool == true
             {
-                self.item2 = true
+                self.healthPack = true
             }
         }
         
@@ -228,7 +231,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveData", name: UIApplicationWillTerminateNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillTerminateNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveDataBackground", name: UIApplicationWillResignActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterFromBackground", name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
         {
@@ -814,6 +819,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var button = healthPack.childNodeWithName("HealthPackBuyButton")
         button?.removeFromParent()
         
+        var battery = SKSpriteNode(imageNamed: "battery")
+        battery.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        battery.name = "battery"
+        battery.zPosition = 7
+        products.addChild(battery)
+        
+        battery.hidden = true
+        battery.userInteractionEnabled = false
+        
         storeNode.addChild(products)
         self.addChild(storeNode)
     }
@@ -833,7 +847,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if self.coins > 49
         {
             self.coins-=50
-            self.item2 = true
+            self.healthPack = true
             self.princessHealth+=1
         }
     }
@@ -846,15 +860,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let healthPack = products?.childNodeWithName("healthPack")
         let checkHealth = store?.childNodeWithName("checkHealth")
         let checkInf = store?.childNodeWithName("checkInf")
-        checkHealth?.hidden = true
-        checkInf?.hidden = false
-        infiniteBrush?.hidden = false
-        infiniteBrush?.userInteractionEnabled = true
-        healthPack?.hidden = true
-        healthPack?.userInteractionEnabled = false
+        var battery = products?.childNodeWithName("battery")
         
-        let button = healthPack?.childNodeWithName("HealthPackBuyButton")
-        button?.removeFromParent()
+        if self.scrolled > 0
+        {
+            self.scrolled--
+            
+            if self.scrolled == 1
+            {
+                checkHealth?.hidden = false
+                checkInf?.hidden = true
+                infiniteBrush?.hidden = true
+                infiniteBrush?.userInteractionEnabled = false
+                healthPack?.hidden = false
+                healthPack?.userInteractionEnabled = true
+                battery?.hidden = true
+                battery?.userInteractionEnabled = false
+            }
+            
+            if self.scrolled == 0
+            {
+                checkHealth?.hidden = true
+                checkInf?.hidden = false
+                infiniteBrush?.hidden = false
+                infiniteBrush?.userInteractionEnabled = true
+                healthPack?.hidden = true
+                healthPack?.userInteractionEnabled = false
+                battery?.hidden = true
+                battery?.userInteractionEnabled = false
+                
+                let button = healthPack?.childNodeWithName("HealthPackBuyButton")
+                button?.removeFromParent()
+            }
+        }
     }
     
     func rightScroll()
@@ -863,26 +901,51 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var products = store?.childNodeWithName("products")
         var infiniteBrush = products?.childNodeWithName("infiniteBrush")
         var healthPack = products?.childNodeWithName("healthPack")
+        var battery = products?.childNodeWithName("battery")
         var checkHealth = store?.childNodeWithName("checkHealth")
         var checkInf = store?.childNodeWithName("checkInf")
-        checkHealth?.hidden = false
-        checkInf?.hidden = true
-        infiniteBrush?.hidden = true
-        infiniteBrush?.userInteractionEnabled = false
-        healthPack?.hidden = false
-        healthPack?.userInteractionEnabled = true
         
-        var HealthPackBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemHealthPack)
-        HealthPackBuyButton.position = CGPoint(x: HealthPackBuyButton.position.x, y: HealthPackBuyButton.position.y-200)
-        HealthPackBuyButton.name = "HealthPackBuyButton"
-        healthPack?.addChild(HealthPackBuyButton)
-        
-        var healthPackLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        healthPackLabel.text = "Health Pack"
-        healthPackLabel.fontSize = 64
-        healthPackLabel.fontColor = SKColor.redColor()
-        healthPackLabel.position = CGPoint(x: 0, y: 100)
-        healthPack?.addChild(healthPackLabel)
+        if self.scrolled < 2
+        {
+            self.scrolled++
+            
+            if self.scrolled == 1
+            {
+                checkHealth?.hidden = false
+                checkInf?.hidden = true
+                infiniteBrush?.hidden = true
+                infiniteBrush?.userInteractionEnabled = false
+                healthPack?.hidden = false
+                healthPack?.userInteractionEnabled = true
+                battery?.hidden = true
+                battery?.userInteractionEnabled = false
+                
+                var HealthPackBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemHealthPack)
+                HealthPackBuyButton.position = CGPoint(x: HealthPackBuyButton.position.x, y: HealthPackBuyButton.position.y-200)
+                HealthPackBuyButton.name = "HealthPackBuyButton"
+                healthPack?.addChild(HealthPackBuyButton)
+                
+                var healthPackLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+                healthPackLabel.text = "Health Pack"
+                healthPackLabel.fontSize = 64
+                healthPackLabel.fontColor = SKColor.redColor()
+                healthPackLabel.position = CGPoint(x: 0, y: 100)
+                healthPack?.addChild(healthPackLabel)
+            }
+            
+            if self.scrolled == 2
+            {
+                checkHealth?.hidden = true
+                checkInf?.hidden = true
+                infiniteBrush?.userInteractionEnabled = false
+                infiniteBrush?.hidden = true
+                healthPack?.userInteractionEnabled = false
+                healthPack?.hidden = true
+                
+                battery?.userInteractionEnabled = true
+                battery?.hidden = false
+            }
+        }
     }
     
     func hideStore()
@@ -890,6 +953,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         var storeNode = self.childNodeWithName("store")
         storeNode?.hidden = true
         storeNode?.removeFromParent()
+        
+        self.scrolled = 0
+        
         self.canPressButtons = true
         self.windowIsOpen = false
         self.storeIsOpen = false
@@ -976,7 +1042,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             tempArray[0] = false
         }
         
-        if self.item2 == true
+        if self.healthPack == true
         {
             tempArray[1] = true
         }
@@ -1009,6 +1075,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             defaults.setBool(true, forKey: "didComeBackFromBackground")
         }
         self.saveData()
+    }
+    
+    func didEnterFromBackground()
+    {
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        
+        defaults.setObject(0, forKey: "didComeBackFromBackground")
+        self.gameIsRunning = true
+        self.canPressButtons = false
+        
+        for aZombie in self.zombies
+        {
+            aZombie.removeFromParent()
+        }
+        self.zombies.removeAllObjects()
+        
+        if let zombiesData = defaults.objectForKey("zombies") as? NSData
+        {
+            let zombiesUnarchived = NSKeyedUnarchiver.unarchiveObjectWithData(zombiesData) as NSMutableArray
+            self.zombies = zombiesUnarchived
+            
+            for aZombie in zombies
+            {
+                var aZombieSK = aZombie as SKSpriteNode
+                self.addChild(aZombieSK)
+            }
+        }
+        self.pauseGame()
     }
     
     func pauseGame()
@@ -1186,7 +1280,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 tempArray[0] = false
             }
             
-            if self.item2 == true
+            if self.healthPack  == true
             {
                 tempArray[1] = true
             }
@@ -1218,7 +1312,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         self.checkIsShowing = true
                     }
                 }
-                if self.item2 == true
+                if self.healthPack == true
                 {
                     var store = self.childNodeWithName("store")
                     var products = store?.childNodeWithName("products")
@@ -1235,6 +1329,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         var storeNode = self.childNodeWithName("store")
                         storeNode?.addChild(healthPackCheck)
                         self.checkIsShowing2 = true
+                    }
+                }
+                if self.battery == true
+                {
+                    var store = self.childNodeWithName("store")
+                    var products = store?.childNodeWithName("products")
+                    var healthPack = products?.childNodeWithName("battery")
+                    var aButton = healthPack?.childNodeWithName("BatteryPackBuyButton")
+                    aButton?.removeFromParent()
+                    
+                    if self.checkIsShowing3 == false
+                    {
+                        var batteryCheck = SKSpriteNode(imageNamed: "check.png")
+                        batteryCheck.zPosition = 8
+                        batteryCheck.name = "checkBattery"
+                        batteryCheck.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        var storeNode = self.childNodeWithName("store")
+                        storeNode?.addChild(batteryCheck)
+                        self.checkIsShowing3 = true
                     }
                 }
             }

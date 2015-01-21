@@ -27,6 +27,7 @@
 		7A4E785619C735B900C5E9B3 /* PrVZ_DevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */; };
 		7A5AEC651A6B3A7100F114FF /* infoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5AEC631A6B3A7100F114FF /* infoButton.png */; };
 		7A5AEC661A6B3A7100F114FF /* infoButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5AEC641A6B3A7100F114FF /* infoButtonPressed.png */; };
+		7A5D00AC1A6DC414007C2FCA /* battery.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D00AB1A6DC414007C2FCA /* battery.png */; };
 		7A5D744C19DF8475009EEBD8 /* button 150.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744719DF8475009EEBD8 /* button 150.png */; };
 		7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744819DF8475009EEBD8 /* fireButton.png */; };
 		7A5D744E19DF8475009EEBD8 /* fireButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */; };
@@ -117,6 +118,7 @@
 		7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrVZ_DevTests.swift; sourceTree = "<group>"; };
 		7A5AEC631A6B3A7100F114FF /* infoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infoButton.png; path = Images/InGame/Buttons/infoButton.png; sourceTree = "<group>"; };
 		7A5AEC641A6B3A7100F114FF /* infoButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infoButtonPressed.png; path = Images/InGame/Buttons/infoButtonPressed.png; sourceTree = "<group>"; };
+		7A5D00AB1A6DC414007C2FCA /* battery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = battery.png; path = Images/InGame/Store/battery.png; sourceTree = "<group>"; };
 		7A5D744719DF8475009EEBD8 /* button 150.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button 150.png"; path = "Images/InGame/Buttons/button 150.png"; sourceTree = "<group>"; };
 		7A5D744819DF8475009EEBD8 /* fireButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButton.png; path = Images/InGame/Buttons/fireButton.png; sourceTree = "<group>"; };
 		7A5D744919DF8475009EEBD8 /* fireButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fireButtonPressed.png; path = Images/InGame/Buttons/fireButtonPressed.png; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 		7AC8237219E9962E005B8124 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				7A5D00AB1A6DC414007C2FCA /* battery.png */,
 				7A714F641A4B4631007C570C /* healthPack.png */,
 				7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */,
 				7A7F16291A4A877400F00743 /* rightScrollButtonPressed.png */,
@@ -474,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AC8238619E9C33C005B8124 /* settingsButtonPressed.png in Resources */,
+				7A5D00AC1A6DC414007C2FCA /* battery.png in Resources */,
 				7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */,
 				7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */,
 				7AC8238219E9B88B005B8124 /* coin.png in Resources */,
