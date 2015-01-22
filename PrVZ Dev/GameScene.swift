@@ -232,8 +232,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillTerminateNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveDataBackground", name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didEnterFromBackground", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillResignActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
         {
@@ -1081,28 +1081,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         
-        defaults.setObject(0, forKey: "didComeBackFromBackground")
-        self.gameIsRunning = true
-        self.canPressButtons = false
-        
-        for aZombie in self.zombies
+        if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
         {
-            aZombie.removeFromParent()
-        }
-        self.zombies.removeAllObjects()
-        
-        if let zombiesData = defaults.objectForKey("zombies") as? NSData
-        {
-            let zombiesUnarchived = NSKeyedUnarchiver.unarchiveObjectWithData(zombiesData) as NSMutableArray
-            self.zombies = zombiesUnarchived
-            
-            for aZombie in zombies
+            if didComeBackFromBackground == true
             {
-                var aZombieSK = aZombie as SKSpriteNode
-                self.addChild(aZombieSK)
+                defaults.setObject(false, forKey: "didComeBackFromBackground")
+                
+                self.gameIsRunning = true
+                self.canPressButtons = false
+                
+                for aZombie in self.zombies
+                {
+                    aZombie.removeFromParent()
+                }
+                self.zombies.removeAllObjects()
+                
+                if let zombiesData = defaults.objectForKey("zombies") as? NSData
+                {
+                    let zombiesUnarchived = NSKeyedUnarchiver.unarchiveObjectWithData(zombiesData) as NSMutableArray
+                    self.zombies = zombiesUnarchived
+                    
+                    for aZombie in zombies
+                    {
+                        var aZombieSK = aZombie as SKSpriteNode
+                        self.addChild(aZombieSK)
+                    }
+                }
+                self.pauseGame()
             }
         }
-        self.pauseGame()
     }
     
     func pauseGame()
@@ -1213,6 +1220,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             resumeButton.removeFromParent()
         }
+        
+        self.gamePaused = false
     }
     
     override func update(currentTime: NSTimeInterval)
@@ -1360,18 +1369,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         
-        if self.coins == 100
-        {
-            if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
-            {
-                if self.movedCoinsImage == false
-                {
-                    coinsImage.position.x = coinsImage.position.x-20
-                    self.movedCoinsImage = true
-                }
-            }
-        }
-        
         if gameIsRunning == true
         {
             var zombiesAlive = 0
@@ -1389,6 +1386,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             
             if zombiesAlive == 0
             {
+                if self.coins <= 100
+                {
+                    if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                    {
+                        if self.movedCoinsImage == false
+                        {
+                            coinsImage.position.x = coinsImage.position.x-20
+                            self.movedCoinsImage = true
+                        }
+                    }
+                }
+                
                 self.wavesCompleted++
                 self.gameIsRunning = false
                 
