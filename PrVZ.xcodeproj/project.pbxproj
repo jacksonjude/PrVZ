@@ -14,6 +14,7 @@
 		7A3134631A06C3A4002124E2 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3134621A06C3A4002124E2 /* background2.png */; };
 		7A3D7ED619D27D3E00C39131 /* GenericZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* GenericZombie.swift */; };
 		7A414FC71A881FD500CA7303 /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A414FC61A881FD500CA7303 /* JCJoystick.m */; };
+		7A414FC91A88204C00CA7303 /* background-music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A414FC81A88204C00CA7303 /* background-music.wav */; };
 		7A4E1DA119D7702C00001C55 /* prince.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1D9F19D7702C00001C55 /* prince.png */; };
 		7A4E1DA219D7702C00001C55 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA019D7702C00001C55 /* speech.png */; };
 		7A4E1DA819D7703700001C55 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA319D7703700001C55 /* background.png */; };
@@ -39,7 +40,6 @@
 		7A5D745819DF847E009EEBD8 /* zombie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745419DF847E009EEBD8 /* zombie.png */; };
 		7A7073291A0694F20071F677 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7073281A0694F20071F677 /* map.png */; };
 		7A714F651A4B4631007C570C /* healthPack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A714F641A4B4631007C570C /* healthPack.png */; };
-		7A78CC731A81E4A900551647 /* background-music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A78CC721A81E4A900551647 /* background-music.wav */; };
 		7A7F16261A4A85D500F00743 /* leftScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16241A4A85D500F00743 /* leftScrollButton.png */; };
 		7A7F16271A4A85D500F00743 /* rightScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16251A4A85D500F00743 /* rightScrollButton.png */; };
 		7A7F162A1A4A877400F00743 /* leftScrollButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */; };
@@ -102,6 +102,7 @@
 		7A3D7ED519D27D3E00C39131 /* GenericZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericZombie.swift; sourceTree = "<group>"; };
 		7A414FC51A881FD500CA7303 /* JCJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJoystick.h; sourceTree = "<group>"; };
 		7A414FC61A881FD500CA7303 /* JCJoystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCJoystick.m; sourceTree = "<group>"; };
+		7A414FC81A88204C00CA7303 /* background-music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "background-music.wav"; sourceTree = "<group>"; };
 		7A4E1D9F19D7702C00001C55 /* prince.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prince.png; path = Images/Tutorial/prince.png; sourceTree = "<group>"; };
 		7A4E1DA019D7702C00001C55 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = speech.png; path = Images/Tutorial/speech.png; sourceTree = "<group>"; };
 		7A4E1DA319D7703700001C55 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Images/InGame/background.png; sourceTree = "<group>"; };
@@ -131,7 +132,6 @@
 		7A5D745419DF847E009EEBD8 /* zombie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zombie.png; path = Images/InGame/Characters/zombie.png; sourceTree = "<group>"; };
 		7A7073281A0694F20071F677 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = Images/InGame/map.png; sourceTree = "<group>"; };
 		7A714F641A4B4631007C570C /* healthPack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = healthPack.png; path = Images/InGame/Store/healthPack.png; sourceTree = "<group>"; };
-		7A78CC721A81E4A900551647 /* background-music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "background-music.wav"; path = "../../../Downloads/background-music.wav"; sourceTree = "<group>"; };
 		7A7F16241A4A85D500F00743 /* leftScrollButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leftScrollButton.png; path = Images/InGame/Store/leftScrollButton.png; sourceTree = "<group>"; };
 		7A7F16251A4A85D500F00743 /* rightScrollButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rightScrollButton.png; path = Images/InGame/Store/rightScrollButton.png; sourceTree = "<group>"; };
 		7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leftScrollButtonPressed.png; path = Images/InGame/Store/leftScrollButtonPressed.png; sourceTree = "<group>"; };
@@ -298,7 +298,7 @@
 		7A78CC711A81E33B00551647 /* Music */ = {
 			isa = PBXGroup;
 			children = (
-				7A78CC721A81E4A900551647 /* background-music.wav */,
+				7A414FC81A88204C00CA7303 /* background-music.wav */,
 			);
 			name = Music;
 			sourceTree = "<group>";
@@ -492,10 +492,10 @@
 				7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */,
 				7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */,
 				7AC8238219E9B88B005B8124 /* coin.png in Resources */,
-				7A78CC731A81E4A900551647 /* background-music.wav in Resources */,
 				7A7F162D1A4A88DB00F00743 /* hairball.png in Resources */,
 				7A2D0EED19EF51DE00491A2F /* resume.png in Resources */,
 				7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */,
+				7A414FC91A88204C00CA7303 /* background-music.wav in Resources */,
 				7AC8237D19E99656005B8124 /* storeButton.png in Resources */,
 				7AC8237919E99656005B8124 /* backButton.png in Resources */,
 				7AB4C6B61A35377900D23A88 /* waterfall.png in Resources */,
