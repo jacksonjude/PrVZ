@@ -15,6 +15,7 @@
 		7A3D7ED619D27D3E00C39131 /* GenericZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* GenericZombie.swift */; };
 		7A414FC71A881FD500CA7303 /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A414FC61A881FD500CA7303 /* JCJoystick.m */; };
 		7A414FC91A88204C00CA7303 /* background-music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A414FC81A88204C00CA7303 /* background-music.wav */; };
+		7A414FCB1A88210900CA7303 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A414FCA1A88210900CA7303 /* coin.png */; };
 		7A4E1DA119D7702C00001C55 /* prince.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1D9F19D7702C00001C55 /* prince.png */; };
 		7A4E1DA219D7702C00001C55 /* speech.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA019D7702C00001C55 /* speech.png */; };
 		7A4E1DA819D7703700001C55 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E1DA319D7703700001C55 /* background.png */; };
@@ -71,7 +72,6 @@
 		7AC8237D19E99656005B8124 /* storeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237719E99656005B8124 /* storeButton.png */; };
 		7AC8237E19E99656005B8124 /* storeButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237819E99656005B8124 /* storeButtonPressed.png */; };
 		7AC8238019E9AF10005B8124 /* infiniteBrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237F19E9AF10005B8124 /* infiniteBrush.png */; };
-		7AC8238219E9B88B005B8124 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238119E9B88B005B8124 /* coin.png */; };
 		7AC8238519E9C33C005B8124 /* settingsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238319E9C33C005B8124 /* settingsButton.png */; };
 		7AC8238619E9C33C005B8124 /* settingsButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */; };
 		7AD0E3791A3A70CE00E25BFF /* cat.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD0E3771A3A70CE00E25BFF /* cat.png */; };
@@ -103,6 +103,7 @@
 		7A414FC51A881FD500CA7303 /* JCJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJoystick.h; sourceTree = "<group>"; };
 		7A414FC61A881FD500CA7303 /* JCJoystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCJoystick.m; sourceTree = "<group>"; };
 		7A414FC81A88204C00CA7303 /* background-music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "background-music.wav"; sourceTree = "<group>"; };
+		7A414FCA1A88210900CA7303 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = Images/InGame/Store/coin.png; sourceTree = "<group>"; };
 		7A4E1D9F19D7702C00001C55 /* prince.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prince.png; path = Images/Tutorial/prince.png; sourceTree = "<group>"; };
 		7A4E1DA019D7702C00001C55 /* speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = speech.png; path = Images/Tutorial/speech.png; sourceTree = "<group>"; };
 		7A4E1DA319D7703700001C55 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = Images/InGame/background.png; sourceTree = "<group>"; };
@@ -163,7 +164,6 @@
 		7AC8237719E99656005B8124 /* storeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = storeButton.png; path = Images/InGame/Store/storeButton.png; sourceTree = "<group>"; };
 		7AC8237819E99656005B8124 /* storeButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = storeButtonPressed.png; path = Images/InGame/Store/storeButtonPressed.png; sourceTree = "<group>"; };
 		7AC8237F19E9AF10005B8124 /* infiniteBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infiniteBrush.png; path = Images/InGame/Store/infiniteBrush.png; sourceTree = "<group>"; };
-		7AC8238119E9B88B005B8124 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coin.png; path = ../../../Desktop/PrVZ/Images/coin.png; sourceTree = "<group>"; };
 		7AC8238319E9C33C005B8124 /* settingsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settingsButton.png; path = Images/InGame/Buttons/settingsButton.png; sourceTree = "<group>"; };
 		7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settingsButtonPressed.png; path = Images/InGame/Buttons/settingsButtonPressed.png; sourceTree = "<group>"; };
 		7AD0E3771A3A70CE00E25BFF /* cat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cat.png; path = Images/InGame/Characters/cat.png; sourceTree = "<group>"; };
@@ -326,6 +326,7 @@
 		7AC8237219E9962E005B8124 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				7A414FCA1A88210900CA7303 /* coin.png */,
 				7A5D00AB1A6DC414007C2FCA /* battery.png */,
 				7A714F641A4B4631007C570C /* healthPack.png */,
 				7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */,
@@ -333,7 +334,6 @@
 				7A7F16241A4A85D500F00743 /* leftScrollButton.png */,
 				7A7F16251A4A85D500F00743 /* rightScrollButton.png */,
 				7A9665D619EF818A000F634C /* check.png */,
-				7AC8238119E9B88B005B8124 /* coin.png */,
 				7AC8237F19E9AF10005B8124 /* infiniteBrush.png */,
 				7AC8237319E99656005B8124 /* backButton.png */,
 				7AC8237419E99656005B8124 /* backButtonPressed.png */,
@@ -487,11 +487,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A414FCB1A88210900CA7303 /* coin.png in Resources */,
 				7AC8238619E9C33C005B8124 /* settingsButtonPressed.png in Resources */,
 				7A5D00AC1A6DC414007C2FCA /* battery.png in Resources */,
 				7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */,
 				7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */,
-				7AC8238219E9B88B005B8124 /* coin.png in Resources */,
 				7A7F162D1A4A88DB00F00743 /* hairball.png in Resources */,
 				7A2D0EED19EF51DE00491A2F /* resume.png in Resources */,
 				7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */,
