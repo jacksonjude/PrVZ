@@ -8,6 +8,10 @@
 
 import Foundation
 import Spritekit
+import UIKit
+import AVFoundation
+
+private var backgroundMusicPlayer: AVAudioPlayer!
 
 class GameScene: SKScene, SKPhysicsContactDelegate
 {
@@ -48,6 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var scrolled = 0
     var gameOverDidOccur = false
     var healthLostInLastRound = Float(0)
+    let backgroundMusicSound = "background-music.wav"
     
     deinit
     {
@@ -256,10 +261,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 self.pauseGame()
             }
         }
+        
+        self.setUpAudio()
     }
     
     func runGame()
     {
+        if (!backgroundMusicPlayer.playing)
+        {
+            backgroundMusicPlayer.play()
+        }
+        
         if self.gameOverDidOccur == true
         {
             self.princessHealth = 1
@@ -511,6 +523,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         NSLog("%f", self.princessHealth)
     }
     
+    func setUpAudio()
+    {
+        if (backgroundMusicPlayer == nil) {
+            let backgroundMusicURL = NSBundle.mainBundle().URLForResource(backgroundMusicSound, withExtension: nil)
+            backgroundMusicPlayer = AVAudioPlayer(contentsOfURL: backgroundMusicURL, error:nil)
+            backgroundMusicPlayer.numberOfLoops = -1
+        }
+    }
+    
     func gameOver()
     {
         gameOverDidOccur = true
@@ -538,10 +559,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.addChild(zombiesKilledLabel)
         
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if var highScore = defaults.objectForKey("highScore") as? NSInteger
-        {
-            zombiesKilledLabel.text = NSString(format: "Zombies Killed: %i", highScore)
-        }
+        zombiesKilledLabel.text = NSString(format: "Zombies Killed: %i", self.zombiesKilled)
         
         if var currentScore = defaults.objectForKey("currentScore") as? NSInteger
         {
@@ -1079,6 +1097,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func didEnterFromBackground()
     {
+        
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         
         if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
@@ -1107,7 +1126,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         self.addChild(aZombieSK)
                     }
                 }
-                self.pauseGame()
+                
+                if self.gamePaused != true
+                {
+                    self.pauseGame()
+                }
             }
         }
     }
@@ -1226,6 +1249,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func update(currentTime: NSTimeInterval)
     {
+        for aZombie2 in self.zombies
+        {
+            let aZombie2SK = aZombie2 as SKSpriteNode
+            let range = NSRange(location: 0, length: 50)
+            var gameOverRange = NSLocationInRange(Int(aZombie2SK.position.x), range)
+            if gameOverRange
+            {
+                self.healthLostInLastRound += princessHealth
+                self.princessHealth = 0.0
+                self.gameOver()
+            }
+        }
+        
         var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
         self.princess1.position = position1
         
@@ -1386,6 +1422,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             
             if zombiesAlive == 0
             {
+                backgroundMusicPlayer.pause()
+                
                 if self.coins <= 100
                 {
                     if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
@@ -1474,19 +1512,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 self.brushInWorld = true
             }else{
                 self.brushInWorld = false
-            }
-        }
-        
-        for aZombie in self.zombies
-        {
-            var wallEnd = self.childNodeWithName("wallEnd")
-            var range = NSRange(location: 0, length: 50)
-            var gameOverRange = NSLocationInRange(Int(aZombie.position.x), range)
-            if gameOverRange
-            {
-                self.healthLostInLastRound += princessHealth
-                self.princessHealth = 0.0
-                self.gameOver()
             }
         }
     }

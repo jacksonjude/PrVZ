@@ -39,6 +39,7 @@
 		7A5D745819DF847E009EEBD8 /* zombie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745419DF847E009EEBD8 /* zombie.png */; };
 		7A7073291A0694F20071F677 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7073281A0694F20071F677 /* map.png */; };
 		7A714F651A4B4631007C570C /* healthPack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A714F641A4B4631007C570C /* healthPack.png */; };
+		7A78CC731A81E4A900551647 /* background-music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A78CC721A81E4A900551647 /* background-music.wav */; };
 		7A7F16261A4A85D500F00743 /* leftScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16241A4A85D500F00743 /* leftScrollButton.png */; };
 		7A7F16271A4A85D500F00743 /* rightScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16251A4A85D500F00743 /* rightScrollButton.png */; };
 		7A7F162A1A4A877400F00743 /* leftScrollButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */; };
@@ -130,6 +131,7 @@
 		7A5D745419DF847E009EEBD8 /* zombie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zombie.png; path = Images/InGame/Characters/zombie.png; sourceTree = "<group>"; };
 		7A7073281A0694F20071F677 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = Images/InGame/map.png; sourceTree = "<group>"; };
 		7A714F641A4B4631007C570C /* healthPack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = healthPack.png; path = Images/InGame/Store/healthPack.png; sourceTree = "<group>"; };
+		7A78CC721A81E4A900551647 /* background-music.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "background-music.wav"; path = "../../../Downloads/background-music.wav"; sourceTree = "<group>"; };
 		7A7F16241A4A85D500F00743 /* leftScrollButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leftScrollButton.png; path = Images/InGame/Store/leftScrollButton.png; sourceTree = "<group>"; };
 		7A7F16251A4A85D500F00743 /* rightScrollButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rightScrollButton.png; path = Images/InGame/Store/rightScrollButton.png; sourceTree = "<group>"; };
 		7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leftScrollButtonPressed.png; path = Images/InGame/Store/leftScrollButtonPressed.png; sourceTree = "<group>"; };
@@ -214,10 +216,11 @@
 				7AF5C31219E208BC0003A332 /* Characters */,
 				7AF5C31119E208A50003A332 /* Scenes */,
 				7A8D8F2119C7E72D001D8C72 /* Images */,
+				7A78CC711A81E33B00551647 /* Music */,
 				7AF5C31319E208E50003A332 /* Other */,
-				7A4E783B19C735B900C5E9B3 /* AppDelegate.swift */,
-				7A4E784119C735B900C5E9B3 /* GameViewController.swift */,
 				7A4E784319C735B900C5E9B3 /* Main.storyboard */,
+				7A4E784119C735B900C5E9B3 /* GameViewController.swift */,
+				7A4E783B19C735B900C5E9B3 /* AppDelegate.swift */,
 				7A4E784619C735B900C5E9B3 /* Images.xcassets */,
 				7A4E784819C735B900C5E9B3 /* LaunchScreen.xib */,
 				7A4E783919C735B900C5E9B3 /* Supporting Files */,
@@ -290,6 +293,14 @@
 				7A5D745419DF847E009EEBD8 /* zombie.png */,
 			);
 			name = Characters;
+			sourceTree = "<group>";
+		};
+		7A78CC711A81E33B00551647 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				7A78CC721A81E4A900551647 /* background-music.wav */,
+			);
+			name = Music;
 			sourceTree = "<group>";
 		};
 		7A8D8F2119C7E72D001D8C72 /* Images */ = {
@@ -481,6 +492,7 @@
 				7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */,
 				7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */,
 				7AC8238219E9B88B005B8124 /* coin.png in Resources */,
+				7A78CC731A81E4A900551647 /* background-music.wav in Resources */,
 				7A7F162D1A4A88DB00F00743 /* hairball.png in Resources */,
 				7A2D0EED19EF51DE00491A2F /* resume.png in Resources */,
 				7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */,
