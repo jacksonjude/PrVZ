@@ -14,6 +14,9 @@ class MenuScene: SKScene
     var volumeSlider: UISlider?
     var zombiesKilled = NSInteger()
     let version = 1.0
+    var volume = Float()
+    var muted = false
+    var volumeDisplay = Float()
     
     override func didMoveToView(view: SKView)
     {
@@ -26,6 +29,12 @@ class MenuScene: SKScene
         {
             self.zombiesKilled = currentScore
         }
+        if let volumeDefaults = defaults.objectForKey("volume") as? Float
+        {
+            self.volume = volumeDefaults
+            self.volumeDisplay = volumeDefaults
+        }
+        
         
         var title = SKLabelNode(fontNamed: "TimesNewRoman")
         title.fontSize = 64
@@ -50,6 +59,7 @@ class MenuScene: SKScene
         volumeSlider?.userInteractionEnabled = false
         volumeSlider?.maximumValue = 10
         volumeSlider?.minimumValue = 1
+        volumeSlider?.setValue(self.volumeDisplay, animated: true)
     }
     
     func showMap()
@@ -140,6 +150,14 @@ class MenuScene: SKScene
         
         volumeSlider?.hidden = false
         volumeSlider?.userInteractionEnabled = true
+        volumeSlider?.setValue(self.volumeDisplay, animated: true)
+        
+        var muteButton = SKButton(defaultButtonImage: "muteButton", activeButtonImage: "muteButtonPressed", buttonAction: mute)
+        muteButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        muteButton.zPosition = 10
+        volumeSettings.addChild(muteButton)
+        
+        self.addChild(volumeSettings)
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
@@ -172,14 +190,40 @@ class MenuScene: SKScene
     
     func hideVolumeSettings()
     {
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if muted == false
+        {
+            defaults.setObject(volumeSlider?.value, forKey: "volume")
+            var volumeTemp = volumeSlider?.value
+            self.volumeDisplay = volumeTemp!
+            NSLog("Display %f", self.volumeDisplay)
+        }
+        else
+        {
+            defaults.setObject(0, forKey: "volume")
+            self.volumeDisplay = 0
+        }
         var volumeSettings = self.childNodeWithName("volumeSettings")
         volumeSettings?.removeFromParent()
+        volumeSlider?.hidden = true
+        volumeSlider?.userInteractionEnabled = false
     }
     
     func moveToGameScene()
     {
-        
         gameViewController1?.presentGameScene()
+    }
+    
+    func mute()
+    {
+        if self.muted == false
+        {
+            self.muted = true
+        }
+        else
+        {
+            self.muted = false
+        }
     }
     
     override func update(currentTime: NSTimeInterval)

@@ -307,6 +307,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             pauseButton.userInteractionEnabled = true
         }
         
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        if let volume = defaults.objectForKey("volume") as? Float
+        {
+            backgroundMusicPlayer.volume = volume / 10
+        }
+        
         if let zombiesKilledLabel = self.childNodeWithName("zombiesKilledLabel")
         {
             zombiesKilledLabel.removeFromParent()
