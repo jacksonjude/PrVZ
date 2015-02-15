@@ -311,6 +311,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if let volume = defaults.objectForKey("volume") as? Float
         {
             backgroundMusicPlayer.volume = volume / 10
+            NSLog("Volume: %f", volume)
         }
         
         if let zombiesKilledLabel = self.childNodeWithName("zombiesKilledLabel")

@@ -51,8 +51,8 @@ class MenuScene: SKScene
         statsButton.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame))
         self.addChild(statsButton)
         
-        var volumeSettingsButton = SKButton(defaultButtonImage: "volumeSettingsButton", activeButtonImage: "volumeSettingsButtonPressed", buttonAction: showVolumeSettings)
-        volumeSettingsButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-150)
+        var volumeSettingsButton = SKButton(defaultButtonImage: "volumeButton", activeButtonImage: "volumeButtonPressed", buttonAction: showVolumeSettings)
+        volumeSettingsButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
         self.addChild(volumeSettingsButton)
         
         volumeSlider?.hidden = true
@@ -152,10 +152,18 @@ class MenuScene: SKScene
         volumeSlider?.userInteractionEnabled = true
         volumeSlider?.setValue(self.volumeDisplay, animated: true)
         
-        var muteButton = SKButton(defaultButtonImage: "muteButton", activeButtonImage: "muteButtonPressed", buttonAction: mute)
+        var muteButton = SKButton(defaultButtonImage: "mute", activeButtonImage: "mutePressed", buttonAction: mute)
         muteButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         muteButton.zPosition = 10
         volumeSettings.addChild(muteButton)
+        
+        var muteDisplay = SKLabelNode(fontNamed: "TimesNewRoman")
+        muteDisplay.fontSize = 24
+        muteDisplay.fontColor = SKColor.redColor()
+        muteDisplay.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-100)
+        muteDisplay.name = "muteDisplay"
+        muteDisplay.zPosition = 10
+        self.addChild(muteDisplay)
         
         self.addChild(volumeSettings)
     }
@@ -196,15 +204,16 @@ class MenuScene: SKScene
             defaults.setObject(volumeSlider?.value, forKey: "volume")
             var volumeTemp = volumeSlider?.value
             self.volumeDisplay = volumeTemp!
-            NSLog("Display %f", self.volumeDisplay)
         }
         else
         {
             defaults.setObject(0, forKey: "volume")
             self.volumeDisplay = 0
         }
-        var volumeSettings = self.childNodeWithName("volumeSettings")
+        let volumeSettings = self.childNodeWithName("volumeSettings")
         volumeSettings?.removeFromParent()
+        let muteDisplay = self.childNodeWithName("muteDisplay")
+        muteDisplay?.removeFromParent()
         volumeSlider?.hidden = true
         volumeSlider?.userInteractionEnabled = false
     }
@@ -228,6 +237,15 @@ class MenuScene: SKScene
     
     override func update(currentTime: NSTimeInterval)
     {
-        
+        if let volumeSettings = self.childNodeWithName("volumeSettings")
+        {
+            let muteDisplay = self.childNodeWithName("muteDisplay")
+            var muteDisplaySK = muteDisplay as? SKLabelNode
+            muteDisplaySK?.text = NSString(format: "Muted: %i", Int(self.muted))
+            if self.muted == true
+            {
+                volumeSlider?.setValue(0, animated: true)
+            }
+        }
     }
 }
