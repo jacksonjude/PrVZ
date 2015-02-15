@@ -319,7 +319,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             zombiesKilledLabel.removeFromParent()
         }
         
-        if self.zombieSpeedSlider == 1
+        if self.zombieSpeedSlider?.value == 1
         {
             var speedDivider = self.wavesCompleted / 4
             if speedDivider >= 1
