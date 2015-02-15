@@ -11,8 +11,9 @@ import Spritekit
 class MenuScene: SKScene
 {
     var gameViewController1: GameViewController?
+    var volumeSlider: UISlider?
     var zombiesKilled = NSInteger()
-    var version = 1.0
+    let version = 1.0
     
     override func didMoveToView(view: SKView)
     {
@@ -41,6 +42,14 @@ class MenuScene: SKScene
         statsButton.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame))
         self.addChild(statsButton)
         
+        var volumeSettingsButton = SKButton(defaultButtonImage: "volumeSettingsButton", activeButtonImage: "volumeSettingsButtonPressed", buttonAction: showVolumeSettings)
+        volumeSettingsButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-150)
+        self.addChild(volumeSettingsButton)
+        
+        volumeSlider?.hidden = true
+        volumeSlider?.userInteractionEnabled = false
+        volumeSlider?.maximumValue = 10
+        volumeSlider?.minimumValue = 1
     }
     
     func showMap()
@@ -116,6 +125,23 @@ class MenuScene: SKScene
         self.addChild(stats)
     }
     
+    func showVolumeSettings()
+    {
+        var volumeSettings = SKNode()
+        volumeSettings.name = "volumeSettings"
+        
+        var backGround = SKShapeNode(circleOfRadius: 10)
+        backGround.path = CGPathCreateWithRect(CGRectMake(32, 0, 960, 720), nil)
+        backGround.fillColor = SKColor.grayColor()
+        backGround.name = "bg"
+        backGround.position = CGPoint(x: 0, y: 0)
+        backGround.zPosition = 5
+        volumeSettings.addChild(backGround)
+        
+        volumeSlider?.hidden = false
+        volumeSlider?.userInteractionEnabled = true
+    }
+    
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
     {
         if let map = self.childNodeWithName("map")
@@ -125,6 +151,10 @@ class MenuScene: SKScene
         if let stats = self.childNodeWithName("stats")
         {
             self.hideStats()
+        }
+        if let volumeSettings = self.childNodeWithName("volumeSettings")
+        {
+            self.hideVolumeSettings()
         }
     }
     
@@ -140,8 +170,15 @@ class MenuScene: SKScene
         stats?.removeFromParent()
     }
     
+    func hideVolumeSettings()
+    {
+        var volumeSettings = self.childNodeWithName("volumeSettings")
+        volumeSettings?.removeFromParent()
+    }
+    
     func moveToGameScene()
     {
+        
         gameViewController1?.presentGameScene()
     }
     

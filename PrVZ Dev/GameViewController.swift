@@ -30,6 +30,8 @@ extension SKNode {
 class GameViewController: UIViewController {
     @IBOutlet var zombiesToSpawnSlider : UISlider!
     @IBOutlet var moreButtonsSwitch : UISwitch!
+    @IBOutlet var zombieSpeedSlider : UISlider!
+    @IBOutlet var volumeSlider : UISlider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +56,12 @@ class GameViewController: UIViewController {
             
             scene.switch1 = self.moreButtonsSwitch
             scene.switch1?.hidden = true
+            
+            scene.slider2 = self.zombieSpeedSlider
+            scene.slider2?.hidden = true
+            
+            scene.slider3 = self.volumeSlider
+            scene.slider3?.hidden = true
             
             skView.presentScene(scene)
         }
@@ -82,6 +90,12 @@ class GameViewController: UIViewController {
             scene.switch1 = self.moreButtonsSwitch
             scene.switch1?.hidden = true
             
+            scene.slider2 = self.zombieSpeedSlider
+            scene.slider2?.hidden = true
+            
+            scene.slider3 = self.volumeSlider
+            scene.slider3?.hidden = true
+            
             skView.presentScene(scene)
         }
     }
@@ -108,6 +122,12 @@ class GameViewController: UIViewController {
             scene.switch1 = self.moreButtonsSwitch
             scene.switch1?.hidden = true
             
+            scene.slider2 = self.zombieSpeedSlider
+            scene.slider2?.hidden = true
+            
+            scene.slider3 = self.volumeSlider
+            scene.slider3?.hidden = true
+            
             skView.presentScene(scene)
         }
     }
@@ -128,6 +148,7 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             
             scene.gameViewController1 = self
+            scene.volumeSlider = self.volumeSlider
             
             skView.presentScene(scene)
         }
@@ -150,6 +171,9 @@ class GameViewController: UIViewController {
             
             scene.zombiesToSpawnSlider = self.zombiesToSpawnSlider
             scene.moreButtonsSwitch = self.moreButtonsSwitch
+            scene.zombieSpeedSlider = self.zombieSpeedSlider
+            scene.volumeSlider = self.volumeSlider
+            scene.volumeSlider?.hidden = true
             scene.gameViewController1 = self
             
             skView.presentScene(scene)

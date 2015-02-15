@@ -27,6 +27,8 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     var gameViewController1: GameViewController?
     var slider1: UISlider?
     var switch1: UISwitch?
+    var slider2: UISlider?
+    var slider3: UISlider?
     
     override func didMoveToView(view: SKView)
     {
@@ -37,6 +39,14 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
             {
                 gameViewController1?.presentMenuScene()
             }
+            else
+            {
+                defaults.setObject(0, forKey: "highScore")
+            }
+        }
+        else
+        {
+            defaults.setObject(0, forKey: "highScore")
         }
                 
         let background = SKSpriteNode(imageNamed: "background.png")

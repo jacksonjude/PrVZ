@@ -25,7 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var zombies = NSMutableArray()
     var gameIsRunning = false
     var canPressButtons = true
-    var zombieSpeed = 1.0
+    var zombieSpeed: CGFloat = 1.0
     var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blueColor(), joystickRadius:50, joystickColor:SKColor.redColor())
     var buttons = SKNode()
     var brushInWorld = false
@@ -35,6 +35,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var coinsLabel = SKLabelNode(fontNamed: "TimesNewRoman")
     var zombiesToSpawnSlider: UISlider?
     var moreButtonsSwitch: UISwitch?
+    var zombieSpeedSlider: UISlider?
+    var volumeSlider: UISlider?
     var gameViewController1: GameViewController?
     var infBrushItem = Bool()
     var healthPack = Bool()
@@ -208,6 +210,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.moreButtonsSwitch?.hidden = true
         self.moreButtonsSwitch?.userInteractionEnabled = false
         
+        self.zombieSpeedSlider?.hidden = true
+        self.zombieSpeedSlider?.userInteractionEnabled = false
+        self.zombieSpeedSlider?.minimumValue = 1
+        self.zombieSpeedSlider?.maximumValue = 4
+        
         self.coinsLabel.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)+90)
         self.coinsLabel.fontColor = SKColor.redColor()
         self.addChild(self.coinsLabel)
@@ -239,6 +246,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillTerminateNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFrombackground", name: UIApplicationWillEnterForegroundNotification, object: nil)
         
         if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
         {
@@ -279,9 +287,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         else
         {
-            if self.healthLostInLastRound > 1.0
+            if self.healthLostInLastRound > 0.5
             {
-                self.princessHealth += 1
+                self.princessHealth += 0.5
             }
             else
             {
@@ -304,8 +312,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             zombiesKilledLabel.removeFromParent()
         }
         
-        let numberOfZombiesToMakeAsAFloat = self.zombiesToSpawnSlider?.value
+        if self.zombieSpeedSlider == 1
+        {
+            var speedDivider = self.wavesCompleted / 4
+            if speedDivider >= 1
+            {
+                self.zombieSpeed = CGFloat(arc4random()%2)
+            }
+            else
+            {
+                self.zombieSpeed = 1
+            }
+        }
+        else
+        {
+            let zombieSpeedToMakeAsACGFloat = self.zombieSpeedSlider?.value
+            self.zombieSpeed = CGFloat(zombieSpeedToMakeAsACGFloat!)
+        }
         
+        let numberOfZombiesToMakeAsAFloat = self.zombiesToSpawnSlider?.value
         var zombiesToSpawn = NSInteger(numberOfZombiesToMakeAsAFloat!)
         
         var zombiesSpawned = 0
@@ -473,6 +498,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         projectile.removeFromParent()
         var monsterSK = monster as GenericZombie
         monsterSK.health--
+        var healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        healthLostLabel.text = "-1"
+        healthLostLabel.fontColor = SKColor.redColor()
+        healthLostLabel.fontSize = 32
+        if monster.name == "catZombie"
+        {
+            healthLostLabel.position = CGPoint(x: monster.position.x, y: monster.position.y+25)
+        }
+        else
+        {
+            healthLostLabel.position = CGPoint(x: monster.position.x, y: monster.position.y+75)
+        }
+        healthLostLabel.runAction(SKAction.moveToY(healthLostLabel.position.y+20, duration: 0.4))
+        healthLostLabel.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(0.4), SKAction.runBlock({
+            healthLostLabel.removeFromParent()
+        })]))
+        self.addChild(healthLostLabel)
         if monsterSK.health < 1
         {
             var deadZombie = SKSpriteNode(imageNamed: "ash.png")
@@ -515,6 +557,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         self.princessHealth -= 0.25
         self.healthLostInLastRound += 0.25
+        var healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        healthLostLabel.text = "-0.25"
+        healthLostLabel.fontColor = SKColor.redColor()
+        healthLostLabel.fontSize = 32
+        healthLostLabel.position = CGPoint(x: princess1.position.x, y: princess1.position.y+100)
+        healthLostLabel.runAction(SKAction.moveToY(healthLostLabel.position.y+20, duration: 0.4))
+        healthLostLabel.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(0.4), SKAction.runBlock({
+            healthLostLabel.removeFromParent()
+        })]))
+        self.addChild(healthLostLabel)
         if princessHealth <= 0
         {
             self.gameOver()
@@ -612,6 +664,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         self.moreButtonsSwitch?.hidden = false
         self.moreButtonsSwitch?.userInteractionEnabled = true
+        
+        self.zombieSpeedSlider?.hidden = false
+        self.zombieSpeedSlider?.userInteractionEnabled = true
         
         var resetGameButton = SKButton(defaultButtonImage: "resetButton", activeButtonImage: "resetButtonPressed", buttonAction: resetGame)
         resetGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
@@ -737,6 +792,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         self.moreButtonsSwitch?.hidden = true
         self.moreButtonsSwitch?.userInteractionEnabled = false
+        
+        self.zombieSpeedSlider?.hidden = true
+        self.zombieSpeedSlider?.userInteractionEnabled = false
         
         if moreButtonsSwitch?.on == true
         {
@@ -1190,7 +1248,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             if aZombie as SKSpriteNode != self.childNodeWithName("ash")
             {
                 var aZombieSK = aZombie as SKSpriteNode
-                aZombieSK.runAction(SKAction.repeatActionForever(SKAction.moveByX(CGFloat(-zombieSpeed), y: 0, duration: 0.1)))
+                aZombieSK.runAction(SKAction.repeatActionForever(SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)))
                 if aZombie.name == "catZombie"
                 {
                     var sequence = SKAction.sequence([SKAction.runBlock({
@@ -1297,6 +1355,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 var healthLabelSK = healthLabelOLD as SKLabelNode
                 healthLabelSK.text = NSString(format: "Health: %.2f", self.princessHealth)
+                healthLabelSK.zPosition = 10
             }
             else
             {
@@ -1306,12 +1365,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 healthLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-250)
                 healthLabel.text = NSString(format: "Health: %f", self.princessHealth)
                 healthLabel.name = "healthLabel"
-                
+                healthLabel.zPosition = 10
                 self.addChild(healthLabel)
             }
         }
         else
         {
+            var healthLabel = self.childNodeWithName("healthLabel")
+            healthLabel?.zPosition = 0
+            
             var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             
             var tempArray = NSMutableArray()

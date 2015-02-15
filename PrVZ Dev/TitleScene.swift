@@ -19,23 +19,25 @@ class TitleScene: SKScene
     var gameViewController1: GameViewController?
     var slider: UISlider?
     var switch1: UISwitch?
+    var slider2: UISlider?
+    var slider3: UISlider?
     
     override func didMoveToView(view: SKView)
     {        
-        start.text = "Start"
-        start.name = "start"
-        start.fontSize = 85
-        start.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+        self.start.text = "Start"
+        self.start.name = "start"
+        self.start.fontSize = 85
+        self.start.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         
         let flash = SKAction.repeatActionForever(SKAction.sequence([hide, wait, unhide, wait]))
-        start.runAction(flash)
+        self.start.runAction(flash)
         
         let background = SKSpriteNode(imageNamed: "background.png")
         background.zPosition = -2
         background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         
         self.addChild(background)
-        self.addChild(start)
+        self.addChild(start)        
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
