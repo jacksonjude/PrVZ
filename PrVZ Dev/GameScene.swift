@@ -324,7 +324,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             var speedDivider = self.wavesCompleted / 4
             if speedDivider >= 1
             {
-                self.zombieSpeed = CGFloat(arc4random()%2)
+                self.zombieSpeed = CGFloat(speedDivider)
             }
             else
             {
