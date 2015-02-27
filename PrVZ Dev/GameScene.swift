@@ -824,6 +824,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             petyard?.userInteractionEnabled = false
             mapButton?.hidden = true
             mapButton?.userInteractionEnabled = false
+            NSLog("Buttons Off")
         }
         else
         {
@@ -831,6 +832,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             petyard?.userInteractionEnabled = true
             mapButton?.hidden = false
             mapButton?.userInteractionEnabled = true
+            NSLog("Buttons On")
         }
     }
     
@@ -1314,19 +1316,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func update(currentTime: NSTimeInterval)
     {
-        for aZombie2 in self.zombies
-        {
-            let aZombie2SK = aZombie2 as SKSpriteNode
-            let range = NSRange(location: 0, length: 50)
-            var gameOverRange = NSLocationInRange(Int(aZombie2SK.position.x), range)
-            if gameOverRange
-            {
-                self.healthLostInLastRound += princessHealth
-                self.princessHealth = 0.0
-                self.gameOver()
-            }
-        }
-        
         var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
         self.princess1.position = position1
         
@@ -1469,13 +1458,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if let settingsNode = self.childNodeWithName("settings")
                 {
-                    
+                    //Nothing Here :-)
                 }
             }
         }
         
         if gameIsRunning == true
         {
+            for aZombie2 in self.zombies
+            {
+                let aZombie2SK = aZombie2 as SKSpriteNode
+                let range = NSRange(location: 0, length: 50)
+                var gameOverRange = NSLocationInRange(Int(aZombie2SK.position.x), range)
+                if gameOverRange
+                {
+                    self.healthLostInLastRound += princessHealth
+                    self.princessHealth = 0.0
+                    self.gameOver()
+                    break
+                }
+            }
+            
             var zombiesAlive = 0
             for aZombie in self.zombies
             {
@@ -1568,6 +1571,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
                 
                 self.saveData()
+            }
+        }
+        
+        if gameIsRunning == false
+        {
+            if self.princessHealth <= 0
+            {
+                self.princessHealth = 1
             }
         }
         
