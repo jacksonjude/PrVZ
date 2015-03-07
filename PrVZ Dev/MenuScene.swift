@@ -125,6 +125,70 @@ class MenuScene: SKScene
         
         stats.addChild(currentScoreLabel)
         
+        var zombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        zombiesKilledLabel.fontColor = SKColor.blueColor()
+        zombiesKilledLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+30)
+        zombiesKilledLabel.zPosition = 6
+        
+        if let normalZombiesKilled = defaults.objectForKey("zombiesKilled") as? NSInteger
+        {
+            zombiesKilledLabel.text = NSString(format: "You have killed %i Normal Zombies", normalZombiesKilled)
+        }
+        else
+        {
+            zombiesKilledLabel.text = "You have killed 0 Normal Zombies"
+        }
+        
+        stats.addChild(zombiesKilledLabel)
+        
+        var zombiesDiedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        zombiesDiedLabel.fontColor = SKColor.redColor()
+        zombiesDiedLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+5)
+        zombiesDiedLabel.zPosition = 6
+        
+        if let normalZombiesDied = defaults.objectForKey("zombiesDied") as? NSInteger
+        {
+            zombiesDiedLabel.text = NSString(format: "    You have been killed by %i Normal Zombies", normalZombiesDied)
+        }
+        else
+        {
+            zombiesDiedLabel.text = "    You have never been killed by a Normal Zombie"
+        }
+        
+        stats.addChild(zombiesDiedLabel)
+        
+        var catZombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        catZombiesKilledLabel.fontColor = SKColor.blueColor()
+        catZombiesKilledLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-30)
+        catZombiesKilledLabel.zPosition = 6
+        
+        if let catZombiesKilled = defaults.objectForKey("catZombiesKilled") as? NSInteger
+        {
+            catZombiesKilledLabel.text = NSString(format: "You have killed %i Cat Zombies", catZombiesKilled)
+        }
+        else
+        {
+            catZombiesKilledLabel.text = "You have killed 0 Cat Zombies"
+        }
+        
+        stats.addChild(catZombiesKilledLabel)
+        
+        var catZombiesDiedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        catZombiesDiedLabel.fontColor = SKColor.redColor()
+        catZombiesDiedLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-55)
+        catZombiesDiedLabel.zPosition = 6
+        
+        if let catZombiesDied = defaults.objectForKey("catZombiesDied") as? NSInteger
+        {
+            catZombiesDiedLabel.text = NSString(format: "    You have been killed by %i Cat Zombies", catZombiesDied)
+        }
+        else
+        {
+            catZombiesDiedLabel.text = "    You have never been killed by a Cat Zombie"
+        }
+        
+        stats.addChild(catZombiesDiedLabel)
+        
         var version = SKLabelNode(fontNamed: "TimesNewRoman")
         version.fontColor = SKColor.greenColor()
         version.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-150)

@@ -186,13 +186,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         settingsButton.name = "settingsButton"
         self.buttons.addChild(settingsButton)
         
-        var mapButton = SKButton(defaultButtonImage: "mapButton", activeButtonImage: "mapButtonPressed", buttonAction: showMap)
-        mapButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)+50)
-        mapButton.name = "mapButton"
-        self.buttons.addChild(mapButton)
-        mapButton.hidden = true
-        mapButton.userInteractionEnabled = false
-        
         self.addChild(self.buttons)
         
         var bar = SKShapeNode()
@@ -513,7 +506,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             healthLostLabel.position = CGPoint(x: monster.position.x, y: monster.position.y+25)
         }
-        else
+        if monster.name == "zombie"
         {
             healthLostLabel.position = CGPoint(x: monster.position.x, y: monster.position.y+75)
         }
@@ -522,8 +515,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             healthLostLabel.removeFromParent()
         })]))
         self.addChild(healthLostLabel)
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if monsterSK.health < 1
         {
+            if monsterSK.name == "catZombie"
+            {
+                if var zombieKills = defaults.objectForKey("catZombieKills") as? NSInteger
+                {
+                    zombieKills++
+                    defaults.setObject(zombieKills, forKey: "catZombieKills")
+                }
+                else
+                {
+                    defaults.setObject(1, forKey: "catZombieKills")
+                }
+            }
+            if monsterSK.name == "zombie"
+            {
+                if var zombieKills = defaults.objectForKey("zombieKills") as? NSInteger
+                {
+                    zombieKills++
+                    defaults.setObject(zombieKills, forKey: "zombieKills")
+                }
+                else
+                {
+                    defaults.setObject(1, forKey: "zombieKills")
+                }
+            }
             var deadZombie = SKSpriteNode(imageNamed: "ash.png")
             deadZombie.name = "ash"
             deadZombie.position = monster.position
@@ -546,7 +564,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         self.coins++
         
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(self.coins, forKey: "coins")
     }
     
@@ -556,6 +573,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.healthLostInLastRound += 1.00
         if princessHealth <= 0
         {
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            if monster.name == "zombie"
+            {
+                if var normalZombiesDied = defaults.objectForKey("zombiesDied") as? NSInteger
+                {
+                    defaults.setObject(normalZombiesDied++, forKey: "zombiesDied")
+                }
+                else
+                {
+                    defaults.setObject(1, forKey: "zombiesDied")
+                }
+            }
+            if monster.name == "catZombie"
+            {
+                if var catZombiesDied = defaults.objectForKey("catZombiesDied") as? NSInteger
+                {
+                    defaults.setObject(catZombiesDied++, forKey: "catZombiesDied")
+                }
+                else
+                {
+                    defaults.setObject(1, forKey: "catZombiesDied")
+                }
+            }
+            
             self.gameOver()
         }
     }
@@ -576,6 +617,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.addChild(healthLostLabel)
         if princessHealth <= 0
         {
+            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            
+            if var catZombiesDied = defaults.objectForKey("catZombiesDied") as? NSInteger
+            {
+                defaults.setObject(catZombiesDied++, forKey: "catZombiesDied")
+            }
+            else
+            {
+                defaults.setObject(1, forKey: "catZombiesDied")
+            }
+            
             self.gameOver()
         }
         enemyProjectile.removeFromParent()
@@ -755,12 +807,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
     {
-        var map = self.childNodeWithName("map")
-        if map != nil
-        {
-            self.hideMap()
-        }
-        
         var settingsNode = self.childNodeWithName("settings")
         if settingsNode != nil
         {
@@ -802,38 +848,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         self.zombieSpeedSlider?.hidden = true
         self.zombieSpeedSlider?.userInteractionEnabled = false
-        
-        if moreButtonsSwitch?.on == true
-        {
-            self.extraButtons(0)
-        }
-        else
-        {
-            self.extraButtons(1)
-        }
-    }
-    
-    func extraButtons(buttons: NSInteger)
-    {
-        var petyard = self.buttons.childNodeWithName("petyard")
-        var mapButton = self.buttons.childNodeWithName("mapButton")
-        
-        if buttons == 0
-        {
-            petyard?.hidden = true
-            petyard?.userInteractionEnabled = false
-            mapButton?.hidden = true
-            mapButton?.userInteractionEnabled = false
-            NSLog("Buttons Off")
-        }
-        else
-        {
-            petyard?.hidden = false
-            petyard?.userInteractionEnabled = true
-            mapButton?.hidden = false
-            mapButton?.userInteractionEnabled = true
-            NSLog("Buttons On")
-        }
     }
     
     func store()
@@ -1046,47 +1060,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.storeIsOpen = false
         self.checkIsShowing = false
         self.checkIsShowing2 = false
-    }
-    
-    func showMap()
-    {
-        var map = SKSpriteNode(imageNamed: "map1.png")
-        map.zPosition = 10
-        map.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-        map.name = "map"
-        var circle = CGRectMake(100.0, 100.0, 80.0, 80.0)
-        var progress = SKShapeNode()
-        /*progress.path = UIBezierPath(ovalInRect: circle).CGPath
-        progress.fillColor = SKColor.redColor()
-        progress.lineWidth = 5
-        progress.zPosition = 11
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if let background = defaults.objectForKey("background") as? NSInteger
-        {
-            if background == 1
-            {
-                progress.position = CGPoint(x: CGRectGetMidX(self.frame)-920, y: CGRectGetMidY(self.frame)-670)
-            }
-            if background == 2
-            {
-                progress.position = CGPoint(x: CGRectGetMidX(self.frame)-920, y: CGRectGetMidY(self.frame)-100)
-            }
-        }
-        map.addChild(progress)*/
-        //Will add later
-        self.addChild(map)
-        
-        self.windowIsOpen = true
-        self.canPressButtons = false
-    }
-    
-    func hideMap()
-    {
-        var map = self.childNodeWithName("map")
-        map?.removeFromParent()
-        
-        self.windowIsOpen = false
-        self.canPressButtons = true
     }
     
     func showPetYard()
