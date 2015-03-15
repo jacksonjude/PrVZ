@@ -38,6 +38,18 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var localPlayer = GKLocalPlayer.localPlayer()
+        localPlayer.authenticateHandler = {(viewController : UIViewController!, error : NSError!) -> Void in
+            if ((viewController) != nil) {
+                self.presentViewController(viewController, animated: true, completion: nil)
+            }else{
+                
+                println((GKLocalPlayer.localPlayer().authenticated))
+            }
+        }
+        
+        self.gameCenterLoadAchievements()
+        
         if let scene = TitleScene.unarchiveFromFile("TitleScene") as? TitleScene {
             
             scene.gameViewController1 = self
@@ -67,18 +79,6 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
             
             skView.presentScene(scene)
         }
-        
-        var localPlayer = GKLocalPlayer.localPlayer()
-        localPlayer.authenticateHandler = {(viewController : UIViewController!, error : NSError!) -> Void in
-            if ((viewController) != nil) {
-                self.presentViewController(viewController, animated: true, completion: nil)
-            }else{
-                
-                println((GKLocalPlayer.localPlayer().authenticated))
-            }
-        }
-        
-        self.gameCenterLoadAchievements()
     }
     
     func showLeaderboard()

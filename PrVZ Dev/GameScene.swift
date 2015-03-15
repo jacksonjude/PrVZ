@@ -561,11 +561,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
                 
                 defaults.setObject(highScore, forKey: "highScore")
+                
+                if let currentScoreCurrent = defaults.objectForKey("currentScore") as? NSInteger
+                {
+                    if currentScoreCurrent > highScore
+                    {
+                        gameViewController1?.submitScore(currentScoreCurrent)
+                    }
+                    else
+                    {
+                        gameViewController1?.submitScore(highScore)
+                    }
+                }
             }
         }
         self.coins++
         
         defaults.setObject(self.coins, forKey: "coins")
+        
+        if let currentScore = defaults.objectForKey("currentScore") as? Double
+        {
+            if currentScore <= 3
+            {
+                let progressDouble: Double = currentScore / 0.03
+                self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "zombieKill3")
+            }
+            if currentScore <= 50
+            {
+                let progressDouble2: Double = currentScore / 0.5
+                self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble2, achievementID: "zombieKill50")
+            }
+            if currentScore <= 100
+            {
+                let progressDouble3: Double = currentScore / 1
+                self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble3, achievementID: "zombieKill100")
+            }
+        }
     }
     
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
@@ -818,6 +849,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func resetGame()
     {
+        var backGround2 = SKShapeNode(circleOfRadius: 10)
+        backGround2.path = CGPathCreateWithRect(CGRectMake(CGRectGetMidX(self.frame)-300, CGRectGetMidY(self.frame)-200, 600, 400), nil)
+        backGround2.fillColor = SKColor.grayColor()
+        backGround2.name = "background2"
+        backGround2.position = CGPoint(x: 0, y: 0)
+        backGround2.zPosition = 10
+        
+        self.zombiesToSpawnSlider?.hidden = true
+        self.zombiesToSpawnSlider?.userInteractionEnabled = false
+        
+        self.joystickSwitch?.hidden = true
+        self.joystickSwitch?.userInteractionEnabled = false
+        
+        self.zombieSpeedSlider?.hidden = true
+        self.zombieSpeedSlider?.userInteractionEnabled = false
+        
+        var textReset = SKLabelNode(fontNamed: "TimesNewRoman")
+        textReset.fontColor = SKColor.redColor()
+        textReset.fontSize = 64
+        textReset.text = "Are you SURE"
+        textReset.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+150)
+        textReset.zPosition = 11
+        backGround2.addChild(textReset)
+        
+        var textReset2 = SKLabelNode(fontNamed: "TimesNewRoman")
+        textReset2.fontColor = SKColor.redColor()
+        textReset2.fontSize = 64
+        textReset2.text = "you want to reset?"
+        textReset2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
+        textReset2.zPosition = 11
+        backGround2.addChild(textReset2)
+        
+        var resetButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+200, y: CGRectGetMidY(self.frame)), type: "default", InMenu: "settings", WithAction: resetYes, WithName: "resetButton")
+        backGround2.addChild(resetButton)
+        
+        var backButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)-200, y: CGRectGetMidY(self.frame)), type: "back", InMenu: "settings", WithAction: resetNo, WithName: "backButton")
+        backGround2.addChild(backButton)
+        
+        self.addChild(backGround2)
+    }
+    
+    func resetYes()
+    {
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(0, forKey: "Tutorial")
         defaults.setObject(0, forKey: "highScore")
@@ -830,6 +904,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(0, forKey: "currentScore")
         
         self.gameViewController1?.presentTitleScene()
+    }
+    
+    func resetNo()
+    {
+        var background2 = self.childNodeWithName("background2")
+        background2?.removeFromParent()
+        
+        self.zombiesToSpawnSlider?.hidden = false
+        self.zombiesToSpawnSlider?.userInteractionEnabled = true
+        
+        self.joystickSwitch?.hidden = false
+        self.joystickSwitch?.userInteractionEnabled = true
+        
+        self.zombieSpeedSlider?.hidden = false
+        self.zombieSpeedSlider?.userInteractionEnabled = true
     }
     
     func presentMenuScene()
@@ -946,6 +1035,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         infiniteBrushBuyButton.position = CGPoint(x: infiniteBrushBuyButton.position.x, y: infiniteBrushBuyButton.position.y-200)
         infiniteBrushBuyButton.name = "infBrushButton"
         infiniteBrush.addChild(infiniteBrushBuyButton)
+            var coinsCost = SKLabelNode(fontNamed: "TimesNewRoman")
+            coinsCost.text = "40"
+            coinsCost.fontSize = 24
+            coinsCost.fontColor = SKColor.orangeColor()
+            coinsCost.position = CGPoint(x: infiniteBrushBuyButton.position.x-30, y: infiniteBrushBuyButton.position.y)
+            coinsCost.zPosition = 8
+            infiniteBrushBuyButton.addChild(coinsCost)
+        
         self.storeButtons.addObject(infiniteBrushBuyButton)
         
         var healthPack = SKSpriteNode(imageNamed: "healthPack.png")
@@ -958,6 +1055,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         HealthPackBuyButton.name = "HealthPackBuyButton"
         healthPack.addChild(HealthPackBuyButton)
         self.storeButtons.addObject(HealthPackBuyButton)
+        
+        var coinsCost2 = SKLabelNode(fontNamed: "TimesNewRoman")
+        coinsCost2.text = "60"
+        coinsCost2.fontSize = 24
+        coinsCost2.fontColor = SKColor.orangeColor()
+        coinsCost2.position = CGPoint(x: HealthPackBuyButton.position.x-30, y: HealthPackBuyButton.position.y)
+        coinsCost2.zPosition = 8
+        HealthPackBuyButton.addChild(coinsCost2)
         
         healthPack.hidden = true
         healthPack.userInteractionEnabled = false
@@ -979,22 +1084,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func buyItemInfBrush()
     {
-        if self.coins > 19
+        if self.coins > 39
         {
-            self.coins-=20
+            self.coins-=40
             self.infBrushItem = true
             self.brushInWorld = false
         }
+        
+        let progressDouble: Double = 100
+        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "buyItem")
     }
     
     func buyItemHealthPack()
     {
-        if self.coins > 49
+        if self.coins > 59
         {
-            self.coins-=50
+            self.coins-=60
             self.healthPack = true
             self.princessHealth+=1
         }
+        
+        let progressDouble: Double = 100
+        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "buyItem")
     }
     
     func leftScroll()
@@ -1605,26 +1716,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
                 
                 self.saveData()
-                
-                var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                if let currentScore = defaults.objectForKey("currentScore") as? Double
-                {
-                    if currentScore <= 3
-                    {
-                        let progressDouble: Double = currentScore / 0.03
-                        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "zombieKill3")
-                    }
-                    if currentScore <= 50
-                    {
-                        let progressDouble2: Double = currentScore / 0.5
-                        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble2, achievementID: "zombieKill50")
-                    }
-                    if currentScore <= 100
-                    {
-                        let progressDouble3: Double = currentScore / 1
-                        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble3, achievementID: "zombieKill100")
-                    }
-                }
             }
         }
         
