@@ -7,6 +7,7 @@
 //
 
 import Spritekit
+import GameKit
 
 class MenuScene: SKScene
 {
@@ -196,7 +197,47 @@ class MenuScene: SKScene
         version.text = NSString(format: "Version: %.2f", self.version)
         stats.addChild(version)
         
+        var gameCenterButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame)), type: "back", InMenu: "settings", WithAction: openGameCenterLeaderboards, WithName: "Game-Center")
+        stats.addChild(gameCenterButton)
+        
         self.addChild(stats)
+    }
+    
+    func openGameCenterLeaderboards()
+    {
+        gameViewController1?.showLeaderboard()
+    }
+    
+    func addButton(pos: CGPoint, type: NSString, InMenu: NSString, WithAction: () -> Void, WithName: NSString) -> SKButton
+    {
+        var posOverride = CGPoint(x: 0, y: 0)
+        if type == "back" && InMenu != "default"
+        {
+            posOverride = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame)-140)
+        }
+        
+        var button = SKButton(defaultButtonImage: WithName, activeButtonImage: WithName + "Pressed", buttonAction: WithAction)
+        if posOverride != CGPoint(x: 0, y: 0) && pos == CGPoint(x: 0, y: 0)
+        {
+            button.position = posOverride
+        }
+        else
+        {
+            button.position = pos
+        }
+        
+        if InMenu == "settings" || InMenu == "store"
+        {
+            button.zPosition = 6
+        }
+        else
+        {
+            button.zPosition = 4
+        }
+        
+        button.name = WithName
+        
+        return button
     }
     
     func showVolumeSettings()

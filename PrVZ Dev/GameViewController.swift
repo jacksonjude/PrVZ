@@ -8,6 +8,7 @@
 
 import UIKit
 import SpriteKit
+import GameKit
 
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
@@ -27,11 +28,12 @@ extension SKNode {
     }
 }
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     @IBOutlet var zombiesToSpawnSlider : UISlider!
     @IBOutlet var joystickSwitch : UISwitch!
     @IBOutlet var zombieSpeedSlider : UISlider!
     @IBOutlet var volumeSlider : UISlider!
+    var gameCenterAchievements=[String:GKAchievement]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +67,113 @@ class GameViewController: UIViewController {
             
             skView.presentScene(scene)
         }
+        
+        var localPlayer = GKLocalPlayer.localPlayer()
+        localPlayer.authenticateHandler = {(viewController : UIViewController!, error : NSError!) -> Void in
+            if ((viewController) != nil) {
+                self.presentViewController(viewController, animated: true, completion: nil)
+            }else{
+                
+                println((GKLocalPlayer.localPlayer().authenticated))
+            }
+        }
+        
+        self.gameCenterLoadAchievements()
+    }
+    
+    func showLeaderboard()
+    {
+        var gcViewController: GKGameCenterViewController = GKGameCenterViewController()
+        gcViewController.gameCenterDelegate = self
+        
+        gcViewController.viewState = GKGameCenterViewControllerState.Leaderboards
+        
+        gcViewController.leaderboardIdentifier = "zombiesKilled"
+        
+        self.showViewController(gcViewController, sender: self)
+        self.navigationController?.pushViewController(gcViewController, animated: true)
+    }
+    
+    func showAchievements()
+    {
+        var gcViewController: GKGameCenterViewController = GKGameCenterViewController()
+        gcViewController.gameCenterDelegate = self
+        
+        gcViewController.viewState = GKGameCenterViewControllerState.Achievements
+        
+        self.showViewController(gcViewController, sender: self)
+        self.navigationController?.pushViewController(gcViewController, animated: true)
+    }
+    
+    func submitScore(score: NSInteger) {
+        var leaderboardID = "zombiesKilled"
+        var sScore = GKScore(leaderboardIdentifier: leaderboardID)
+        sScore.value = Int64(score)
+        
+        let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
+        
+        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError!) -> Void in
+            if error != nil {
+                println(error.localizedDescription)
+            } else {
+                println("Score submitted")
+                
+            }
+        })
+        
+    }
+    
+    func gameCenterLoadAchievements(){
+        // load all prev. achievements for GameCenter for the user to progress can be added
+        var allAchievements=[GKAchievement]()
+        
+        GKAchievement.loadAchievementsWithCompletionHandler({ (allAchievements, error:NSError!) -> Void in
+            if error != nil{
+                println("Game Center: could not load achievements, error: \(error)")
+            } else {
+                if allAchievements != nil
+                {
+                    for anAchievement in allAchievements  {
+                        if let oneAchievement = anAchievement as? GKAchievement {
+                            self.gameCenterAchievements[oneAchievement.identifier]=oneAchievement}
+                    }
+                }
+            }
+        })
+    }
+    
+    func gameCenterAddProgressToAnAchievement(progress:Double,achievementID:String) {
+        var lookupAchievement:GKAchievement? = gameCenterAchievements[achievementID]
+        
+        println("\(progress)")
+        
+        if let achievement = lookupAchievement {
+            // found the achievement with the given achievementID, check if it already 100% done
+            if achievement.percentComplete != 100 {
+                // set new progress
+                achievement.percentComplete = progress
+                if progress == 100.0  {achievement.showsCompletionBanner=true}  // show banner only if achievement is fully granted (progress is 100%)
+                
+                // try to report the progress to the Game Center
+                GKAchievement.reportAchievements([achievement], withCompletionHandler:  {(var error:NSError!) -> Void in
+                    if error != nil {
+                        println("Couldn't save achievement (\(achievementID)) progress to \(progress) %")
+                    }
+                })
+            }
+            else {// achievemnt already granted, nothing to do
+                println("DEBUG: Achievement (\(achievementID)) already granted")}
+        } else { // never added  progress for this achievement, create achievement now, recall to add progress
+            println("No achievement with ID (\(achievementID)) was found, no progress for this one was recoreded yet. Create achievement now.")
+            gameCenterAchievements[achievementID] = GKAchievement(identifier: achievementID)
+            // recursive recall this func now that the achievement exist
+            gameCenterAddProgressToAnAchievement(progress, achievementID: achievementID)
+        }
+    }
+    
+    func gameCenterViewControllerDidFinish(gcViewController: GKGameCenterViewController!)
+    {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func presentTitleScene()

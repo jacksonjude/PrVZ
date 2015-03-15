@@ -1159,6 +1159,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setValue(self.princessHealth, forKey: "health")
         
         defaults.setObject(self.healthLostInLastRound, forKey: "healthLost")
+        
+        if let highScore = defaults.objectForKey("highScore") as? NSInteger
+        {
+            if let currentScoreCurrent = defaults.objectForKey("currentScore") as? NSInteger
+            {
+                if currentScoreCurrent > highScore
+                {
+                    gameViewController1?.submitScore(currentScoreCurrent)
+                }
+                else
+                {
+                    gameViewController1?.submitScore(highScore)
+                }
+            }
+        }
     }
     
     func saveDataBackground()
@@ -1586,10 +1601,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 
                 if self.princessHealth != 0
                 {
-                    canPressButtons = true
+                    self.canPressButtons = true
                 }
                 
                 self.saveData()
+                
+                var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                if let currentScore = defaults.objectForKey("currentScore") as? Double
+                {
+                    if currentScore <= 3
+                    {
+                        let progressDouble: Double = currentScore / 0.03
+                        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "zombieKill3")
+                    }
+                    if currentScore <= 50
+                    {
+                        let progressDouble2: Double = currentScore / 0.5
+                        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble2, achievementID: "zombieKill50")
+                    }
+                    if currentScore <= 100
+                    {
+                        let progressDouble3: Double = currentScore / 1
+                        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble3, achievementID: "zombieKill100")
+                    }
+                }
             }
         }
         
