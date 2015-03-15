@@ -579,21 +579,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         defaults.setObject(self.coins, forKey: "coins")
         
-        if let currentScore = defaults.objectForKey("currentScore") as? Double
+        self.saveData()
+        
+        if let currentScoreCurrent2 = defaults.objectForKey("currentScore") as? Double
         {
-            if currentScore <= 3
+            if currentScoreCurrent2 <= 3
             {
-                let progressDouble: Double = currentScore / 0.03
+                let progressDouble: Double = currentScoreCurrent2 / 0.03
                 self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "zombieKill3")
             }
-            if currentScore <= 50
+            if currentScoreCurrent2 <= 50
             {
-                let progressDouble2: Double = currentScore / 0.5
+                let progressDouble2: Double = currentScoreCurrent2 / 0.5
                 self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble2, achievementID: "zombieKill50")
             }
-            if currentScore <= 100
+            if currentScoreCurrent2 <= 100
             {
-                let progressDouble3: Double = currentScore / 1
+                let progressDouble3: Double = currentScoreCurrent2 / 1
                 self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble3, achievementID: "zombieKill100")
             }
         }
@@ -903,6 +905,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(0, forKey: "healthLost")
         defaults.setObject(0, forKey: "currentScore")
         
+        self.gameViewController1?.resetGameCenter()
+                
         self.gameViewController1?.presentTitleScene()
     }
     

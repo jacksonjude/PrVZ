@@ -34,6 +34,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     @IBOutlet var zombieSpeedSlider : UISlider!
     @IBOutlet var volumeSlider : UISlider!
     var gameCenterAchievements=[String:GKAchievement]()
+    var gameCenterAchievementsReal=NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,6 +106,26 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
         self.navigationController?.pushViewController(gcViewController, animated: true)
     }
     
+    func resetGameCenter()
+    {
+        GKAchievement.resetAchievementsWithCompletionHandler { (error: NSError!) -> Void in
+            if error != nil
+            {
+                println("Error: \(error)")
+            }
+        }
+        
+        for anAchievement in self.gameCenterAchievementsReal
+        {
+            var anAchievementG = anAchievement as GKAchievement
+            anAchievementG.percentComplete = 0
+        }
+        
+        self.gameCenterAchievements.removeAll(keepCapacity: false)
+        
+        self.gameCenterLoadAchievements()
+    }
+    
     func submitScore(score: NSInteger) {
         var leaderboardID = "zombiesKilled"
         var sScore = GKScore(leaderboardIdentifier: leaderboardID)
@@ -135,7 +156,9 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
                 {
                     for anAchievement in allAchievements  {
                         if let oneAchievement = anAchievement as? GKAchievement {
-                            self.gameCenterAchievements[oneAchievement.identifier]=oneAchievement}
+                            self.gameCenterAchievements[oneAchievement.identifier]=oneAchievement
+                            self.gameCenterAchievementsReal.addObject(oneAchievement)
+                        }
                     }
                 }
             }
@@ -163,6 +186,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
             }
             else {// achievemnt already granted, nothing to do
                 println("DEBUG: Achievement (\(achievementID)) already granted")}
+                println("Percent: \(achievement.percentComplete)")
         } else { // never added  progress for this achievement, create achievement now, recall to add progress
             println("No achievement with ID (\(achievementID)) was found, no progress for this one was recoreded yet. Create achievement now.")
             gameCenterAchievements[achievementID] = GKAchievement(identifier: achievementID)

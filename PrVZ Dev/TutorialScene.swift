@@ -143,11 +143,11 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         var moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
         zombie1.runAction(SKAction.repeatActionForever(moveBy))
         
-        joystick.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: CGRectGetMidY(self.frame)-200)
-        joystick.name = "joystick"
+        self.joystick.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: CGRectGetMidY(self.frame)-200)
+        self.joystick.name = "joystick"
         self.addChild(joystick)
         
-        gameIsRunning = true
+        self.gameIsRunning = true
         
         self.physicsWorld.contactDelegate = self
     }
@@ -193,16 +193,23 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         deadZombie.position = monster.position
         monster.removeFromParent()
         self.addChild(deadZombie)
+        
+        var textForInfo = SKLabelNode(fontNamed: "TimesNewRoman")
+        textForInfo.text = "Touch Here to Continue"
+        textForInfo.fontColor = SKColor.blackColor()
+        textForInfo.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        textForInfo.name = "textForInfo"
+        self.addChild(textForInfo)
     }
     
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
     {
-        gameOver()
+        self.gameOver()
     }
     
     func monsterDidCollideWithWall(monster: SKNode, wall: SKNode)
     {
-        gameOver()
+        self.gameOver()
     }
     
     func gameOver()
@@ -213,18 +220,18 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         zombie?.removeFromParent()
         princess?.removeFromParent()
         wall?.removeFromParent()
-        joystick.removeFromParent()
+        self.joystick.removeFromParent()
         
-        gameIsRunning = false
+        self.gameIsRunning = false
         
-        tutorialWave()
+        self.tutorialWave()
     }
     
     override func touchesEnded(touches: NSSet, withEvent event: UIEvent)
     {
         for touch: AnyObject in touches
         {
-            if gameIsRunning == false
+            if self.gameIsRunning == false
             {
                 textCount++
                 switch textCount
@@ -258,6 +265,8 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
                     prince?.hidden = false
                     text4.hidden = false
                     text3.hidden == true
+                    var textForInfo = self.childNodeWithName("textForInfo")
+                    textForInfo?.hidden = true
                     
                 case 5:
                     var test = self.view?.window?.rootViewController
