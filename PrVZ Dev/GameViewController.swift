@@ -29,7 +29,7 @@ extension SKNode {
 
 class GameViewController: UIViewController {
     @IBOutlet var zombiesToSpawnSlider : UISlider!
-    @IBOutlet var moreButtonsSwitch : UISwitch!
+    @IBOutlet var joystickSwitch : UISwitch!
     @IBOutlet var zombieSpeedSlider : UISlider!
     @IBOutlet var volumeSlider : UISlider!
     
@@ -54,7 +54,7 @@ class GameViewController: UIViewController {
             scene.slider = self.zombiesToSpawnSlider
             scene.slider?.hidden = true
             
-            scene.switch1 = self.moreButtonsSwitch
+            scene.switch1 = self.joystickSwitch
             scene.switch1?.hidden = true
             
             scene.slider2 = self.zombieSpeedSlider
@@ -87,7 +87,7 @@ class GameViewController: UIViewController {
             scene.slider = self.zombiesToSpawnSlider
             scene.slider?.hidden = true
             
-            scene.switch1 = self.moreButtonsSwitch
+            scene.switch1 = self.joystickSwitch
             scene.switch1?.hidden = true
             
             scene.slider2 = self.zombieSpeedSlider
@@ -119,7 +119,7 @@ class GameViewController: UIViewController {
             scene.slider1 = self.zombiesToSpawnSlider
             scene.slider1?.hidden = true
             
-            scene.switch1 = self.moreButtonsSwitch
+            scene.switch1 = self.joystickSwitch
             scene.switch1?.hidden = true
             
             scene.slider2 = self.zombieSpeedSlider
@@ -170,7 +170,7 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             
             scene.zombiesToSpawnSlider = self.zombiesToSpawnSlider
-            scene.moreButtonsSwitch = self.moreButtonsSwitch
+            scene.joystickSwitch = self.joystickSwitch
             scene.zombieSpeedSlider = self.zombieSpeedSlider
             scene.volumeSlider = self.volumeSlider
             scene.volumeSlider?.hidden = true

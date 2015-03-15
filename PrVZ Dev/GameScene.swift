@@ -27,6 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var canPressButtons = true
     var zombieSpeed: CGFloat = 1.0
     var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blueColor(), joystickRadius:50, joystickColor:SKColor.redColor())
+    var joystickBool = true
     var buttons = SKNode()
     var brushInWorld = false
     var windowIsOpen = false
@@ -34,7 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var coins = 0
     var coinsLabel = SKLabelNode(fontNamed: "TimesNewRoman")
     var zombiesToSpawnSlider: UISlider?
-    var moreButtonsSwitch: UISwitch?
+    var joystickSwitch: UISwitch?
     var zombieSpeedSlider: UISlider?
     var volumeSlider: UISlider?
     var gameViewController1: GameViewController?
@@ -200,8 +201,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.zombiesToSpawnSlider?.maximumValue = 9
         self.zombiesToSpawnSlider?.minimumValue = 3
         
-        self.moreButtonsSwitch?.hidden = true
-        self.moreButtonsSwitch?.userInteractionEnabled = false
+        self.joystickSwitch?.hidden = true
+        self.joystickSwitch?.userInteractionEnabled = false
         
         self.zombieSpeedSlider?.hidden = true
         self.zombieSpeedSlider?.userInteractionEnabled = false
@@ -721,8 +722,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.zombiesToSpawnSlider?.hidden = false
         self.zombiesToSpawnSlider?.userInteractionEnabled = true
         
-        self.moreButtonsSwitch?.hidden = false
-        self.moreButtonsSwitch?.userInteractionEnabled = true
+        self.joystickSwitch?.hidden = false
+        self.joystickSwitch?.userInteractionEnabled = true
         
         self.zombieSpeedSlider?.hidden = false
         self.zombieSpeedSlider?.userInteractionEnabled = true
@@ -774,12 +775,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         currentScoreLabel.fontColor = SKColor.redColor()
         currentScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+150)
         currentScoreLabel.zPosition = 6
-        
         currentScoreLabel.text = NSString(format: "Curent Score: %i", self.zombiesKilled)
-        
         settingsNode.addChild(currentScoreLabel)
         
+        var backbutton = addButton(CGPoint(x: 0, y: 0), type: "back", InMenu: "settings", WithAction: hideSettings, WithName: "backButton")
+        settingsNode.addChild(backbutton)
+        
         self.addChild(settingsNode)
+    }
+    
+    func addButton(pos: CGPoint, type: NSString, InMenu: NSString, WithAction: () -> Void, WithName: NSString) -> SKButton
+    {
+        var posOverride = CGPoint(x: 0, y: 0)
+        if type == "back" && InMenu != "default"
+        {
+            posOverride = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame)-140)
+        }
+        
+        var button = SKButton(defaultButtonImage: WithName, activeButtonImage: WithName + "Pressed", buttonAction: WithAction)
+        if posOverride != CGPoint(x: 0, y: 0) && pos == CGPoint(x: 0, y: 0)
+        {
+            button.position = posOverride
+        }
+        else
+        {
+            button.position = pos
+        }
+        
+        if InMenu == "settings" || InMenu == "store"
+        {
+            button.zPosition = 6
+        }
+        else
+        {
+            button.zPosition = 4
+        }
+        
+        button.name = WithName
+        
+        return button
     }
     
     func resetGame()
@@ -807,12 +841,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
     {
-        var settingsNode = self.childNodeWithName("settings")
-        if settingsNode != nil
-        {
-            self.hideSettings()
-        }
-        
         if self.gameIsRunning == false
         {
             if let zombiesKilledLabel = self.childNodeWithName("zombiesKilledLabel")
@@ -843,11 +871,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.zombiesToSpawnSlider?.userInteractionEnabled = false
         self.zombiesToSpawnSlider?.hidden = true
         
-        self.moreButtonsSwitch?.hidden = true
-        self.moreButtonsSwitch?.userInteractionEnabled = false
+        self.joystickSwitch?.hidden = true
+        self.joystickSwitch?.userInteractionEnabled = false
         
         self.zombieSpeedSlider?.hidden = true
         self.zombieSpeedSlider?.userInteractionEnabled = false
+        
+        self.joystickCheck()
+    }
+    
+    func joystickCheck()
+    {
+        if self.joystickSwitch?.on == true
+        {
+            
+            self.joystickBool = true
+            //Adding Later
+        }
+        else
+        {
+            //self.joystick.removeFromParent()
+            self.joystickBool = false
+            //:-)
+        }
     }
     
     func store()

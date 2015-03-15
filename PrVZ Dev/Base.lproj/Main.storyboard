@@ -59,7 +59,7 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <outlet property="moreButtonsSwitch" destination="Qzt-LO-zHB" id="JHN-hI-0tz"/>
+                        <outlet property="joystickSwitch" destination="Qzt-LO-zHB" id="zgt-aA-ETp"/>
                         <outlet property="volumeSlider" destination="U18-fG-sh1" id="1Ji-4a-ty1"/>
                         <outlet property="zombieSpeedSlider" destination="c4z-Fr-Qvl" id="GoN-JE-qac"/>
                         <outlet property="zombiesToSpawnSlider" destination="7u1-Bc-DKQ" id="Uzg-uy-YD7"/>
