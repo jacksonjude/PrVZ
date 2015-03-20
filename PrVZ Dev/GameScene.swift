@@ -56,6 +56,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var gameOverDidOccur = false
     var healthLostInLastRound = Float(0)
     let backgroundMusicSound = "background-music.wav"
+    var achievementZombieFighter = false
+    var achievementZombieSlayer = false
+    var achievementZombieHunter = false
+    var batteryPercent = 0.00
+    var savedOnOpeningWindow = false
     
     deinit
     {
@@ -122,15 +127,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             self.coins += coinsUser
         }
         
-        if let itemsBoughtInStore = defaults.objectForKey("items") as? NSArray
+        if let itemsBoughtInStore = defaults.objectForKey("items") as? NSMutableArray
         {
-            if itemsBoughtInStore[0] as Bool == true
+            if let item1 = itemsBoughtInStore[0] as? Bool
             {
-                self.infBrushItem = true
+                if item1 == true
+                {
+                    self.infBrushItem = true
+                }
             }
-            if itemsBoughtInStore[1] as Bool == true
+            if let item2 = itemsBoughtInStore[1] as? Bool
             {
-                self.healthPack = true
+                if item2 == true
+                {
+                    self.healthPack = true
+                }
+            }
+            if itemsBoughtInStore.count >= 3
+            {
+                if let item3 = itemsBoughtInStore[2] as? Bool
+                {
+                    if item3 == true
+                    {
+                        self.battery = true
+                        if var percent = itemsBoughtInStore[3] as? Double
+                        {
+                            self.batteryPercent = percent
+                        }
+                    }
+                }
             }
         }
         
@@ -585,18 +610,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             if currentScoreCurrent2 <= 3
             {
-                let progressDouble: Double = currentScoreCurrent2 / 0.03
-                self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "zombieKill3")
+                if self.achievementZombieFighter == false
+                {
+                    let progressDouble: Double = currentScoreCurrent2 / 0.03
+                    self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "zombieKill3")
+                    if progressDouble >= 100
+                    {
+                        self.achievementZombieFighter = true
+                    }
+                }
             }
             if currentScoreCurrent2 <= 50
             {
-                let progressDouble2: Double = currentScoreCurrent2 / 0.5
-                self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble2, achievementID: "zombieKill50")
+                if self.achievementZombieSlayer == false
+                {
+                    let progressDouble2: Double = currentScoreCurrent2 / 0.5
+                    self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble2, achievementID: "zombieKill50")
+                    if progressDouble2 >= 100
+                    {
+                        self.achievementZombieSlayer = true
+                    }
+                }
             }
             if currentScoreCurrent2 <= 100
             {
-                let progressDouble3: Double = currentScoreCurrent2 / 1
-                self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble3, achievementID: "zombieKill100")
+                if self.achievementZombieHunter == false
+                {
+                    let progressDouble3: Double = currentScoreCurrent2 / 1
+                    self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble3, achievementID: "zombieKill100")
+                    if progressDouble3 >= 100
+                    {
+                        self.achievementZombieHunter = true
+                    }
+                }
             }
         }
     }
@@ -733,6 +779,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.addChild(background)
         
         self.zombiesKilled = 0
+        
+        self.healthPack = false
+        self.checkIsShowing2 = false
     }
     
     func settings()
@@ -971,6 +1020,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.zombieSpeedSlider?.userInteractionEnabled = false
         
         self.joystickCheck()
+        
+        self.savedOnOpeningWindow = false
     }
     
     func joystickCheck()
@@ -1221,6 +1272,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.storeIsOpen = false
         self.checkIsShowing = false
         self.checkIsShowing2 = false
+        
+        self.savedOnOpeningWindow = false
     }
     
     func showPetYard()
@@ -1268,6 +1321,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         else
         {
             tempArray[1] = false
+        }
+        
+        if self.battery == true
+        {
+            tempArray[2] = true
+            
+            tempArray[3] = self.batteryPercent
+        }
+        else
+        {
+            tempArray[2] = false
         }
         defaults.setObject(tempArray, forKey: "items")
         
@@ -1541,6 +1605,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 tempArray[1] = false
             }
             
+            if self.battery == true
+            {
+                tempArray[2] = true
+                
+                tempArray[3] = self.batteryPercent
+            }
+            else
+            {
+                tempArray[2] = false
+            }
+            
             defaults.setObject(tempArray, forKey: "items")
             
             if self.storeIsOpen == true
@@ -1610,6 +1685,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     //Nothing Here :-)
                 }
             }
+            
+            self.savedOnOpeningWindow = true
         }
         
         if gameIsRunning == true
@@ -1672,9 +1749,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     innerZombie.removeFromParent()
                     
                 }
-                var range = NSRange(location: 4, length: 2)
-                var range2 = NSRange(location: 7, length: 9999999999)
-                var background2Bool = NSLocationInRange(wavesCompleted, range)
+                
+                var range = NSRange(location: 15, length: 14)
+                var range2 = NSRange(location: 30, length: 14)
+                var range3 = NSRange(location: 45, length: 14)
+                var background2Bool = NSLocationInRange(self.wavesCompleted, range)
                 if background2Bool
                 {
                     var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
@@ -1683,10 +1762,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     {
                         background.removeFromParent()
                     }
-                    if let background3 = self.childNodeWithName("background3")
-                    {
-                        background3.removeFromParent()
-                    }
                     var background2 = SKSpriteNode(imageNamed: "background2")
                     background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
                     background2.zPosition = -2
@@ -1694,20 +1769,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     self.addChild(background2)
                 }
                 
-                var background3Bool = NSLocationInRange(wavesCompleted, range2)
+                var background3Bool = NSLocationInRange(self.wavesCompleted, range2)
                 if background3Bool
                 {
                     var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject(3, forKey: "background")
-                    if let background2 = self.childNodeWithName("background2")
+                    if let background = self.childNodeWithName("background")
                     {
-                        background2.removeFromParent()
-                    }
-                    if let background2 = self.childNodeWithName("background2")
-                    {
-                        background2.removeFromParent()
+                        background.removeFromParent()
                     }
                     var background3 = SKSpriteNode(imageNamed: "background3")
+                    background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                    background3.zPosition = -2
+                    background3.name = "background"
+                    self.addChild(background3)
+                }
+                
+                var background4Bool = NSLocationInRange(self.wavesCompleted, range3)
+                if background4Bool
+                {
+                    var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setObject(4, forKey: "background")
+                    if let background = self.childNodeWithName("background")
+                    {
+                        background.removeFromParent()
+                    }
+                    var background3 = SKSpriteNode(imageNamed: "background4")
                     background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
                     background3.zPosition = -2
                     background3.name = "background"

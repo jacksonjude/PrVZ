@@ -28,7 +28,7 @@ extension SKNode {
     }
 }
 
-class GameViewController: UIViewController, GKGameCenterControllerDelegate {
+class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMatchmakerViewControllerDelegate {
     @IBOutlet var zombiesToSpawnSlider : UISlider!
     @IBOutlet var joystickSwitch : UISwitch!
     @IBOutlet var zombieSpeedSlider : UISlider!
@@ -43,8 +43,9 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
         localPlayer.authenticateHandler = {(viewController : UIViewController!, error : NSError!) -> Void in
             if ((viewController) != nil) {
                 self.presentViewController(viewController, animated: true, completion: nil)
-            }else{
-                
+            }
+            else
+            {
                 println((GKLocalPlayer.localPlayer().authenticated))
             }
         }
@@ -168,14 +169,16 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     func gameCenterAddProgressToAnAchievement(progress:Double,achievementID:String) {
         var lookupAchievement:GKAchievement? = gameCenterAchievements[achievementID]
         
-        println("\(progress)")
-        
         if let achievement = lookupAchievement {
             // found the achievement with the given achievementID, check if it already 100% done
-            if achievement.percentComplete != 100 {
+            if achievement.percentComplete < 100 {
                 // set new progress
                 achievement.percentComplete = progress
-                if progress == 100.0  {achievement.showsCompletionBanner=true}  // show banner only if achievement is fully granted (progress is 100%)
+                if progress == 100.0
+                {
+                    achievement.showsCompletionBanner=true
+                
+                }  // show banner only if achievement is fully granted (progress is 100%)
                 
                 // try to report the progress to the Game Center
                 GKAchievement.reportAchievements([achievement], withCompletionHandler:  {(var error:NSError!) -> Void in
@@ -184,10 +187,14 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
                     }
                 })
             }
-            else {// achievemnt already granted, nothing to do
-                println("DEBUG: Achievement (\(achievementID)) already granted")}
+            else
+            {// achievemnt already granted, nothing to do
+                println("DEBUG: Achievement (\(achievementID)) already granted")
+            }
                 println("Percent: \(achievement.percentComplete)")
-        } else { // never added  progress for this achievement, create achievement now, recall to add progress
+        }
+        else
+        { // never added  progress for this achievement, create achievement now, recall to add progress
             println("No achievement with ID (\(achievementID)) was found, no progress for this one was recoreded yet. Create achievement now.")
             gameCenterAchievements[achievementID] = GKAchievement(identifier: achievementID)
             // recursive recall this func now that the achievement exist
@@ -198,6 +205,35 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     func gameCenterViewControllerDidFinish(gcViewController: GKGameCenterViewController!)
     {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func findMatchWithMinPlayers(minPlayers: NSInteger, maxPlayers: NSInteger)
+    {
+        var request = GKMatchRequest()
+        request.minPlayers = minPlayers
+        request.maxPlayers = maxPlayers
+        
+        var viewControllerMatch = GKMatchmakerViewController(matchRequest: request)
+        viewControllerMatch.matchmakerDelegate = self
+        
+        self.showViewController(viewControllerMatch, sender: self)
+        self.navigationController?.pushViewController(viewControllerMatch, animated: true)
+    }
+    
+    func matchmakerViewControllerWasCancelled(viewController: GKMatchmakerViewController!)
+    {
+        viewController.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func matchmakerViewController(viewController: GKMatchmakerViewController!, didFailWithError error: NSError!)
+    {
+        viewController.dismissViewControllerAnimated(true, completion: nil)
+        println("Matching failed with error: \(error)")
+    }
+    
+    func matchmakerViewController(viewController: GKMatchmakerViewController!, didReceiveAcceptFromHostedPlayer playerID: String!)
+    {
+        println("Game Accepted from player \(playerID)")
     }
     
     func presentTitleScene()

@@ -15,6 +15,7 @@
 		7A2D0EEB19EF519100491A2F /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEA19EF519100491A2F /* pause.png */; };
 		7A2D0EED19EF51DE00491A2F /* resume.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEC19EF51DE00491A2F /* resume.png */; };
 		7A3134631A06C3A4002124E2 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3134621A06C3A4002124E2 /* background2.png */; };
+		7A346EA61ABBE06C00265211 /* background4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A346EA51ABBE06C00265211 /* background4.png */; };
 		7A3D7ED619D27D3E00C39131 /* GenericZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* GenericZombie.swift */; };
 		7A414FC71A881FD500CA7303 /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A414FC61A881FD500CA7303 /* JCJoystick.m */; };
 		7A414FC91A88204C00CA7303 /* background-music.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A414FC81A88204C00CA7303 /* background-music.wav */; };
@@ -109,6 +110,7 @@
 		7A2D0EEA19EF519100491A2F /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Images/InGame/Buttons/pause.png; sourceTree = "<group>"; };
 		7A2D0EEC19EF51DE00491A2F /* resume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resume.png; path = Images/InGame/Buttons/resume.png; sourceTree = "<group>"; };
 		7A3134621A06C3A4002124E2 /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background2.png; path = Images/InGame/background2.png; sourceTree = "<group>"; };
+		7A346EA51ABBE06C00265211 /* background4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background4.png; path = Images/InGame/background4.png; sourceTree = "<group>"; };
 		7A3D7ED519D27D3E00C39131 /* GenericZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericZombie.swift; sourceTree = "<group>"; };
 		7A414FC51A881FD500CA7303 /* JCJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJoystick.h; sourceTree = "<group>"; };
 		7A414FC61A881FD500CA7303 /* JCJoystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCJoystick.m; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 			children = (
 				7A24EE591AB5425500CF7C6A /* Game-Center.png */,
 				7A24EE5A1AB5425500CF7C6A /* Game-CenterPressed.png */,
+				7A346EA51ABBE06C00265211 /* background4.png */,
 				7AE93A9C1A6ACEF600B5F817 /* background3.png */,
 				7A3134621A06C3A4002124E2 /* background2.png */,
 				7A4E1DA319D7703700001C55 /* background.png */,
@@ -575,6 +578,7 @@
 				7A4E783E19C735B900C5E9B3 /* TitleScene.sks in Resources */,
 				7AB4C6B81A3538DF00D23A88 /* map1.png in Resources */,
 				7A24EE5C1AB5425500CF7C6A /* Game-CenterPressed.png in Resources */,
+				7A346EA61ABBE06C00265211 /* background4.png in Resources */,
 				7A4E784519C735B900C5E9B3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

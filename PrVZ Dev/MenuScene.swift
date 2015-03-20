@@ -197,8 +197,11 @@ class MenuScene: SKScene
         version.text = NSString(format: "Version: %.2f", self.version)
         stats.addChild(version)
         
-        var gameCenterButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame)), type: "back", InMenu: "settings", WithAction: openGameCenterLeaderboards, WithName: "Game-Center")
+        var gameCenterButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)+100), type: "back", InMenu: "settings", WithAction: openGameCenterLeaderboards, WithName: "Game-Center")
         stats.addChild(gameCenterButton)
+        
+        var gameCenterButton2 = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-100), type: "back", InMenu: "settings", WithAction: openGameCenterMatchMaking, WithName: "Game-Center")
+        stats.addChild(gameCenterButton2)
         
         self.addChild(stats)
     }
@@ -206,6 +209,11 @@ class MenuScene: SKScene
     func openGameCenterLeaderboards()
     {
         gameViewController1?.showLeaderboard()
+    }
+    
+    func openGameCenterMatchMaking()
+    {
+        gameViewController1?.findMatchWithMinPlayers(2, maxPlayers: 2)
     }
     
     func addButton(pos: CGPoint, type: NSString, InMenu: NSString, WithAction: () -> Void, WithName: NSString) -> SKButton
