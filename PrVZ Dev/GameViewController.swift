@@ -28,13 +28,14 @@ extension SKNode {
     }
 }
 
-class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMatchmakerViewControllerDelegate {
+class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMatchmakerViewControllerDelegate, GKLocalPlayerListener, GKMatchDelegate {
     @IBOutlet var zombiesToSpawnSlider : UISlider!
     @IBOutlet var joystickSwitch : UISwitch!
     @IBOutlet var zombieSpeedSlider : UISlider!
     @IBOutlet var volumeSlider : UISlider!
     var gameCenterAchievements=[String:GKAchievement]()
     var gameCenterAchievementsReal=NSMutableArray()
+    var matchStarted = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             else
             {
                 println((GKLocalPlayer.localPlayer().authenticated))
+                GKLocalPlayer.localPlayer().registerListener(self)
             }
         }
         
@@ -236,6 +238,52 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         println("Game Accepted from player \(playerID)")
     }
     
+    func matchmakerViewController(viewController: GKMatchmakerViewController!, didFindPlayers playerIDs: [AnyObject]!)
+    {
+        println("Found Players With Name: \(playerIDs[0])")
+    }
+    
+    func player(player: GKPlayer!, didAcceptInvite invite: GKInvite!) {
+        let mmvc = GKMatchmakerViewController(invite: invite)
+        mmvc.matchmakerDelegate = self
+        self.presentViewController(mmvc, animated: true, completion: nil)
+    }
+    
+    func matchmakerViewController(viewController: GKMatchmakerViewController!, didFindMatch match: GKMatch!)
+    {
+        if (!self.matchStarted && match.expectedPlayerCount == 0) {
+            NSLog("Ready to start match!")
+            println("Players: \(match.players)")
+        }
+    }
+    
+    func match(match: GKMatch!, player playerID: String!, didChangeState state: GKPlayerConnectionState)
+    {
+        switch (state)
+        {
+            case .StateConnected:
+                // handle a new player connection.
+                NSLog("Player connected!")
+                
+                if (!self.matchStarted && match.expectedPlayerCount == 0) {
+                    NSLog("Ready to start match!")
+                }
+                
+                break
+            case .StateDisconnected:
+                // a player just disconnected.
+                NSLog("Player disconnected!")
+                self.matchStarted = false
+                break
+            default:
+                let NOTHING = "BLAHBLAHBLAH"
+        }
+    }
+    
+    func match(match: GKMatch!, shouldReinviteDisconnectedPlayer player: GKPlayer!) -> Bool {
+        return true
+    }
+    
     func presentTitleScene()
     {
         if let scene = TitleScene.unarchiveFromFile("TitleScene") as? TitleScene {
@@ -355,9 +403,9 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
 
     override func supportedInterfaceOrientations() -> Int {
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            return Int(UIInterfaceOrientationMask.AllButUpsideDown.rawValue)
+            return Int(UIInterfaceOrientationMask.Landscape.rawValue)
         } else {
-            return Int(UIInterfaceOrientationMask.All.rawValue)
+            return Int(UIInterfaceOrientationMask.Landscape.rawValue)
         }
     }
 
