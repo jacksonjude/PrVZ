@@ -52,6 +52,8 @@
 		7A7F162D1A4A88DB00F00743 /* hairball.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F162C1A4A88DB00F00743 /* hairball.png */; };
 		7A83D1181A663307006B594B /* menuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A83D1161A663307006B594B /* menuButton.png */; };
 		7A83D11A1A663335006B594B /* menuButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A83D1191A663335006B594B /* menuButtonPressed.png */; };
+		7A8E00561ABDDE6C00AA4C26 /* MultiplayerScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A8E00551ABDDE6C00AA4C26 /* MultiplayerScene.sks */; };
+		7A8E00581ABDDE9700AA4C26 /* MultiplayerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E00571ABDDE9700AA4C26 /* MultiplayerScene.swift */; };
 		7A92656F19CF2A280090595F /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92656E19CF2A280090595F /* TitleScene.swift */; };
 		7A92657119CF2DEB0090595F /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92657019CF2DEB0090595F /* TutorialScene.swift */; };
 		7A9665D719EF818A000F634C /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A9665D619EF818A000F634C /* check.png */; };
@@ -82,6 +84,7 @@
 		7AC8238019E9AF10005B8124 /* infiniteBrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8237F19E9AF10005B8124 /* infiniteBrush.png */; };
 		7AC8238519E9C33C005B8124 /* settingsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238319E9C33C005B8124 /* settingsButton.png */; };
 		7AC8238619E9C33C005B8124 /* settingsButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */; };
+		7ACAA0871ABF30BD002B0F73 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ACAA0861ABF30BD002B0F73 /* MultipeerConnectivity.framework */; };
 		7AD0E3791A3A70CE00E25BFF /* cat.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD0E3771A3A70CE00E25BFF /* cat.png */; };
 		7AD0E37A1A3A70CE00E25BFF /* catOpen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD0E3781A3A70CE00E25BFF /* catOpen.png */; };
 		7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DAF19E5915800697FE2 /* TutorialScene.sks */; };
@@ -152,6 +155,8 @@
 		7A7F162C1A4A88DB00F00743 /* hairball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hairball.png; path = Images/InGame/Characters/hairball.png; sourceTree = "<group>"; };
 		7A83D1161A663307006B594B /* menuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menuButton.png; path = Images/InGame/Buttons/menuButton.png; sourceTree = "<group>"; };
 		7A83D1191A663335006B594B /* menuButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menuButtonPressed.png; path = Images/InGame/Buttons/menuButtonPressed.png; sourceTree = "<group>"; };
+		7A8E00551ABDDE6C00AA4C26 /* MultiplayerScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MultiplayerScene.sks; sourceTree = "<group>"; };
+		7A8E00571ABDDE9700AA4C26 /* MultiplayerScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerScene.swift; sourceTree = "<group>"; };
 		7A92656E19CF2A280090595F /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
 		7A92657019CF2DEB0090595F /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		7A9665D619EF818A000F634C /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = check.png; path = Images/InGame/Store/check.png; sourceTree = "<group>"; };
@@ -182,6 +187,7 @@
 		7AC8237F19E9AF10005B8124 /* infiniteBrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = infiniteBrush.png; path = Images/InGame/Store/infiniteBrush.png; sourceTree = "<group>"; };
 		7AC8238319E9C33C005B8124 /* settingsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settingsButton.png; path = Images/InGame/Buttons/settingsButton.png; sourceTree = "<group>"; };
 		7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settingsButtonPressed.png; path = Images/InGame/Buttons/settingsButtonPressed.png; sourceTree = "<group>"; };
+		7ACAA0861ABF30BD002B0F73 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		7AD0E3771A3A70CE00E25BFF /* cat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cat.png; path = Images/InGame/Characters/cat.png; sourceTree = "<group>"; };
 		7AD0E3781A3A70CE00E25BFF /* catOpen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = catOpen.png; path = Images/InGame/Characters/catOpen.png; sourceTree = "<group>"; };
 		7AD62DAF19E5915800697FE2 /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
@@ -195,6 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ACAA0871ABF30BD002B0F73 /* MultipeerConnectivity.framework in Frameworks */,
 				7A24EE561AB5301300CF7C6A /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,6 +219,7 @@
 		7A4E782D19C735B900C5E9B3 = {
 			isa = PBXGroup;
 			children = (
+				7ACAA0861ABF30BD002B0F73 /* MultipeerConnectivity.framework */,
 				7A24EE551AB5301300CF7C6A /* GameKit.framework */,
 				7A4E783819C735B900C5E9B3 /* PrVZ */,
 				7A4E785219C735B900C5E9B3 /* PrVZ DevTests */,
@@ -374,10 +382,12 @@
 				7AD62DAF19E5915800697FE2 /* TutorialScene.sks */,
 				7AD62DB119E591E700697FE2 /* GameScene.sks */,
 				7AB4C6BF1A353B7900D23A88 /* MenuScene.sks */,
+				7A8E00551ABDDE6C00AA4C26 /* MultiplayerScene.sks */,
 				7A92656E19CF2A280090595F /* TitleScene.swift */,
 				7A92657019CF2DEB0090595F /* TutorialScene.swift */,
 				7AC7DCEA19DD04450040897E /* GameScene.swift */,
 				7AB4C6BD1A3539F300D23A88 /* MenuScene.swift */,
+				7A8E00571ABDDE9700AA4C26 /* MultiplayerScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -566,6 +576,7 @@
 				7AE93A9D1A6ACEF600B5F817 /* background3.png in Resources */,
 				7A7F162A1A4A877400F00743 /* leftScrollButtonPressed.png in Resources */,
 				7A4E1DA119D7702C00001C55 /* prince.png in Resources */,
+				7A8E00561ABDDE6C00AA4C26 /* MultiplayerScene.sks in Resources */,
 				7A7F162B1A4A877400F00743 /* rightScrollButtonPressed.png in Resources */,
 				7A714F651A4B4631007C570C /* healthPack.png in Resources */,
 				7A5D745619DF847E009EEBD8 /* brush.png in Resources */,
@@ -604,6 +615,7 @@
 				7A4E1DAE19D7970900001C55 /* SKButton.swift in Sources */,
 				7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */,
 				7A4E784219C735B900C5E9B3 /* GameViewController.swift in Sources */,
+				7A8E00581ABDDE9700AA4C26 /* MultiplayerScene.swift in Sources */,
 				7AA751DB19F0D0C200AEF00C /* CatZombie.swift in Sources */,
 				7A4E783C19C735B900C5E9B3 /* AppDelegate.swift in Sources */,
 				7A92656F19CF2A280090595F /* TitleScene.swift in Sources */,

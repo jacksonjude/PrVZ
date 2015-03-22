@@ -25,6 +25,10 @@ class MenuScene: SKScene
         startGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(startGameButton)
         
+        var multiplayerButton = SKButton(defaultButtonImage: "startButtonGame.png", activeButtonImage: "startButtonGame.png", buttonAction: moveToMultiplayerScene)
+        multiplayerButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)-200)
+        self.addChild(multiplayerButton)
+        
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if let currentScore = defaults.objectForKey("currentScore") as? NSInteger
         {
@@ -35,7 +39,6 @@ class MenuScene: SKScene
             self.volume = volumeDefaults
             self.volumeDisplay = volumeDefaults
         }
-        
         
         var title = SKLabelNode(fontNamed: "TimesNewRoman")
         title.fontSize = 64
@@ -334,6 +337,11 @@ class MenuScene: SKScene
     func moveToGameScene()
     {
         gameViewController1?.presentGameScene()
+    }
+    
+    func moveToMultiplayerScene()
+    {
+        gameViewController1?.presentMultiplayerScene()
     }
     
     func mute()

@@ -28,7 +28,8 @@ extension SKNode {
     }
 }
 
-class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMatchmakerViewControllerDelegate, GKLocalPlayerListener, GKMatchDelegate {
+class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMatchmakerViewControllerDelegate, GKLocalPlayerListener, GKMatchDelegate
+{
     @IBOutlet var zombiesToSpawnSlider : UISlider!
     @IBOutlet var joystickSwitch : UISwitch!
     @IBOutlet var zombieSpeedSlider : UISlider!
@@ -36,6 +37,8 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     var gameCenterAchievements=[String:GKAchievement]()
     var gameCenterAchievementsReal=NSMutableArray()
     var matchStarted = false
+    var multiplayerSceneRef:MultiplayerScene = MultiplayerScene.unarchiveFromFile("MultiplayerScene") as MultiplayerScene
+    var currentMatch: GKMatch? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -243,7 +246,8 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         println("Found Players With Name: \(playerIDs[0])")
     }
     
-    func player(player: GKPlayer!, didAcceptInvite invite: GKInvite!) {
+    func player(player: GKPlayer!, didAcceptInvite invite: GKInvite!)
+    {
         let mmvc = GKMatchmakerViewController(invite: invite)
         mmvc.matchmakerDelegate = self
         self.presentViewController(mmvc, animated: true, completion: nil)
@@ -254,6 +258,13 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         if (!self.matchStarted && match.expectedPlayerCount == 0) {
             NSLog("Ready to start match!")
             println("Players: \(match.players)")
+            
+            self.currentMatch = match
+            match.delegate = self
+            
+            viewController.dismissViewControllerAnimated(true, completion: nil)
+            
+            self.presentMultiplayerScene()
         }
     }
     
@@ -265,8 +276,11 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
                 // handle a new player connection.
                 NSLog("Player connected!")
                 
-                if (!self.matchStarted && match.expectedPlayerCount == 0) {
+                if (!self.matchStarted && match.expectedPlayerCount == 0)
+                {
                     NSLog("Ready to start match!")
+                    self.currentMatch = match
+                    match.delegate = self
                 }
                 
                 break
@@ -280,8 +294,24 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         }
     }
     
-    func match(match: GKMatch!, shouldReinviteDisconnectedPlayer player: GKPlayer!) -> Bool {
+    func match(match: GKMatch!, shouldReinviteDisconnectedPlayer player: GKPlayer!) -> Bool
+    {
         return true
+    }
+    
+    func match(matchCurrent: GKMatch!, didReceiveData data: NSData!, fromRemotePlayer player: GKPlayer!)
+    {
+        self.multiplayerSceneRef.saveDataRecived(data, fromMatch: matchCurrent, fromPlayer: player.playerID)
+    }
+    
+    func match(matchCurrent: GKMatch!, didReceiveData data: NSData!, fromPlayer playerID: String!)
+    {
+        self.multiplayerSceneRef.saveDataRecived(data, fromMatch: matchCurrent, fromPlayer: playerID)
+    }
+    
+    func sendData(matchCurrent: GKMatch!, withData data: NSData!)
+    {
+        matchCurrent.sendDataToAllPlayers(data, withDataMode: GKMatchSendDataMode.Unreliable, error: nil)
     }
     
     func presentTitleScene()
@@ -396,25 +426,54 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             skView.presentScene(scene)
         }
     }
+    
+    func presentMultiplayerScene()
+    {
+        // Configure the view.
+        let skView = self.view as SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        
+        /* Set the scale mode to scale to fit the window */
+        self.multiplayerSceneRef.scaleMode = .AspectFill
+        
+        self.multiplayerSceneRef.zombiesToSpawnSlider = self.zombiesToSpawnSlider
+        self.multiplayerSceneRef.joystickSwitch = self.joystickSwitch
+        self.multiplayerSceneRef.zombieSpeedSlider = self.zombieSpeedSlider
+        self.multiplayerSceneRef.gameViewController1 = self
+        self.multiplayerSceneRef.match = self.currentMatch
+        
+        skView.presentScene(self.multiplayerSceneRef)
+    }
 
-    override func shouldAutorotate() -> Bool {
+    override func shouldAutorotate() -> Bool
+    {
         return true
     }
 
-    override func supportedInterfaceOrientations() -> Int {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+    override func supportedInterfaceOrientations() -> Int
+    {
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone
+        {
             return Int(UIInterfaceOrientationMask.Landscape.rawValue)
-        } else {
+        }
+        else
+        {
             return Int(UIInterfaceOrientationMask.Landscape.rawValue)
         }
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+    override func prefersStatusBarHidden() -> Bool
+    {
         return true
     }
 }
