@@ -17,6 +17,12 @@ class Princess: SKSpriteNode
         super.init(texture: princessTexture, color:nil, size: princessTexture.size())
     }
     
+    init(textureName: NSString)
+    {
+        let princessTexture = SKTexture(imageNamed: textureName)
+        super.init(texture: princessTexture, color:nil, size: princessTexture.size())
+    }
+    
     required init?(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)

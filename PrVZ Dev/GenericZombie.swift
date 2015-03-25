@@ -12,6 +12,7 @@ import SpriteKit
 class GenericZombie: SKSpriteNode
 {
     var health: NSInteger = 1
+    var uuid = NSUUID().UUIDString
     var princess: Princess!
     
     override init()

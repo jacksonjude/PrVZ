@@ -85,6 +85,7 @@
 		7AC8238519E9C33C005B8124 /* settingsButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238319E9C33C005B8124 /* settingsButton.png */; };
 		7AC8238619E9C33C005B8124 /* settingsButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */; };
 		7ACAA0871ABF30BD002B0F73 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ACAA0861ABF30BD002B0F73 /* MultipeerConnectivity.framework */; };
+		7ACAA0891ABF4993002B0F73 /* princess2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ACAA0881ABF4993002B0F73 /* princess2.png */; };
 		7AD0E3791A3A70CE00E25BFF /* cat.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD0E3771A3A70CE00E25BFF /* cat.png */; };
 		7AD0E37A1A3A70CE00E25BFF /* catOpen.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AD0E3781A3A70CE00E25BFF /* catOpen.png */; };
 		7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DAF19E5915800697FE2 /* TutorialScene.sks */; };
@@ -188,6 +189,7 @@
 		7AC8238319E9C33C005B8124 /* settingsButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settingsButton.png; path = Images/InGame/Buttons/settingsButton.png; sourceTree = "<group>"; };
 		7AC8238419E9C33C005B8124 /* settingsButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settingsButtonPressed.png; path = Images/InGame/Buttons/settingsButtonPressed.png; sourceTree = "<group>"; };
 		7ACAA0861ABF30BD002B0F73 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
+		7ACAA0881ABF4993002B0F73 /* princess2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = princess2.png; path = Images/InGame/Characters/princess2.png; sourceTree = "<group>"; };
 		7AD0E3771A3A70CE00E25BFF /* cat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cat.png; path = Images/InGame/Characters/cat.png; sourceTree = "<group>"; };
 		7AD0E3781A3A70CE00E25BFF /* catOpen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = catOpen.png; path = Images/InGame/Characters/catOpen.png; sourceTree = "<group>"; };
 		7AD62DAF19E5915800697FE2 /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				7A5D745119DF847E009EEBD8 /* ash.png */,
 				7A5D745219DF847E009EEBD8 /* brush.png */,
 				7A5D745319DF847E009EEBD8 /* princess.png */,
+				7ACAA0881ABF4993002B0F73 /* princess2.png */,
 				7A5D745419DF847E009EEBD8 /* zombie.png */,
 			);
 			name = Characters;
@@ -559,6 +562,7 @@
 				7A5D744D19DF8475009EEBD8 /* fireButton.png in Resources */,
 				7A5AEC661A6B3A7100F114FF /* infoButtonPressed.png in Resources */,
 				7A9665D719EF818A000F634C /* check.png in Resources */,
+				7ACAA0891ABF4993002B0F73 /* princess2.png in Resources */,
 				7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */,
 				7A5D745819DF847E009EEBD8 /* zombie.png in Resources */,
 				7A3134631A06C3A4002124E2 /* background2.png in Resources */,
