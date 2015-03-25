@@ -15,6 +15,8 @@
 		7A2D0EEB19EF519100491A2F /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEA19EF519100491A2F /* pause.png */; };
 		7A2D0EED19EF51DE00491A2F /* resume.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEC19EF51DE00491A2F /* resume.png */; };
 		7A3134631A06C3A4002124E2 /* background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A3134621A06C3A4002124E2 /* background2.png */; };
+		7A338C931AC275490037E0D3 /* multiplayerButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A338C911AC275490037E0D3 /* multiplayerButton.png */; };
+		7A338C941AC275490037E0D3 /* multiplayerButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A338C921AC275490037E0D3 /* multiplayerButtonPressed.png */; };
 		7A346EA61ABBE06C00265211 /* background4.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A346EA51ABBE06C00265211 /* background4.png */; };
 		7A3D7ED619D27D3E00C39131 /* GenericZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3D7ED519D27D3E00C39131 /* GenericZombie.swift */; };
 		7A414FC71A881FD500CA7303 /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A414FC61A881FD500CA7303 /* JCJoystick.m */; };
@@ -114,6 +116,8 @@
 		7A2D0EEA19EF519100491A2F /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Images/InGame/Buttons/pause.png; sourceTree = "<group>"; };
 		7A2D0EEC19EF51DE00491A2F /* resume.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resume.png; path = Images/InGame/Buttons/resume.png; sourceTree = "<group>"; };
 		7A3134621A06C3A4002124E2 /* background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background2.png; path = Images/InGame/background2.png; sourceTree = "<group>"; };
+		7A338C911AC275490037E0D3 /* multiplayerButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = multiplayerButton.png; path = Images/InGame/Buttons/multiplayerButton.png; sourceTree = "<group>"; };
+		7A338C921AC275490037E0D3 /* multiplayerButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = multiplayerButtonPressed.png; path = Images/InGame/Buttons/multiplayerButtonPressed.png; sourceTree = "<group>"; };
 		7A346EA51ABBE06C00265211 /* background4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background4.png; path = Images/InGame/background4.png; sourceTree = "<group>"; };
 		7A3D7ED519D27D3E00C39131 /* GenericZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericZombie.swift; sourceTree = "<group>"; };
 		7A414FC51A881FD500CA7303 /* JCJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJoystick.h; sourceTree = "<group>"; };
@@ -285,6 +289,8 @@
 		7A5D744519DF8462009EEBD8 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				7A338C911AC275490037E0D3 /* multiplayerButton.png */,
+				7A338C921AC275490037E0D3 /* multiplayerButtonPressed.png */,
 				7A9D767C1A9117AE001C01BB /* volumeButton.png */,
 				7A9D767D1A9117AE001C01BB /* volumeButtonPressed.png */,
 				7A9D767A1A911616001C01BB /* mutePressed.png */,
@@ -535,6 +541,7 @@
 				7A5D744F19DF8475009EEBD8 /* startButton.png in Resources */,
 				7A414FC91A88204C00CA7303 /* background-music.wav in Resources */,
 				7AC8237D19E99656005B8124 /* storeButton.png in Resources */,
+				7A338C931AC275490037E0D3 /* multiplayerButton.png in Resources */,
 				7AC8237919E99656005B8124 /* backButton.png in Resources */,
 				7AB4C6B61A35377900D23A88 /* waterfall.png in Resources */,
 				7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */,
@@ -549,6 +556,7 @@
 				7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */,
 				7A83D1181A663307006B594B /* menuButton.png in Resources */,
 				7A7F16271A4A85D500F00743 /* rightScrollButton.png in Resources */,
+				7A338C941AC275490037E0D3 /* multiplayerButtonPressed.png in Resources */,
 				7A9D767E1A9117AE001C01BB /* volumeButton.png in Resources */,
 				7A1E69D919EE2379007051C0 /* saveButton.png in Resources */,
 				7ABEBFBD19EB4309001DEF2E /* resetButtonPressed.png in Resources */,

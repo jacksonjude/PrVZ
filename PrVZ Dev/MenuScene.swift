@@ -25,7 +25,7 @@ class MenuScene: SKScene
         startGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(startGameButton)
         
-        var multiplayerButton = SKButton(defaultButtonImage: "startButtonGame.png", activeButtonImage: "startButtonGame.png", buttonAction: moveToMultiplayerScene)
+        var multiplayerButton = SKButton(defaultButtonImage: "multiplayerButton.png", activeButtonImage: "multiplayerButtonPressed.png", buttonAction: openGameCenterMatchMaking)
         multiplayerButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)-200)
         self.addChild(multiplayerButton)
         
@@ -202,9 +202,6 @@ class MenuScene: SKScene
         
         var gameCenterButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)+100), type: "back", InMenu: "settings", WithAction: openGameCenterLeaderboards, WithName: "Game-Center")
         stats.addChild(gameCenterButton)
-        
-        var gameCenterButton2 = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-100), type: "back", InMenu: "settings", WithAction: openGameCenterMatchMaking, WithName: "Game-Center")
-        stats.addChild(gameCenterButton2)
         
         self.addChild(stats)
     }

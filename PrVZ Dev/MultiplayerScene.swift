@@ -684,5 +684,16 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         {
             self.sendNumber()
         }
+        
+        if self.zombiesKilled == 0 && gameIsRunning == true
+        {
+            for zombie in self.zombies
+            {
+                zombie.removeFromParent()
+                self.zombies.removeObject(zombie)
+            }
+            
+            self.runGame()
+        }
     }
 }
