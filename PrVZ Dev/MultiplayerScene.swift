@@ -37,7 +37,6 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     var match: GKMatch?
     var princessHealth = 1.00
     var zombiesKilled = 0
-    var healthLostInLastRound = 0.00
     var recivedNumber : Int64 = 0
     var myNumber : Int64 = 0
     var princessDisplayHealth = 1.00
@@ -94,6 +93,10 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         startButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)+200)
         startButton.name = "start"
         self.buttons.addChild(startButton)
+        
+        var disconnectButton = SKButton(defaultButtonImage: "disconnectButton", activeButtonImage: "disconnectButtonPressed", buttonAction: disconnect)
+        disconnectButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
+        self.buttons.addChild(disconnectButton)
         
         self.addChild(self.buttons)
         
@@ -191,9 +194,6 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
                         })])
                         cat1.runAction(SKAction.repeatActionForever(sequence))
                         self.zombies.addObject(cat1)
-                        
-                        self.recivedNumber = 0
-                        self.myNumber = 0
                     }
                     else
                     {
@@ -266,13 +266,13 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
             archiver.finishEncoding()
             
             gameViewController1?.sendData(self.match, withData: messageZombiesData)
+            self.gameIsRunning = true
         }
         else
         {
             NSLog("Not Host... Waiting for Zombies...")
         }
         
-        self.gameIsRunning = true
         self.canPressButtons = false
     }
     
@@ -399,7 +399,6 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
     {
         self.princessHealth--
-        self.healthLostInLastRound += 1.00
         if princessHealth <= 0
         {
             self.gameOver()
@@ -409,7 +408,6 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     func enemyProjectileDidCollideWithPrincess(enemyProjectile: SKNode, princess1: SKNode)
     {
         self.princessHealth -= 0.25
-        self.healthLostInLastRound += 0.25
         var healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-0.25"
         healthLostLabel.fontColor = SKColor.redColor()
@@ -436,7 +434,6 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     func monsterDidCollideWithPrincessDisplay(monster: SKNode, princess1: SKNode)
     {
         self.princessHealth--
-        self.healthLostInLastRound += 1.00
         if princessDisplayHealth <= 0
         {
             princess1.removeFromParent()
@@ -474,15 +471,19 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     
     func gameOver()
     {
+        self.gameIsRunning = false
+        
         var zombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         zombiesKilledLabel.name = "zombiesKilledLabel"
         zombiesKilledLabel.fontColor = SKColor.redColor()
         zombiesKilledLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(zombiesKilledLabel)
         
-        var disconnectButton = SKButton(defaultButtonImage: "disconnectButton", activeButtonImage: "disconnectButtonPressed", buttonAction: disconnect)
-        disconnectButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
-        self.addChild(disconnectButton)
+        for zombie in self.zombies
+        {
+            zombie.removeFromParent()
+            self.zombies.removeObject(zombie)
+        }
     }
     
     func disconnect()
@@ -608,6 +609,8 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
                 
                 self.zombies.addObject(zombie)
                 self.addChild(zombie)
+                
+                self.gameIsRunning = true
             }
         }
         if messageString == "zombieHealthChanged"
@@ -685,7 +688,34 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
             self.sendNumber()
         }
         
-        if self.zombiesKilled == 0 && gameIsRunning == true
+        for aZombie2 in self.zombies
+        {
+            let aZombie2SK = aZombie2 as SKSpriteNode
+            let range = NSRange(location: 0, length: 50)
+            var gameOverRange = NSLocationInRange(Int(aZombie2SK.position.x), range)
+            if gameOverRange
+            {
+                self.princessHealth = 0.0
+                self.princessDisplayHealth = 0.0
+                
+                self.princess1.removeFromParent()
+                self.princess2Display.removeFromParent()
+                
+                self.gameOver()
+                break
+            }
+        }
+        
+        var zombiesAlive = 0
+        for aZombie in self.zombies
+        {
+            if aZombie.name == "zombie" || aZombie.name == "catZombie"
+            {
+                zombiesAlive++
+            }
+        }
+        
+        if zombiesAlive == 0 && gameIsRunning == true
         {
             for zombie in self.zombies
             {

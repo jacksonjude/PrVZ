@@ -93,6 +93,8 @@
 		7AD62DB019E5915800697FE2 /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DAF19E5915800697FE2 /* TutorialScene.sks */; };
 		7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DB119E591E700697FE2 /* GameScene.sks */; };
 		7AE93A9D1A6ACEF600B5F817 /* background3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE93A9C1A6ACEF600B5F817 /* background3.png */; };
+		7AEA9D3C1AC309D600994A6F /* disconnectButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AEA9D3A1AC309D600994A6F /* disconnectButton.png */; };
+		7AEA9D3D1AC309D600994A6F /* disconnectButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AEA9D3B1AC309D600994A6F /* disconnectButtonPressed.png */; };
 		7AF744C719D739AC00B95D08 /* Princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* Princess.swift */; };
 /* End PBXBuildFile section */
 
@@ -199,6 +201,8 @@
 		7AD62DAF19E5915800697FE2 /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
 		7AD62DB119E591E700697FE2 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		7AE93A9C1A6ACEF600B5F817 /* background3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background3.png; path = Images/InGame/background3.png; sourceTree = "<group>"; };
+		7AEA9D3A1AC309D600994A6F /* disconnectButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = disconnectButton.png; path = Images/InGame/Buttons/disconnectButton.png; sourceTree = "<group>"; };
+		7AEA9D3B1AC309D600994A6F /* disconnectButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = disconnectButtonPressed.png; path = Images/InGame/Buttons/disconnectButtonPressed.png; sourceTree = "<group>"; };
 		7AF744C619D739AC00B95D08 /* Princess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Princess.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -289,6 +293,8 @@
 		7A5D744519DF8462009EEBD8 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				7AEA9D3A1AC309D600994A6F /* disconnectButton.png */,
+				7AEA9D3B1AC309D600994A6F /* disconnectButtonPressed.png */,
 				7A338C911AC275490037E0D3 /* multiplayerButton.png */,
 				7A338C921AC275490037E0D3 /* multiplayerButtonPressed.png */,
 				7A9D767C1A9117AE001C01BB /* volumeButton.png */,
@@ -533,6 +539,7 @@
 			files = (
 				7A414FCB1A88210900CA7303 /* coin.png in Resources */,
 				7AC8238619E9C33C005B8124 /* settingsButtonPressed.png in Resources */,
+				7AEA9D3C1AC309D600994A6F /* disconnectButton.png in Resources */,
 				7A5D00AC1A6DC414007C2FCA /* battery.png in Resources */,
 				7AC8237A19E99656005B8124 /* backButtonPressed.png in Resources */,
 				7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */,
@@ -542,6 +549,7 @@
 				7A414FC91A88204C00CA7303 /* background-music.wav in Resources */,
 				7AC8237D19E99656005B8124 /* storeButton.png in Resources */,
 				7A338C931AC275490037E0D3 /* multiplayerButton.png in Resources */,
+				7AEA9D3D1AC309D600994A6F /* disconnectButtonPressed.png in Resources */,
 				7AC8237919E99656005B8124 /* backButton.png in Resources */,
 				7AB4C6B61A35377900D23A88 /* waterfall.png in Resources */,
 				7AA74FDB19DF89F4004D032E /* startButtonGamePressed.png in Resources */,

@@ -1826,7 +1826,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             if brush != nil
             {
                 self.brushInWorld = true
-            }else{
+            }
+            else
+            {
                 self.brushInWorld = false
             }
         }
