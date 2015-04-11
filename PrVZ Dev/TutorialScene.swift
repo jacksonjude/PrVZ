@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Spritekit
+import SpriteKit
 
 class TutorialScene: SKScene, SKPhysicsContactDelegate
 {
@@ -227,7 +227,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         self.tutorialWave()
     }
     
-    override func touchesEnded(touches: NSSet, withEvent event: UIEvent)
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent)
     {
         for touch: AnyObject in touches
         {
@@ -287,7 +287,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     func addBrush()
     {
         var brush = SKSpriteNode(imageNamed: "brush.png")
-        var princess1 = self.childNodeWithName("princess") as SKSpriteNode
+        var princess1 = self.childNodeWithName("princess") as! SKSpriteNode
         brush.position = CGPoint(x: princess1.position.x, y: princess1.position.y)
         self.addChild(brush)
         brush.runAction(SKAction.moveToX(1000, duration: 1))
@@ -308,7 +308,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     {
         if gameIsRunning == true
         {
-            var princess1 = self.childNodeWithName("princess") as SKSpriteNode
+            var princess1 = self.childNodeWithName("princess") as! SKSpriteNode
             var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
             princess1.position = position1
             

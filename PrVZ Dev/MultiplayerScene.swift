@@ -8,7 +8,7 @@
 
 import Foundation
 import GameKit
-import Spritekit
+import SpriteKit
 
 class MultiplayerScene: SKScene, SKPhysicsContactDelegate
 {
@@ -201,7 +201,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
                         var yPos = CGFloat((arc4random()%150)+150)
                         var xPos = CGFloat((arc4random()%150)+150)
                         zombie1.health = self.wavesCompleted
-                        zombie1.princess = self.childNodeWithName("princess") as Princess
+                        zombie1.princess = self.childNodeWithName("princess") as! Princess
                         zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
                         zombie1.name = "zombie"
                         zombie1.physicsBody = SKPhysicsBody(circleOfRadius:zombie1.size.width/2)
@@ -222,7 +222,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
                     var yPos = CGFloat((arc4random()%150)+150)
                     var xPos = CGFloat((arc4random()%150)+150)
                     zombie1.health = self.wavesCompleted
-                    zombie1.princess = self.childNodeWithName("princess") as Princess
+                    zombie1.princess = self.childNodeWithName("princess") as! Princess
                     zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
                     zombie1.name = "zombie"
                     zombie1.physicsBody = SKPhysicsBody(circleOfRadius:zombie1.size.width/2)
@@ -242,7 +242,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
             
             for aZombieNot in self.zombies
             {
-                var aZombie = aZombieNot as GenericZombie
+                var aZombie = aZombieNot as! GenericZombie
                 var zombie = NSMutableDictionary()
                 zombie.setObject(aZombie.health, forKey: "health")
                 NSLog("  Health: %i", aZombie.health)
@@ -355,7 +355,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     func projectileDidCollideWithMonster(projectile: SKNode, monster: SKNode)
     {
         projectile.removeFromParent()
-        var monsterSK = monster as GenericZombie
+        var monsterSK = monster as! GenericZombie
         monsterSK.health--
         var healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-1"
@@ -538,7 +538,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         {
             var host = false
             
-            var zombiesArray: NSMutableArray = unarchiver.decodeObjectForKey("zombiesArray") as NSMutableArray
+            var zombiesArray: NSMutableArray = unarchiver.decodeObjectForKey("zombiesArray") as! NSMutableArray
             for aZombieNot in zombiesArray
             {
                 var zombie = GenericZombie()
@@ -599,7 +599,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
                 zombie.position.y = CGFloat(posy!)
                 
                 let uuid = aZombie?.objectForKey("uuid") as? NSString
-                zombie.uuid = uuid!
+                zombie.uuid = uuid! as String
                 
                 NSLog("  Recived: Health: %i", zombie.health)
                 NSLog("  Recived: Posx: %f", Float(zombie.position.x))
@@ -615,7 +615,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         }
         if messageString == "zombieHealthChanged"
         {
-            let zombieUUID: NSString = unarchiver.decodeObjectForKey("zombieThatChanged") as NSString
+            let zombieUUID: NSString = unarchiver.decodeObjectForKey("zombieThatChanged") as! NSString
             for aZombieNot in self.zombies
             {
                 var aZombie = aZombieNot as? GenericZombie
@@ -690,7 +690,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         
         for aZombie2 in self.zombies
         {
-            let aZombie2SK = aZombie2 as SKSpriteNode
+            let aZombie2SK = aZombie2 as! SKSpriteNode
             let range = NSRange(location: 0, length: 50)
             var gameOverRange = NSLocationInRange(Int(aZombie2SK.position.x), range)
             if gameOverRange

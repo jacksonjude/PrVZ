@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Spritekit
+import SpriteKit
 
 class TitleScene: SKScene
 {
@@ -40,7 +40,7 @@ class TitleScene: SKScene
         self.addChild(start)        
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent)
     {
         self.gameViewController1?.presentTutorialScene()
     }

@@ -12,12 +12,12 @@ import GameKit
 
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
-        if let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks") {
+        if let path = NSBundle.mainBundle().pathForResource(file as String, ofType: "sks") {
             var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
             var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            var scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as SKNode
+            var scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! SKNode
             archiver.finishDecoding()
             return scene
         }
@@ -37,8 +37,9 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     var gameCenterAchievements=[String:GKAchievement]()
     var gameCenterAchievementsReal=NSMutableArray()
     var matchStarted = false
-    var multiplayerSceneRef:MultiplayerScene = MultiplayerScene.unarchiveFromFile("MultiplayerScene") as MultiplayerScene
+    var multiplayerSceneRef:MultiplayerScene = MultiplayerScene.unarchiveFromFile("MultiplayerScene") as! MultiplayerScene
     var currentMatch: GKMatch? = nil
+    var gameCenter = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +51,16 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             }
             else
             {
-                println((GKLocalPlayer.localPlayer().authenticated))
-                GKLocalPlayer.localPlayer().registerListener(self)
+                if GKLocalPlayer.localPlayer().authenticated == true
+                {
+                    println((GKLocalPlayer.localPlayer().authenticated))
+                    GKLocalPlayer.localPlayer().registerListener(self)
+                    self.gameCenter = true
+                }
+                else
+                {
+                    self.gameCenter = false
+                }
             }
         }
         
@@ -62,7 +71,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             scene.gameViewController1 = self
             
             // Configure the view.
-            let skView = self.view as SKView
+            let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
             
@@ -123,7 +132,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         
         for anAchievement in self.gameCenterAchievementsReal
         {
-            var anAchievementG = anAchievement as GKAchievement
+            var anAchievementG = anAchievement as! GKAchievement
             anAchievementG.percentComplete = 0
         }
         
@@ -172,38 +181,41 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     }
     
     func gameCenterAddProgressToAnAchievement(progress:Double,achievementID:String) {
-        var lookupAchievement:GKAchievement? = gameCenterAchievements[achievementID]
-        
-        if let achievement = lookupAchievement {
-            // found the achievement with the given achievementID, check if it already 100% done
-            if achievement.percentComplete < 100 {
-                // set new progress
-                achievement.percentComplete = progress
-                if progress == 100.0
-                {
-                    achievement.showsCompletionBanner=true
-                
-                }  // show banner only if achievement is fully granted (progress is 100%)
-                
-                // try to report the progress to the Game Center
-                GKAchievement.reportAchievements([achievement], withCompletionHandler:  {(var error:NSError!) -> Void in
-                    if error != nil {
-                        println("Couldn't save achievement (\(achievementID)) progress to \(progress) %")
-                    }
-                })
+        if gameCenter == true
+        {
+            var lookupAchievement:GKAchievement? = gameCenterAchievements[achievementID]
+            
+            if let achievement = lookupAchievement {
+                // found the achievement with the given achievementID, check if it already 100% done
+                if achievement.percentComplete < 100 {
+                    // set new progress
+                    achievement.percentComplete = progress
+                    if progress == 100.0
+                    {
+                        achievement.showsCompletionBanner=true
+                    
+                    }  // show banner only if achievement is fully granted (progress is 100%)
+                    
+                    // try to report the progress to the Game Center
+                    GKAchievement.reportAchievements([achievement], withCompletionHandler:  {(var error:NSError!) -> Void in
+                        if error != nil {
+                            println("Couldn't save achievement (\(achievementID)) progress to \(progress) %")
+                        }
+                    })
+                }
+                else
+                {// achievemnt already granted, nothing to do
+                    println("DEBUG: Achievement (\(achievementID)) already granted")
+                }
+                    println("Percent: \(achievement.percentComplete)")
             }
             else
-            {// achievemnt already granted, nothing to do
-                println("DEBUG: Achievement (\(achievementID)) already granted")
+            { // never added  progress for this achievement, create achievement now, recall to add progress
+                println("No achievement with ID (\(achievementID)) was found, no progress for this one was recoreded yet. Create achievement now.")
+                gameCenterAchievements[achievementID] = GKAchievement(identifier: achievementID)
+                // recursive recall this func now that the achievement exist
+                gameCenterAddProgressToAnAchievement(progress, achievementID: achievementID)
             }
-                println("Percent: \(achievement.percentComplete)")
-        }
-        else
-        { // never added  progress for this achievement, create achievement now, recall to add progress
-            println("No achievement with ID (\(achievementID)) was found, no progress for this one was recoreded yet. Create achievement now.")
-            gameCenterAchievements[achievementID] = GKAchievement(identifier: achievementID)
-            // recursive recall this func now that the achievement exist
-            gameCenterAddProgressToAnAchievement(progress, achievementID: achievementID)
         }
     }
     
@@ -321,7 +333,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             scene.gameViewController1 = self
             
             // Configure the view.
-            let skView = self.view as SKView
+            let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
             
@@ -353,7 +365,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         {
             scene.gameViewController1 = self
             // Configure the view.
-            let skView = self.view as SKView
+            let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
             
@@ -384,7 +396,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         if let scene = MenuScene.unarchiveFromFile("MenuScene") as? MenuScene
         {
             // Configure the view.
-            let skView = self.view as SKView
+            let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
             
@@ -406,7 +418,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene
         {
             // Configure the view.
-            let skView = self.view as SKView
+            let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
             
@@ -430,7 +442,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     func presentMultiplayerScene()
     {
         // Configure the view.
-        let skView = self.view as SKView
+        let skView = self.view as! SKView
         skView.showsFPS = true
         skView.showsNodeCount = true
         

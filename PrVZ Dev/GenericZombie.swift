@@ -15,7 +15,7 @@ class GenericZombie: SKSpriteNode
     var uuid = NSUUID().UUIDString
     var princess: Princess!
     
-    override init()
+    init()
     {
         let zombieTexture = SKTexture(imageNamed: "zombie.png")
         var scaledSize = zombieTexture.size()

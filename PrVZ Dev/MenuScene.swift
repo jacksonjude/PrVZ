@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 jackson. All rights reserved.
 //
 
-import Spritekit
+import SpriteKit
 import GameKit
 
 class MenuScene: SKScene
@@ -101,7 +101,7 @@ class MenuScene: SKScene
             highScoreLabel.zPosition = 6
             stats.addChild(highScoreLabel)
             
-            highScoreLabel.text = NSString(format: "High Score: %i", highScore)
+            highScoreLabel.text = NSString(format: "High Score: %i", highScore) as String
         }
         
         var levelsCompletedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
@@ -112,7 +112,7 @@ class MenuScene: SKScene
         
         if let levels = defaults.objectForKey("levels") as? NSInteger
         {
-            levelsCompletedLabel.text = NSString(format: "Levels Completed: %i", levels)
+            levelsCompletedLabel.text = NSString(format: "Levels Completed: %i", levels) as String
         }
         else
         {
@@ -125,7 +125,7 @@ class MenuScene: SKScene
         currentScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+150)
         currentScoreLabel.zPosition = 6
         
-        currentScoreLabel.text = NSString(format: "Curent Score: %i", self.zombiesKilled)
+        currentScoreLabel.text = NSString(format: "Curent Score: %i", self.zombiesKilled) as String
         
         stats.addChild(currentScoreLabel)
         
@@ -134,9 +134,9 @@ class MenuScene: SKScene
         zombiesKilledLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+30)
         zombiesKilledLabel.zPosition = 6
         
-        if let normalZombiesKilled = defaults.objectForKey("zombiesKilled") as? NSInteger
+        if let normalZombiesKilled = defaults.objectForKey("zombieKills") as? NSInteger
         {
-            zombiesKilledLabel.text = NSString(format: "You have killed %i Normal Zombies", normalZombiesKilled)
+            zombiesKilledLabel.text = NSString(format: "You have killed %i Normal Zombies", normalZombiesKilled) as String
         }
         else
         {
@@ -152,7 +152,7 @@ class MenuScene: SKScene
         
         if let normalZombiesDied = defaults.objectForKey("zombiesDied") as? NSInteger
         {
-            zombiesDiedLabel.text = NSString(format: "    You have been killed by %i Normal Zombies", normalZombiesDied)
+            zombiesDiedLabel.text = NSString(format: "    You have been killed by %i Normal Zombies", normalZombiesDied) as String
         }
         else
         {
@@ -166,9 +166,9 @@ class MenuScene: SKScene
         catZombiesKilledLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-30)
         catZombiesKilledLabel.zPosition = 6
         
-        if let catZombiesKilled = defaults.objectForKey("catZombiesKilled") as? NSInteger
+        if let catZombiesKilled = defaults.objectForKey("catZombieKills") as? NSInteger
         {
-            catZombiesKilledLabel.text = NSString(format: "You have killed %i Cat Zombies", catZombiesKilled)
+            catZombiesKilledLabel.text = NSString(format: "You have killed %i Cat Zombies", catZombiesKilled) as String
         }
         else
         {
@@ -184,7 +184,7 @@ class MenuScene: SKScene
         
         if let catZombiesDied = defaults.objectForKey("catZombiesDied") as? NSInteger
         {
-            catZombiesDiedLabel.text = NSString(format: "    You have been killed by %i Cat Zombies", catZombiesDied)
+            catZombiesDiedLabel.text = NSString(format: "    You have been killed by %i Cat Zombies", catZombiesDied) as String
         }
         else
         {
@@ -197,7 +197,7 @@ class MenuScene: SKScene
         version.fontColor = SKColor.greenColor()
         version.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-150)
         version.zPosition = 6
-        version.text = NSString(format: "Version: %.2f", self.version)
+        version.text = NSString(format: "Version: %.2f", self.version) as String
         stats.addChild(version)
         
         var gameCenterButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)+100), type: "back", InMenu: "settings", WithAction: openGameCenterLeaderboards, WithName: "Game-Center")
@@ -224,7 +224,7 @@ class MenuScene: SKScene
             posOverride = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame)-140)
         }
         
-        var button = SKButton(defaultButtonImage: WithName, activeButtonImage: WithName + "Pressed", buttonAction: WithAction)
+        var button = SKButton(defaultButtonImage: WithName as String, activeButtonImage: (WithName as String) + "Pressed", buttonAction: WithAction)
         if posOverride != CGPoint(x: 0, y: 0) && pos == CGPoint(x: 0, y: 0)
         {
             button.position = posOverride
@@ -243,7 +243,7 @@ class MenuScene: SKScene
             button.zPosition = 4
         }
         
-        button.name = WithName
+        button.name = WithName as String
         
         return button
     }
@@ -281,7 +281,7 @@ class MenuScene: SKScene
         self.addChild(volumeSettings)
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent)
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent)
     {
         if let map = self.childNodeWithName("map")
         {
@@ -359,7 +359,7 @@ class MenuScene: SKScene
         {
             let muteDisplay = self.childNodeWithName("muteDisplay")
             var muteDisplaySK = muteDisplay as? SKLabelNode
-            muteDisplaySK?.text = NSString(format: "Muted: %i", Int(self.muted))
+            muteDisplaySK?.text = NSString(format: "Muted: %i", Int(self.muted)) as String
             if self.muted == true
             {
                 volumeSlider?.setValue(0, animated: true)

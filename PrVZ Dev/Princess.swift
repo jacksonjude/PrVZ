@@ -7,17 +7,17 @@
 //
 
 import Foundation
-import Spritekit
+import SpriteKit
 
 class Princess: SKSpriteNode
 {
-    override init()
+    init()
     {
         let princessTexture = SKTexture(imageNamed: "princess.png")
         super.init(texture: princessTexture, color:nil, size: princessTexture.size())
     }
     
-    init(textureName: NSString)
+    init(textureName: String)
     {
         let princessTexture = SKTexture(imageNamed: textureName)
         super.init(texture: princessTexture, color:nil, size: princessTexture.size())
