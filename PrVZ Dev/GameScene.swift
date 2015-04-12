@@ -261,6 +261,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             self.zombiesKilled = currentScore
         }
+        else
+        {
+            defaults.setObject(0, forKey: "currentScore")
+        }
+        
+        if let highScore = defaults.objectForKey("highScore") as? NSInteger
+        {
+            //DO NOTHING
+        }
+        else
+        {
+            defaults.setObject(0, forKey: "highScore")
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillTerminateNotification, object: nil)

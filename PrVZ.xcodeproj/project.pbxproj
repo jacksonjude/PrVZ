@@ -47,6 +47,7 @@
 		7A5D745819DF847E009EEBD8 /* zombie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745419DF847E009EEBD8 /* zombie.png */; };
 		7A7073291A0694F20071F677 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7073281A0694F20071F677 /* map.png */; };
 		7A714F651A4B4631007C570C /* healthPack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A714F641A4B4631007C570C /* healthPack.png */; };
+		7A7933A41ADAF74C009C0272 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7933A31ADAF74C009C0272 /* CloudKit.framework */; };
 		7A7F16261A4A85D500F00743 /* leftScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16241A4A85D500F00743 /* leftScrollButton.png */; };
 		7A7F16271A4A85D500F00743 /* rightScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16251A4A85D500F00743 /* rightScrollButton.png */; };
 		7A7F162A1A4A877400F00743 /* leftScrollButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */; };
@@ -157,6 +158,8 @@
 		7A5D745419DF847E009EEBD8 /* zombie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zombie.png; path = Images/InGame/Characters/zombie.png; sourceTree = "<group>"; };
 		7A7073281A0694F20071F677 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = Images/InGame/map.png; sourceTree = "<group>"; };
 		7A714F641A4B4631007C570C /* healthPack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = healthPack.png; path = Images/InGame/Store/healthPack.png; sourceTree = "<group>"; };
+		7A7933A21ADAF728009C0272 /* PrVZ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrVZ.entitlements; sourceTree = SOURCE_ROOT; };
+		7A7933A31ADAF74C009C0272 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		7A7F16241A4A85D500F00743 /* leftScrollButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leftScrollButton.png; path = Images/InGame/Store/leftScrollButton.png; sourceTree = "<group>"; };
 		7A7F16251A4A85D500F00743 /* rightScrollButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rightScrollButton.png; path = Images/InGame/Store/rightScrollButton.png; sourceTree = "<group>"; };
 		7A7F16281A4A877400F00743 /* leftScrollButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leftScrollButtonPressed.png; path = Images/InGame/Store/leftScrollButtonPressed.png; sourceTree = "<group>"; };
@@ -215,6 +218,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A7933A41ADAF74C009C0272 /* CloudKit.framework in Frameworks */,
 				7ACAA0871ABF30BD002B0F73 /* MultipeerConnectivity.framework in Frameworks */,
 				7A24EE561AB5301300CF7C6A /* GameKit.framework in Frameworks */,
 			);
@@ -233,6 +237,7 @@
 		7A4E782D19C735B900C5E9B3 = {
 			isa = PBXGroup;
 			children = (
+				7A7933A31ADAF74C009C0272 /* CloudKit.framework */,
 				7ACAA0861ABF30BD002B0F73 /* MultipeerConnectivity.framework */,
 				7A24EE551AB5301300CF7C6A /* GameKit.framework */,
 				7A4E783819C735B900C5E9B3 /* PrVZ */,
@@ -253,6 +258,7 @@
 		7A4E783819C735B900C5E9B3 /* PrVZ */ = {
 			isa = PBXGroup;
 			children = (
+				7A7933A21ADAF728009C0272 /* PrVZ.entitlements */,
 				7AF5C31219E208BC0003A332 /* Characters */,
 				7AF5C31119E208A50003A332 /* Scenes */,
 				7A8D8F2119C7E72D001D8C72 /* Images */,
@@ -520,6 +526,11 @@
 					7A4E783519C735B900C5E9B3 = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 26Y8AQV29F;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					7A4E784E19C735B900C5E9B3 = {
 						CreatedOnToolsVersion = 6.0;
@@ -781,6 +792,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PrVZ.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/PrVZ Dev/Info.plist";
@@ -797,6 +809,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PrVZ.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/PrVZ Dev/Info.plist";
