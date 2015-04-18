@@ -70,6 +70,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func didMoveToView(view: SKView)
     {
+        var keyStore = NSUbiquitousKeyValueStore.defaultStore()
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(1, forKey: "Tutorial")
         
@@ -158,6 +159,53 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     }
                 }
             }
+        }
+        
+        var restoreData = Bool()
+        
+        if let user = keyStore.dictionaryForKey("playerData")
+        {
+            var userDictionary = user as NSDictionary
+            let userId = userDictionary.objectForKey("uuid") as? String
+            if let installed = defaults.objectForKey("idInstalled") as? String
+            {
+                if userId != installed
+                {
+                    restoreData = true
+                    NSLog("installed: %@", installed)
+                    NSLog("userID: %@", userId!)
+                }
+                else
+                {
+                    restoreData = false
+                    NSLog("userID: %@", userId!)
+                    NSLog("installed: %@", installed)
+                }
+            }
+            else
+            {
+                restoreData = true
+            }
+        }
+        else
+        {
+            var userDictionary = NSMutableDictionary()
+            var uuid = NSUUID().UUIDString
+            userDictionary.setObject(uuid, forKey: "uuid")
+            keyStore.setDictionary(userDictionary as [NSObject : AnyObject], forKey: "playerData")
+            keyStore.synchronize()
+            println("Added User")
+            defaults.setValue(uuid, forKey: "idInstalled")
+        }
+        
+        if restoreData == true
+        {
+            var alert = UIAlertController(title: "Save Found!", message: "App has found a save on this iCloud account. Would you like to restore it?", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+                println("Restoring")
+            }))
+            gameViewController1!.presentViewController(alert, animated: true, completion: nil)
         }
         
         physicsWorld.gravity = CGVectorMake(0,0)
@@ -495,7 +543,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             if self.infBrushItem == true
             {
-                if self.brushesInWorld <= 3
+                if self.brushesInWorld <= 2
                 {
                     self.brushesInWorld++
                     
@@ -516,8 +564,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     var vanish = SKAction.removeFromParent()
                     var removeBrush = SKAction.runBlock({
                         self.currentBrushes.removeObject(brush)
+                        self.brushesInWorld--
                     })
-                    var sequence = SKAction.sequence([move, vanish, removeBrush])
+                    var sequence = SKAction.sequence([move, removeBrush, vanish])
                     brush.runAction(sequence)
                 }
             }
@@ -678,7 +727,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
             }
         }
-        self.coins++
+        
+        let chance = CGFloat(arc4random()%4)
+        if chance == 0
+        {
+            self.coins++
+        }
         
         defaults.setObject(self.coins, forKey: "coins")
         
@@ -1382,6 +1436,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func saveData()
     {
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        
+        defaults.setObject(self.coins, forKey: "coins")
         
         if let currentScore = defaults.objectForKey("currentScore") as? NSInteger
         {
