@@ -15,10 +15,10 @@ private var backgroundMusicPlayer: AVAudioPlayer!
 
 class GameScene: SKScene, SKPhysicsContactDelegate
 {
-    let brushCategory: UInt32 =  1 << 0
-    let monsterCategory: UInt32 =  1 << 1
-    let princessCategory: UInt32 =  1 << 2
-    let enemyProjectileCatagory: UInt32 =  1 << 3
+    let brushCategory: UInt32 =           1 << 0
+    let monsterCategory: UInt32 =         1 << 1
+    let princessCategory: UInt32 =        1 << 2
+    let enemyProjectileCatagory: UInt32 = 1 << 3
     
     var princess1 = Princess()
     var princessHealth = Float()
@@ -449,8 +449,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 if spawnCat == 2
                 {
                     var cat1 = CatZombie()
-                    var yPos = CGFloat((arc4random()%150)+150)
-                    var xPos = CGFloat((arc4random()%150)+150)
+                    var yPos = CGFloat((arc4random()%180)+100)
+                    var xPos = CGFloat((arc4random()%180)+100)
                     cat1.name = "catZombie"
                     cat1.health = self.wavesCompleted / 4
                     cat1.physicsBody = SKPhysicsBody(circleOfRadius:cat1.size.width/2)
@@ -547,6 +547,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 {
                     self.brushesInWorld++
                     
+                    NSLog("Brushes In World: %i", self.brushesInWorld)
+                    
                     var brush = SKSpriteNode(imageNamed: "brush.png")
                     brush.name = "brush"
                     brush.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y)
@@ -565,6 +567,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     var removeBrush = SKAction.runBlock({
                         self.currentBrushes.removeObject(brush)
                         self.brushesInWorld--
+                        NSLog("removed brush")
                     })
                     var sequence = SKAction.sequence([move, removeBrush, vanish])
                     brush.runAction(sequence)
@@ -635,6 +638,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func projectileDidCollideWithMonster(projectile: SKNode, monster: SKNode)
     {
         projectile.removeFromParent()
+        self.brushesInWorld--
         var monsterSK = monster as! GenericZombie
         monsterSK.health--
         var healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
