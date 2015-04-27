@@ -62,6 +62,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var batteryPercent = 0.00
     var savedOnOpeningWindow = false
     var brushesInWorld = 0
+    var justBoughtHealthPack = false
     
     deinit
     {
@@ -390,9 +391,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             if self.healthLostInLastRound > 0.5
             {
                 self.princessHealth += 0.5
+                var healthGainedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+                healthGainedLabel.text = "+0.5"
+                healthGainedLabel.fontColor = SKColor.greenColor()
+                healthGainedLabel.fontSize = 32
+                healthGainedLabel.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+100)
+                healthGainedLabel.runAction(SKAction.moveToY(healthGainedLabel.position.y+20, duration: 0.4))
+                healthGainedLabel.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(0.4), SKAction.runBlock({
+                    healthGainedLabel.removeFromParent()
+                })]))
+                self.addChild(healthGainedLabel)
             }
             else
             {
+                if self.healthLostInLastRound > 0
+                {
+                    var healthGainedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+                    healthGainedLabel.text = NSString(format: "+0.25", self.healthLostInLastRound) as String
+                    healthGainedLabel.fontColor = SKColor.greenColor()
+                    healthGainedLabel.fontSize = 32
+                    healthGainedLabel.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+75)
+                    healthGainedLabel.runAction(SKAction.moveToY(healthGainedLabel.position.y+20, duration: 0.4))
+                    healthGainedLabel.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(0.4), SKAction.runBlock({
+                        healthGainedLabel.removeFromParent()
+                    })]))
+                    self.addChild(healthGainedLabel)
+                }
                 self.princessHealth += self.healthLostInLastRound
             }
         }
@@ -567,7 +591,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     var removeBrush = SKAction.runBlock({
                         self.currentBrushes.removeObject(brush)
                         self.brushesInWorld--
-                        NSLog("removed brush")
                     })
                     var sequence = SKAction.sequence([move, removeBrush, vanish])
                     brush.runAction(sequence)
@@ -1306,6 +1329,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         let progressDouble: Double = 100
         self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "buyItem")
+        self.justBoughtHealthPack = true
     }
     
     func leftScroll()
@@ -1419,6 +1443,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.checkIsShowing2 = false
         
         self.savedOnOpeningWindow = false
+        
+        if self.justBoughtHealthPack == true
+        {
+            var healthGainedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+            healthGainedLabel.text = "+1"
+            healthGainedLabel.fontColor = SKColor.greenColor()
+            healthGainedLabel.fontSize = 32
+            healthGainedLabel.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+75)
+            healthGainedLabel.runAction(SKAction.moveToY(healthGainedLabel.position.y+20, duration: 1))
+            healthGainedLabel.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(1), SKAction.runBlock({
+                healthGainedLabel.removeFromParent()
+            })]))
+            self.addChild(healthGainedLabel)
+            self.justBoughtHealthPack = false
+        }
     }
     
     func showPetYard()
