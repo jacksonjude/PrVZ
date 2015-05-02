@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7A1E69D919EE2379007051C0 /* saveButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A1E69D719EE2379007051C0 /* saveButton.png */; };
 		7A1E69DA19EE2379007051C0 /* saveButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A1E69D819EE2379007051C0 /* saveButtonPressed.png */; };
-		7A24EE561AB5301300CF7C6A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A24EE551AB5301300CF7C6A /* GameKit.framework */; };
 		7A24EE5B1AB5425500CF7C6A /* Game-Center.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A24EE591AB5425500CF7C6A /* Game-Center.png */; };
 		7A24EE5C1AB5425500CF7C6A /* Game-CenterPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A24EE5A1AB5425500CF7C6A /* Game-CenterPressed.png */; };
 		7A2D0EEB19EF519100491A2F /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A2D0EEA19EF519100491A2F /* pause.png */; };
@@ -55,6 +54,8 @@
 		7A7F162D1A4A88DB00F00743 /* hairball.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F162C1A4A88DB00F00743 /* hairball.png */; };
 		7A83D1181A663307006B594B /* menuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A83D1161A663307006B594B /* menuButton.png */; };
 		7A83D11A1A663335006B594B /* menuButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A83D1191A663335006B594B /* menuButtonPressed.png */; };
+		7A8563AB1AF444C200C4CB18 /* appIconV2.2 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A8563AA1AF444C200C4CB18 /* appIconV2.2 1024.png */; };
+		7A8563AD1AF448EA00C4CB18 /* appIconV2.2 750.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A8563AC1AF448EA00C4CB18 /* appIconV2.2 750.png */; };
 		7A8E00561ABDDE6C00AA4C26 /* MultiplayerScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A8E00551ABDDE6C00AA4C26 /* MultiplayerScene.sks */; };
 		7A8E00581ABDDE9700AA4C26 /* MultiplayerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E00571ABDDE9700AA4C26 /* MultiplayerScene.swift */; };
 		7A92656F19CF2A280090595F /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A92656E19CF2A280090595F /* TitleScene.swift */; };
@@ -75,6 +76,10 @@
 		7AB4C6BC1A35392A00D23A88 /* mapButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6BA1A35392A00D23A88 /* mapButtonPressed.png */; };
 		7AB4C6BE1A3539F300D23A88 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB4C6BD1A3539F300D23A88 /* MenuScene.swift */; };
 		7AB4C6C01A353B7900D23A88 /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AB4C6BF1A353B7900D23A88 /* MenuScene.sks */; };
+		7AB9C8A61AF1E911003CA9CE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7933A31ADAF74C009C0272 /* CloudKit.framework */; };
+		7AB9C8A81AF1E94F003CA9CE /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB9C8A71AF1E94F003CA9CE /* HealthKit.framework */; };
+		7AB9C8AA1AF1E98C003CA9CE /* HomeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB9C8A91AF1E98C003CA9CE /* HomeKit.framework */; };
+		7ABE759B1AF440E60094C56B /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABE759A1AF440E60094C56B /* GameKit.framework */; };
 		7ABEBFBC19EB4309001DEF2E /* resetButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABEBFBA19EB4309001DEF2E /* resetButton.png */; };
 		7ABEBFBD19EB4309001DEF2E /* resetButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */; };
 		7AC509331AC61D090034F76E /* Smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AC509311AC61D090034F76E /* Smoke.sks */; };
@@ -98,6 +103,13 @@
 		7AE93A9D1A6ACEF600B5F817 /* background3.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AE93A9C1A6ACEF600B5F817 /* background3.png */; };
 		7AEA9D3C1AC309D600994A6F /* disconnectButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AEA9D3A1AC309D600994A6F /* disconnectButton.png */; };
 		7AEA9D3D1AC309D600994A6F /* disconnectButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AEA9D3B1AC309D600994A6F /* disconnectButtonPressed.png */; };
+		7AF403561AEDE9A20099A493 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF403551AEDE9A20099A493 /* InterfaceController.swift */; };
+		7AF403581AEDE9A20099A493 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF403571AEDE9A20099A493 /* NotificationController.swift */; };
+		7AF4035A1AEDE9A20099A493 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF403591AEDE9A20099A493 /* Images.xcassets */; };
+		7AF4035E1AEDE9A20099A493 /* PrVZ WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 7AF4035D1AEDE9A20099A493 /* PrVZ WatchKit App.app */; };
+		7AF403661AEDE9A20099A493 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF403641AEDE9A20099A493 /* Interface.storyboard */; };
+		7AF403681AEDE9A20099A493 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AF403671AEDE9A20099A493 /* Images.xcassets */; };
+		7AF4036B1AEDE9A20099A493 /* PrVZ WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7AF403501AEDE9A20099A493 /* PrVZ WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AF744C719D739AC00B95D08 /* Princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF744C619D739AC00B95D08 /* Princess.swift */; };
 /* End PBXBuildFile section */
 
@@ -109,13 +121,40 @@
 			remoteGlobalIDString = 7A4E783519C735B900C5E9B3;
 			remoteInfo = "PrVZ Dev";
 		};
+		7AF4035F1AEDE9A20099A493 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A4E782E19C735B900C5E9B3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AF4035C1AEDE9A20099A493;
+			remoteInfo = "PrVZ WatchKit App";
+		};
+		7AF403691AEDE9A20099A493 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A4E782E19C735B900C5E9B3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AF4034F1AEDE9A20099A493;
+			remoteInfo = "PrVZ WatchKit Extension";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7AF4034B1AEDE75C0099A493 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				7AF4036B1AEDE9A20099A493 /* PrVZ WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7A03E60719D8806800D857BD /* PrVZ-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrVZ-Bridging-Header.h"; sourceTree = "<group>"; };
 		7A1E69D719EE2379007051C0 /* saveButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = saveButton.png; path = Images/InGame/Buttons/saveButton.png; sourceTree = "<group>"; };
 		7A1E69D819EE2379007051C0 /* saveButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = saveButtonPressed.png; path = Images/InGame/Buttons/saveButtonPressed.png; sourceTree = "<group>"; };
-		7A24EE551AB5301300CF7C6A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		7A24EE591AB5425500CF7C6A /* Game-Center.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Game-Center.png"; path = "Images/InGame/Game-Center.png"; sourceTree = "<group>"; };
 		7A24EE5A1AB5425500CF7C6A /* Game-CenterPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Game-CenterPressed.png"; path = "Images/InGame/Game-CenterPressed.png"; sourceTree = "<group>"; };
 		7A2D0EEA19EF519100491A2F /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Images/InGame/Buttons/pause.png; sourceTree = "<group>"; };
@@ -167,6 +206,8 @@
 		7A7F162C1A4A88DB00F00743 /* hairball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hairball.png; path = Images/InGame/Characters/hairball.png; sourceTree = "<group>"; };
 		7A83D1161A663307006B594B /* menuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menuButton.png; path = Images/InGame/Buttons/menuButton.png; sourceTree = "<group>"; };
 		7A83D1191A663335006B594B /* menuButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = menuButtonPressed.png; path = Images/InGame/Buttons/menuButtonPressed.png; sourceTree = "<group>"; };
+		7A8563AA1AF444C200C4CB18 /* appIconV2.2 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIconV2.2 1024.png"; path = "Images/InGame/appIconV2.2 1024.png"; sourceTree = "<group>"; };
+		7A8563AC1AF448EA00C4CB18 /* appIconV2.2 750.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIconV2.2 750.png"; path = "Images/InGame/appIconV2.2 750.png"; sourceTree = "<group>"; };
 		7A8E00551ABDDE6C00AA4C26 /* MultiplayerScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MultiplayerScene.sks; sourceTree = "<group>"; };
 		7A8E00571ABDDE9700AA4C26 /* MultiplayerScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiplayerScene.swift; sourceTree = "<group>"; };
 		7A92656E19CF2A280090595F /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
@@ -187,6 +228,10 @@
 		7AB4C6BA1A35392A00D23A88 /* mapButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapButtonPressed.png; path = Images/InGame/Buttons/mapButtonPressed.png; sourceTree = "<group>"; };
 		7AB4C6BD1A3539F300D23A88 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		7AB4C6BF1A353B7900D23A88 /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
+		7AB9C8A71AF1E94F003CA9CE /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		7AB9C8A91AF1E98C003CA9CE /* HomeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HomeKit.framework; path = System/Library/Frameworks/HomeKit.framework; sourceTree = SDKROOT; };
+		7ABA08351AEFD3EE00C83186 /* PrVZ WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "PrVZ WatchKit Extension.entitlements"; sourceTree = "<group>"; };
+		7ABE759A1AF440E60094C56B /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		7ABEBFBA19EB4309001DEF2E /* resetButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resetButton.png; path = Images/InGame/Buttons/resetButton.png; sourceTree = "<group>"; };
 		7ABEBFBB19EB4309001DEF2E /* resetButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = resetButtonPressed.png; path = Images/InGame/Buttons/resetButtonPressed.png; sourceTree = "<group>"; };
 		7AC509311AC61D090034F76E /* Smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Smoke.sks; sourceTree = "<group>"; };
@@ -210,6 +255,16 @@
 		7AE93A9C1A6ACEF600B5F817 /* background3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background3.png; path = Images/InGame/background3.png; sourceTree = "<group>"; };
 		7AEA9D3A1AC309D600994A6F /* disconnectButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = disconnectButton.png; path = Images/InGame/Buttons/disconnectButton.png; sourceTree = "<group>"; };
 		7AEA9D3B1AC309D600994A6F /* disconnectButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = disconnectButtonPressed.png; path = Images/InGame/Buttons/disconnectButtonPressed.png; sourceTree = "<group>"; };
+		7AF403501AEDE9A20099A493 /* PrVZ WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "PrVZ WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AF403531AEDE9A20099A493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AF403541AEDE9A20099A493 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		7AF403551AEDE9A20099A493 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		7AF403571AEDE9A20099A493 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		7AF403591AEDE9A20099A493 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7AF4035D1AEDE9A20099A493 /* PrVZ WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PrVZ WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AF403631AEDE9A20099A493 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AF403651AEDE9A20099A493 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		7AF403671AEDE9A20099A493 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7AF744C619D739AC00B95D08 /* Princess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Princess.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -218,9 +273,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ABE759B1AF440E60094C56B /* GameKit.framework in Frameworks */,
 				7A7933A41ADAF74C009C0272 /* CloudKit.framework in Frameworks */,
 				7ACAA0871ABF30BD002B0F73 /* MultipeerConnectivity.framework in Frameworks */,
-				7A24EE561AB5301300CF7C6A /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,17 +286,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AF4034D1AEDE9A20099A493 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AB9C8AA1AF1E98C003CA9CE /* HomeKit.framework in Frameworks */,
+				7AB9C8A61AF1E911003CA9CE /* CloudKit.framework in Frameworks */,
+				7AB9C8A81AF1E94F003CA9CE /* HealthKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		7A4E782D19C735B900C5E9B3 = {
 			isa = PBXGroup;
 			children = (
+				7ABE759A1AF440E60094C56B /* GameKit.framework */,
+				7AB9C8A91AF1E98C003CA9CE /* HomeKit.framework */,
+				7AB9C8A71AF1E94F003CA9CE /* HealthKit.framework */,
 				7A7933A31ADAF74C009C0272 /* CloudKit.framework */,
 				7ACAA0861ABF30BD002B0F73 /* MultipeerConnectivity.framework */,
-				7A24EE551AB5301300CF7C6A /* GameKit.framework */,
 				7A4E783819C735B900C5E9B3 /* PrVZ */,
 				7A4E785219C735B900C5E9B3 /* PrVZ DevTests */,
+				7AF403511AEDE9A20099A493 /* PrVZ WatchKit Extension */,
+				7AF403611AEDE9A20099A493 /* PrVZ WatchKit App */,
 				7A4E783719C735B900C5E9B3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -251,6 +320,8 @@
 			children = (
 				7A4E783619C735B900C5E9B3 /* PrVZ.app */,
 				7A4E784F19C735B900C5E9B3 /* PrVZTests.xctest */,
+				7AF403501AEDE9A20099A493 /* PrVZ WatchKit Extension.appex */,
+				7AF4035D1AEDE9A20099A493 /* PrVZ WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -409,6 +480,45 @@
 			name = Store;
 			sourceTree = "<group>";
 		};
+		7AF403511AEDE9A20099A493 /* PrVZ WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				7ABA08351AEFD3EE00C83186 /* PrVZ WatchKit Extension.entitlements */,
+				7AF403551AEDE9A20099A493 /* InterfaceController.swift */,
+				7AF403571AEDE9A20099A493 /* NotificationController.swift */,
+				7AF403591AEDE9A20099A493 /* Images.xcassets */,
+				7AF403521AEDE9A20099A493 /* Supporting Files */,
+			);
+			path = "PrVZ WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		7AF403521AEDE9A20099A493 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7AF403531AEDE9A20099A493 /* Info.plist */,
+				7AF403541AEDE9A20099A493 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7AF403611AEDE9A20099A493 /* PrVZ WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				7AF403641AEDE9A20099A493 /* Interface.storyboard */,
+				7AF403671AEDE9A20099A493 /* Images.xcassets */,
+				7AF403621AEDE9A20099A493 /* Supporting Files */,
+			);
+			path = "PrVZ WatchKit App";
+			sourceTree = "<group>";
+		};
+		7AF403621AEDE9A20099A493 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7AF403631AEDE9A20099A493 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		7AF5C31119E208A50003A332 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +561,8 @@
 		7AF744CA19D74AC200B95D08 /* InGame */ = {
 			isa = PBXGroup;
 			children = (
+				7A8563AC1AF448EA00C4CB18 /* appIconV2.2 750.png */,
+				7A8563AA1AF444C200C4CB18 /* appIconV2.2 1024.png */,
 				7A24EE591AB5425500CF7C6A /* Game-Center.png */,
 				7A24EE5A1AB5425500CF7C6A /* Game-CenterPressed.png */,
 				7A346EA51ABBE06C00265211 /* background4.png */,
@@ -486,10 +598,12 @@
 				7A4E783219C735B900C5E9B3 /* Sources */,
 				7A4E783319C735B900C5E9B3 /* Frameworks */,
 				7A4E783419C735B900C5E9B3 /* Resources */,
+				7AF4034B1AEDE75C0099A493 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				7AF4036A1AEDE9A20099A493 /* PBXTargetDependency */,
 			);
 			name = PrVZ;
 			productName = "PrVZ Dev";
@@ -514,6 +628,39 @@
 			productReference = 7A4E784F19C735B900C5E9B3 /* PrVZTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		7AF4034F1AEDE9A20099A493 /* PrVZ WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7AF4036F1AEDE9A20099A493 /* Build configuration list for PBXNativeTarget "PrVZ WatchKit Extension" */;
+			buildPhases = (
+				7AF4034C1AEDE9A20099A493 /* Sources */,
+				7AF4034D1AEDE9A20099A493 /* Frameworks */,
+				7AF4034E1AEDE9A20099A493 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7AF403601AEDE9A20099A493 /* PBXTargetDependency */,
+			);
+			name = "PrVZ WatchKit Extension";
+			productName = "PrVZ WatchKit Extension";
+			productReference = 7AF403501AEDE9A20099A493 /* PrVZ WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		7AF4035C1AEDE9A20099A493 /* PrVZ WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7AF4036C1AEDE9A20099A493 /* Build configuration list for PBXNativeTarget "PrVZ WatchKit App" */;
+			buildPhases = (
+				7AF4035B1AEDE9A20099A493 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PrVZ WatchKit App";
+			productName = "PrVZ WatchKit App";
+			productReference = 7AF4035D1AEDE9A20099A493 /* PrVZ WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -527,6 +674,12 @@
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 26Y8AQV29F;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};
@@ -536,10 +689,35 @@
 						CreatedOnToolsVersion = 6.0;
 						TestTargetID = 7A4E783519C735B900C5E9B3;
 					};
+					7AF4034F1AEDE9A20099A493 = {
+						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 26Y8AQV29F;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.GameCenter = {
+								enabled = 0;
+							};
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+							com.apple.HomeKit = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
+					7AF4035C1AEDE9A20099A493 = {
+						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 26Y8AQV29F;
+					};
 				};
 			};
 			buildConfigurationList = 7A4E783119C735B900C5E9B3 /* Build configuration list for PBXProject "PrVZ" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -553,6 +731,8 @@
 			targets = (
 				7A4E783519C735B900C5E9B3 /* PrVZ */,
 				7A4E784E19C735B900C5E9B3 /* PrVZTests */,
+				7AF4034F1AEDE9A20099A493 /* PrVZ WatchKit Extension */,
+				7AF4035C1AEDE9A20099A493 /* PrVZ WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -620,6 +800,7 @@
 				7A5D745019DF8475009EEBD8 /* startButtonGame.png in Resources */,
 				7A5D744C19DF8475009EEBD8 /* button 150.png in Resources */,
 				7AE93A9D1A6ACEF600B5F817 /* background3.png in Resources */,
+				7A8563AB1AF444C200C4CB18 /* appIconV2.2 1024.png in Resources */,
 				7A7F162A1A4A877400F00743 /* leftScrollButtonPressed.png in Resources */,
 				7A4E1DA119D7702C00001C55 /* prince.png in Resources */,
 				7A8E00561ABDDE6C00AA4C26 /* MultiplayerScene.sks in Resources */,
@@ -627,6 +808,7 @@
 				7A714F651A4B4631007C570C /* healthPack.png in Resources */,
 				7A5D745619DF847E009EEBD8 /* brush.png in Resources */,
 				7AB4C6B41A35377900D23A88 /* jungle.png in Resources */,
+				7A8563AD1AF448EA00C4CB18 /* appIconV2.2 750.png in Resources */,
 				7A7F16261A4A85D500F00743 /* leftScrollButton.png in Resources */,
 				7A5AEC651A6B3A7100F114FF /* infoButton.png in Resources */,
 				7A4E1DA219D7702C00001C55 /* speech.png in Resources */,
@@ -645,6 +827,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AF4034E1AEDE9A20099A493 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AF4035E1AEDE9A20099A493 /* PrVZ WatchKit App.app in Resources */,
+				7AF4035A1AEDE9A20099A493 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AF4035B1AEDE9A20099A493 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AF403661AEDE9A20099A493 /* Interface.storyboard in Resources */,
+				7AF403681AEDE9A20099A493 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,6 +878,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AF4034C1AEDE9A20099A493 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AF403581AEDE9A20099A493 /* NotificationController.swift in Sources */,
+				7AF403561AEDE9A20099A493 /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -685,6 +894,16 @@
 			isa = PBXTargetDependency;
 			target = 7A4E783519C735B900C5E9B3 /* PrVZ */;
 			targetProxy = 7A4E785019C735B900C5E9B3 /* PBXContainerItemProxy */;
+		};
+		7AF403601AEDE9A20099A493 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AF4035C1AEDE9A20099A493 /* PrVZ WatchKit App */;
+			targetProxy = 7AF4035F1AEDE9A20099A493 /* PBXContainerItemProxy */;
+		};
+		7AF4036A1AEDE9A20099A493 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AF4034F1AEDE9A20099A493 /* PrVZ WatchKit Extension */;
+			targetProxy = 7AF403691AEDE9A20099A493 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -703,6 +922,14 @@
 				7A4E784919C735B900C5E9B3 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		7AF403641AEDE9A20099A493 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7AF403651AEDE9A20099A493 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -854,6 +1081,83 @@
 			};
 			name = Release;
 		};
+		7AF4036D1AEDE9A20099A493 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IBSC_MODULE = PrVZ_WatchKit_Extension;
+				INFOPLIST_FILE = "PrVZ WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		7AF4036E1AEDE9A20099A493 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = PrVZ_WatchKit_Extension;
+				INFOPLIST_FILE = "PrVZ WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
+		7AF403701AEDE9A20099A493 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "PrVZ WatchKit Extension/PrVZ WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PrVZ WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7AF403711AEDE9A20099A493 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "PrVZ WatchKit Extension/PrVZ WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "PrVZ WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -880,6 +1184,24 @@
 			buildConfigurations = (
 				7A4E785D19C735B900C5E9B3 /* Debug */,
 				7A4E785E19C735B900C5E9B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7AF4036C1AEDE9A20099A493 /* Build configuration list for PBXNativeTarget "PrVZ WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AF4036D1AEDE9A20099A493 /* Debug */,
+				7AF4036E1AEDE9A20099A493 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7AF4036F1AEDE9A20099A493 /* Build configuration list for PBXNativeTarget "PrVZ WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AF403701AEDE9A20099A493 /* Debug */,
+				7AF403711AEDE9A20099A493 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

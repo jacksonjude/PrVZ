@@ -317,18 +317,71 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if let highScore = defaults.objectForKey("highScore") as? NSInteger
         {
-            //DO NOTHING
+            if let user = keyStore.dictionaryForKey("playerData")
+            {
+                let userDictionary = user as NSDictionary
+                var userDictionaryMutable = userDictionary.mutableCopy() as! NSMutableDictionary
+                userDictionaryMutable.setObject(highScore, forKey: "highScore")
+                keyStore.setDictionary(userDictionaryMutable as [NSObject : AnyObject], forKey: "playerData")
+                keyStore.synchronize()
+            }
         }
         else
         {
             defaults.setObject(0, forKey: "highScore")
+            
+            if let user = keyStore.dictionaryForKey("playerData")
+            {
+                let userDictionary = user as NSDictionary
+                var userDictionaryMutable = userDictionary.mutableCopy() as! NSMutableDictionary
+                userDictionaryMutable.setObject(0, forKey: "highScore")
+                keyStore.setDictionary(userDictionaryMutable as [NSObject : AnyObject], forKey: "playerData")
+                keyStore.synchronize()
+            }
+        }
+        
+        if self.coins >= 100
+        {
+            if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+            {
+                if self.movedCoinsImage == false
+                {
+                    coinsImage.position.x = coinsImage.position.x-20
+                    self.movedCoinsImage = true
+                }
+            }
+        }
+        
+        if self.coins >= 1000
+        {
+            if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+            {
+                if self.movedCoinsImage == false
+                {
+                    coinsImage.position.x = coinsImage.position.x-20
+                    self.movedCoinsImage = true
+                }
+            }
+        }
+        
+        if self.coins >= 10000
+        {
+            if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+            {
+                if self.movedCoinsImage == false
+                {
+                    coinsImage.position.x = coinsImage.position.x-20
+                    self.movedCoinsImage = true
+                }
+            }
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillTerminateNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationDidBecomeActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFrombackground", name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"changedValues", name: NSUbiquitousKeyValueStoreDidChangeExternallyNotification, object: nil)
         
         if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
         {
@@ -1480,6 +1533,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         
+        var defaultsGroup: NSUserDefaults = NSUserDefaults(suiteName: "group.com.jacksonjude.PrVZ")!
+        
         defaults.setObject(self.coins, forKey: "coins")
         
         if let currentScore = defaults.objectForKey("currentScore") as? NSInteger
@@ -1527,8 +1582,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if let highScore = defaults.objectForKey("highScore") as? NSInteger
         {
+            defaultsGroup.setObject(highScore, forKey: "highScore")
             if let currentScoreCurrent = defaults.objectForKey("currentScore") as? NSInteger
             {
+                defaultsGroup.setObject(currentScoreCurrent, forKey: "currentScore")
                 if currentScoreCurrent > highScore
                 {
                     gameViewController1?.submitScore(currentScoreCurrent)
@@ -1538,6 +1595,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     gameViewController1?.submitScore(highScore)
                 }
             }
+        }
+        if let levels = defaults.objectForKey("levels") as? NSInteger
+        {
+            defaultsGroup.setObject(levels, forKey: "levels")
         }
     }
     
@@ -1710,6 +1771,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         
         self.gamePaused = false
+    }
+    
+    func changedValues()
+    {
+        println("Changes Found in iCloud")
+        NSUbiquitousKeyValueStore.defaultStore().synchronize()
     }
     
     override func update(currentTime: NSTimeInterval)
@@ -1907,7 +1974,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 backgroundMusicPlayer.pause()
                 
-                if self.coins <= 100
+                if self.coins >= 100
+                {
+                    if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                    {
+                        if self.movedCoinsImage == false
+                        {
+                            coinsImage.position.x = coinsImage.position.x-20
+                            self.movedCoinsImage = true
+                        }
+                    }
+                }
+                
+                if self.coins >= 1000
+                {
+                    if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                    {
+                        if self.movedCoinsImage == false
+                        {
+                            coinsImage.position.x = coinsImage.position.x-20
+                            self.movedCoinsImage = true
+                        }
+                    }
+                }
+                
+                if self.coins >= 10000
                 {
                     if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
                     {
