@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3737"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="PrVZ_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <label alignment="center" text="Local" id="MeA-4v-VUL">
+                            <fontDescription key="font" type="system" weight="heavy" pointSize="16"/>
+                        </label>
+                        <label alignment="center" text="High Score: 0" id="Y1G-Ec-XPI" userLabel="highScore">
+                            <fontDescription key="font" type="system" weight="medium" pointSize="16"/>
+                        </label>
+                        <button width="1" height="29" alignment="left" verticalAlignment="bottom" title="Toggle" id="I32-My-I0Z">
+                            <connections>
+                                <action selector="toggle" destination="AgC-eL-Hgc" id="s01-5t-zIB"/>
+                            </connections>
+                        </button>
+                        <button width="1" height="31" alignment="left" verticalAlignment="bottom" title="Refresh" id="eM1-FR-Yi3">
+                            <fontDescription key="font" type="system" pointSize="15"/>
+                            <connections>
+                                <action selector="update" destination="AgC-eL-Hgc" id="7DZ-Uq-i6j"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="highScore" destination="Y1G-Ec-XPI" id="ZDb-6S-yig"/>
+                        <outlet property="refreshButton" destination="eM1-FR-Yi3" id="1nD-6r-C8v"/>
+                        <outlet property="titleType" destination="MeA-4v-VUL" id="qTV-Z8-BHz"/>
+                        <outlet property="toggleButton" destination="I32-My-I0Z" id="lQb-sx-SJC"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="PrVZ_WatchKit_App" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>
