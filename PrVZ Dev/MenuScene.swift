@@ -25,9 +25,13 @@ class MenuScene: SKScene
         startGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(startGameButton)
         
-        var multiplayerButton = SKButton(defaultButtonImage: "multiplayerButton.png", activeButtonImage: "multiplayerButtonPressed.png", buttonAction: openGameCenterMatchMaking)
+        var multiplayerButton = SKButton(defaultButtonImage: "multiplayerButton.png", activeButtonImage: "multiplayerButtonPressed.png", buttonAction: openGameCenterMatchMakingMultiplayer)
         multiplayerButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)-200)
         self.addChild(multiplayerButton)
+        
+        var multiplayerButton2 = SKButton(defaultButtonImage: "multiplayerButton.png", activeButtonImage: "multiplayerButtonPressed.png", buttonAction: openGameCenterMatchMakingChallenge)
+        multiplayerButton2.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)-200)
+        self.addChild(multiplayerButton2)
         
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if let currentScore = defaults.objectForKey("currentScore") as? NSInteger
@@ -208,12 +212,17 @@ class MenuScene: SKScene
     
     func openGameCenterLeaderboards()
     {
-        gameViewController1?.showLeaderboard()
+        self.gameViewController1!.showLeaderboard()
     }
     
-    func openGameCenterMatchMaking()
+    func openGameCenterMatchMakingMultiplayer()
     {
-        gameViewController1?.findMatchWithMinPlayers(2, maxPlayers: 2)
+        self.gameViewController1!.findMatchForMultiplayer()
+    }
+    
+    func openGameCenterMatchMakingChallenge()
+    {
+        self.gameViewController1!.findMatchForChallenge()
     }
     
     func addButton(pos: CGPoint, type: NSString, InMenu: NSString, WithAction: () -> Void, WithName: NSString) -> SKButton

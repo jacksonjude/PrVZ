@@ -38,8 +38,10 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     var gameCenterAchievementsReal=NSMutableArray()
     var matchStarted = false
     var multiplayerSceneRef:MultiplayerScene = MultiplayerScene.unarchiveFromFile("MultiplayerScene") as! MultiplayerScene
+    var challengeSceneRef:ChallengeScene = ChallengeScene.unarchiveFromFile("ChallengeScene") as! ChallengeScene
     var currentMatch: GKMatch? = nil
     var gameCenter = false
+    var COOPChallenge = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,7 +143,25 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         self.gameCenterLoadAchievements()
     }
     
-    func submitScore(score: NSInteger) {
+    func submitWin(score: NSInteger)
+    {
+        var leaderboardID = "challengesWon"
+        var sScore = GKScore(leaderboardIdentifier: leaderboardID)
+        sScore.value = Int64(score)
+        
+        let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
+        
+        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError!) -> Void in
+            if error != nil {
+                println(error.localizedDescription)
+            } else {
+                println("Score submitted")
+            }
+        })
+    }
+    
+    func submitScore(score: NSInteger)
+    {
         var leaderboardID = "zombiesKilled"
         var sScore = GKScore(leaderboardIdentifier: leaderboardID)
         sScore.value = Int64(score)
@@ -153,10 +173,8 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
                 println(error.localizedDescription)
             } else {
                 println("Score submitted")
-                
             }
         })
-        
     }
     
     func gameCenterLoadAchievements(){
@@ -224,6 +242,18 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func findMatchForMultiplayer()
+    {
+        self.COOPChallenge = true
+        self.findMatchWithMinPlayers(2, maxPlayers: 2)
+    }
+    
+    func findMatchForChallenge()
+    {
+        self.COOPChallenge = false
+        self.findMatchWithMinPlayers(2, maxPlayers: 2)
+    }
+    
     func findMatchWithMinPlayers(minPlayers: NSInteger, maxPlayers: NSInteger)
     {
         var request = GKMatchRequest()
@@ -276,7 +306,14 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             
             viewController.dismissViewControllerAnimated(true, completion: nil)
             
-            self.presentMultiplayerScene()
+            if self.COOPChallenge == true
+            {
+                self.presentMultiplayerScene()
+            }
+            else
+            {
+                self.presentChallengeScene()
+            }
         }
     }
     
@@ -313,12 +350,28 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     
     func match(matchCurrent: GKMatch!, didReceiveData data: NSData!, fromRemotePlayer player: GKPlayer!)
     {
-        self.multiplayerSceneRef.saveDataRecived(data, fromMatch: matchCurrent, fromPlayer: player.playerID)
+        if self.COOPChallenge == true
+        {
+            self.multiplayerSceneRef.saveDataRecived(data, fromMatch: matchCurrent, fromPlayer: player.playerID)
+        }
+        else
+        {
+            //abc123
+            self.challengeSceneRef.saveDataRecived(data, fromMatch: matchCurrent, fromPlayer: player.playerID)
+        }
     }
     
     func match(matchCurrent: GKMatch!, didReceiveData data: NSData!, fromPlayer playerID: String!)
     {
-        self.multiplayerSceneRef.saveDataRecived(data, fromMatch: matchCurrent, fromPlayer: playerID)
+        if self.COOPChallenge == true
+        {
+            self.multiplayerSceneRef.saveDataRecived(data, fromMatch: matchCurrent, fromPlayer: playerID)
+        }
+        else
+        {
+            //abc123
+            self.challengeSceneRef.saveDataRecived(data, fromMatch: matchCurrent, fromPlayer: playerID)
+        }
     }
     
     func sendData(matchCurrent: GKMatch!, withData data: NSData!)
@@ -459,6 +512,28 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         self.multiplayerSceneRef.match = self.currentMatch
         
         skView.presentScene(self.multiplayerSceneRef)
+    }
+    
+    func presentChallengeScene()
+    {
+        // Configure the view.
+        let skView = self.view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        
+        /* Set the scale mode to scale to fit the window */
+        self.challengeSceneRef.scaleMode = .AspectFill
+        
+        self.challengeSceneRef.zombiesToSpawnSlider = self.zombiesToSpawnSlider
+        self.challengeSceneRef.joystickSwitch = self.joystickSwitch
+        self.challengeSceneRef.zombieSpeedSlider = self.zombieSpeedSlider
+        self.challengeSceneRef.gameViewController1 = self
+        self.challengeSceneRef.match = self.currentMatch
+        
+        skView.presentScene(self.challengeSceneRef)
     }
 
     override func shouldAutorotate() -> Bool

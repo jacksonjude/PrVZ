@@ -10,6 +10,7 @@ import Foundation
 import SpriteKit
 import UIKit
 import AVFoundation
+import CoreMotion
 
 private var backgroundMusicPlayer: AVAudioPlayer!
 
@@ -63,6 +64,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var savedOnOpeningWindow = false
     var brushesInWorld = 0
     var justBoughtHealthPack = false
+    lazy var motionManager: CMMotionManager =
+    {
+        let motion = CMMotionManager()
+        motion.accelerometerUpdateInterval = 1.0/10.0
+        return motion
+    }()
     
     deinit
     {
@@ -221,15 +228,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         wallEnd.name = "wallEnd"
         self.addChild(wallEnd)
         
-        princess1.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame))
-        princess1.name = "princess"
-        princess1.physicsBody = SKPhysicsBody(circleOfRadius:princess1.size.width/2)
-        princess1.physicsBody?.dynamic = true
-        princess1.physicsBody?.categoryBitMask = self.princessCategory
-        princess1.physicsBody?.contactTestBitMask = self.monsterCategory
-        princess1.physicsBody?.collisionBitMask = 0
-        princess1.physicsBody?.usesPreciseCollisionDetection = true
-        self.addChild(princess1)
+        self.princess1.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame))
+        self.princess1.name = "princess"
+        self.princess1.physicsBody = SKPhysicsBody(circleOfRadius:princess1.size.width/2)
+        self.princess1.physicsBody?.dynamic = true
+        self.princess1.physicsBody?.categoryBitMask = self.princessCategory
+        self.princess1.physicsBody?.contactTestBitMask = self.monsterCategory
+        self.princess1.physicsBody?.collisionBitMask = 0
+        self.princess1.physicsBody?.usesPreciseCollisionDetection = true
+        self.addChild(self.princess1)
         
         var pauseButton = SKButton(defaultButtonImage: "pause", activeButtonImage: "pause", buttonAction: pauseGame)
         pauseButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)+100)
@@ -1041,6 +1048,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         saveGameButton.zPosition = 6
         settingsNode.addChild(saveGameButton)
         
+        var calibrate = SKButton(defaultButtonImage: "calibrate", activeButtonImage: "calibrate", buttonAction: calibratePrincess)
+        calibrate.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: CGRectGetMidX(self.frame)-140)
+        calibrate.zPosition = 6
+        settingsNode.addChild(calibrate)
+        
         var menuButton = SKButton(defaultButtonImage: "menuButton", activeButtonImage: "menuButtonPressed", buttonAction: presentMenuScene)
         menuButton.position = CGPoint(x: CGRectGetMidX(self.frame)-200, y: CGRectGetMidY(self.frame)-200)
         menuButton.zPosition = 6
@@ -1085,6 +1097,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         settingsNode.addChild(backbutton)
         
         self.addChild(settingsNode)
+    }
+    
+    func calibratePrincess()
+    {
+        self.princess1.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)-100)
     }
     
     func addButton(pos: CGPoint, type: NSString, InMenu: NSString, WithAction: () -> Void, WithName: NSString) -> SKButton
@@ -1222,9 +1239,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func hideSettings()
     {
-        self.windowIsOpen = false
-        self.canPressButtons = true
-        
         var settingsNode = self.childNodeWithName("settings")
         settingsNode?.hidden = true
         settingsNode?.removeFromParent()
@@ -1243,21 +1257,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.joystickCheck()
         
         self.savedOnOpeningWindow = false
+        
+        self.windowIsOpen = false
+        self.canPressButtons = true
     }
     
     func joystickCheck()
     {
         if self.joystickSwitch?.on == true
         {
+            self.motionManager.stopAccelerometerUpdates()
+            
+            self.joystick.hidden = false
+            self.joystick.userInteractionEnabled = true
             
             self.joystickBool = true
-            //Adding Later
         }
         else
         {
-            //self.joystick.removeFromParent()
+            self.joystick.hidden = true
+            self.joystick.userInteractionEnabled = false
+            
+            self.motionManager.startAccelerometerUpdates()
+            
             self.joystickBool = false
-            //:-)
         }
     }
     
@@ -1781,10 +1804,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func update(currentTime: NSTimeInterval)
     {
-        var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
-        self.princess1.position = position1
+        if self.joystickBool == true
+        {
+            var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
+            self.princess1.position = position1
+        }
+        else
+        {
+            if self.motionManager.accelerometerData != nil
+            {
+                let xForce = self.motionManager.accelerometerData.acceleration.x
+                var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y-CGFloat(xForce*8))
+                self.princess1.position = position1
+            }
+        }
         
-        if windowIsOpen == false
+        if self.windowIsOpen == false
         {
             if self.canPressButtons == true
             {
