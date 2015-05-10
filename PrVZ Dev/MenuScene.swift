@@ -25,13 +25,14 @@ class MenuScene: SKScene
         startGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(startGameButton)
         
-        var multiplayerButton = SKButton(defaultButtonImage: "multiplayerButton.png", activeButtonImage: "multiplayerButtonPressed.png", buttonAction: openGameCenterMatchMakingMultiplayer)
+        /*var multiplayerButton = SKButton(defaultButtonImage: "multiplayerButton.png", activeButtonImage: "multiplayerButtonPressed.png", buttonAction: openGameCenterMatchMakingMultiplayer)
+        multiplayerButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)-200)
+        self.addChild(multiplayerButton)*/
+        //Removing Until Fixed
+        
+        var multiplayerButton = SKButton(defaultButtonImage: "multiplayerButton.png", activeButtonImage: "multiplayerButtonPressed.png", buttonAction: openGameCenterMatchMakingChallenge)
         multiplayerButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)-200)
         self.addChild(multiplayerButton)
-        
-        var multiplayerButton2 = SKButton(defaultButtonImage: "multiplayerButton.png", activeButtonImage: "multiplayerButtonPressed.png", buttonAction: openGameCenterMatchMakingChallenge)
-        multiplayerButton2.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)-200)
-        self.addChild(multiplayerButton2)
         
         var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if let currentScore = defaults.objectForKey("currentScore") as? NSInteger
