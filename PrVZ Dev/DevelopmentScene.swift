@@ -1,4 +1,12 @@
 //
+//  DevelopmentScene.swift
+//  PrVZ
+//
+//  Created by jackson on 6/4/15.
+//  Copyright (c) 2015 jackson. All rights reserved.
+//
+
+//
 //  GameScene.swift
 //  PrVZ Dev
 //
@@ -9,12 +17,9 @@
 import Foundation
 import SpriteKit
 import UIKit
-import AVFoundation
 import CoreMotion
 
-private var backgroundMusicPlayer: AVAudioPlayer!
-
-class GameScene: SKScene, SKPhysicsContactDelegate
+class DevelopmentScene: SKScene, SKPhysicsContactDelegate
 {
     let brushCategory: UInt32 =           1 << 0
     let monsterCategory: UInt32 =         1 << 1
@@ -33,17 +38,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var brushInWorld = false
     var windowIsOpen = false
     var zombiesKilled = 0
-    var coins = 0
+    var coins = 10000
     var coinsLabel = SKLabelNode(fontNamed: "TimesNewRoman")
     var zombiesToSpawnSlider: UISlider?
     var joystickSwitch: UISwitch?
     var zombieSpeedSlider: UISlider?
     var volumeSlider: UISlider?
+    var zombieHealthMultiplierSlider: UISlider?
     var gameViewController1: GameViewController?
     var infBrushItem = Bool()
     var healthPack = Bool()
     var battery = Bool()
-    var wavesCompleted = NSInteger()
+    var wavesCompletedJustToShow = NSInteger()
     var levelsCompletedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
     var currentBrushes = NSMutableArray()
     var gamePaused = false
@@ -56,10 +62,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var scrolled = 0
     var gameOverDidOccur = false
     var healthLostInLastRound = Float(0)
-    let backgroundMusicSound = "background-music.wav"
-    var achievementZombieFighter = false
-    var achievementZombieSlayer = false
-    var achievementZombieHunter = false
     var batteryPercent = 0.00
     var savedOnOpeningWindow = false
     var brushesInWorld = 0
@@ -70,7 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let motion = CMMotionManager()
         motion.accelerometerUpdateInterval = 1.0/10.0
         return motion
-    }()
+        }()
     
     deinit
     {
@@ -79,144 +81,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     override func didMoveToView(view: SKView)
     {
-        var keyStore = NSUbiquitousKeyValueStore.defaultStore()
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(1, forKey: "Tutorial")
-        
-        if let backgroundNumber = defaults.objectForKey("background") as? NSInteger
-        {
-            if backgroundNumber == 1
-            {
-                let background = SKSpriteNode(imageNamed: "background.png")
-                background.zPosition = -2
-                background.name = "background"
-                background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                self.addChild(background)
-            }
-            if backgroundNumber == 2
-            {
-                let background = SKSpriteNode(imageNamed: "background2.png")
-                background.zPosition = -2
-                background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                self.addChild(background)
-            }
-            if backgroundNumber == 3
-            {
-                let background = SKSpriteNode(imageNamed: "background3.png")
-                background.zPosition = -2
-                background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                self.addChild(background)
-            }
-        }
-        else
-        {
-            let background = SKSpriteNode(imageNamed: "background.png")
-            background.zPosition = -2
-            background.name = "background"
-            background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-            self.addChild(background)
-        }
-        
-        if let levels = defaults.objectForKey("levels") as? NSInteger
-        {
-            if levels != 0
-            {
-                self.wavesCompleted = levels
-            }
-            else
-            {
-                self.wavesCompleted = 1
-            }
-        }
-        else
-        {
-            self.wavesCompleted = 1
-        }
-        
-        if let coinsUser = defaults.objectForKey("coins") as? NSInteger
-        {
-            self.coins += coinsUser
-        }
-        
-        if let itemsBoughtInStore = defaults.objectForKey("items") as? NSMutableArray
-        {
-            if let item1 = itemsBoughtInStore[0] as? Bool
-            {
-                if item1 == true
-                {
-                    self.infBrushItem = true
-                }
-            }
-            if let item2 = itemsBoughtInStore[1] as? Bool
-            {
-                if item2 == true
-                {
-                    self.healthPack = true
-                }
-            }
-            if itemsBoughtInStore.count >= 3
-            {
-                if let item3 = itemsBoughtInStore[2] as? Bool
-                {
-                    if item3 == true
-                    {
-                        self.battery = true
-                        if var percent = itemsBoughtInStore[3] as? Double
-                        {
-                            self.batteryPercent = percent
-                        }
-                    }
-                }
-            }
-        }
-        
-        var restoreData = Bool()
-        
-        if let user = keyStore.dictionaryForKey("playerData")
-        {
-            var userDictionary = user as NSDictionary
-            let userId = userDictionary.objectForKey("uuid") as? String
-            if let installed = defaults.objectForKey("idInstalled") as? String
-            {
-                if userId != installed
-                {
-                    restoreData = true
-                    NSLog("installed: %@", installed)
-                    NSLog("userID: %@", userId!)
-                }
-                else
-                {
-                    restoreData = false
-                    NSLog("userID: %@", userId!)
-                    NSLog("installed: %@", installed)
-                }
-            }
-            else
-            {
-                restoreData = true
-            }
-        }
-        else
-        {
-            var userDictionary = NSMutableDictionary()
-            var uuid = NSUUID().UUIDString
-            userDictionary.setObject(uuid, forKey: "uuid")
-            keyStore.setDictionary(userDictionary as [NSObject : AnyObject], forKey: "playerData")
-            keyStore.synchronize()
-            println("Added User")
-            defaults.setValue(uuid, forKey: "idInstalled")
-        }
-        
-        if restoreData == true
-        {
-            var alert = UIAlertController(title: "Save Found!", message: "App has found a save on this iCloud account. Would you like to restore it?", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
-            alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
-                println("Restoring")
-            }))
-            gameViewController1!.presentViewController(alert, animated: true, completion: nil)
-        }
-        
         physicsWorld.gravity = CGVectorMake(0,0)
         self.physicsWorld.contactDelegate = self
         
@@ -281,7 +145,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         self.zombiesToSpawnSlider?.hidden = true
         self.zombiesToSpawnSlider?.userInteractionEnabled = false
-        self.zombiesToSpawnSlider?.maximumValue = 9
+        self.zombiesToSpawnSlider?.maximumValue = 20
         self.zombiesToSpawnSlider?.minimumValue = 3
         
         self.joystickSwitch?.hidden = true
@@ -290,7 +154,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.zombieSpeedSlider?.hidden = true
         self.zombieSpeedSlider?.userInteractionEnabled = false
         self.zombieSpeedSlider?.minimumValue = 1
-        self.zombieSpeedSlider?.maximumValue = 4
+        self.zombieSpeedSlider?.maximumValue = 10
+        
+        self.zombieHealthMultiplierSlider?.hidden = true
+        self.zombieSpeedSlider?.userInteractionEnabled = false
+        self.zombieSpeedSlider?.minimumValue = 1
+        self.zombieSpeedSlider?.maximumValue = 5
         
         self.coinsLabel.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)+90)
         self.coinsLabel.fontColor = SKColor.redColor()
@@ -300,148 +169,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         coinsImage.name = "coinsImage"
         self.coinsLabel.addChild(coinsImage)
         
-        if let princessHealth1 = defaults.objectForKey("health") as? Float
-        {
-            self.princessHealth = princessHealth1
-        }
-        else
-        {
-            self.princessHealth = 1
-        }
-        
-        if let healthLost = defaults.objectForKey("healthLost") as? Float
-        {
-            self.healthLostInLastRound = healthLost
-        }
-        
-        if let currentScore = defaults.objectForKey("currentScore") as? NSInteger
-        {
-            self.zombiesKilled = currentScore
-        }
-        else
-        {
-            defaults.setObject(0, forKey: "currentScore")
-        }
-        
-        if let highScore = defaults.objectForKey("highScore") as? NSInteger
-        {
-            if let user = keyStore.dictionaryForKey("playerData")
-            {
-                let userDictionary = user as NSDictionary
-                var userDictionaryMutable = userDictionary.mutableCopy() as! NSMutableDictionary
-                userDictionaryMutable.setObject(highScore, forKey: "highScore")
-                keyStore.setDictionary(userDictionaryMutable as [NSObject : AnyObject], forKey: "playerData")
-                keyStore.synchronize()
-            }
-        }
-        else
-        {
-            defaults.setObject(0, forKey: "highScore")
-            
-            if let user = keyStore.dictionaryForKey("playerData")
-            {
-                let userDictionary = user as NSDictionary
-                var userDictionaryMutable = userDictionary.mutableCopy() as! NSMutableDictionary
-                userDictionaryMutable.setObject(0, forKey: "highScore")
-                keyStore.setDictionary(userDictionaryMutable as [NSObject : AnyObject], forKey: "playerData")
-                keyStore.synchronize()
-            }
-        }
-        
-        if self.coins >= 100
-        {
-            if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
-            {
-                if self.movedCoinsImage == false
-                {
-                    coinsImage.position.x = coinsImage.position.x-20
-                    self.movedCoinsImage = true
-                }
-            }
-        }
-        
-        if self.coins >= 1000
-        {
-            if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
-            {
-                if self.movedCoinsImage == false
-                {
-                    coinsImage.position.x = coinsImage.position.x-20
-                    self.movedCoinsImage = true
-                }
-            }
-        }
-        
-        if self.coins >= 10000
-        {
-            if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
-            {
-                if self.movedCoinsImage == false
-                {
-                    coinsImage.position.x = coinsImage.position.x-20
-                    self.movedCoinsImage = true
-                }
-            }
-        }
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillTerminateNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationDidBecomeActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationWillEnterForegroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"changedValues", name: NSUbiquitousKeyValueStoreDidChangeExternallyNotification, object: nil)
-        
-        if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
-        {
-            if didComeBackFromBackground == true
-            {
-                defaults.setObject(false, forKey: "didComeBackFromBackground")
-                self.gameIsRunning = true
-                self.canPressButtons = false
-                if let zombiesData = defaults.objectForKey("zombies") as? NSData
-                {
-                    let zombiesUnarchived = NSKeyedUnarchiver.unarchiveObjectWithData(zombiesData) as! NSMutableArray
-                    self.zombies = zombiesUnarchived
-                    
-                    for aZombie in zombies
-                    {
-                        var aZombieSK = aZombie as! SKSpriteNode
-                        self.addChild(aZombieSK)
-                    }
-                }
-                
-                if self.zombieSpeedSlider?.value == 1
-                {
-                    var speedDivider = self.wavesCompleted / 8
-                    if speedDivider >= 1
-                    {
-                        self.zombieSpeed = CGFloat(speedDivider)
-                    }
-                    else
-                    {
-                        self.zombieSpeed = 1
-                    }
-                }
-                else
-                {
-                    let zombieSpeedToMakeAsACGFloat = self.zombieSpeedSlider?.value
-                    self.zombieSpeed = CGFloat(zombieSpeedToMakeAsACGFloat!)
-                }
-                
-                self.pauseGame()
-            }
-        }
-        
-        self.setUpAudio()
+        coinsImage.position.x = coinsImage.position.x-60
     }
     
     func runGame()
     {
-        if (!backgroundMusicPlayer.playing)
-        {
-            backgroundMusicPlayer.play()
-        }
-        
         if self.gameOverDidOccur == true
         {
             self.princessHealth = 1
@@ -492,43 +224,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             pauseButton.userInteractionEnabled = true
         }
         
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if let volume = defaults.objectForKey("volume") as? Float
-        {
-            backgroundMusicPlayer.volume = volume / 10
-            NSLog("Volume: %f", volume)
-        }
-        
         if let zombiesKilledLabel = self.childNodeWithName("zombiesKilledLabel")
         {
             zombiesKilledLabel.removeFromParent()
         }
         
-        if self.zombieSpeedSlider?.value == 1
-        {
-            var speedDivider = self.wavesCompleted / 8
-            if speedDivider >= 1
-            {
-                self.zombieSpeed = CGFloat(speedDivider)
-            }
-            else
-            {
-                self.zombieSpeed = 1
-            }
-        }
-        else
-        {
-            let zombieSpeedToMakeAsACGFloat = self.zombieSpeedSlider?.value
-            self.zombieSpeed = CGFloat(zombieSpeedToMakeAsACGFloat!)
-        }
+        let zombieSpeedToMakeAsACGFloat = self.zombieSpeedSlider?.value
+        self.zombieSpeed = CGFloat(zombieSpeedToMakeAsACGFloat!)
         
         let numberOfZombiesToMakeAsAFloat = self.zombiesToSpawnSlider?.value
         var zombiesToSpawn = NSInteger(numberOfZombiesToMakeAsAFloat!)
         
+        var zombieHealthMultiplier = NSInteger(self.zombieHealthMultiplierSlider!.value)
+        
+        let catWavesCompleted = self.wavesCompletedJustToShow / 4
+        
         var zombiesSpawned = 0
         while zombiesSpawned != zombiesToSpawn
         {
-            if wavesCompleted >= 3
+            if wavesCompletedJustToShow >= 3
             {
                 var spawnCat = CGFloat(arc4random()%3)
                 if spawnCat == 2
@@ -537,7 +251,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     var yPos = CGFloat((arc4random()%180)+100)
                     var xPos = CGFloat((arc4random()%180)+100)
                     cat1.name = "catZombie"
-                    cat1.health = self.wavesCompleted / 4
+                    cat1.health = catWavesCompleted * zombieHealthMultiplier
                     cat1.physicsBody = SKPhysicsBody(circleOfRadius:cat1.size.width/2)
                     cat1.physicsBody?.dynamic = true
                     cat1.physicsBody?.categoryBitMask = self.monsterCategory
@@ -575,7 +289,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     var zombie1 = GenericZombie()
                     var yPos = CGFloat((arc4random()%150)+150)
                     var xPos = CGFloat((arc4random()%150)+150)
-                    zombie1.health = self.wavesCompleted
+                    zombie1.health = self.wavesCompletedJustToShow * zombieHealthMultiplier
                     zombie1.princess = self.childNodeWithName("princess") as! Princess
                     zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
                     zombie1.name = "zombie"
@@ -589,14 +303,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     zombie1.runAction(SKAction.repeatActionForever(moveBy))
                     self.zombies.addObject(zombie1)
                 }
-
+                
             }
             else
             {
                 var zombie1 = GenericZombie()
                 var yPos = CGFloat((arc4random()%150)+150)
                 var xPos = CGFloat((arc4random()%150)+150)
-                zombie1.health = self.wavesCompleted
+                zombie1.health = self.wavesCompletedJustToShow * zombieHealthMultiplier
                 zombie1.princess = self.childNodeWithName("princess") as! Princess
                 zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
                 zombie1.name = "zombie"
@@ -717,7 +431,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             self.monsterDidCollideWithPrincess(firstBody.node!, princess1: secondBody.node!)
         }
         if ((secondBody.categoryBitMask & self.enemyProjectileCatagory) != 0 &&
-        (firstBody.categoryBitMask & self.princessCategory) != 0)
+            (firstBody.categoryBitMask & self.princessCategory) != 0)
         {
             self.enemyProjectileDidCollideWithPrincess(secondBody.node!, princess1: firstBody.node!)
         }
@@ -747,33 +461,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             healthLostLabel.removeFromParent()
         })]))
         self.addChild(healthLostLabel)
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if monsterSK.health < 1
         {
-            if monsterSK.name == "catZombie"
-            {
-                if var zombieKills = defaults.objectForKey("catZombieKills") as? NSInteger
-                {
-                    zombieKills++
-                    defaults.setObject(zombieKills, forKey: "catZombieKills")
-                }
-                else
-                {
-                    defaults.setObject(1, forKey: "catZombieKills")
-                }
-            }
-            if monsterSK.name == "zombie"
-            {
-                if var zombieKills = defaults.objectForKey("zombieKills") as? NSInteger
-                {
-                    zombieKills++
-                    defaults.setObject(zombieKills, forKey: "zombieKills")
-                }
-                else
-                {
-                    defaults.setObject(1, forKey: "zombieKills")
-                }
-            }
             var deadZombie = SKSpriteNode(imageNamed: "ash.png")
             deadZombie.name = "ash"
             deadZombie.position = monster.position
@@ -797,28 +486,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             deadZombie.addChild(sparkEmmiter)
             
             self.zombiesKilled++
-            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            if var highScore = defaults.objectForKey("highScore") as? NSInteger
-            {
-                if self.zombiesKilled > highScore
-                {
-                    highScore++
-                }
-                
-                defaults.setObject(highScore, forKey: "highScore")
-                
-                if let currentScoreCurrent = defaults.objectForKey("currentScore") as? NSInteger
-                {
-                    if currentScoreCurrent > highScore
-                    {
-                        gameViewController1?.submitScore(currentScoreCurrent)
-                    }
-                    else
-                    {
-                        gameViewController1?.submitScore(highScore)
-                    }
-                }
-            }
             
             let chance = CGFloat(arc4random()%80)
             if chance == 0
@@ -827,18 +494,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 var uuid = NSUUID().UUIDString
                 switch chance
                 {
-                    case 0:
-                        var petCat = NSMutableDictionary()
-                        petCat.setObject(0, forKey: "type")
-                        petCat.setObject(1, forKey: "level")
-                        self.pets.setObject(petCat, forKey: uuid)
-                    case 1:
-                        var petDog = NSMutableDictionary()
-                        petDog.setObject(1, forKey: "type")
-                        petDog.setObject(1, forKey: "level")
-                        self.pets.setObject(petDog, forKey: uuid)
-                    default:
-                        let THISISREALLYSTUPIDTHATIHAVETODOTHIS = "WHYAPPLE???? WHY????"
+                case 0:
+                    var petCat = NSMutableDictionary()
+                    petCat.setObject(0, forKey: "type")
+                    petCat.setObject(1, forKey: "level")
+                    self.pets.setObject(petCat, forKey: uuid)
+                case 1:
+                    var petDog = NSMutableDictionary()
+                    petDog.setObject(1, forKey: "type")
+                    petDog.setObject(1, forKey: "level")
+                    self.pets.setObject(petDog, forKey: uuid)
+                default:
+                    let THISISREALLYSTUPIDTHATIHAVETODOTHIS = "WHYAPPLE???? WHY????"
                 }
                 
                 if var uuids = self.pets.objectForKey("petUUIDs") as? NSMutableArray
@@ -854,50 +521,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if chance == 0
         {
             self.coins++
-        }
-        
-        defaults.setObject(self.coins, forKey: "coins")
-        
-        self.saveData()
-        
-        if let currentScoreCurrent2 = defaults.objectForKey("currentScore") as? Double
-        {
-            if currentScoreCurrent2 <= 3
-            {
-                if self.achievementZombieFighter == false
-                {
-                    let progressDouble: Double = currentScoreCurrent2 / 0.03
-                    self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "zombieKill3")
-                    if progressDouble >= 100
-                    {
-                        self.achievementZombieFighter = true
-                    }
-                }
-            }
-            if currentScoreCurrent2 <= 50
-            {
-                if self.achievementZombieSlayer == false
-                {
-                    let progressDouble2: Double = currentScoreCurrent2 / 0.5
-                    self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble2, achievementID: "zombieKill50")
-                    if progressDouble2 >= 100
-                    {
-                        self.achievementZombieSlayer = true
-                    }
-                }
-            }
-            if currentScoreCurrent2 <= 100
-            {
-                if self.achievementZombieHunter == false
-                {
-                    let progressDouble3: Double = currentScoreCurrent2 / 1
-                    self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble3, achievementID: "zombieKill100")
-                    if progressDouble3 >= 100
-                    {
-                        self.achievementZombieHunter = true
-                    }
-                }
-            }
         }
     }
     
@@ -916,30 +539,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if princessHealth <= 0
         {
-            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            if monster.name == "zombie"
-            {
-                if var normalZombiesDied = defaults.objectForKey("zombiesDied") as? NSInteger
-                {
-                    defaults.setObject(normalZombiesDied++, forKey: "zombiesDied")
-                }
-                else
-                {
-                    defaults.setObject(1, forKey: "zombiesDied")
-                }
-            }
-            if monster.name == "catZombie"
-            {
-                if var catZombiesDied = defaults.objectForKey("catZombiesDied") as? NSInteger
-                {
-                    defaults.setObject(catZombiesDied++, forKey: "catZombiesDied")
-                }
-                else
-                {
-                    defaults.setObject(1, forKey: "catZombiesDied")
-                }
-            }
-            
             self.gameOver()
         }
     }
@@ -960,30 +559,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.addChild(healthLostLabel)
         if princessHealth <= 0
         {
-            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            
-            if var catZombiesDied = defaults.objectForKey("catZombiesDied") as? NSInteger
-            {
-                defaults.setObject(catZombiesDied++, forKey: "catZombiesDied")
-            }
-            else
-            {
-                defaults.setObject(1, forKey: "catZombiesDied")
-            }
-            
             self.gameOver()
         }
         enemyProjectile.removeFromParent()
         NSLog("%f", self.princessHealth)
-    }
-    
-    func setUpAudio()
-    {
-        if (backgroundMusicPlayer == nil) {
-            let backgroundMusicURL = NSBundle.mainBundle().URLForResource(backgroundMusicSound, withExtension: nil)
-            backgroundMusicPlayer = AVAudioPlayer(contentsOfURL: backgroundMusicURL, error:nil)
-            backgroundMusicPlayer.numberOfLoops = -1
-        }
     }
     
     func gameOver()
@@ -1012,35 +591,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         zombiesKilledLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(zombiesKilledLabel)
         
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        zombiesKilledLabel.text = NSString(format: "Zombies Killed: %i", self.zombiesKilled) as String
-        
-        if var currentScore = defaults.objectForKey("currentScore") as? NSInteger
-        {
-            defaults.setObject(0, forKey: "currentScore")
-        }
-        
-        if var levels = defaults.objectForKey("levels") as? NSInteger
-        {
-            defaults.setObject(0, forKey: "levels")
-            self.wavesCompleted = 0
-        }
-        
-        defaults.setObject(1, forKey: "background")
-        if let background2 = self.childNodeWithName("background2")
-        {
-            background2.removeFromParent()
-        }
-        if let background3 = self.childNodeWithName("background3")
-        {
-            background3.removeFromParent()
-        }
-        var background = SKSpriteNode(imageNamed: "background")
-        background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-        background.zPosition = -2
-        background.name = "background"
-        self.addChild(background)
-        
         self.zombiesKilled = 0
         
         self.healthPack = false
@@ -1051,7 +601,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         self.windowIsOpen = true
         self.canPressButtons = false
-        self.saveData()
         
         var settingsNode = SKNode()
         settingsNode.name = "settings"
@@ -1073,12 +622,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.zombieSpeedSlider?.hidden = false
         self.zombieSpeedSlider?.userInteractionEnabled = true
         
+        self.zombieHealthMultiplierSlider?.hidden = false
+        self.zombieHealthMultiplierSlider?.userInteractionEnabled = true
+        
         var resetGameButton = SKButton(defaultButtonImage: "resetButton", activeButtonImage: "resetButtonPressed", buttonAction: resetGame)
         resetGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
         resetGameButton.zPosition = 6
         settingsNode.addChild(resetGameButton)
         
-        var saveGameButton = SKButton(defaultButtonImage: "saveButton", activeButtonImage: "saveButtonPressed", buttonAction: saveData)
+        var saveGameButton = SKButton(defaultButtonImage: "saveButtonInactive", activeButtonImage: "saveButtonInactivePressed", buttonAction: saveData)
         saveGameButton.position = CGPoint(x: CGRectGetMidX(self.frame)+200, y: CGRectGetMidY(self.frame)-200)
         saveGameButton.zPosition = 6
         settingsNode.addChild(saveGameButton)
@@ -1093,32 +645,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         menuButton.zPosition = 6
         settingsNode.addChild(menuButton)
         
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if let highScore = defaults.objectForKey("highScore") as? NSInteger
-        {
-            
-            var highScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-            highScoreLabel.fontColor = SKColor.orangeColor()
-            highScoreLabel.name = "highScoreLabel"
-            highScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+200)
-            highScoreLabel.zPosition = 6
-            settingsNode.addChild(highScoreLabel)
-            
-            highScoreLabel.text = NSString(format: "High Score: %i", highScore) as String
-        }
-        
         self.levelsCompletedLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
         self.levelsCompletedLabel.fontColor = SKColor.blueColor()
         self.levelsCompletedLabel.zPosition = 6
-        
-        if let levels = defaults.objectForKey("levels") as? NSInteger
-        {
-            self.levelsCompletedLabel.text = NSString(format: "Levels Completed: %i", levels) as String
-        }
-        else
-        {
-            self.levelsCompletedLabel.text = "Levels Completed: 0"
-        }
+        self.levelsCompletedLabel.text = NSString(format: "%i", self.wavesCompletedJustToShow) as String
         self.addChild(self.levelsCompletedLabel)
         
         var currentScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
@@ -1218,20 +748,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func resetYes()
     {
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        defaults.setObject(0, forKey: "Tutorial")
-        defaults.setObject(0, forKey: "highScore")
-        defaults.setObject(0, forKey: "levels")
-        defaults.setObject(0, forKey: "coins")
-        defaults.setObject([false, false], forKey: "items")
-        defaults.setObject(1, forKey: "background")
-        defaults.setObject(1, forKey: "health")
-        defaults.setObject(0, forKey: "healthLost")
-        defaults.setObject(0, forKey: "currentScore")
-        
-        self.gameViewController1?.resetGameCenter()
-                
-        self.gameViewController1?.presentTitleScene()
+        self.gameViewController1!.reloadDevScene()
     }
     
     func resetNo()
@@ -1361,23 +878,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         infiniteBrush.name = "infiniteBrush"
         infiniteBrush.zPosition = 7
         products.addChild(infiniteBrush)
-            var infiniteBrushLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-            infiniteBrushLabel.text = "Infinite Brush"
-            infiniteBrushLabel.fontSize = 64
-            infiniteBrushLabel.fontColor = SKColor.redColor()
-            infiniteBrushLabel.position = CGPoint(x: infiniteBrushLabel.position.x, y: infiniteBrushLabel.position.y+50)
-            infiniteBrush.addChild(infiniteBrushLabel)
+        var infiniteBrushLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        infiniteBrushLabel.text = "Infinite Brush"
+        infiniteBrushLabel.fontSize = 64
+        infiniteBrushLabel.fontColor = SKColor.redColor()
+        infiniteBrushLabel.position = CGPoint(x: infiniteBrushLabel.position.x, y: infiniteBrushLabel.position.y+50)
+        infiniteBrush.addChild(infiniteBrushLabel)
         var infiniteBrushBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemInfBrush)
         infiniteBrushBuyButton.position = CGPoint(x: infiniteBrushBuyButton.position.x, y: infiniteBrushBuyButton.position.y-200)
         infiniteBrushBuyButton.name = "infBrushButton"
         infiniteBrush.addChild(infiniteBrushBuyButton)
-            var coinsCost = SKLabelNode(fontNamed: "TimesNewRoman")
-            coinsCost.text = "40"
-            coinsCost.fontSize = 24
-            coinsCost.fontColor = SKColor.orangeColor()
-            coinsCost.position = CGPoint(x: infiniteBrushBuyButton.position.x-30, y: infiniteBrushBuyButton.position.y)
-            coinsCost.zPosition = 8
-            infiniteBrushBuyButton.addChild(coinsCost)
+        var coinsCost = SKLabelNode(fontNamed: "TimesNewRoman")
+        coinsCost.text = "40"
+        coinsCost.fontSize = 24
+        coinsCost.fontColor = SKColor.orangeColor()
+        coinsCost.position = CGPoint(x: infiniteBrushBuyButton.position.x-30, y: infiniteBrushBuyButton.position.y)
+        coinsCost.zPosition = 8
+        infiniteBrushBuyButton.addChild(coinsCost)
         
         self.storeButtons.addObject(infiniteBrushBuyButton)
         
@@ -1592,134 +1109,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func saveData()
     {
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        
-        var defaultsGroup: NSUserDefaults = NSUserDefaults(suiteName: "group.com.jacksonjude.PrVZ")!
-        
-        defaults.setObject(self.coins, forKey: "coins")
-        
-        if let currentScore = defaults.objectForKey("currentScore") as? NSInteger
-        {
-            defaults.setObject(self.zombiesKilled, forKey: "currentScore")
-        }
-        
-        defaults.setObject(self.wavesCompleted, forKey: "levels")
-        
-        var tempArray = NSMutableArray()
-        
-        if self.infBrushItem == true
-        {
-            tempArray[0] = true
-        }
-        else
-        {
-            tempArray[0] = false
-        }
-        
-        if self.healthPack == true
-        {
-            tempArray[1] = true
-        }
-        else
-        {
-            tempArray[1] = false
-        }
-        
-        if self.battery == true
-        {
-            tempArray[2] = true
-            
-            tempArray[3] = self.batteryPercent
-        }
-        else
-        {
-            tempArray[2] = false
-        }
-        defaults.setObject(tempArray, forKey: "items")
-        
-        defaults.setValue(self.princessHealth, forKey: "health")
-        
-        defaults.setObject(self.healthLostInLastRound, forKey: "healthLost")
-        
-        if let highScore = defaults.objectForKey("highScore") as? NSInteger
-        {
-            defaultsGroup.setObject(highScore, forKey: "highScore")
-            if let currentScoreCurrent = defaults.objectForKey("currentScore") as? NSInteger
-            {
-                defaultsGroup.setObject(currentScoreCurrent, forKey: "currentScore")
-                if currentScoreCurrent > highScore
-                {
-                    gameViewController1?.submitScore(currentScoreCurrent)
-                }
-                else
-                {
-                    gameViewController1?.submitScore(highScore)
-                }
-            }
-        }
-        if let levels = defaults.objectForKey("levels") as? NSInteger
-        {
-            defaultsGroup.setObject(levels, forKey: "levels")
-        }
-    }
-    
-    func saveDataBackground()
-    {
-        if self.gameIsRunning == true
-        {
-            for aZombie in self.zombies
-            {
-                var aZombieSK = aZombie as! SKSpriteNode
-                aZombieSK.removeAllActions()
-            }
-            
-            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            
-            let zombieData = NSKeyedArchiver.archivedDataWithRootObject(self.zombies)
-            defaults.setObject(zombieData, forKey: "zombies")
-            
-            defaults.setBool(true, forKey: "didComeBackFromBackground")
-        }
-        self.saveData()
-    }
-    
-    func didEnterFromBackground()
-    {
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        
-        if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
-        {
-            if didComeBackFromBackground == true
-            {
-                defaults.setObject(false, forKey: "didComeBackFromBackground")
-                
-                self.gameIsRunning = true
-                self.canPressButtons = false
-                
-                for aZombie in self.zombies
-                {
-                    aZombie.removeFromParent()
-                }
-                self.zombies.removeAllObjects()
-                
-                if let zombiesData = defaults.objectForKey("zombies") as? NSData
-                {
-                    let zombiesUnarchived = NSKeyedUnarchiver.unarchiveObjectWithData(zombiesData) as! NSMutableArray
-                    self.zombies = zombiesUnarchived
-                    
-                    for aZombie in zombies
-                    {
-                        var aZombieSK = aZombie as! SKSpriteNode
-                        self.addChild(aZombieSK)
-                    }
-                }
-                
-                if self.gamePaused != true
-                {
-                    self.pauseGame()
-                }
-            }
-        }
+        //Nothin' Here! ;-)
     }
     
     func pauseGame()
@@ -1834,12 +1224,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.gamePaused = false
     }
     
-    func changedValues()
-    {
-        println("Changes Found in iCloud")
-        NSUbiquitousKeyValueStore.defaultStore().synchronize()
-    }
-    
     override func update(currentTime: NSTimeInterval)
     {
         if self.joystickBool == true
@@ -1912,41 +1296,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             var healthLabel = self.childNodeWithName("healthLabel")
             healthLabel?.zPosition = 0
-            
-            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-            
-            var tempArray = NSMutableArray()
-            
-            if self.infBrushItem == true
-            {
-                tempArray[0] = true
-            }
-            else
-            {
-                tempArray[0] = false
-            }
-            
-            if self.healthPack  == true
-            {
-                tempArray[1] = true
-            }
-            else
-            {
-                tempArray[1] = false
-            }
-            
-            if self.battery == true
-            {
-                tempArray[2] = true
-                
-                tempArray[3] = self.batteryPercent
-            }
-            else
-            {
-                tempArray[2] = false
-            }
-            
-            defaults.setObject(tempArray, forKey: "items")
             
             if self.storeIsOpen == true
             {
@@ -2050,32 +1399,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             
             if zombiesAlive == 0
             {
-                backgroundMusicPlayer.pause()
-                
-                if self.coins >= 100
-                {
-                    if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
-                    {
-                        if self.movedCoinsImage == false
-                        {
-                            coinsImage.position.x = coinsImage.position.x-20
-                            self.movedCoinsImage = true
-                        }
-                    }
-                }
-                
-                if self.coins >= 1000
-                {
-                    if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
-                    {
-                        if self.movedCoinsImage == false
-                        {
-                            coinsImage.position.x = coinsImage.position.x-20
-                            self.movedCoinsImage = true
-                        }
-                    }
-                }
-                
                 if self.coins >= 10000
                 {
                     if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
@@ -2088,7 +1411,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     }
                 }
                 
-                self.wavesCompleted++
+                self.wavesCompletedJustToShow++
                 self.gameIsRunning = false
                 
                 if let pauseButton = self.childNodeWithName("pauseButton")
@@ -2103,73 +1426,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     innerZombie.removeFromParent()
                     
                 }
-                
-                var range = NSRange(location: 15, length: 14)
-                var range2 = NSRange(location: 30, length: 14)
-                var range3 = NSRange(location: 45, length: 14)
-                var background2Bool = NSLocationInRange(self.wavesCompleted, range)
-                if background2Bool
+                if self.wavesCompletedJustToShow == 15
                 {
-                    var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(2, forKey: "background")
-                    if let background = self.childNodeWithName("background")
-                    {
-                        background.removeFromParent()
-                    }
-                    var background2 = SKSpriteNode(imageNamed: "background2")
-                    background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                    background2.zPosition = -2
-                    background2.name = "background"
-                    self.addChild(background2)
+                    var gotBlowDryer = SKLabelNode(fontNamed: "TimesNewRoman")
+                    gotBlowDryer.fontColor = SKColor.orangeColor()
+                    gotBlowDryer.fontSize = 32
+                    gotBlowDryer.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                    gotBlowDryer.text = "Recived Blow Dryer!"
+                    self.addChild(gotBlowDryer)
                     
-                    if self.wavesCompleted == 15
-                    {
-                        var gotBlowDryer = SKLabelNode(fontNamed: "TimesNewRoman")
-                        gotBlowDryer.fontColor = SKColor.orangeColor()
-                        gotBlowDryer.fontSize = 32
-                        gotBlowDryer.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                        gotBlowDryer.text = "Recived Blow Dryer!"
-                        self.addChild(gotBlowDryer)
-                        
-                        gotBlowDryer.runAction(SKAction.moveToY(gotBlowDryer.position.y+40, duration: 3))
-                        gotBlowDryer.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(3), SKAction.runBlock({
-                            gotBlowDryer.removeFromParent()
-                        })]))
-                        
-                        /*var brushButton =*/
-                    }
-                }
-                
-                var background3Bool = NSLocationInRange(self.wavesCompleted, range2)
-                if background3Bool
-                {
-                    var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(3, forKey: "background")
-                    if let background = self.childNodeWithName("background")
-                    {
-                        background.removeFromParent()
-                    }
-                    var background3 = SKSpriteNode(imageNamed: "background3")
-                    background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                    background3.zPosition = -2
-                    background3.name = "background"
-                    self.addChild(background3)
-                }
-                
-                var background4Bool = NSLocationInRange(self.wavesCompleted, range3)
-                if background4Bool
-                {
-                    var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(4, forKey: "background")
-                    if let background = self.childNodeWithName("background")
-                    {
-                        background.removeFromParent()
-                    }
-                    var background3 = SKSpriteNode(imageNamed: "background4")
-                    background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                    background3.zPosition = -2
-                    background3.name = "background"
-                    self.addChild(background3)
+                    gotBlowDryer.runAction(SKAction.moveToY(gotBlowDryer.position.y+40, duration: 3))
+                    gotBlowDryer.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(3), SKAction.runBlock({
+                        gotBlowDryer.removeFromParent()
+                    })]))
+                    
+                    /*var brushButton =*/
                 }
                 
                 if self.princessHealth != 0

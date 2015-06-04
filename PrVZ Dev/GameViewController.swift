@@ -34,11 +34,13 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     @IBOutlet var joystickSwitch : UISwitch!
     @IBOutlet var zombieSpeedSlider : UISlider!
     @IBOutlet var volumeSlider : UISlider!
+    @IBOutlet var zombieHealthMultiplierSlider: UISlider!
     var gameCenterAchievements=[String:GKAchievement]()
     var gameCenterAchievementsReal=NSMutableArray()
     var matchStarted = false
     var multiplayerSceneRef:MultiplayerScene = MultiplayerScene.unarchiveFromFile("MultiplayerScene") as! MultiplayerScene
     var challengeSceneRef:ChallengeScene = ChallengeScene.unarchiveFromFile("ChallengeScene") as! ChallengeScene
+    var developmentSceneRef:DevelopmentScene = DevelopmentScene.unarchiveFromFile("DevelopmentScene") as! DevelopmentScene
     var currentMatch: GKMatch? = nil
     var gameCenter = false
     var COOPChallenge = Bool()
@@ -534,6 +536,33 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         self.challengeSceneRef.match = self.currentMatch
         
         skView.presentScene(self.challengeSceneRef)
+    }
+    
+    func presentDevelopmentScene()
+    {
+        // Configure the view.
+        let skView = self.view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        
+        /* Set the scale mode to scale to fit the window */
+        self.developmentSceneRef.scaleMode = .AspectFill
+        
+        self.developmentSceneRef.zombiesToSpawnSlider = self.zombiesToSpawnSlider
+        self.developmentSceneRef.joystickSwitch = self.joystickSwitch
+        self.developmentSceneRef.zombieSpeedSlider = self.zombieSpeedSlider
+        self.developmentSceneRef.gameViewController1 = self
+        self.developmentSceneRef.zombieHealthMultiplierSlider = self.zombieHealthMultiplierSlider
+        
+        skView.presentScene(self.developmentSceneRef)
+    }
+    
+    func reloadDevScene()
+    {
+        self.presentDevelopmentScene()
     }
 
     override func shouldAutorotate() -> Bool

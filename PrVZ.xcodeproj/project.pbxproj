@@ -51,6 +51,8 @@
 		7A5D745819DF847E009EEBD8 /* zombie.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A5D745419DF847E009EEBD8 /* zombie.png */; };
 		7A7073291A0694F20071F677 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7073281A0694F20071F677 /* map.png */; };
 		7A714F651A4B4631007C570C /* healthPack.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A714F641A4B4631007C570C /* healthPack.png */; };
+		7A772E481B20AF9A00BB71E5 /* DevelopmentScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A772E471B20AF9A00BB71E5 /* DevelopmentScene.swift */; };
+		7A772E4A1B20B73200BB71E5 /* DevelopmentScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A772E491B20B73200BB71E5 /* DevelopmentScene.sks */; };
 		7A7933A41ADAF74C009C0272 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A7933A31ADAF74C009C0272 /* CloudKit.framework */; };
 		7A7F16261A4A85D500F00743 /* leftScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16241A4A85D500F00743 /* leftScrollButton.png */; };
 		7A7F16271A4A85D500F00743 /* rightScrollButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A7F16251A4A85D500F00743 /* rightScrollButton.png */; };
@@ -218,6 +220,8 @@
 		7A5D745419DF847E009EEBD8 /* zombie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = zombie.png; path = Images/InGame/Characters/zombie.png; sourceTree = "<group>"; };
 		7A7073281A0694F20071F677 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = Images/InGame/map.png; sourceTree = "<group>"; };
 		7A714F641A4B4631007C570C /* healthPack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = healthPack.png; path = Images/InGame/Store/healthPack.png; sourceTree = "<group>"; };
+		7A772E471B20AF9A00BB71E5 /* DevelopmentScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevelopmentScene.swift; sourceTree = "<group>"; };
+		7A772E491B20B73200BB71E5 /* DevelopmentScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = DevelopmentScene.sks; sourceTree = "<group>"; };
 		7A7933A21ADAF728009C0272 /* PrVZ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrVZ.entitlements; sourceTree = SOURCE_ROOT; };
 		7A7933A31ADAF74C009C0272 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		7A7F16241A4A85D500F00743 /* leftScrollButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = leftScrollButton.png; path = Images/InGame/Store/leftScrollButton.png; sourceTree = "<group>"; };
@@ -597,12 +601,14 @@
 				7AB4C6BF1A353B7900D23A88 /* MenuScene.sks */,
 				7A8E00551ABDDE6C00AA4C26 /* MultiplayerScene.sks */,
 				7A53A7871AF9CA0600A0A7FA /* ChallengeScene.sks */,
+				7A772E491B20B73200BB71E5 /* DevelopmentScene.sks */,
 				7A92656E19CF2A280090595F /* TitleScene.swift */,
 				7A92657019CF2DEB0090595F /* TutorialScene.swift */,
 				7AC7DCEA19DD04450040897E /* GameScene.swift */,
 				7AB4C6BD1A3539F300D23A88 /* MenuScene.swift */,
 				7A8E00571ABDDE9700AA4C26 /* MultiplayerScene.swift */,
 				7A53A7891AF9CA2D00A0A7FA /* ChallengeScene.swift */,
+				7A772E471B20AF9A00BB71E5 /* DevelopmentScene.swift */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -874,6 +880,7 @@
 				7A8563AB1AF444C200C4CB18 /* appIconV2.2 1024.png in Resources */,
 				7A7F162A1A4A877400F00743 /* leftScrollButtonPressed.png in Resources */,
 				7A4E1DA119D7702C00001C55 /* prince.png in Resources */,
+				7A772E4A1B20B73200BB71E5 /* DevelopmentScene.sks in Resources */,
 				7A8E00561ABDDE6C00AA4C26 /* MultiplayerScene.sks in Resources */,
 				7A7F162B1A4A877400F00743 /* rightScrollButtonPressed.png in Resources */,
 				7A714F651A4B4631007C570C /* healthPack.png in Resources */,
@@ -930,6 +937,7 @@
 				7A414FC71A881FD500CA7303 /* JCJoystick.m in Sources */,
 				7A53A78A1AF9CA2D00A0A7FA /* ChallengeScene.swift in Sources */,
 				7A3D7ED619D27D3E00C39131 /* GenericZombie.swift in Sources */,
+				7A772E481B20AF9A00BB71E5 /* DevelopmentScene.swift in Sources */,
 				7AB4C6BE1A3539F300D23A88 /* MenuScene.swift in Sources */,
 				7A4E1DAE19D7970900001C55 /* SKButton.swift in Sources */,
 				7AC7DCEB19DD04450040897E /* GameScene.swift in Sources */,
