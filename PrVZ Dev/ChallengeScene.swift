@@ -30,6 +30,9 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     var gameViewController1: GameViewController?
     var scoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
     var scoreEnemyLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+    var zombiesToSpawnSlider: UISlider?
+    var joystickSwitch: UISwitch?
+    var zombieSpeedSlider: UISlider?
     
     override func didMoveToView(view: SKView)
     {

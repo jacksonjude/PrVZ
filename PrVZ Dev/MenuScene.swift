@@ -69,6 +69,15 @@ class MenuScene: SKScene
         volumeSlider?.maximumValue = 10
         volumeSlider?.minimumValue = 1
         volumeSlider?.setValue(self.volumeDisplay, animated: true)
+        
+        var developmentButton = SKButton(defaultButtonImage: "developmentButton", activeButtonImage: "developmentButtonPressed", buttonAction: showDevelopmentScene)
+        developmentButton.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)-200)
+        self.addChild(developmentButton)
+    }
+    
+    func showDevelopmentScene()
+    {
+        gameViewController1?.presentDevelopmentScene()
     }
     
     func showMap()

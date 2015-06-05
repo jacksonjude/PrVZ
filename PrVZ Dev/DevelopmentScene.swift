@@ -74,11 +74,6 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         return motion
         }()
     
-    deinit
-    {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
     override func didMoveToView(view: SKView)
     {
         physicsWorld.gravity = CGVectorMake(0,0)
@@ -807,6 +802,9 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         self.zombieSpeedSlider?.hidden = true
         self.zombieSpeedSlider?.userInteractionEnabled = false
+        
+        self.zombieHealthMultiplierSlider?.hidden = true
+        self.zombieHealthMultiplierSlider?.userInteractionEnabled = false
         
         self.joystickCheck()
         

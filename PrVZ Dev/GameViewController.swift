@@ -503,6 +503,10 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         /* Set the scale mode to scale to fit the window */
         self.multiplayerSceneRef.scaleMode = .AspectFill
         
+        self.multiplayerSceneRef.zombiesToSpawnSlider = self.zombiesToSpawnSlider
+        self.multiplayerSceneRef.zombieSpeedSlider = self.zombieSpeedSlider
+        self.multiplayerSceneRef.joystickSwitch = self.joystickSwitch
+        
         self.multiplayerSceneRef.gameViewController1 = self
         self.multiplayerSceneRef.match = self.currentMatch
         
@@ -521,6 +525,10 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         
         /* Set the scale mode to scale to fit the window */
         self.challengeSceneRef.scaleMode = .AspectFill
+        
+        self.challengeSceneRef.zombiesToSpawnSlider = self.zombiesToSpawnSlider
+        self.challengeSceneRef.zombieSpeedSlider = self.zombieSpeedSlider
+        self.challengeSceneRef.joystickSwitch = self.joystickSwitch
         
         self.challengeSceneRef.gameViewController1 = self
         self.challengeSceneRef.match = self.currentMatch

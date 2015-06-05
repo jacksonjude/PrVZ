@@ -38,6 +38,9 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     var princessDisplayHealth = 1.00
     var matchStart = false
     var host = true
+    var zombiesToSpawnSlider: UISlider?
+    var joystickSwitch: UISwitch?
+    var zombieSpeedSlider: UISlider?
     
     override func didMoveToView(view: SKView)
     {
