@@ -232,49 +232,49 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
                 textCount++
                 switch textCount
                     {
-                case 1:
-                    text2.hidden = false
-                    text1.hidden = true
-                    
-                case 2:
-                    text3.hidden = false
-                    text2.hidden = true
-                    
-                case 3:
-                    let prince = childNodeWithName("prince")
-                    prince?.hidden = true
-                    text3.hidden = true
-                    tutorialWave()
-                    
-                case 4:
-                    var princess1 = self.childNodeWithName("princess")
-                    var zombie1 = self.childNodeWithName("ash")
-                    var wall = self.childNodeWithName("wallEnd")
-                    var fireButton = self.childNodeWithName("fire")
-                    princess1?.hidden = true
-                    zombie1?.hidden = true
-                    wall?.hidden = true
-                    fireButton?.hidden = true
-                    joystick.hidden = true
-                    
-                    let prince = childNodeWithName("prince")
-                    prince?.hidden = false
-                    text4.hidden = false
-                    text3.hidden == true
-                    var textForInfo = self.childNodeWithName("textForInfo")
-                    textForInfo?.hidden = true
-                    
-                case 5:
-                    var test = self.view?.window?.rootViewController
-                    if test == self.gameViewController1
-                    {
-                        println("rootViewController == GameViewController")
-                    }
-                    
-                    self.gameViewController1?.presentGameScene()
-                    
-                default:
-                    let NOTHING = 0
+                        case 1:
+                            text2.hidden = false
+                            text1.hidden = true
+                            
+                        case 2:
+                            text3.hidden = false
+                            text2.hidden = true
+                            
+                        case 3:
+                            let prince = childNodeWithName("prince")
+                            prince?.hidden = true
+                            text3.hidden = true
+                            tutorialWave()
+                            
+                        case 4:
+                            var princess1 = self.childNodeWithName("princess")
+                            var zombie1 = self.childNodeWithName("ash")
+                            var wall = self.childNodeWithName("wallEnd")
+                            var fireButton = self.childNodeWithName("fire")
+                            princess1?.hidden = true
+                            zombie1?.hidden = true
+                            wall?.hidden = true
+                            fireButton?.hidden = true
+                            joystick.hidden = true
+                            
+                            let prince = childNodeWithName("prince")
+                            prince?.hidden = false
+                            text4.hidden = false
+                            text3.hidden == true
+                            var textForInfo = self.childNodeWithName("textForInfo")
+                            textForInfo?.hidden = true
+                            
+                        case 5:
+                            var test = self.view?.window?.rootViewController
+                            if test == self.gameViewController1
+                            {
+                                println("rootViewController == GameViewController")
+                            }
+                            
+                            self.gameViewController1?.presentGameScene()
+                            
+                        default:
+                            let NOTHING = 0
                 }
             }
         }

@@ -152,9 +152,9 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         self.zombieSpeedSlider?.maximumValue = 10
         
         self.zombieHealthMultiplierSlider?.hidden = true
-        self.zombieSpeedSlider?.userInteractionEnabled = false
-        self.zombieSpeedSlider?.minimumValue = 1
-        self.zombieSpeedSlider?.maximumValue = 5
+        self.zombieHealthMultiplierSlider?.userInteractionEnabled = false
+        self.zombieHealthMultiplierSlider?.minimumValue = 1
+        self.zombieHealthMultiplierSlider?.maximumValue = 5
         
         self.coinsLabel.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)+90)
         self.coinsLabel.fontColor = SKColor.redColor()
@@ -489,18 +489,18 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                 var uuid = NSUUID().UUIDString
                 switch chance
                 {
-                case 0:
-                    var petCat = NSMutableDictionary()
-                    petCat.setObject(0, forKey: "type")
-                    petCat.setObject(1, forKey: "level")
-                    self.pets.setObject(petCat, forKey: uuid)
-                case 1:
-                    var petDog = NSMutableDictionary()
-                    petDog.setObject(1, forKey: "type")
-                    petDog.setObject(1, forKey: "level")
-                    self.pets.setObject(petDog, forKey: uuid)
-                default:
-                    let THISISREALLYSTUPIDTHATIHAVETODOTHIS = "WHYAPPLE???? WHY????"
+                    case 0:
+                        var petCat = NSMutableDictionary()
+                        petCat.setObject(0, forKey: "type")
+                        petCat.setObject(1, forKey: "level")
+                        self.pets.setObject(petCat, forKey: uuid)
+                    case 1:
+                        var petDog = NSMutableDictionary()
+                        petDog.setObject(1, forKey: "type")
+                        petDog.setObject(1, forKey: "level")
+                        self.pets.setObject(petDog, forKey: uuid)
+                    default:
+                        let THISISREALLYSTUPIDTHATIHAVETODOTHIS = "WHYAPPLE???? WHY????"
                 }
                 
                 if var uuids = self.pets.objectForKey("petUUIDs") as? NSMutableArray
@@ -643,7 +643,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         self.levelsCompletedLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
         self.levelsCompletedLabel.fontColor = SKColor.blueColor()
         self.levelsCompletedLabel.zPosition = 6
-        self.levelsCompletedLabel.text = NSString(format: "%i", self.wavesCompletedJustToShow) as String
+        self.levelsCompletedLabel.text = NSString(format: "Levels Completed In Dev Mode: %i", self.wavesCompletedJustToShow) as String
         self.addChild(self.levelsCompletedLabel)
         
         var currentScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
@@ -942,8 +942,6 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             self.brushInWorld = false
         }
         
-        let progressDouble: Double = 100
-        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "buyItem")
         self.brushesInWorld = 0
     }
     
@@ -956,8 +954,6 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             self.princessHealth+=1
         }
         
-        let progressDouble: Double = 100
-        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "buyItem")
         self.justBoughtHealthPack = true
     }
     
@@ -1445,8 +1441,6 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                 {
                     self.canPressButtons = true
                 }
-                
-                self.saveData()
             }
         }
         
