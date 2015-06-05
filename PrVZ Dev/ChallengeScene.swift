@@ -27,10 +27,6 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     var gameIsRunning = false
     var wavesCompleted = 0
     var zombieSpeed: CGFloat = 1.0
-    var zombiesToSpawnSlider: UISlider?
-    var joystickSwitch: UISwitch?
-    var zombieSpeedSlider: UISlider?
-    var volumeSlider: UISlider?
     var gameViewController1: GameViewController?
     var scoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
     var scoreEnemyLabel = SKLabelNode(fontNamed: "TimesNewRoman")

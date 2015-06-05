@@ -25,10 +25,6 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     var zombieSpeed = 1.0
     var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blueColor(), joystickRadius:50, joystickColor:SKColor.redColor())
     var gameViewController1: GameViewController?
-    var slider1: UISlider?
-    var switch1: UISwitch?
-    var slider2: UISlider?
-    var slider3: UISlider?
     
     override func didMoveToView(view: SKView)
     {

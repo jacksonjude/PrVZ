@@ -21,6 +21,7 @@ class TitleScene: SKScene
     var switch1: UISwitch?
     var slider2: UISlider?
     var slider3: UISlider?
+    var slider4: UISlider?
     
     override func didMoveToView(view: SKView)
     {        
@@ -37,7 +38,7 @@ class TitleScene: SKScene
         background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         
         self.addChild(background)
-        self.addChild(start)        
+        self.addChild(self.start)
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent)

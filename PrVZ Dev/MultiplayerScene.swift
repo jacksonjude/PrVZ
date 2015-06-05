@@ -22,10 +22,6 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     var princess1 = Princess()
     var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blueColor(), joystickRadius:50, joystickColor:SKColor.redColor())
     var buttons = SKNode()
-    var zombiesToSpawnSlider: UISlider?
-    var joystickSwitch: UISwitch?
-    var zombieSpeedSlider: UISlider?
-    var volumeSlider: UISlider?
     var gameViewController1: GameViewController?
     var wavesCompleted = 0
     var zombieSpeed = 1

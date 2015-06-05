@@ -97,6 +97,9 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             scene.slider3 = self.volumeSlider
             scene.slider3?.hidden = true
             
+            scene.slider4 = self.zombieHealthMultiplierSlider
+            scene.slider4?.hidden = true
+            
             skView.presentScene(scene)
         }
     }
@@ -410,6 +413,9 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             scene.slider3 = self.volumeSlider
             scene.slider3?.hidden = true
             
+            scene.slider4 = self.zombieHealthMultiplierSlider
+            scene.slider4?.hidden = true
+            
             skView.presentScene(scene)
         }
     }
@@ -430,17 +436,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             
-            scene.slider1 = self.zombiesToSpawnSlider
-            scene.slider1?.hidden = true
-            
-            scene.switch1 = self.joystickSwitch
-            scene.switch1?.hidden = true
-            
-            scene.slider2 = self.zombieSpeedSlider
-            scene.slider2?.hidden = true
-            
-            scene.slider3 = self.volumeSlider
-            scene.slider3?.hidden = true
+            scene.gameViewController1 = self
             
             skView.presentScene(scene)
         }
@@ -507,9 +503,6 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         /* Set the scale mode to scale to fit the window */
         self.multiplayerSceneRef.scaleMode = .AspectFill
         
-        self.multiplayerSceneRef.zombiesToSpawnSlider = self.zombiesToSpawnSlider
-        self.multiplayerSceneRef.joystickSwitch = self.joystickSwitch
-        self.multiplayerSceneRef.zombieSpeedSlider = self.zombieSpeedSlider
         self.multiplayerSceneRef.gameViewController1 = self
         self.multiplayerSceneRef.match = self.currentMatch
         
@@ -529,9 +522,6 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         /* Set the scale mode to scale to fit the window */
         self.challengeSceneRef.scaleMode = .AspectFill
         
-        self.challengeSceneRef.zombiesToSpawnSlider = self.zombiesToSpawnSlider
-        self.challengeSceneRef.joystickSwitch = self.joystickSwitch
-        self.challengeSceneRef.zombieSpeedSlider = self.zombieSpeedSlider
         self.challengeSceneRef.gameViewController1 = self
         self.challengeSceneRef.match = self.currentMatch
         
