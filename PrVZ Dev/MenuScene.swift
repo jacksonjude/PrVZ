@@ -21,6 +21,12 @@ class MenuScene: SKScene
     
     override func didMoveToView(view: SKView)
     {
+        let background = SKSpriteNode(imageNamed: "background-dark.png")
+        background.zPosition = -2
+        background.name = "background"
+        background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        self.addChild(background)
+        
         var startGameButton = SKButton(defaultButtonImage: "startButtonGame.png", activeButtonImage: "startButtonGame.png", buttonAction: moveToGameScene)
         startGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(startGameButton)

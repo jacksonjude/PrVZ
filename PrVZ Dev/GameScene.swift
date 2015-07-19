@@ -11,6 +11,7 @@ import SpriteKit
 import UIKit
 import AVFoundation
 import CoreMotion
+import GameController
 
 private var backgroundMusicPlayer: AVAudioPlayer!
 
@@ -384,12 +385,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         
+        if let petUUIDS = defaults.objectForKey("petUUIDS") as? NSMutableArray
+        {
+            //petUUIDS Loading
+        }
+        else
+        {
+            defaults.setObject(NSMutableArray(), forKey: "petUUIDS")
+        }
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillTerminateNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationDidBecomeActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationWillEnterForegroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"changedValues", name: NSUbiquitousKeyValueStoreDidChangeExternallyNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserverForName(GCControllerDidConnectNotification, object: nil, queue: nil) { note in
+            
+        }
+        
         
         if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
         {
@@ -1083,7 +1097,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         saveGameButton.zPosition = 6
         settingsNode.addChild(saveGameButton)
         
-        var calibrate = SKButton(defaultButtonImage: "calibrate", activeButtonImage: "calibrate", buttonAction: calibratePrincess)
+        var calibrate = SKButton(defaultButtonImage: "calibrate", activeButtonImage: "calibratePressed", buttonAction: calibratePrincess)
         calibrate.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: CGRectGetMidX(self.frame)-140)
         calibrate.zPosition = 6
         settingsNode.addChild(calibrate)
