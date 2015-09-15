@@ -14,7 +14,7 @@ class CatZombie: GenericZombie
     var hairballsSpawned = NSInteger()
     override init()
     {
-        var zombieTexture = SKTexture(imageNamed: "cat.png")
+        let zombieTexture = SKTexture(imageNamed: "cat.png")
         super.init(texture: zombieTexture)
     }
 

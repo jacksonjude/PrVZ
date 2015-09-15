@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         if application.respondsToSelector("registerUserNotificationSettings:") {
-            let userNotificationTypes = UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound
+            let userNotificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]
             let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
@@ -51,16 +51,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        var installation = PFInstallation.currentInstallation()
+        let installation = PFInstallation.currentInstallation()
         installation.setDeviceTokenFromData(deviceToken)
         installation.saveInBackground()
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         if error.code == 3010 {
-            println("Push notifications are not supported in the iOS Simulator.")
+            print("Push notifications are not supported in the iOS Simulator.")
         } else {
-            println("application:didFailToRegisterForRemoteNotificationsWithError: %@", error)
+            print("application:didFailToRegisterForRemoteNotificationsWithError: %@", error)
         }
     }
     

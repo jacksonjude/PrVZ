@@ -28,7 +28,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     
     override func didMoveToView(view: SKView)
     {
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if let doneWave = defaults.objectForKey("Tutorial") as? NSInteger
         {
             if doneWave == 1
@@ -61,7 +61,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         bubble.hidden = true
         self.addChild(bubble)
         
-        var color = SKColor.blackColor()
+        let color = SKColor.blackColor()
         text1.text = "Welcome. I am the King"
         text1.fontColor = color
         text1.position = CGPoint(x: CGRectGetMidX(self.frame)-130, y: CGRectGetMidY(self.frame)+250)
@@ -94,8 +94,8 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     {
         physicsWorld.gravity = CGVectorMake(0,0)
         
-        var wallEnd = SKShapeNode()
-        var path = CGPathCreateMutable()
+        let wallEnd = SKShapeNode()
+        let path = CGPathCreateMutable()
         CGPathAddRect(path, nil, CGRectMake(0, 0, 60, 3000))
         wallEnd.path = path
         wallEnd.fillColor = SKColor.grayColor()
@@ -108,7 +108,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         wallEnd.physicsBody?.usesPreciseCollisionDetection = true
         self.addChild(wallEnd)
         
-        var zombie1 = GenericZombie()
+        let zombie1 = GenericZombie()
         zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+300, CGRectGetMidY(self.frame))
         zombie1.zPosition = 2
         zombie1.name = "zombie"
@@ -131,12 +131,12 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         princess1.physicsBody?.usesPreciseCollisionDetection = true
         self.addChild(princess1)
         
-        var fireButton = SKButton(defaultButtonImage: "fireButton", activeButtonImage: "fireButtonPressed", buttonAction: self.addBrush)
+        let fireButton = SKButton(defaultButtonImage: "fireButton", activeButtonImage: "fireButtonPressed", buttonAction: self.addBrush)
         fireButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-200)
         fireButton.name = "fire"
         self.addChild(fireButton)
         
-        var moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
+        let moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
         zombie1.runAction(SKAction.repeatActionForever(moveBy))
         
         self.joystick.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: CGRectGetMidY(self.frame)-200)
@@ -184,13 +184,13 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     func projectileDidCollideWithMonster(projectile: SKNode, monster: SKNode)
     {
         projectile.removeFromParent()
-        var deadZombie = SKSpriteNode(imageNamed: "ash.png")
+        let deadZombie = SKSpriteNode(imageNamed: "ash.png")
         deadZombie.name = "ash"
         deadZombie.position = monster.position
         monster.removeFromParent()
         self.addChild(deadZombie)
         
-        var textForInfo = SKLabelNode(fontNamed: "TimesNewRoman")
+        let textForInfo = SKLabelNode(fontNamed: "TimesNewRoman")
         textForInfo.text = "Touch Here to Continue"
         textForInfo.fontColor = SKColor.blackColor()
         textForInfo.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
@@ -210,9 +210,9 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     
     func gameOver()
     {
-        var zombie = self.childNodeWithName("zombie")
-        var princess = self.childNodeWithName("princess")
-        var wall = self.childNodeWithName("wallEnd")
+        let zombie = self.childNodeWithName("zombie")
+        let princess = self.childNodeWithName("princess")
+        let wall = self.childNodeWithName("wallEnd")
         zombie?.removeFromParent()
         princess?.removeFromParent()
         wall?.removeFromParent()
@@ -223,9 +223,9 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         self.tutorialWave()
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent)
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?)
     {
-        for touch: AnyObject in touches
+        for _: AnyObject in touches
         {
             if self.gameIsRunning == false
             {
@@ -247,10 +247,10 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
                             tutorialWave()
                             
                         case 4:
-                            var princess1 = self.childNodeWithName("princess")
-                            var zombie1 = self.childNodeWithName("ash")
-                            var wall = self.childNodeWithName("wallEnd")
-                            var fireButton = self.childNodeWithName("fire")
+                            let princess1 = self.childNodeWithName("princess")
+                            let zombie1 = self.childNodeWithName("ash")
+                            let wall = self.childNodeWithName("wallEnd")
+                            let fireButton = self.childNodeWithName("fire")
                             princess1?.hidden = true
                             zombie1?.hidden = true
                             wall?.hidden = true
@@ -261,20 +261,20 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
                             prince?.hidden = false
                             text4.hidden = false
                             text3.hidden == true
-                            var textForInfo = self.childNodeWithName("textForInfo")
+                            let textForInfo = self.childNodeWithName("textForInfo")
                             textForInfo?.hidden = true
                             
                         case 5:
-                            var test = self.view?.window?.rootViewController
+                            let test = self.view?.window?.rootViewController
                             if test == self.gameViewController1
                             {
-                                println("rootViewController == GameViewController")
+                                print("rootViewController == GameViewController")
                             }
                             
                             self.gameViewController1?.presentGameScene()
                             
                         default:
-                            let NOTHING = 0
+                            _ = 0
                 }
             }
         }
@@ -282,8 +282,8 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     
     func addBrush()
     {
-        var brush = SKSpriteNode(imageNamed: "brush.png")
-        var princess1 = self.childNodeWithName("princess") as! SKSpriteNode
+        let brush = SKSpriteNode(imageNamed: "brush.png")
+        let princess1 = self.childNodeWithName("princess") as! SKSpriteNode
         brush.position = CGPoint(x: princess1.position.x, y: princess1.position.y)
         self.addChild(brush)
         brush.runAction(SKAction.moveToX(1000, duration: 1))
@@ -294,9 +294,9 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         brush.physicsBody?.contactTestBitMask = monsterCategory
         brush.physicsBody?.collisionBitMask = 0
         brush.physicsBody?.usesPreciseCollisionDetection = true
-        var move = SKAction.moveToX(1000, duration: 1)
-        var vanish = SKAction.removeFromParent()
-        var sequence = SKAction.sequence([move, vanish])
+        let move = SKAction.moveToX(1000, duration: 1)
+        let vanish = SKAction.removeFromParent()
+        let sequence = SKAction.sequence([move, vanish])
         brush.runAction(sequence)
     }
     
@@ -304,11 +304,11 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     {
         if gameIsRunning == true
         {
-            var princess1 = self.childNodeWithName("princess") as! SKSpriteNode
-            var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
+            let princess1 = self.childNodeWithName("princess") as! SKSpriteNode
+            let position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
             princess1.position = position1
             
-            var zombie1 = self.childNodeWithName("ash")
+            let zombie1 = self.childNodeWithName("ash")
             if zombie1 != nil
             {
                 gameIsRunning = false

@@ -639,8 +639,9 @@
 		7A4E782E19C735B900C5E9B3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = jackson;
 				TargetAttributes = {
 					7A4E783519C735B900C5E9B3 = {
@@ -868,6 +869,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -936,12 +938,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/PrVZ Dev/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jacksonjude.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PrVZ Dev/PrVZ-Bridging-Header.h";
@@ -958,12 +962,14 @@
 				CODE_SIGN_ENTITLEMENTS = PrVZ.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/PrVZ Dev/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jacksonjude.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PrVZ Dev/PrVZ-Bridging-Header.h";
@@ -985,6 +991,7 @@
 				);
 				INFOPLIST_FILE = "PrVZ DevTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jacksonjude.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = PrVZTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrVZ.app/PrVZ";
 			};
@@ -1000,6 +1007,7 @@
 				);
 				INFOPLIST_FILE = "PrVZ DevTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jacksonjude.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = PrVZTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrVZ.app/PrVZ";
 			};

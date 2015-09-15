@@ -55,7 +55,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.gravity = CGVectorMake(0,0)
         self.physicsWorld.contactDelegate = self
         
-        var fireButton = SKButton(defaultButtonImage: "fireButton", activeButtonImage: "fireButtonPressed", buttonAction: self.addBrush)
+        let fireButton = SKButton(defaultButtonImage: "fireButton", activeButtonImage: "fireButtonPressed", buttonAction: self.addBrush)
         fireButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-200)
         fireButton.name = "fire"
         self.addChild(fireButton)
@@ -100,7 +100,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             
             NSLog("Brushes In World: %i", self.brushesInWorld)
             
-            var brush = SKSpriteNode(imageNamed: "brush.png")
+            let brush = SKSpriteNode(imageNamed: "brush.png")
             brush.name = "brush"
             brush.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y)
             self.addChild(brush)
@@ -113,23 +113,23 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             brush.physicsBody?.collisionBitMask = 0
             brush.physicsBody?.usesPreciseCollisionDetection = true
             self.currentBrushes.addObject(brush)
-            var move = SKAction.moveToX(1000, duration: 1)
-            var vanish = SKAction.removeFromParent()
-            var removeBrush = SKAction.runBlock({
+            let move = SKAction.moveToX(1000, duration: 1)
+            let vanish = SKAction.removeFromParent()
+            let removeBrush = SKAction.runBlock({
                 self.currentBrushes.removeObject(brush)
                 self.brushesInWorld--
             })
-            var sequence = SKAction.sequence([move, removeBrush, vanish])
+            let sequence = SKAction.sequence([move, removeBrush, vanish])
             brush.runAction(sequence)
         }
     }
     
     func runGame()
     {
-        var zombiesToSpawn = 5
+        let zombiesToSpawn = 5
         var zombiesSpawned = 0
         
-        var speedDivider = self.wavesCompleted / 8
+        let speedDivider = self.wavesCompleted / 8
         if speedDivider >= 1
         {
             self.zombieSpeed = CGFloat(speedDivider)
@@ -143,12 +143,12 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         {
             if self.wavesCompleted >= 3
             {
-                var spawnCat = CGFloat(arc4random()%3)
+                let spawnCat = CGFloat(arc4random()%3)
                 if spawnCat == 2
                 {
-                    var cat1 = CatZombie()
-                    var yPos = CGFloat((arc4random()%150)+150)
-                    var xPos = CGFloat((arc4random()%150)+150)
+                    let cat1 = CatZombie()
+                    let yPos = CGFloat((arc4random()%150)+150)
+                    let xPos = CGFloat((arc4random()%150)+150)
                     cat1.name = "catZombie"
                     cat1.health = self.wavesCompleted / 4
                     cat1.physicsBody = SKPhysicsBody(circleOfRadius:cat1.size.width/2)
@@ -158,14 +158,14 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
                     cat1.physicsBody?.collisionBitMask = 0
                     cat1.physicsBody?.usesPreciseCollisionDetection = true
                     cat1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
-                    var moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
+                    let moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
                     cat1.runAction(SKAction.repeatActionForever(moveBy))
                     
-                    var moveToPrincess = SKAction.moveToY(self.princess1.position.y, duration: 1)
-                    var sequence = SKAction.sequence([moveToPrincess, SKAction.runBlock({
+                    let moveToPrincess = SKAction.moveToY(self.princess1.position.y, duration: 1)
+                    let sequence = SKAction.sequence([moveToPrincess, SKAction.runBlock({
                         cat1.texture = SKTexture(imageNamed: "catOpen.png")
                     }), SKAction.waitForDuration(1),SKAction.runBlock({
-                        var hairball = SKSpriteNode(imageNamed: "hairball.png")
+                        let hairball = SKSpriteNode(imageNamed: "hairball.png")
                         hairball.position = self.position
                         hairball.runAction(SKAction.repeatActionForever(SKAction.moveToX(-1000, duration: 2)))
                         hairball.name = "hairball"
@@ -187,9 +187,9 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
                 }
                 else
                 {
-                    var zombie1 = GenericZombie()
-                    var yPos = CGFloat((arc4random()%150)+150)
-                    var xPos = CGFloat((arc4random()%150)+150)
+                    let zombie1 = GenericZombie()
+                    let yPos = CGFloat((arc4random()%150)+150)
+                    let xPos = CGFloat((arc4random()%150)+150)
                     zombie1.health = self.wavesCompleted
                     zombie1.princess = self.childNodeWithName("princess") as! Princess
                     zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
@@ -200,7 +200,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
                     zombie1.physicsBody?.contactTestBitMask = self.princessCategory
                     zombie1.physicsBody?.collisionBitMask = 0
                     zombie1.physicsBody?.usesPreciseCollisionDetection = true
-                    var moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
+                    let moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
                     zombie1.runAction(SKAction.repeatActionForever(moveBy))
                     self.zombies.addObject(zombie1)
                     self.addChild(zombie1)
@@ -209,9 +209,9 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             }
             else
             {
-                var zombie1 = GenericZombie()
-                var yPos = CGFloat((arc4random()%150)+150)
-                var xPos = CGFloat((arc4random()%150)+150)
+                let zombie1 = GenericZombie()
+                let yPos = CGFloat((arc4random()%150)+150)
+                let xPos = CGFloat((arc4random()%150)+150)
                 zombie1.health = self.wavesCompleted
                 zombie1.princess = self.childNodeWithName("princess") as! Princess
                 zombie1.position = CGPointMake(CGRectGetMidX(self.frame)+xPos, yPos)
@@ -222,7 +222,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
                 zombie1.physicsBody?.contactTestBitMask = self.princessCategory
                 zombie1.physicsBody?.collisionBitMask = 0
                 zombie1.physicsBody?.usesPreciseCollisionDetection = true
-                var moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
+                let moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
                 zombie1.runAction(SKAction.repeatActionForever(moveBy))
                 self.zombies.addObject(zombie1)
                 self.addChild(zombie1)
@@ -271,9 +271,9 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     {
         projectile.removeFromParent()
         self.brushesInWorld--
-        var monsterSK = monster as! GenericZombie
+        let monsterSK = monster as! GenericZombie
         monsterSK.health--
-        var healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-1"
         healthLostLabel.fontColor = SKColor.redColor()
         healthLostLabel.fontSize = 32
@@ -290,10 +290,9 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             healthLostLabel.removeFromParent()
         })]))
         self.addChild(healthLostLabel)
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if monsterSK.health < 1
         {
-            var deadZombie = SKSpriteNode(imageNamed: "ash.png")
+            let deadZombie = SKSpriteNode(imageNamed: "ash.png")
             deadZombie.name = "ash"
             deadZombie.position = monster.position
             monster.removeFromParent()
@@ -317,8 +316,8 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             
             self.zombiesKilled++
             
-            var messageNumberData = NSMutableData()
-            var archiver = NSKeyedArchiver(forWritingWithMutableData: messageNumberData)
+            let messageNumberData = NSMutableData()
+            let archiver = NSKeyedArchiver(forWritingWithMutableData: messageNumberData)
             archiver.encodeObject("zombies", forKey: "message")
             archiver.encodeInteger(self.zombiesKilled, forKey: "zombies")
             archiver.finishEncoding()
@@ -327,14 +326,14 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             
             if self.zombiesKilled >= 100
             {
-                var Win = SKLabelNode(fontNamed: "TimesNewRoman")
+                let Win = SKLabelNode(fontNamed: "TimesNewRoman")
                 Win.fontSize = 85
                 Win.fontColor = SKColor.orangeColor()
                 Win.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
                 Win.text = "You Win! GG!"
                 self.addChild(Win)
                 
-                var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
                 if var wins = defaults.objectForKey("gamesWon") as? NSInteger
                 {
                     wins++
@@ -357,7 +356,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     {
         self.princessHealth--
         
-        var deadZombie = SKSpriteNode(imageNamed: "ash.png")
+        let deadZombie = SKSpriteNode(imageNamed: "ash.png")
         deadZombie.name = "ash"
         deadZombie.position = monster.position
         monster.removeFromParent()
@@ -374,7 +373,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     func enemyProjectileDidCollideWithPrincess(enemyProjectile: SKNode, princess1: SKNode)
     {
         self.princessHealth -= 0.25
-        var healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
+        let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-0.25"
         healthLostLabel.fontColor = SKColor.redColor()
         healthLostLabel.fontSize = 32
@@ -394,10 +393,10 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOver()
     {
-        var hide = SKAction.fadeOutWithDuration(0)
-        var show = SKAction.fadeInWithDuration(0)
-        var wait = SKAction.waitForDuration(1)
-        var sequence = SKAction.sequence([hide, wait, show, wait, hide, wait, show, wait, hide, wait, show, wait, hide])
+        let hide = SKAction.fadeOutWithDuration(0)
+        let show = SKAction.fadeInWithDuration(0)
+        let wait = SKAction.waitForDuration(1)
+        let sequence = SKAction.sequence([hide, wait, show, wait, hide, wait, show, wait, hide, wait, show, wait, hide])
         self.princess1.runAction(sequence)
         
         for aZombie in self.zombies
@@ -407,14 +406,14 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         
         self.zombies.removeAllObjects()
         
-        var messageNumberData = NSMutableData()
-        var archiver = NSKeyedArchiver(forWritingWithMutableData: messageNumberData)
+        let messageNumberData = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWithMutableData: messageNumberData)
         archiver.encodeObject("otherPlayerDied", forKey: "message")
         archiver.finishEncoding()
         
         self.gameViewController1?.sendData(self.match, withData: messageNumberData)
         
-        var Lose = SKLabelNode(fontNamed: "TimesNewRoman")
+        let Lose = SKLabelNode(fontNamed: "TimesNewRoman")
         Lose.fontSize = 85
         Lose.fontColor = SKColor.redColor()
         Lose.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
@@ -426,17 +425,17 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     
     func saveDataRecived(data: NSData!, fromMatch match: GKMatch!, fromPlayer playerID: String!)
     {
-        var unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-        var message: AnyObject? = unarchiver.decodeObjectForKey("message")
-        var messageString = message as? NSString
+        let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+        let message: AnyObject? = unarchiver.decodeObjectForKey("message")
+        let messageString = message as? NSString
         
         if messageString == "zombies"
         {
-            var zombiesOtherKilled : NSInteger = unarchiver.decodeIntegerForKey("zombies")
+            let zombiesOtherKilled : NSInteger = unarchiver.decodeIntegerForKey("zombies")
             self.scoreEnemyLabel.text = NSString(format: "Enemy Zombies: %i", zombiesOtherKilled) as String
             if zombiesOtherKilled >= 100
             {
-                var Lose = SKLabelNode(fontNamed: "TimesNewRoman")
+                let Lose = SKLabelNode(fontNamed: "TimesNewRoman")
                 Lose.fontSize = 85
                 Lose.fontColor = SKColor.redColor()
                 Lose.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
@@ -449,14 +448,14 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         
         if messageString == "otherPlayerDied"
         {
-            var Win = SKLabelNode(fontNamed: "TimesNewRoman")
+            let Win = SKLabelNode(fontNamed: "TimesNewRoman")
             Win.fontSize = 85
             Win.fontColor = SKColor.orangeColor()
             Win.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
             Win.text = "You Win! GG!"
             self.addChild(Win)
             
-            var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+            let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             if var wins = defaults.objectForKey("gamesWon") as? NSInteger
             {
                 wins++
@@ -484,7 +483,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             self.zombies.removeObject(zombie)
         }
         
-        var disconnectButton = SKButton(defaultButtonImage: "disconnectButton", activeButtonImage: "disconnectButtonPressed", buttonAction: disconnect)
+        let disconnectButton = SKButton(defaultButtonImage: "disconnectButton", activeButtonImage: "disconnectButtonPressed", buttonAction: disconnect)
         disconnectButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
         self.addChild(disconnectButton)
     }
@@ -497,14 +496,14 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(currentTime: NSTimeInterval)
     {
-        var position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
+        let position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
         self.princess1.position = position1
         
         for aZombie2 in self.zombies
         {
             let aZombie2SK = aZombie2 as! SKSpriteNode
             let range = NSRange(location: 0, length: 50)
-            var gameOverRange = NSLocationInRange(Int(aZombie2SK.position.x), range)
+            let gameOverRange = NSLocationInRange(Int(aZombie2SK.position.x), range)
             if gameOverRange
             {
                 self.princessHealth = 0.0

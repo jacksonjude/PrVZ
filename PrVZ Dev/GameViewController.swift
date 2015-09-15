@@ -13,11 +13,11 @@ import GameKit
 extension SKNode {
     class func unarchiveFromFile(file : NSString) -> SKNode? {
         if let path = NSBundle.mainBundle().pathForResource(file as String, ofType: "sks") {
-            var sceneData = NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe, error: nil)!
-            var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
+            let sceneData = try! NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
+            let archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            var scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! SKNode
+            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! SKNode
             archiver.finishDecoding()
             return scene
         }
@@ -47,16 +47,16 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var localPlayer = GKLocalPlayer.localPlayer()
-        localPlayer.authenticateHandler = {(viewController : UIViewController!, error : NSError!) -> Void in
+        let localPlayer = GKLocalPlayer.localPlayer()
+        localPlayer.authenticateHandler = {(viewController : UIViewController?, error : NSError?) -> Void in
             if ((viewController) != nil) {
-                self.presentViewController(viewController, animated: true, completion: nil)
+                self.presentViewController(viewController!, animated: true, completion: nil)
             }
             else
             {
                 if GKLocalPlayer.localPlayer().authenticated == true
                 {
-                    println((GKLocalPlayer.localPlayer().authenticated))
+                    print((GKLocalPlayer.localPlayer().authenticated))
                     GKLocalPlayer.localPlayer().registerListener(self)
                     self.gameCenter = true
                 }
@@ -105,7 +105,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     
     func showLeaderboard()
     {
-        var gcViewController: GKGameCenterViewController = GKGameCenterViewController()
+        let gcViewController: GKGameCenterViewController = GKGameCenterViewController()
         gcViewController.gameCenterDelegate = self
         
         gcViewController.viewState = GKGameCenterViewControllerState.Leaderboards
@@ -118,7 +118,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     
     func showAchievements()
     {
-        var gcViewController: GKGameCenterViewController = GKGameCenterViewController()
+        let gcViewController: GKGameCenterViewController = GKGameCenterViewController()
         gcViewController.gameCenterDelegate = self
         
         gcViewController.viewState = GKGameCenterViewControllerState.Achievements
@@ -129,16 +129,16 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     
     func resetGameCenter()
     {
-        GKAchievement.resetAchievementsWithCompletionHandler { (error: NSError!) -> Void in
+        GKAchievement.resetAchievementsWithCompletionHandler { (error: NSError?) -> Void in
             if error != nil
             {
-                println("Error: \(error)")
+                print("Error: \(error)")
             }
         }
         
         for anAchievement in self.gameCenterAchievementsReal
         {
-            var anAchievementG = anAchievement as! GKAchievement
+            let anAchievementG = anAchievement as! GKAchievement
             anAchievementG.percentComplete = 0
         }
         
@@ -149,51 +149,46 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     
     func submitWin(score: NSInteger)
     {
-        var leaderboardID = "challengesWon"
-        var sScore = GKScore(leaderboardIdentifier: leaderboardID)
+        let leaderboardID = "challengesWon"
+        let sScore = GKScore(leaderboardIdentifier: leaderboardID)
         sScore.value = Int64(score)
         
-        let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
-        
-        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError!) -> Void in
+        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
             if error != nil {
-                println(error.localizedDescription)
+                print(error!.localizedDescription)
             } else {
-                println("Score submitted")
+                print("Score submitted")
             }
         })
     }
     
     func submitScore(score: NSInteger)
     {
-        var leaderboardID = "zombiesKilled"
-        var sScore = GKScore(leaderboardIdentifier: leaderboardID)
+        let leaderboardID = "zombiesKilled"
+        let sScore = GKScore(leaderboardIdentifier: leaderboardID)
         sScore.value = Int64(score)
         
-        let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
-        
-        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError!) -> Void in
+        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
             if error != nil {
-                println(error.localizedDescription)
+                print(error!.localizedDescription)
             } else {
-                println("Score submitted")
+                print("Score submitted")
             }
         })
     }
     
     func gameCenterLoadAchievements(){
         // load all prev. achievements for GameCenter for the user to progress can be added
-        var allAchievements=[GKAchievement]()
         
-        GKAchievement.loadAchievementsWithCompletionHandler({ (allAchievements, error:NSError!) -> Void in
+        GKAchievement.loadAchievementsWithCompletionHandler({ (retrivedAllAchievements, error:NSError?) -> Void in
             if error != nil{
-                println("Game Center: could not load achievements, error: \(error)")
+                print("Game Center: could not load achievements, error: \(error)")
             } else {
-                if allAchievements != nil
+                if retrivedAllAchievements != nil
                 {
-                    for anAchievement in allAchievements  {
-                        if let oneAchievement = anAchievement as? GKAchievement {
-                            self.gameCenterAchievements[oneAchievement.identifier]=oneAchievement
+                    for anAchievement in retrivedAllAchievements!  {
+                        if let oneAchievement = anAchievement as GKAchievement! {
+                            self.gameCenterAchievements[oneAchievement.identifier!]=oneAchievement
                             self.gameCenterAchievementsReal.addObject(oneAchievement)
                         }
                     }
@@ -205,7 +200,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     func gameCenterAddProgressToAnAchievement(progress:Double,achievementID:String) {
         if gameCenter == true
         {
-            var lookupAchievement:GKAchievement? = gameCenterAchievements[achievementID]
+            let lookupAchievement:GKAchievement? = gameCenterAchievements[achievementID]
             
             if let achievement = lookupAchievement {
                 // found the achievement with the given achievementID, check if it already 100% done
@@ -219,21 +214,21 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
                     }  // show banner only if achievement is fully granted (progress is 100%)
                     
                     // try to report the progress to the Game Center
-                    GKAchievement.reportAchievements([achievement], withCompletionHandler:  {(var error:NSError!) -> Void in
+                    GKAchievement.reportAchievements([achievement], withCompletionHandler:  {(error:NSError?) -> Void in
                         if error != nil {
-                            println("Couldn't save achievement (\(achievementID)) progress to \(progress) %")
+                            print("Couldn't save achievement (\(achievementID)) progress to \(progress) %")
                         }
                     })
                 }
                 else
                 {// achievemnt already granted, nothing to do
-                    println("DEBUG: Achievement (\(achievementID)) already granted")
+                    print("DEBUG: Achievement (\(achievementID)) already granted")
                 }
-                    println("Percent: \(achievement.percentComplete)")
+                    print("Percent: \(achievement.percentComplete)")
             }
             else
             { // never added  progress for this achievement, create achievement now, recall to add progress
-                println("No achievement with ID (\(achievementID)) was found, no progress for this one was recoreded yet. Create achievement now.")
+                print("No achievement with ID (\(achievementID)) was found, no progress for this one was recoreded yet. Create achievement now.")
                 gameCenterAchievements[achievementID] = GKAchievement(identifier: achievementID)
                 // recursive recall this func now that the achievement exist
                 gameCenterAddProgressToAnAchievement(progress, achievementID: achievementID)
@@ -241,7 +236,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         }
     }
     
-    func gameCenterViewControllerDidFinish(gcViewController: GKGameCenterViewController!)
+    func gameCenterViewControllerDidFinish(gcViewController: GKGameCenterViewController)
     {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -260,50 +255,50 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     
     func findMatchWithMinPlayers(minPlayers: NSInteger, maxPlayers: NSInteger)
     {
-        var request = GKMatchRequest()
+        let request = GKMatchRequest()
         request.minPlayers = minPlayers
         request.maxPlayers = maxPlayers
         
-        var viewControllerMatch = GKMatchmakerViewController(matchRequest: request)
-        viewControllerMatch.matchmakerDelegate = self
+        let viewControllerMatch = GKMatchmakerViewController(matchRequest: request)
+        viewControllerMatch!.matchmakerDelegate = self
         
-        self.showViewController(viewControllerMatch, sender: self)
-        self.navigationController?.pushViewController(viewControllerMatch, animated: true)
+        self.showViewController(viewControllerMatch!, sender: self)
+        self.navigationController?.pushViewController(viewControllerMatch!, animated: true)
     }
     
-    func matchmakerViewControllerWasCancelled(viewController: GKMatchmakerViewController!)
+    func matchmakerViewControllerWasCancelled(viewController: GKMatchmakerViewController)
     {
         viewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func matchmakerViewController(viewController: GKMatchmakerViewController!, didFailWithError error: NSError!)
+    func matchmakerViewController(viewController: GKMatchmakerViewController, didFailWithError error: NSError)
     {
         viewController.dismissViewControllerAnimated(true, completion: nil)
-        println("Matching failed with error: \(error)")
+        print("Matching failed with error: \(error)")
     }
     
-    func matchmakerViewController(viewController: GKMatchmakerViewController!, didReceiveAcceptFromHostedPlayer playerID: String!)
+    func matchmakerViewController(viewController: GKMatchmakerViewController, didReceiveAcceptFromHostedPlayer playerID: String)
     {
-        println("Game Accepted from player \(playerID)")
+        print("Game Accepted from player \(playerID)")
     }
     
-    func matchmakerViewController(viewController: GKMatchmakerViewController!, didFindPlayers playerIDs: [AnyObject]!)
+    func matchmakerViewController(viewController: GKMatchmakerViewController, didFindPlayers playerIDs: [String])
     {
-        println("Found Players With Name: \(playerIDs[0])")
+        print("Found Players With Name: \(playerIDs[0])")
     }
     
-    func player(player: GKPlayer!, didAcceptInvite invite: GKInvite!)
+    func player(player: GKPlayer, didAcceptInvite invite: GKInvite)
     {
         let mmvc = GKMatchmakerViewController(invite: invite)
-        mmvc.matchmakerDelegate = self
-        self.presentViewController(mmvc, animated: true, completion: nil)
+        mmvc!.matchmakerDelegate = self
+        self.presentViewController(mmvc!, animated: true, completion: nil)
     }
     
-    func matchmakerViewController(viewController: GKMatchmakerViewController!, didFindMatch match: GKMatch!)
+    func matchmakerViewController(viewController: GKMatchmakerViewController, didFindMatch match: GKMatch)
     {
         if (!self.matchStarted && match.expectedPlayerCount == 0) {
             NSLog("Ready to start match!")
-            println("Players: \(match.players)")
+            print("Players: \(match.players)")
             
             self.currentMatch = match
             match.delegate = self
@@ -321,7 +316,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         }
     }
     
-    func match(match: GKMatch!, player playerID: String!, didChangeState state: GKPlayerConnectionState)
+    func match(match: GKMatch, player playerID: String, didChangeState state: GKPlayerConnectionState)
     {
         switch (state)
         {
@@ -343,16 +338,16 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
                 self.matchStarted = false
                 break
             default:
-                let NOTHING = "BLAHBLAHBLAH"
+                _ = "BLAHBLAHBLAH"
         }
     }
     
-    func match(match: GKMatch!, shouldReinviteDisconnectedPlayer player: GKPlayer!) -> Bool
+    func match(match: GKMatch, shouldReinviteDisconnectedPlayer player: GKPlayer) -> Bool
     {
         return true
     }
     
-    func match(matchCurrent: GKMatch!, didReceiveData data: NSData!, fromRemotePlayer player: GKPlayer!)
+    func match(matchCurrent: GKMatch, didReceiveData data: NSData, fromRemotePlayer player: GKPlayer)
     {
         if self.COOPChallenge == true
         {
@@ -365,7 +360,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         }
     }
     
-    func match(matchCurrent: GKMatch!, didReceiveData data: NSData!, fromPlayer playerID: String!)
+    func match(matchCurrent: GKMatch, didReceiveData data: NSData, fromPlayer playerID: String)
     {
         if self.COOPChallenge == true
         {
@@ -380,7 +375,10 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     
     func sendData(matchCurrent: GKMatch!, withData data: NSData!)
     {
-        matchCurrent.sendDataToAllPlayers(data, withDataMode: GKMatchSendDataMode.Unreliable, error: nil)
+        do {
+            try matchCurrent.sendDataToAllPlayers(data, withDataMode: GKMatchSendDataMode.Unreliable)
+        } catch _ {
+        }
     }
     
     func presentTitleScene()
@@ -570,15 +568,15 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         return true
     }
 
-    override func supportedInterfaceOrientations() -> Int
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
     {
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone
         {
-            return Int(UIInterfaceOrientationMask.Landscape.rawValue)
+            return UIInterfaceOrientationMask.Landscape
         }
         else
         {
-            return Int(UIInterfaceOrientationMask.Landscape.rawValue)
+            return UIInterfaceOrientationMask.Landscape
         }
     }
 
