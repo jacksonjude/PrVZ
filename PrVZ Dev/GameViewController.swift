@@ -40,6 +40,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     var matchStarted = false
     var multiplayerSceneRef:MultiplayerScene = MultiplayerScene.unarchiveFromFile("MultiplayerScene") as! MultiplayerScene
     var challengeSceneRef:ChallengeScene = ChallengeScene.unarchiveFromFile("ChallengeScene") as! ChallengeScene
+    var gameSceneRef = GameScene.unarchiveFromFile("GameScene") as? GameScene
     var currentMatch: GKMatch? = nil
     var gameCenter = false
     var COOPChallenge = Bool()
@@ -463,28 +464,25 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     
     func presentGameScene()
     {
-        if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene
-        {
-            // Configure the view.
-            let skView = self.view as! SKView
-            skView.showsFPS = true
-            skView.showsNodeCount = true
-            
-            /* Sprite Kit applies additional optimizations to improve rendering performance */
-            skView.ignoresSiblingOrder = true
-            
-            /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
-            
-            scene.zombiesToSpawnSlider = self.zombiesToSpawnSlider
-            scene.joystickSwitch = self.joystickSwitch
-            scene.zombieSpeedSlider = self.zombieSpeedSlider
-            scene.volumeSlider = self.volumeSlider
-            scene.volumeSlider?.hidden = true
-            scene.gameViewController1 = self
-            
-            skView.presentScene(scene)
-        }
+        // Configure the view.
+        let skView = self.view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
+        
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
+        
+        /* Set the scale mode to scale to fit the window */
+        self.gameSceneRef!.scaleMode = .AspectFill
+        
+        self.gameSceneRef!.zombiesToSpawnSlider = self.zombiesToSpawnSlider
+        self.gameSceneRef!.joystickSwitch = self.joystickSwitch
+        self.gameSceneRef!.zombieSpeedSlider = self.zombieSpeedSlider
+        self.gameSceneRef!.volumeSlider = self.volumeSlider
+        self.gameSceneRef!.volumeSlider?.hidden = true
+        self.gameSceneRef!.gameViewController1 = self
+        
+        skView.presentScene(self.gameSceneRef)
     }
     
     func presentMultiplayerScene()
@@ -566,6 +564,15 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     override func shouldAutorotate() -> Bool
     {
         return true
+    }
+    
+    override func motionEnded(motion: UIEventSubtype,
+        withEvent event: UIEvent?)
+    {
+        if motion == .MotionShake
+        {
+            self.gameSceneRef?.shakeMotion()
+        }
     }
 
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask

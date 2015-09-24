@@ -15,7 +15,7 @@ class CatZombie: GenericZombie
     override init()
     {
         let zombieTexture = SKTexture(imageNamed: "cat.png")
-        super.init(texture: zombieTexture)
+        super.init(texture: zombieTexture, size: CGSize(width: 0.1, height: 0.1))
     }
 
     required init?(coder aDecoder: NSCoder) {

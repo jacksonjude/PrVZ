@@ -45,7 +45,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
             defaults.setObject(0, forKey: "highScore")
         }
                 
-        let background = SKSpriteNode(imageNamed: "background.png")
+        let background = SKSpriteNode(imageNamed: "backgroundg.png")
         background.zPosition = -2
         background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         self.addChild(background)

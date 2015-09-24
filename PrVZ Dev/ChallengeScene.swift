@@ -36,7 +36,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView)
     {
-        let background = SKSpriteNode(imageNamed: "background.png")
+        let background = SKSpriteNode(imageNamed: "backgroundg.png")
         background.zPosition = -20
         background.name = "background"
         background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))

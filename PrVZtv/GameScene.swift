@@ -10,7 +10,6 @@ import Foundation
 import SpriteKit
 import UIKit
 import AVFoundation
-import CoreMotion
 import GameController
 
 private var backgroundMusicPlayer: AVAudioPlayer!
@@ -24,11 +23,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     var princess1 = Princess()
     var princessHealth = Float()
-    var zombies = NSMutableArray()
+    var zombies = Array<GenericZombie>()
     var gameIsRunning = false
     var canPressButtons = true
     var zombieSpeed: CGFloat = 1.0
-    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blueColor(), joystickRadius:50, joystickColor:SKColor.redColor())
     var joystickBool = true
     var buttons = SKNode()
     var brushInWorld = false
@@ -36,10 +34,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var zombiesKilled = 0
     var coins = 0
     var coinsLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-    var zombiesToSpawnSlider: UISlider?
-    var joystickSwitch: UISwitch?
-    var zombieSpeedSlider: UISlider?
-    var volumeSlider: UISlider?
     var gameViewController1: GameViewController?
     var infBrushItem = Bool()
     var healthPack = Bool()
@@ -66,12 +60,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var brushesInWorld = 0
     var justBoughtHealthPack = false
     var pets = NSMutableDictionary()
-    lazy var motionManager: CMMotionManager =
-    {
-        let motion = CMMotionManager()
-        motion.accelerometerUpdateInterval = 1.0/10.0
-        return motion
-    }()
+    var controller = GCController()
+    var toggleTilt = false
     
     deinit
     {
@@ -240,59 +230,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.princess1.physicsBody?.usesPreciseCollisionDetection = true
         self.addChild(self.princess1)
         
-        let pauseButton = SKButton(defaultButtonImage: "pause", activeButtonImage: "pause", buttonAction: pauseGame)
-        pauseButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)+100)
-        pauseButton.name = "pauseButton"
-        pauseButton.hidden = true
-        pauseButton.userInteractionEnabled = false
-        self.addChild(pauseButton)
+        GCController.startWirelessControllerDiscoveryWithCompletionHandler { () -> Void in
+            NSLog("Done with wireless discovery")
+        }
         
-        let fireButton = SKButton(defaultButtonImage: "fireButton", activeButtonImage: "fireButtonPressed", buttonAction: self.addBrush)
-        fireButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-200)
-        fireButton.name = "fire"
-        self.addChild(fireButton)
-        
-        self.joystick.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: CGRectGetMidY(self.frame)-200)
-        self.joystick.name = "joystick"
-        self.addChild(joystick)
-        
-        let startButton = SKButton(defaultButtonImage: "startButtonGame", activeButtonImage: "startButtonGamePressed", buttonAction: runGame)
-        startButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)+200)
-        startButton.name = "start"
-        self.buttons.addChild(startButton)
-        
-        let storeButton = SKButton(defaultButtonImage: "storeButton", activeButtonImage: "storeButtonPressed", buttonAction: store)
-        storeButton.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)+200)
-        storeButton.name = "store"
-        self.buttons.addChild(storeButton)
-        
-        let settingsButton = SKButton(defaultButtonImage: "settingsButton", activeButtonImage: "settingsButtonPressed", buttonAction: settings)
-        settingsButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+200)
-        settingsButton.name = "settingsButton"
-        self.buttons.addChild(settingsButton)
-        
-        self.addChild(self.buttons)
-        
-        let bar = SKShapeNode()
+        /*let bar = SKShapeNode()
         bar.path = CGPathCreateWithRect(CGRectMake(32, 0, 960, 235), nil)
         bar.fillColor = SKColor.grayColor()
         bar.name = "bar"
         bar.position = CGPoint(x: 0, y: CGRectGetMidY(self.frame)+125)
         bar.zPosition = -1
-        self.addChild(bar)
-        
-        self.zombiesToSpawnSlider?.hidden = true
-        self.zombiesToSpawnSlider?.userInteractionEnabled = false
-        self.zombiesToSpawnSlider?.maximumValue = 9
-        self.zombiesToSpawnSlider?.minimumValue = 3
-        
-        self.joystickSwitch?.hidden = true
-        self.joystickSwitch?.userInteractionEnabled = false
-        
-        self.zombieSpeedSlider?.hidden = true
-        self.zombieSpeedSlider?.userInteractionEnabled = false
-        self.zombieSpeedSlider?.minimumValue = 1
-        self.zombieSpeedSlider?.maximumValue = 4
+        self.addChild(bar)*/
         
         self.coinsLabel.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMidY(self.frame)+90)
         self.coinsLabel.fontColor = SKColor.redColor()
@@ -394,14 +342,80 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             defaults.setObject(NSMutableArray(), forKey: "petUUIDS")
         }
-                        
+                
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillTerminateNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillResignActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationWillEnterForegroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"changedValues", name: NSUbiquitousKeyValueStoreDidChangeExternallyNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserverForName(GCControllerDidConnectNotification, object: nil, queue: nil) { note in
+            NSLog("GCControllerDidConnectNotification")
+            self.controller = GCController.controllers().first!
+            self.controller.playerIndex = GCControllerPlayerIndex(rawValue: 0)!
             
+            //4
+            if self.controller.microGamepad != nil
+            {
+                //5
+                
+                self.controller.microGamepad?.valueChangedHandler = { (gamepad, element) -> Void in
+                    if element == self.controller.microGamepad?.buttonA
+                    {
+                        if self.gamePaused == false
+                        {
+                            self.addBrush()
+                        }
+                        else
+                        {
+                            self.calibratePrincess()
+                        }
+                    }
+                    if element == self.controller.microGamepad?.buttonX && self.controller.microGamepad?.buttonX.pressed == false
+                    {
+                        if self.gameIsRunning == false
+                        {
+                            self.calibratePrincess()
+                            self.runGame()
+                        }
+                        else
+                        {
+                            if self.gamePaused == true
+                            {
+                                self.resumeGame()
+                            }
+                            else
+                            {
+                                self.pauseGame()
+                            }
+                        }
+                    }
+                    if element == self.controller.microGamepad?.dpad && self.gamePaused == false && self.toggleTilt == false
+                    {
+                        if self.controller.microGamepad?.dpad.left.value > 0.0
+                        {
+                            self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+CGFloat((self.controller.microGamepad?.dpad.left.value)!*5))
+                        }
+                        
+                        if self.controller.microGamepad?.dpad.right.value > 0.0
+                        {
+                            self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat((self.controller.microGamepad?.dpad.right.value)!*5))
+                        }
+                    }
+                }
+                
+                /*self.controller.microGamepad?.buttonX.pressedChangedHandler = { (button, value, pressed) -> Void in
+                self.addBrush()
+                }*/
+                
+            }
+            
+            self.controller.motion?.valueChangedHandler = { (motion) -> Void in
+                if self.gamePaused == false && self.toggleTilt == true
+                {
+                    self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat(((self.controller.motion?.gravity.x)!)*12))
+                    //NSLog("%d", (self.controller.motion?.gravity.x)!)
+                }
+            }
         }
         
         
@@ -414,39 +428,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 self.canPressButtons = false
                 if let zombiesData = defaults.objectForKey("zombies") as? NSData
                 {
-                    let zombiesUnarchived = NSKeyedUnarchiver.unarchiveObjectWithData(zombiesData) as! NSMutableArray
+                    let zombiesUnarchived = NSKeyedUnarchiver.unarchiveObjectWithData(zombiesData) as! Array<GenericZombie>
                     self.zombies = zombiesUnarchived
+                    
+                    var prevoiusZombie = GenericZombie()
                     
                     for aZombie in zombies
                     {
-                        let aZombieSK = aZombie as! SKSpriteNode
-                        self.addChild(aZombieSK)
+                        if prevoiusZombie != aZombie
+                        {
+                            self.addChild(aZombie)
+                        }
+                        prevoiusZombie = aZombie
                     }
-                }
-                
-                if self.zombieSpeedSlider?.value == 1
-                {
-                    let speedDivider = self.wavesCompleted / 8
-                    if speedDivider >= 1
-                    {
-                        self.zombieSpeed = CGFloat(speedDivider)
-                    }
-                    else
-                    {
-                        self.zombieSpeed = 1
-                    }
-                }
-                else
-                {
-                    let zombieSpeedToMakeAsACGFloat = self.zombieSpeedSlider?.value
-                    self.zombieSpeed = CGFloat(zombieSpeedToMakeAsACGFloat!)
                 }
                 
                 self.pauseGame()
             }
+            else
+            {
+                self.setUpAudio()
+                
+                //self.runGame()
+            }
         }
-        
-        self.setUpAudio()
+        else
+        {
+            self.setUpAudio()
+
+            //self.runGame()
+        }
     }
     
     func runGame()
@@ -518,26 +529,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             zombiesKilledLabel.removeFromParent()
         }
         
-        if self.zombieSpeedSlider?.value == 1
-        {
-            let speedDivider = self.wavesCompleted / 8
-            if speedDivider >= 1
-            {
-                self.zombieSpeed = CGFloat(speedDivider)
-            }
-            else
-            {
-                self.zombieSpeed = 1
-            }
-        }
-        else
-        {
-            let zombieSpeedToMakeAsACGFloat = self.zombieSpeedSlider?.value
-            self.zombieSpeed = CGFloat(zombieSpeedToMakeAsACGFloat!)
-        }
-        
-        let numberOfZombiesToMakeAsAFloat = self.zombiesToSpawnSlider?.value
-        let zombiesToSpawn = NSInteger(numberOfZombiesToMakeAsAFloat!)
+        let zombiesToSpawn = 3
         
         var zombiesSpawned = 0
         while zombiesSpawned != zombiesToSpawn
@@ -582,7 +574,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         NSLog("%f", self.princess1.position.y)
                     })])
                     cat1.runAction(SKAction.repeatActionForever(sequence))
-                    self.zombies.addObject(cat1)
+                    self.zombies.insert(cat1, atIndex: self.zombies.count)
+                    //self.zombies.addObject(cat1)
                 }
                 else
                 {
@@ -601,7 +594,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     zombie1.physicsBody?.usesPreciseCollisionDetection = true
                     let moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
                     zombie1.runAction(SKAction.repeatActionForever(moveBy))
-                    self.zombies.addObject(zombie1)
+                    self.zombies.insert(zombie1, atIndex: self.zombies.count)
+                    //self.zombies.addObject(zombie1)
                 }
 
             }
@@ -622,14 +616,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 zombie1.physicsBody?.usesPreciseCollisionDetection = true
                 let moveBy = SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)
                 zombie1.runAction(SKAction.repeatActionForever(moveBy))
-                self.zombies.addObject(zombie1)
+                self.zombies.insert(zombie1, atIndex: self.zombies.count)
+                //self.zombies.addObject(zombie1)
             }
             zombiesSpawned++
         }
         
         for aZombie in self.zombies
         {
-            self.addChild(aZombie as! SKNode)
+            self.addChild(aZombie)
         }
         
         self.gameIsRunning = true
@@ -788,12 +783,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     defaults.setObject(1, forKey: "zombieKills")
                 }
             }
-            let deadZombie = SKSpriteNode(imageNamed: "ash.png")
+            let deadZombie = GenericZombie(texture: SKTexture(imageNamed: "ash.png"), size: CGSize(width: 1.0, height: 1.0))
             deadZombie.name = "ash"
             deadZombie.position = monster.position
             monster.removeFromParent()
-            self.zombies.removeObject(monster)
-            self.zombies.addObject(deadZombie)
+            self.zombies.removeAtIndex(self.zombies.indexOf(monsterSK)!)
+            //self.zombies.removeObject(monster)
+            self.zombies.insert(deadZombie, atIndex: self.zombies.count)
+            //self.zombies.addObject(deadZombie)
             self.addChild(deadZombie)
             
             let sparkEmmitterPath:NSString = NSBundle.mainBundle().pathForResource("Smoke", ofType: "sks")!
@@ -820,18 +817,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
                 
                 defaults.setObject(highScore, forKey: "highScore")
-                
-                if let currentScoreCurrent = defaults.objectForKey("currentScore") as? NSInteger
-                {
-                    if currentScoreCurrent > highScore
-                    {
-                        gameViewController1?.submitScore(currentScoreCurrent)
-                    }
-                    else
-                    {
-                        gameViewController1?.submitScore(highScore)
-                    }
-                }
             }
             
             let chance = CGFloat(arc4random()%80)
@@ -873,46 +858,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(self.coins, forKey: "coins")
         
         self.saveData()
-        
-        if let currentScoreCurrent2 = defaults.objectForKey("currentScore") as? Double
-        {
-            if currentScoreCurrent2 <= 3
-            {
-                if self.achievementZombieFighter == false
-                {
-                    let progressDouble: Double = currentScoreCurrent2 / 0.03
-                    self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "zombieKill3")
-                    if progressDouble >= 100
-                    {
-                        self.achievementZombieFighter = true
-                    }
-                }
-            }
-            if currentScoreCurrent2 <= 50
-            {
-                if self.achievementZombieSlayer == false
-                {
-                    let progressDouble2: Double = currentScoreCurrent2 / 0.5
-                    self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble2, achievementID: "zombieKill50")
-                    if progressDouble2 >= 100
-                    {
-                        self.achievementZombieSlayer = true
-                    }
-                }
-            }
-            if currentScoreCurrent2 <= 100
-            {
-                if self.achievementZombieHunter == false
-                {
-                    let progressDouble3: Double = currentScoreCurrent2 / 1
-                    self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble3, achievementID: "zombieKill100")
-                    if progressDouble3 >= 100
-                    {
-                        self.achievementZombieHunter = true
-                    }
-                }
-            }
-        }
     }
     
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
@@ -920,12 +865,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.princessHealth--
         self.healthLostInLastRound += 1.00
         
-        let deadZombie = SKSpriteNode(imageNamed: "ash.png")
+        let monsterSK = monster as! GenericZombie
+        
+        let deadZombie = GenericZombie(texture: SKTexture(imageNamed: "ash.png"), size: CGSize(width: 1.0, height: 1.0))
         deadZombie.name = "ash"
         deadZombie.position = monster.position
         monster.removeFromParent()
-        self.zombies.removeObject(monster)
-        self.zombies.addObject(deadZombie)
+        self.zombies.removeAtIndex(self.zombies.indexOf(monsterSK)!)
+        //self.zombies.removeObject(monster)
+        self.zombies.insert(deadZombie, atIndex: self.zombies.count)
+        //self.zombies.addObject(deadZombie)
         self.addChild(deadZombie)
         
         if princessHealth <= 0
@@ -1018,7 +967,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             aZombie.removeFromParent()
         }
         
-        self.zombies.removeAllObjects()
+        self.zombies.removeAll()
         
         let zombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         zombiesKilledLabel.name = "zombiesKilledLabel"
@@ -1061,130 +1010,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.checkIsShowing2 = false
     }
     
-    func settings()
-    {
-        self.windowIsOpen = true
-        self.canPressButtons = false
-        self.saveData()
-        
-        let settingsNode = SKNode()
-        settingsNode.name = "settings"
-        
-        let backGround = SKShapeNode(circleOfRadius: 10)
-        backGround.path = CGPathCreateWithRect(CGRectMake(32, 0, 960, 720), nil)
-        backGround.fillColor = SKColor.grayColor()
-        backGround.name = "bg"
-        backGround.position = CGPoint(x: 0, y: 0)
-        backGround.zPosition = 5
-        settingsNode.addChild(backGround)
-        
-        self.zombiesToSpawnSlider?.hidden = false
-        self.zombiesToSpawnSlider?.userInteractionEnabled = true
-        
-        self.joystickSwitch?.hidden = false
-        self.joystickSwitch?.userInteractionEnabled = true
-        
-        self.zombieSpeedSlider?.hidden = false
-        self.zombieSpeedSlider?.userInteractionEnabled = true
-        
-        let resetGameButton = SKButton(defaultButtonImage: "resetButton", activeButtonImage: "resetButtonPressed", buttonAction: resetGame)
-        resetGameButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)-200)
-        resetGameButton.zPosition = 6
-        settingsNode.addChild(resetGameButton)
-        
-        let saveGameButton = SKButton(defaultButtonImage: "saveButton", activeButtonImage: "saveButtonPressed", buttonAction: saveData)
-        saveGameButton.position = CGPoint(x: CGRectGetMidX(self.frame)+200, y: CGRectGetMidY(self.frame)-200)
-        saveGameButton.zPosition = 6
-        settingsNode.addChild(saveGameButton)
-        
-        let calibrate = SKButton(defaultButtonImage: "calibrate", activeButtonImage: "calibratePressed", buttonAction: calibratePrincess)
-        calibrate.position = CGPoint(x: CGRectGetMidX(self.frame)-400, y: CGRectGetMidX(self.frame)-140)
-        calibrate.zPosition = 6
-        settingsNode.addChild(calibrate)
-        
-        let menuButton = SKButton(defaultButtonImage: "menuButton", activeButtonImage: "menuButtonPressed", buttonAction: presentMenuScene)
-        menuButton.position = CGPoint(x: CGRectGetMidX(self.frame)-200, y: CGRectGetMidY(self.frame)-200)
-        menuButton.zPosition = 6
-        settingsNode.addChild(menuButton)
-        
-        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if let highScore = defaults.objectForKey("highScore") as? NSInteger
-        {
-            
-            let highScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-            highScoreLabel.fontColor = SKColor.orangeColor()
-            highScoreLabel.name = "highScoreLabel"
-            highScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+200)
-            highScoreLabel.zPosition = 6
-            settingsNode.addChild(highScoreLabel)
-            
-            highScoreLabel.text = NSString(format: "High Score: %i", highScore) as String
-        }
-        
-        self.levelsCompletedLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+100)
-        self.levelsCompletedLabel.fontColor = SKColor.blueColor()
-        self.levelsCompletedLabel.zPosition = 6
-        
-        if let levels = defaults.objectForKey("levels") as? NSInteger
-        {
-            self.levelsCompletedLabel.text = NSString(format: "Levels Completed: %i", levels) as String
-        }
-        else
-        {
-            self.levelsCompletedLabel.text = "Levels Completed: 0"
-        }
-        self.addChild(self.levelsCompletedLabel)
-        
-        let currentScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        currentScoreLabel.fontColor = SKColor.redColor()
-        currentScoreLabel.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame)+150)
-        currentScoreLabel.zPosition = 6
-        currentScoreLabel.text = NSString(format: "Curent Score: %i", self.zombiesKilled) as String
-        settingsNode.addChild(currentScoreLabel)
-        
-        let backbutton = addButton(CGPoint(x: 0, y: 0), type: "back", InMenu: "settings", WithAction: hideSettings, WithName: "backButton")
-        settingsNode.addChild(backbutton)
-        
-        self.addChild(settingsNode)
-    }
-    
     func calibratePrincess()
     {
         self.princess1.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)-100)
         self.brushInWorld = false
         self.brushesInWorld = 0
-    }
-    
-    func addButton(pos: CGPoint, type: NSString, InMenu: NSString, WithAction: () -> Void, WithName: NSString) -> SKButton
-    {
-        var posOverride = CGPoint(x: 0, y: 0)
-        if type == "back" && InMenu != "default"
-        {
-            posOverride = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame)-140)
-        }
-        
-        let button = SKButton(defaultButtonImage: WithName as String, activeButtonImage: WithName as String + "Pressed", buttonAction: WithAction)
-        if posOverride != CGPoint(x: 0, y: 0) && pos == CGPoint(x: 0, y: 0)
-        {
-            button.position = posOverride
-        }
-        else
-        {
-            button.position = pos
-        }
-        
-        if InMenu == "settings" || InMenu == "store"
-        {
-            button.zPosition = 6
-        }
-        else
-        {
-            button.zPosition = 4
-        }
-        
-        button.name = WithName as String
-        
-        return button
+        self.toggleTilt = !self.toggleTilt
     }
     
     func resetGame()
@@ -1195,15 +1026,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         backGround2.name = "background2"
         backGround2.position = CGPoint(x: 0, y: 0)
         backGround2.zPosition = 10
-        
-        self.zombiesToSpawnSlider?.hidden = true
-        self.zombiesToSpawnSlider?.userInteractionEnabled = false
-        
-        self.joystickSwitch?.hidden = true
-        self.joystickSwitch?.userInteractionEnabled = false
-        
-        self.zombieSpeedSlider?.hidden = true
-        self.zombieSpeedSlider?.userInteractionEnabled = false
         
         let textReset = SKLabelNode(fontNamed: "TimesNewRoman")
         textReset.fontColor = SKColor.redColor()
@@ -1221,12 +1043,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         textReset2.zPosition = 11
         backGround2.addChild(textReset2)
         
-        let resetButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+200, y: CGRectGetMidY(self.frame)), type: "default", InMenu: "settings", WithAction: resetYes, WithName: "resetButton")
-        backGround2.addChild(resetButton)
-        
-        let backButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)-200, y: CGRectGetMidY(self.frame)), type: "back", InMenu: "settings", WithAction: resetNo, WithName: "backButton")
-        backGround2.addChild(backButton)
-        
         self.addChild(backGround2)
     }
     
@@ -1243,31 +1059,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         defaults.setObject(0, forKey: "healthLost")
         defaults.setObject(0, forKey: "currentScore")
         
-        self.gameViewController1?.resetGameCenter()
+        //self.gameViewController1?.resetGameCenter()
                 
-        self.gameViewController1?.presentTitleScene()
+        //self.gameViewController1?.presentTitleScene()
     }
     
     func resetNo()
     {
         let background2 = self.childNodeWithName("background2")
         background2?.removeFromParent()
-        
-        self.zombiesToSpawnSlider?.hidden = false
-        self.zombiesToSpawnSlider?.userInteractionEnabled = true
-        
-        self.joystickSwitch?.hidden = false
-        self.joystickSwitch?.userInteractionEnabled = true
-        
-        self.zombieSpeedSlider?.hidden = false
-        self.zombieSpeedSlider?.userInteractionEnabled = true
-    }
-    
-    func presentMenuScene()
-    {
-        hideSettings()
-        saveData()
-        self.gameViewController1?.presentMenuScene()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
@@ -1280,311 +1080,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
             
             princess1.runAction(SKAction.fadeInWithDuration(0))
-        }
-        
-        if self.gamePaused == true
-        {
-            self.resumeGame()
-        }
-    }
-    
-    func hideSettings()
-    {
-        let settingsNode = self.childNodeWithName("settings")
-        settingsNode?.hidden = true
-        settingsNode?.removeFromParent()
-        
-        self.levelsCompletedLabel.removeFromParent()
-        
-        self.zombiesToSpawnSlider?.userInteractionEnabled = false
-        self.zombiesToSpawnSlider?.hidden = true
-        
-        self.joystickSwitch?.hidden = true
-        self.joystickSwitch?.userInteractionEnabled = false
-        
-        self.zombieSpeedSlider?.hidden = true
-        self.zombieSpeedSlider?.userInteractionEnabled = false
-        
-        self.joystickCheck()
-        
-        self.savedOnOpeningWindow = false
-        
-        self.windowIsOpen = false
-        self.canPressButtons = true
-    }
-    
-    func joystickCheck()
-    {
-        if self.joystickSwitch?.on == true
-        {
-            self.motionManager.stopAccelerometerUpdates()
-            
-            self.joystick.hidden = false
-            self.joystick.userInteractionEnabled = true
-            
-            self.joystickBool = true
-        }
-        else
-        {
-            self.joystick.hidden = true
-            self.joystick.userInteractionEnabled = false
-            
-            self.motionManager.startAccelerometerUpdates()
-            
-            self.joystickBool = false
-        }
-    }
-    
-    func store()
-    {
-        self.windowIsOpen = true
-        self.storeIsOpen = true
-        self.canPressButtons = false
-        
-        let storeNode = SKNode()
-        storeNode.name = "store"
-        
-        let backGround = SKShapeNode(circleOfRadius: 10)
-        backGround.path = CGPathCreateWithRect(CGRectMake(32, 0, 960, 720), nil)
-        backGround.fillColor = SKColor.grayColor()
-        backGround.name = "bg"
-        backGround.position = CGPoint(x: 0, y: 0)
-        backGround.zPosition = 5
-        storeNode.addChild(backGround)
-        
-        let backButton = SKButton(defaultButtonImage: "backButton", activeButtonImage: "backButtonPressed", buttonAction: hideStore)
-        backButton.position = CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidX(self.frame)-140)
-        backButton.zPosition = 8
-        storeNode.addChild(backButton)
-        
-        let leftScrollButton = SKButton(defaultButtonImage: "leftScrollButton", activeButtonImage: "leftScrollButtonPressed", buttonAction: leftScroll)
-        leftScrollButton.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: backButton.position.y+200)
-        leftScrollButton.zPosition = 8
-        storeNode.addChild(leftScrollButton)
-        
-        let rightScrollButton = SKButton(defaultButtonImage: "rightScrollButton", activeButtonImage: "rightScrollButtonPressed", buttonAction: rightScroll)
-        rightScrollButton.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: backButton.position.y+200)
-        rightScrollButton.zPosition = 8
-        storeNode.addChild(rightScrollButton)
-        
-        let products = SKNode()
-        products.name = "products"
-        
-        let infiniteBrush = SKSpriteNode(imageNamed: "infiniteBrush")
-        infiniteBrush.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-        infiniteBrush.name = "infiniteBrush"
-        infiniteBrush.zPosition = 7
-        products.addChild(infiniteBrush)
-            let infiniteBrushLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-            infiniteBrushLabel.text = "Infinite Brush"
-            infiniteBrushLabel.fontSize = 64
-            infiniteBrushLabel.fontColor = SKColor.redColor()
-            infiniteBrushLabel.position = CGPoint(x: infiniteBrushLabel.position.x, y: infiniteBrushLabel.position.y+50)
-            infiniteBrush.addChild(infiniteBrushLabel)
-        let infiniteBrushBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemInfBrush)
-        infiniteBrushBuyButton.position = CGPoint(x: infiniteBrushBuyButton.position.x, y: infiniteBrushBuyButton.position.y-200)
-        infiniteBrushBuyButton.name = "infBrushButton"
-        infiniteBrush.addChild(infiniteBrushBuyButton)
-            let coinsCost = SKLabelNode(fontNamed: "TimesNewRoman")
-            coinsCost.text = "40"
-            coinsCost.fontSize = 24
-            coinsCost.fontColor = SKColor.orangeColor()
-            coinsCost.position = CGPoint(x: infiniteBrushBuyButton.position.x-30, y: infiniteBrushBuyButton.position.y)
-            coinsCost.zPosition = 8
-            infiniteBrushBuyButton.addChild(coinsCost)
-        
-        self.storeButtons.addObject(infiniteBrushBuyButton)
-        
-        let healthPack = SKSpriteNode(imageNamed: "healthPack.png")
-        healthPack.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-        healthPack.name = "healthPack"
-        healthPack.zPosition = 7
-        products.addChild(healthPack)
-        let HealthPackBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemHealthPack)
-        HealthPackBuyButton.position = CGPoint(x: HealthPackBuyButton.position.x, y: HealthPackBuyButton.position.y-200)
-        HealthPackBuyButton.name = "HealthPackBuyButton"
-        healthPack.addChild(HealthPackBuyButton)
-        self.storeButtons.addObject(HealthPackBuyButton)
-        
-        let coinsCost2 = SKLabelNode(fontNamed: "TimesNewRoman")
-        coinsCost2.text = "60"
-        coinsCost2.fontSize = 24
-        coinsCost2.fontColor = SKColor.orangeColor()
-        coinsCost2.position = CGPoint(x: HealthPackBuyButton.position.x-30, y: HealthPackBuyButton.position.y)
-        coinsCost2.zPosition = 8
-        HealthPackBuyButton.addChild(coinsCost2)
-        
-        healthPack.hidden = true
-        healthPack.userInteractionEnabled = false
-        let button = healthPack.childNodeWithName("HealthPackBuyButton")
-        button?.removeFromParent()
-        
-        let battery = SKSpriteNode(imageNamed: "battery")
-        battery.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-        battery.name = "battery"
-        battery.zPosition = 7
-        products.addChild(battery)
-        
-        battery.hidden = true
-        battery.userInteractionEnabled = false
-        
-        storeNode.addChild(products)
-        self.addChild(storeNode)
-    }
-    
-    func buyItemInfBrush()
-    {
-        if self.coins > 39
-        {
-            self.coins-=40
-            self.infBrushItem = true
-            self.brushInWorld = false
-        }
-        
-        let progressDouble: Double = 100
-        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "buyItem")
-        self.brushesInWorld = 0
-    }
-    
-    func buyItemHealthPack()
-    {
-        if self.coins > 59
-        {
-            self.coins-=60
-            self.healthPack = true
-            self.princessHealth+=1
-        }
-        
-        let progressDouble: Double = 100
-        self.gameViewController1?.gameCenterAddProgressToAnAchievement(progressDouble, achievementID: "buyItem")
-        self.justBoughtHealthPack = true
-    }
-    
-    func leftScroll()
-    {
-        let store = self.childNodeWithName("store")
-        let products = store?.childNodeWithName("products")
-        let infiniteBrush = products?.childNodeWithName("infiniteBrush")
-        let healthPack = products?.childNodeWithName("healthPack")
-        let checkHealth = store?.childNodeWithName("checkHealth")
-        let checkInf = store?.childNodeWithName("checkInf")
-        let battery = products?.childNodeWithName("battery")
-        
-        if self.scrolled > 0
-        {
-            self.scrolled--
-            
-            if self.scrolled == 1
-            {
-                checkHealth?.hidden = false
-                checkInf?.hidden = true
-                infiniteBrush?.hidden = true
-                infiniteBrush?.userInteractionEnabled = false
-                healthPack?.hidden = false
-                healthPack?.userInteractionEnabled = true
-                battery?.hidden = true
-                battery?.userInteractionEnabled = false
-            }
-            
-            if self.scrolled == 0
-            {
-                checkHealth?.hidden = true
-                checkInf?.hidden = false
-                infiniteBrush?.hidden = false
-                infiniteBrush?.userInteractionEnabled = true
-                healthPack?.hidden = true
-                healthPack?.userInteractionEnabled = false
-                battery?.hidden = true
-                battery?.userInteractionEnabled = false
-                
-                let button = healthPack?.childNodeWithName("HealthPackBuyButton")
-                button?.removeFromParent()
-            }
-        }
-    }
-    
-    func rightScroll()
-    {
-        let store = self.childNodeWithName("store")
-        let products = store?.childNodeWithName("products")
-        let infiniteBrush = products?.childNodeWithName("infiniteBrush")
-        let healthPack = products?.childNodeWithName("healthPack")
-        let battery = products?.childNodeWithName("battery")
-        let checkHealth = store?.childNodeWithName("checkHealth")
-        let checkInf = store?.childNodeWithName("checkInf")
-        
-        if self.scrolled < 2
-        {
-            self.scrolled++
-            
-            if self.scrolled == 1
-            {
-                checkHealth?.hidden = false
-                checkInf?.hidden = true
-                infiniteBrush?.hidden = true
-                infiniteBrush?.userInteractionEnabled = false
-                healthPack?.hidden = false
-                healthPack?.userInteractionEnabled = true
-                battery?.hidden = true
-                battery?.userInteractionEnabled = false
-                
-                let HealthPackBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemHealthPack)
-                HealthPackBuyButton.position = CGPoint(x: HealthPackBuyButton.position.x, y: HealthPackBuyButton.position.y-200)
-                HealthPackBuyButton.name = "HealthPackBuyButton"
-                healthPack?.addChild(HealthPackBuyButton)
-                
-                let healthPackLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-                healthPackLabel.text = "Health Pack"
-                healthPackLabel.fontSize = 64
-                healthPackLabel.fontColor = SKColor.redColor()
-                healthPackLabel.position = CGPoint(x: 0, y: 100)
-                healthPack?.addChild(healthPackLabel)
-            }
-            
-            if self.scrolled == 2
-            {
-                checkHealth?.hidden = true
-                checkInf?.hidden = true
-                infiniteBrush?.userInteractionEnabled = false
-                infiniteBrush?.hidden = true
-                healthPack?.userInteractionEnabled = false
-                healthPack?.hidden = true
-                
-                battery?.userInteractionEnabled = true
-                battery?.hidden = false
-            }
-        }
-    }
-    
-    func hideStore()
-    {
-        let storeNode = self.childNodeWithName("store")
-        storeNode?.hidden = true
-        storeNode?.removeFromParent()
-        
-        self.scrolled = 0
-        
-        self.canPressButtons = true
-        self.windowIsOpen = false
-        self.storeIsOpen = false
-        self.checkIsShowing = false
-        self.checkIsShowing2 = false
-        
-        self.savedOnOpeningWindow = false
-        
-        if self.justBoughtHealthPack == true
-        {
-            let healthGainedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-            healthGainedLabel.text = "+1"
-            healthGainedLabel.fontColor = SKColor.greenColor()
-            healthGainedLabel.fontSize = 32
-            healthGainedLabel.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+75)
-            healthGainedLabel.runAction(SKAction.moveToY(healthGainedLabel.position.y+20, duration: 1))
-            healthGainedLabel.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(1), SKAction.runBlock({
-                healthGainedLabel.removeFromParent()
-            })]))
-            self.addChild(healthGainedLabel)
-            self.justBoughtHealthPack = false
         }
     }
     
@@ -1658,18 +1153,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if let highScore = defaults.objectForKey("highScore") as? NSInteger
         {
             defaultsGroup.setObject(highScore, forKey: "highScore")
-            if let currentScoreCurrent = defaults.objectForKey("currentScore") as? NSInteger
-            {
-                defaultsGroup.setObject(currentScoreCurrent, forKey: "currentScore")
-                if currentScoreCurrent > highScore
-                {
-                    gameViewController1?.submitScore(currentScoreCurrent)
-                }
-                else
-                {
-                    gameViewController1?.submitScore(highScore)
-                }
-            }
         }
         if let levels = defaults.objectForKey("levels") as? NSInteger
         {
@@ -1683,8 +1166,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             for aZombie in self.zombies
             {
-                let aZombieSK = aZombie as! SKSpriteNode
-                aZombieSK.removeAllActions()
+                aZombie.removeAllActions()
             }
             
             let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
@@ -1714,17 +1196,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 {
                     aZombie.removeFromParent()
                 }
-                self.zombies.removeAllObjects()
+                self.zombies.removeAll()
                 
                 if let zombiesData = defaults.objectForKey("zombies") as? NSData
                 {
-                    let zombiesUnarchived = NSKeyedUnarchiver.unarchiveObjectWithData(zombiesData) as! NSMutableArray
+                    let zombiesUnarchived = NSKeyedUnarchiver.unarchiveObjectWithData(zombiesData) as! Array<GenericZombie>
                     self.zombies = zombiesUnarchived
                     
                     for aZombie in zombies
                     {
-                        let aZombieSK = aZombie as! SKSpriteNode
-                        self.addChild(aZombieSK)
+                        self.addChild(aZombie)
                     }
                 }
                 
@@ -1740,19 +1221,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         for aZombie in self.zombies
         {
-            let aZombieSK = aZombie as! SKSpriteNode
-            aZombieSK.removeAllActions()
-        }
-        
-        if let pauseButton = self.childNodeWithName("pauseButton")
-        {
-            pauseButton.hidden = true
-            pauseButton.userInteractionEnabled = false
-        }
-        
-        if let fireButton = self.childNodeWithName("fire")
-        {
-            fireButton.userInteractionEnabled = false
+            aZombie.removeAllActions()
         }
         
         for aBrush in self.currentBrushes
@@ -1772,8 +1241,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         
-        self.joystick.userInteractionEnabled = false
-        
         let resumeButton = SKSpriteNode(imageNamed: "resume")
         resumeButton.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         resumeButton.name = "resumeButton"
@@ -1789,10 +1256,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         for aZombie in self.zombies
         {
-            if aZombie as! SKSpriteNode != self.childNodeWithName("ash")
+            if aZombie.name != "ash"
             {
-                let aZombieSK = aZombie as! SKSpriteNode
-                aZombieSK.runAction(SKAction.repeatActionForever(SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)))
+                aZombie.runAction(SKAction.repeatActionForever(SKAction.moveByX(CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)))
                 if aZombie.name == "catZombie"
                 {
                     let sequence = SKAction.sequence([SKAction.runBlock({
@@ -1806,12 +1272,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         hairball.physicsBody?.contactTestBitMask = self.princessCategory
                         hairball.physicsBody?.collisionBitMask = 0
                         hairball.physicsBody?.usesPreciseCollisionDetection = true
-                        aZombieSK.addChild(hairball)
+                        aZombie.addChild(hairball)
                     }), SKAction.waitForDuration(2), SKAction.runBlock({
                         NSLog("%f", self.princessHealth)
                     })])
-                    aZombieSK.runAction(SKAction.waitForDuration(0.5))
-                    aZombieSK.runAction(SKAction.repeatActionForever(sequence))
+                    aZombie.runAction(SKAction.waitForDuration(0.5))
+                    aZombie.runAction(SKAction.repeatActionForever(sequence))
                 }
             }
         }
@@ -1826,19 +1292,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             })
             let sequence = SKAction.sequence([move, vanish, removeBrush])
             aBrushSK.runAction(sequence)
-        }
-        
-        self.joystick.userInteractionEnabled = true
-        
-        if let fireButton = self.childNodeWithName("fire")
-        {
-            fireButton.userInteractionEnabled = true
-        }
-        
-        if let pauseButton = self.childNodeWithName("pauseButton")
-        {
-            pauseButton.hidden = false
-            pauseButton.userInteractionEnabled = true
         }
         
         if let resumeButton = self.childNodeWithName("resumeButton")
@@ -1857,26 +1310,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func shakeMotion()
     {
-        NSLog("Shake")
+        NSLog("test")
     }
     
     override func update(currentTime: NSTimeInterval)
     {
-        if self.joystickBool == true
-        {
-            let position1 = CGPoint(x: princess1.position.x, y: princess1.position.y+CGFloat(joystick.y*4))
-            self.princess1.position = position1
-        }
-        else
-        {
-            if self.motionManager.accelerometerData != nil
-            {
-                let xForce = self.motionManager.accelerometerData!.acceleration.x
-                let position1 = CGPoint(x: princess1.position.x, y: princess1.position.y-CGFloat(xForce*8))
-                self.princess1.position = position1
-            }
-        }
-        
         if self.windowIsOpen == false
         {
             if self.currentBrushes.count == 0
@@ -2043,9 +1481,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             for aZombie2 in self.zombies
             {
-                let aZombie2SK = aZombie2 as! SKSpriteNode
                 let range = NSRange(location: 0, length: 50)
-                let gameOverRange = NSLocationInRange(Int(aZombie2SK.position.x), range)
+                let gameOverRange = NSLocationInRange(Int(aZombie2.position.x), range)
                 if gameOverRange
                 {
                     self.healthLostInLastRound += princessHealth
@@ -2068,7 +1505,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
             }
             
-            if zombiesAlive == 0
+            if zombiesAlive == 0 && princessHealth > 0
             {
                 backgroundMusicPlayer.pause()
                 
@@ -2119,7 +1556,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 
                 for innerZombie in self.zombies
                 {
-                    self.zombies.removeObject(innerZombie)
+                    self.zombies.removeAtIndex(self.zombies.indexOf(innerZombie)!)
+                    //self.zombies.removeObject(innerZombie)
                     innerZombie.removeFromParent()
                     
                 }
@@ -2198,14 +1636,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
                 
                 self.saveData()
-            }
-        }
-        
-        if gameIsRunning == false
-        {
-            if self.princessHealth <= 0
-            {
-                self.princessHealth = 1
+                
+                let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                
+                if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
+                {
+                    if didComeBackFromBackground == false
+                    {
+                        self.runGame()
+                    }
+                }
+                else
+                {
+                    self.runGame()
+                }
             }
         }
         

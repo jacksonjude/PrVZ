@@ -33,7 +33,7 @@ class TitleScene: SKScene
         let flash = SKAction.repeatActionForever(SKAction.sequence([hide, wait, unhide, wait]))
         self.start.runAction(flash)
         
-        let background = SKSpriteNode(imageNamed: "background.png")
+        let background = SKSpriteNode(imageNamed: "backgroundg.png")
         background.zPosition = -2
         background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
         
