@@ -306,8 +306,80 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.zombieSpeedSlider?.minimumValue = 1
         self.zombieSpeedSlider?.maximumValue = 4
         #else
-            GCController.startWirelessControllerDiscoveryWithCompletionHandler { () -> Void in
-                NSLog("Done with wireless discovery")
+            if GCController.controllers().first != nil
+            {
+                self.controller = GCController.controllers().first!
+                self.controller.playerIndex = GCControllerPlayerIndex(rawValue: 0)!
+                
+                //4
+                if self.controller.microGamepad != nil
+                {
+                    //5
+                    
+                    self.controller.microGamepad?.valueChangedHandler = { (gamepad, element) -> Void in
+                        if element == self.controller.microGamepad?.buttonA
+                        {
+                            if self.gamePaused == false
+                            {
+                                self.addBrush()
+                            }
+                            else
+                            {
+                                self.calibratePrincess()
+                            }
+                        }
+                        if element == self.controller.microGamepad?.buttonX && self.controller.microGamepad?.buttonX.pressed == false
+                        {
+                            if self.gameIsRunning == false
+                            {
+                                self.calibratePrincess()
+                                self.runGame()
+                            }
+                            else
+                            {
+                                if self.gamePaused == true
+                                {
+                                    self.resumeGame()
+                                }
+                                else
+                                {
+                                    self.pauseGame()
+                                }
+                            }
+                        }
+                        if element == self.controller.microGamepad?.dpad && self.gamePaused == false && self.toggleTilt == false
+                        {
+                            if self.controller.microGamepad?.dpad.left.value > 0.0
+                            {
+                                self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+CGFloat((self.controller.microGamepad?.dpad.left.value)!*5))
+                            }
+                            
+                            if self.controller.microGamepad?.dpad.right.value > 0.0
+                            {
+                                self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat((self.controller.microGamepad?.dpad.right.value)!*5))
+                            }
+                        }
+                    }
+                    
+                    /*self.controller.microGamepad?.buttonX.pressedChangedHandler = { (button, value, pressed) -> Void in
+                    self.addBrush()
+                    }*/
+                    
+                }
+                
+                self.controller.motion?.valueChangedHandler = { (motion) -> Void in
+                    if self.gamePaused == false && self.toggleTilt == true
+                    {
+                        self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat(((self.controller.motion?.gravity.x)!)*12))
+                        //NSLog("%d", (self.controller.motion?.gravity.x)!)
+                    }
+                }
+            }
+            else
+            {
+                GCController.startWirelessControllerDiscoveryWithCompletionHandler { () -> Void in
+                    NSLog("Done with wireless discovery")
+                }
             }
         #endif
         
@@ -418,7 +490,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationWillEnterForegroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"changedValues", name: NSUbiquitousKeyValueStoreDidChangeExternallyNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserverForName(GCControllerDidConnectNotification, object: nil, queue: nil) { note in
-            #if os(tv)
+            #if os(tvOS)
             
             NSLog("GCControllerDidConnectNotification")
             self.controller = GCController.controllers().first!
@@ -1152,9 +1224,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.checkIsShowing2 = false
     }
     
-    #if os(iOS)
     func settings()
     {
+        #if os(iOS)
         self.windowIsOpen = true
         self.canPressButtons = false
         self.saveData()
@@ -1170,7 +1242,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         backGround.zPosition = 5
         settingsNode.addChild(backGround)
         
-        #if os(iOS)
         self.zombiesToSpawnSlider?.hidden = false
         self.zombiesToSpawnSlider?.userInteractionEnabled = true
         
@@ -1199,7 +1270,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         menuButton.position = CGPoint(x: CGRectGetMidX(self.frame)-200, y: CGRectGetMidY(self.frame)-200)
         menuButton.zPosition = 6
         settingsNode.addChild(menuButton)
-        #endif
         
         let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
         if let highScore = defaults.objectForKey("highScore") as? NSInteger
@@ -1240,15 +1310,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         settingsNode.addChild(backbutton)
         
         self.addChild(settingsNode)
+        #endif
     }
-    #endif
     
     func calibratePrincess()
     {
         self.princess1.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMidY(self.frame)-100)
         self.brushInWorld = false
         self.brushesInWorld = 0
-        #if os(tv)
+        #if os(tvOS)
             self.toggleTilt = !self.toggleTilt
         #endif
     }
@@ -1382,10 +1452,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             princess1.runAction(SKAction.fadeInWithDuration(0))
         }
         
+        #if os(iOS)
         if self.gamePaused == true
         {
             self.resumeGame()
         }
+        #endif
     }
     
     #if os(iOS)
@@ -1962,6 +2034,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         NSLog("Shake")
     }
     
+    func switchToBrush()
+    {
+        
+    }
+    
+    func switchToDryer()
+    {
+        
+    }
+    
     override func update(currentTime: NSTimeInterval)
     {
         #if os(iOS)
@@ -2173,136 +2255,286 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             
             if zombiesAlive == 0
             {
-                backgroundMusicPlayer.pause()
-                
-                if self.coins >= 100
+                #if os(tvOS)
+                if self.princessHealth > 0
                 {
-                    if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
-                    {
-                        if self.movedCoinsImage == false
-                        {
-                            coinsImage.position.x = coinsImage.position.x-20
-                            self.movedCoinsImage = true
-                        }
-                    }
-                }
-                
-                if self.coins >= 1000
-                {
-                    if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
-                    {
-                        if self.movedCoinsImage == false
-                        {
-                            coinsImage.position.x = coinsImage.position.x-20
-                            self.movedCoinsImage = true
-                        }
-                    }
-                }
-                
-                if self.coins >= 10000
-                {
-                    if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
-                    {
-                        if self.movedCoinsImage == false
-                        {
-                            coinsImage.position.x = coinsImage.position.x-20
-                            self.movedCoinsImage = true
-                        }
-                    }
-                }
-                
-                self.wavesCompleted++
-                self.gameIsRunning = false
-                
-                if let pauseButton = self.childNodeWithName("pauseButton")
-                {
-                    pauseButton.hidden = true
-                    pauseButton.userInteractionEnabled = false
-                }
-                
-                for innerZombie in self.zombies
-                {
-                    self.zombies.removeAtIndex(self.zombies.indexOf(innerZombie)!)
-                    innerZombie.removeFromParent()
-                }
-                
-                let range = NSRange(location: 15, length: 14)
-                let range2 = NSRange(location: 30, length: 14)
-                let range3 = NSRange(location: 45, length: 14)
-                let background2Bool = NSLocationInRange(self.wavesCompleted, range)
-                if background2Bool
-                {
-                    let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(2, forKey: "background")
-                    if let background = self.childNodeWithName("background")
-                    {
-                        background.removeFromParent()
-                    }
-                    let background2 = SKSpriteNode(imageNamed: "background2")
-                    background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                    background2.zPosition = -2
-                    background2.name = "background"
-                    self.addChild(background2)
+                    backgroundMusicPlayer.pause()
                     
-                    if self.wavesCompleted == 15
+                    if self.coins >= 100
                     {
-                        let gotBlowDryer = SKLabelNode(fontNamed: "TimesNewRoman")
-                        gotBlowDryer.fontColor = SKColor.orangeColor()
-                        gotBlowDryer.fontSize = 32
-                        gotBlowDryer.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                        gotBlowDryer.text = "Recived Blow Dryer!"
-                        self.addChild(gotBlowDryer)
+                        if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                        {
+                            if self.movedCoinsImage == false
+                            {
+                                coinsImage.position.x = coinsImage.position.x-20
+                                self.movedCoinsImage = true
+                            }
+                        }
+                    }
+                    
+                    if self.coins >= 1000
+                    {
+                        if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                        {
+                            if self.movedCoinsImage == false
+                            {
+                                coinsImage.position.x = coinsImage.position.x-20
+                                self.movedCoinsImage = true
+                            }
+                        }
+                    }
+                    
+                    if self.coins >= 10000
+                    {
+                        if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                        {
+                            if self.movedCoinsImage == false
+                            {
+                                coinsImage.position.x = coinsImage.position.x-20
+                                self.movedCoinsImage = true
+                            }
+                        }
+                    }
+                    
+                    self.wavesCompleted++
+                    self.gameIsRunning = false
+                    
+                    if let pauseButton = self.childNodeWithName("pauseButton")
+                    {
+                        pauseButton.hidden = true
+                        pauseButton.userInteractionEnabled = false
+                    }
+                    
+                    for innerZombie in self.zombies
+                    {
+                        self.zombies.removeAtIndex(self.zombies.indexOf(innerZombie)!)
+                        innerZombie.removeFromParent()
+                    }
+                    
+                    let range = NSRange(location: 15, length: 14)
+                    let range2 = NSRange(location: 30, length: 14)
+                    let range3 = NSRange(location: 45, length: 14)
+                    let background2Bool = NSLocationInRange(self.wavesCompleted, range)
+                    if background2Bool
+                    {
+                        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject(2, forKey: "background")
+                        if let background = self.childNodeWithName("background")
+                        {
+                            background.removeFromParent()
+                        }
+                        let background2 = SKSpriteNode(imageNamed: "background2")
+                        background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        background2.zPosition = -2
+                        background2.name = "background"
+                        self.addChild(background2)
                         
-                        gotBlowDryer.runAction(SKAction.moveToY(gotBlowDryer.position.y+40, duration: 3))
-                        gotBlowDryer.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(3), SKAction.runBlock({
-                            gotBlowDryer.removeFromParent()
-                        })]))
+                        if self.wavesCompleted == 15
+                        {
+                            let gotBlowDryer = SKLabelNode(fontNamed: "TimesNewRoman")
+                            gotBlowDryer.fontColor = SKColor.orangeColor()
+                            gotBlowDryer.fontSize = 32
+                            gotBlowDryer.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                            gotBlowDryer.text = "Recived Blow Dryer!"
+                            self.addChild(gotBlowDryer)
+                            
+                            gotBlowDryer.runAction(SKAction.moveToY(gotBlowDryer.position.y+40, duration: 3))
+                            gotBlowDryer.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(3), SKAction.runBlock({
+                                gotBlowDryer.removeFromParent()
+                            })]))
+                            
+                            /*var brushButton =*/
+                        }
+                    }
+                    
+                    let background3Bool = NSLocationInRange(self.wavesCompleted, range2)
+                    if background3Bool
+                    {
+                        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject(3, forKey: "background")
+                        if let background = self.childNodeWithName("background")
+                        {
+                            background.removeFromParent()
+                        }
+                        let background3 = SKSpriteNode(imageNamed: "background3")
+                        background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        background3.zPosition = -2
+                        background3.name = "background"
+                        self.addChild(background3)
+                    }
+                    
+                    let background4Bool = NSLocationInRange(self.wavesCompleted, range3)
+                    if background4Bool
+                    {
+                        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject(4, forKey: "background")
+                        if let background = self.childNodeWithName("background")
+                        {
+                            background.removeFromParent()
+                        }
+                        let background3 = SKSpriteNode(imageNamed: "background4")
+                        background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        background3.zPosition = -2
+                        background3.name = "background"
+                        self.addChild(background3)
+                    }
+                    
+                    if self.princessHealth != 0
+                    {
+                        self.canPressButtons = true
+                    }
+                    
+                    self.saveData()
+                    
+                    let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                    
+                    if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
+                    {
+                        if didComeBackFromBackground == false
+                        {
+                            self.runGame()
+                        }
+                    }
+                    else
+                    {
+                        self.runGame()
+                    }
+                }
+                #endif
+                #if os(iOS)
+                    backgroundMusicPlayer.pause()
+                    
+                    if self.coins >= 100
+                    {
+                        if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                        {
+                            if self.movedCoinsImage == false
+                            {
+                                coinsImage.position.x = coinsImage.position.x-20
+                                self.movedCoinsImage = true
+                            }
+                        }
+                    }
+                    
+                    if self.coins >= 1000
+                    {
+                        if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                        {
+                            if self.movedCoinsImage == false
+                            {
+                                coinsImage.position.x = coinsImage.position.x-20
+                                self.movedCoinsImage = true
+                            }
+                        }
+                    }
+                    
+                    if self.coins >= 10000
+                    {
+                        if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                        {
+                            if self.movedCoinsImage == false
+                            {
+                                coinsImage.position.x = coinsImage.position.x-20
+                                self.movedCoinsImage = true
+                            }
+                        }
+                    }
+                    
+                    self.wavesCompleted++
+                    self.gameIsRunning = false
+                    
+                    if let pauseButton = self.childNodeWithName("pauseButton")
+                    {
+                        pauseButton.hidden = true
+                        pauseButton.userInteractionEnabled = false
+                    }
+                    
+                    for innerZombie in self.zombies
+                    {
+                        self.zombies.removeAtIndex(self.zombies.indexOf(innerZombie)!)
+                        innerZombie.removeFromParent()
+                    }
+                    
+                    let range = NSRange(location: 15, length: 14)
+                    let range2 = NSRange(location: 30, length: 14)
+                    let range3 = NSRange(location: 45, length: 14)
+                    let background2Bool = NSLocationInRange(self.wavesCompleted, range)
+                    if background2Bool
+                    {
+                        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject(2, forKey: "background")
+                        if let background = self.childNodeWithName("background")
+                        {
+                            background.removeFromParent()
+                        }
+                        let background2 = SKSpriteNode(imageNamed: "background2")
+                        background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        background2.zPosition = -2
+                        background2.name = "background"
+                        self.addChild(background2)
                         
-                        /*var brushButton =*/
+                        if self.wavesCompleted == 15
+                        {
+                            let gotBlowDryer = SKLabelNode(fontNamed: "TimesNewRoman")
+                            gotBlowDryer.fontColor = SKColor.orangeColor()
+                            gotBlowDryer.fontSize = 32
+                            gotBlowDryer.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                            gotBlowDryer.text = "Recived Blow Dryer!"
+                            self.addChild(gotBlowDryer)
+                            
+                            gotBlowDryer.runAction(SKAction.moveToY(gotBlowDryer.position.y+40, duration: 3))
+                            gotBlowDryer.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(3), SKAction.runBlock({
+                                gotBlowDryer.removeFromParent()
+                            })]))
+                            
+                            var brushButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)), type: "button", InMenu: "default", WithAction: self.switchToBrush, WithName: "brushSwitch")
+                            var blowdryerButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-140), type: "button", InMenu: "default", WithAction: self.switchToDryer, WithName: "dryerSwitch")
+                        }
                     }
-                }
-                
-                let background3Bool = NSLocationInRange(self.wavesCompleted, range2)
-                if background3Bool
-                {
-                    let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(3, forKey: "background")
-                    if let background = self.childNodeWithName("background")
+                    
+                    let background3Bool = NSLocationInRange(self.wavesCompleted, range2)
+                    if background3Bool
                     {
-                        background.removeFromParent()
+                        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject(3, forKey: "background")
+                        if let background = self.childNodeWithName("background")
+                        {
+                            background.removeFromParent()
+                        }
+                        let background3 = SKSpriteNode(imageNamed: "background3")
+                        background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        background3.zPosition = -2
+                        background3.name = "background"
+                        self.addChild(background3)
                     }
-                    let background3 = SKSpriteNode(imageNamed: "background3")
-                    background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                    background3.zPosition = -2
-                    background3.name = "background"
-                    self.addChild(background3)
-                }
-                
-                let background4Bool = NSLocationInRange(self.wavesCompleted, range3)
-                if background4Bool
-                {
-                    let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(4, forKey: "background")
-                    if let background = self.childNodeWithName("background")
+                    
+                    let background4Bool = NSLocationInRange(self.wavesCompleted, range3)
+                    if background4Bool
                     {
-                        background.removeFromParent()
+                        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject(4, forKey: "background")
+                        if let background = self.childNodeWithName("background")
+                        {
+                            background.removeFromParent()
+                        }
+                        let background3 = SKSpriteNode(imageNamed: "background4")
+                        background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        background3.zPosition = -2
+                        background3.name = "background"
+                        self.addChild(background3)
                     }
-                    let background3 = SKSpriteNode(imageNamed: "background4")
-                    background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-                    background3.zPosition = -2
-                    background3.name = "background"
-                    self.addChild(background3)
-                }
-                
-                if self.princessHealth != 0
-                {
-                    self.canPressButtons = true
-                }
-                
-                self.saveData()
+                    
+                    if self.princessHealth != 0
+                    {
+                        self.canPressButtons = true
+                    }
+                    
+                    self.saveData()
+                #endif
             }
         }
         
+        #if os(iOS)
         if gameIsRunning == false
         {
             if self.princessHealth <= 0
@@ -2310,6 +2542,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 self.princessHealth = 1
             }
         }
+        #endif
         
         self.coinsLabel.text = NSString(format: "%i", self.coins) as String
         
