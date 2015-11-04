@@ -219,6 +219,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             defaults.setValue(uuid, forKey: "idInstalled")
         }
         
+        #if os(iOS)
         if restoreData == true
         {
             let alert = UIAlertController(title: "Save Found!", message: "App has found a save on this iCloud account. Would you like to restore it?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -228,6 +229,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }))
             gameViewController1!.presentViewController(alert, animated: true, completion: nil)
         }
+        #endif
         
         physicsWorld.gravity = CGVectorMake(0,0)
         self.physicsWorld.contactDelegate = self
@@ -2487,8 +2489,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                                 gotBlowDryer.removeFromParent()
                             })]))
                             
-                            var brushButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)), type: "button", InMenu: "default", WithAction: self.switchToBrush, WithName: "brushSwitch")
-                            var blowdryerButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-140), type: "button", InMenu: "default", WithAction: self.switchToDryer, WithName: "dryerSwitch")
+                            /*var brushButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)), type: "button", InMenu: "default", WithAction: self.switchToBrush, WithName: "brushSwitch")
+                            var blowdryerButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-140), type: "button", InMenu: "default", WithAction: self.switchToDryer, WithName: "dryerSwitch")*/
                         }
                     }
                     

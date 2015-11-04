@@ -260,7 +260,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
                             let prince = childNodeWithName("prince")
                             prince?.hidden = false
                             text4.hidden = false
-                            text3.hidden == true
+                            text3.hidden = true
                             let textForInfo = self.childNodeWithName("textForInfo")
                             textForInfo?.hidden = true
                             

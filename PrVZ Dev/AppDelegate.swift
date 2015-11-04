@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Parse
-import Bolts
+//import Parse
+//import Bolts
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //application.registerForRemoteNotifications()
         
-        Parse.setApplicationId("8OI2NDhbv1Jy28hkT7WjcZAoF9UtIpUzVWinGCXx",
+        /*Parse.setApplicationId("8OI2NDhbv1Jy28hkT7WjcZAoF9UtIpUzVWinGCXx",
             clientKey: "77pitDCNaUP4tMRd3AfVhXw7tDwDoCEg9K904wRK")
         
         // Register for Push Notitications
@@ -45,12 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
-        }
+        }*/
         
         return true
     }
     
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    /*func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         let installation = PFInstallation.currentInstallation()
         installation.setDeviceTokenFromData(deviceToken)
         installation.saveInBackground()
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if application.applicationState == UIApplicationState.Inactive {
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
         }
-    }
+    }*/
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
