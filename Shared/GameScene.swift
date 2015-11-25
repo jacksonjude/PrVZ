@@ -72,6 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var brushesInWorld = 0
     var justBoughtHealthPack = false
     var pets = NSMutableDictionary()
+    var motionOffset = 0.0
     #if os(iOS)
     lazy var motionManager: CMMotionManager =
     {
@@ -81,7 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }()
     #else
         var controller = GCController()
-        var toggleTilt = false
+        var toggleTilt = true
     #endif
     
     deinit
@@ -372,7 +373,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 self.controller.motion?.valueChangedHandler = { (motion) -> Void in
                     if self.gamePaused == false && self.toggleTilt == true
                     {
-                        self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat(((self.controller.motion?.gravity.x)!)*12))
+                        self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat(((self.controller.motion?.gravity.x)!-self.motionOffset)*12))
                         //NSLog("%d", (self.controller.motion?.gravity.x)!)
                     }
                 }
@@ -557,7 +558,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             self.controller.motion?.valueChangedHandler = { (motion) -> Void in
                 if self.gamePaused == false && self.toggleTilt == true
                 {
-                    self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat(((self.controller.motion?.gravity.x)!)*12))
+                    self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat(((self.controller.motion?.gravity.x)!-self.motionOffset)*12))
                     //NSLog("%d", (self.controller.motion?.gravity.x)!)
                 }
             }
@@ -1321,7 +1322,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.brushInWorld = false
         self.brushesInWorld = 0
         #if os(tvOS)
-            self.toggleTilt = !self.toggleTilt
+            self.motionOffset = (self.controller.motion?.gravity.x)!
+            //self.toggleTilt = !self.toggleTilt
         #endif
     }
     
@@ -2064,6 +2066,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
         }
         #endif
+        
+        if self.princess1.position.y > 410
+        {
+            self.princess1.position.y = 410
+        }
+        
+        if self.princess1.position.y < 100
+        {
+            self.princess1.position.y = 100
+        }
         
         if self.windowIsOpen == false
         {
