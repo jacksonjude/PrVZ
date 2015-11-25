@@ -19,7 +19,14 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>20151106</string>
+	<key>GCSupportedGameControllers</key>
+	<array>
+		<dict>
+			<key>ProfileName</key>
+			<string>MicroGamepad</string>
+		</dict>
+	</array>
 	<key>GCSupportsControllerUserInteraction</key>
 	<true/>
 	<key>LSRequiresIPhoneOS</key>
