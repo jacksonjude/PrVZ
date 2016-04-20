@@ -1150,7 +1150,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             
             if var catZombiesDied = defaults.objectForKey("catZombiesDied") as? NSInteger
             {
-                defaults.setObject(catZombiesDied++, forKey: "catZombiesDied")
+                catZombiesDied += 1
+                defaults.setObject(catZombiesDied, forKey: "catZombiesDied")
             }
             else
             {
@@ -1655,7 +1656,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if self.scrolled > 0
         {
-            self.scrolled--
+            self.scrolled -= 1
             
             if self.scrolled == 1
             {
@@ -1698,7 +1699,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if self.scrolled < 2
         {
-            self.scrolled++
+            self.scrolled += 1
             
             if self.scrolled == 1
             {
@@ -2268,11 +2269,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if aZombie.name == "zombie"
                 {
-                    zombiesAlive++
+                    zombiesAlive += 1
                 }
                 if aZombie.name == "catZombie"
                 {
-                    zombiesAlive++
+                    zombiesAlive += 1
                 }
             }
             
@@ -2319,7 +2320,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         }
                     }
                     
-                    self.wavesCompleted++
+                    self.wavesCompleted += 1
                     self.gameIsRunning = false
                     
                     if let pauseButton = self.childNodeWithName("pauseButton")
@@ -2463,7 +2464,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         }
                     }
                     
-                    self.wavesCompleted++
+                    self.wavesCompleted += 1
                     self.gameIsRunning = false
                     
                     if let pauseButton = self.childNodeWithName("pauseButton")
