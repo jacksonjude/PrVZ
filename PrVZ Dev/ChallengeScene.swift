@@ -96,7 +96,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     {
         if self.brushesInWorld <= 2
         {
-            self.brushesInWorld++
+            self.brushesInWorld += 1
             
             NSLog("Brushes In World: %i", self.brushesInWorld)
             
@@ -117,7 +117,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             let vanish = SKAction.removeFromParent()
             let removeBrush = SKAction.runBlock({
                 self.currentBrushes.removeObject(brush)
-                self.brushesInWorld--
+                self.brushesInWorld -= 1
             })
             let sequence = SKAction.sequence([move, removeBrush, vanish])
             brush.runAction(sequence)
@@ -227,7 +227,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
                 self.zombies.addObject(zombie1)
                 self.addChild(zombie1)
             }
-            zombiesSpawned++
+            zombiesSpawned += 1
         }
     }
     
@@ -270,9 +270,9 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     func projectileDidCollideWithMonster(projectile: SKNode, monster: SKNode)
     {
         projectile.removeFromParent()
-        self.brushesInWorld--
+        self.brushesInWorld -= 1
         let monsterSK = monster as! GenericZombie
-        monsterSK.health--
+        monsterSK.health -= 1
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-1"
         healthLostLabel.fontColor = SKColor.redColor()
@@ -314,7 +314,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             
             deadZombie.addChild(sparkEmmiter)
             
-            self.zombiesKilled++
+            self.zombiesKilled += 1
             
             let messageNumberData = NSMutableData()
             let archiver = NSKeyedArchiver(forWritingWithMutableData: messageNumberData)
@@ -336,7 +336,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
                 let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
                 if var wins = defaults.objectForKey("gamesWon") as? NSInteger
                 {
-                    wins++
+                    wins += 1
                     self.gameViewController1?.submitWin(wins)
                     defaults.setInteger(wins, forKey: "gamesWon")
                 }
@@ -354,7 +354,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
     {
-        self.princessHealth--
+        self.princessHealth -= 1
         
         let deadZombie = SKSpriteNode(imageNamed: "ash.png")
         deadZombie.name = "ash"
@@ -458,7 +458,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             if var wins = defaults.objectForKey("gamesWon") as? NSInteger
             {
-                wins++
+                wins += 1
                 self.gameViewController1?.submitWin(wins)
                 defaults.setInteger(wins, forKey: "gamesWon")
             }
@@ -522,7 +522,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         {
             if aZombie.name == "zombie" || aZombie.name == "catZombie"
             {
-                zombiesAlive++
+                zombiesAlive += 1
             }
         }
         
@@ -534,7 +534,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
                 self.zombies.removeObject(zombie)
             }
             
-            self.wavesCompleted++
+            self.wavesCompleted += 1
             
             self.runGame()
         }

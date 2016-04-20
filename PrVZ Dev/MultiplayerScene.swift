@@ -234,7 +234,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
                     zombie1.runAction(SKAction.repeatActionForever(moveBy))
                     self.zombies.addObject(zombie1)
                 }
-                zombiesSpawned++
+                zombiesSpawned += 1
             }
             
             let zombiesToSend = NSMutableArray()
@@ -355,7 +355,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     {
         projectile.removeFromParent()
         let monsterSK = monster as! GenericZombie
-        monsterSK.health--
+        monsterSK.health -= 1
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-1"
         healthLostLabel.fontColor = SKColor.redColor()
@@ -383,7 +383,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
             self.zombies.addObject(deadZombie)
             self.addChild(deadZombie)
             
-            self.zombiesKilled++
+            self.zombiesKilled += 1
         }
         
         let messageDataZombie = NSMutableData()
@@ -397,7 +397,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
     {
-        self.princessHealth--
+        self.princessHealth -= 1
         if princessHealth <= 0
         {
             self.gameOver()
@@ -432,7 +432,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     
     func monsterDidCollideWithPrincessDisplay(monster: SKNode, princess1: SKNode)
     {
-        self.princessHealth--
+        self.princessHealth -= 1
         if princessDisplayHealth <= 0
         {
             princess1.removeFromParent()
@@ -621,7 +621,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
                 let uuid = aZombie?.uuid
                 if uuid == zombieUUID
                 {
-                    aZombie?.health--
+                    aZombie?.health -= 1
                     let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
                     healthLostLabel.text = "-1"
                     healthLostLabel.fontColor = SKColor.redColor()
@@ -654,7 +654,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
                         self.zombies.addObject(deadZombie)
                         self.addChild(deadZombie)
                         
-                        self.zombiesKilled++
+                        self.zombiesKilled += 1
                     }
                 }
             }
@@ -710,7 +710,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         {
             if aZombie.name == "zombie" || aZombie.name == "catZombie"
             {
-                zombiesAlive++
+                zombiesAlive += 1
             }
         }
         

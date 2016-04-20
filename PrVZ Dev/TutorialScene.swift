@@ -229,7 +229,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         {
             if self.gameIsRunning == false
             {
-                textCount++
+                textCount += 1
                 switch textCount
                     {
                         case 1:

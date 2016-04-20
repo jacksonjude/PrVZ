@@ -22,8 +22,6 @@
 		7A1ABCEB1BAD278700D6904C /* Princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1ABCCA1BAD25A500D6904C /* Princess.swift */; };
 		7A1ABCEC1BAD296000D6904C /* Smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AC509311AC61D090034F76E /* Smoke.sks */; };
 		7A1ABCED1BAD296300D6904C /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AC509321AC61D090034F76E /* spark.png */; };
-		7A1ABCF21BADC5EF00D6904C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1ABCF11BADC5EF00D6904C /* GameKit.framework */; };
-		7A1ABCF41BADC5FA00D6904C /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1ABCF31BADC5FA00D6904C /* GameController.framework */; };
 		7A414FC71A881FD500CA7303 /* JCJoystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A414FC61A881FD500CA7303 /* JCJoystick.m */; };
 		7A4C6E401AFDBC31004E0070 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4C6E3F1AFDBC31004E0070 /* CoreMotion.framework */; };
 		7A4E1DAE19D7970900001C55 /* SKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E1DAD19D7970800001C55 /* SKButton.swift */; };
@@ -277,8 +275,6 @@
 		7A1ABCC91BAD25A500D6904C /* GenericZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericZombie.swift; sourceTree = "<group>"; };
 		7A1ABCCA1BAD25A500D6904C /* Princess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Princess.swift; sourceTree = "<group>"; };
 		7A1ABCF01BADC5E800D6904C /* PrVZtv.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrVZtv.entitlements; sourceTree = "<group>"; };
-		7A1ABCF11BADC5EF00D6904C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
-		7A1ABCF31BADC5FA00D6904C /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.0.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		7A414FC51A881FD500CA7303 /* JCJoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCJoystick.h; sourceTree = "<group>"; };
 		7A414FC61A881FD500CA7303 /* JCJoystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCJoystick.m; sourceTree = "<group>"; };
 		7A4C6E3F1AFDBC31004E0070 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -407,8 +403,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1ABCF41BADC5FA00D6904C /* GameController.framework in Frameworks */,
-				7A1ABCF21BADC5EF00D6904C /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,8 +529,6 @@
 		7A571A941AF56E8000F94A83 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7A1ABCF31BADC5FA00D6904C /* GameController.framework */,
-				7A1ABCF11BADC5EF00D6904C /* GameKit.framework */,
 				7A11DC581B5720F300666C29 /* StoreKit.framework */,
 				7A87B8071B263F51003E3571 /* GameController.framework */,
 				7A4C6E3F1AFDBC31004E0070 /* CoreMotion.framework */,
@@ -1352,7 +1344,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1389,7 +1381,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

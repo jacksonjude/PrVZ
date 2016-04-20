@@ -320,7 +320,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                 zombie1.runAction(SKAction.repeatActionForever(moveBy))
                 self.zombies.addObject(zombie1)
             }
-            zombiesSpawned++
+            zombiesSpawned += 1
         }
         
         for aZombie in self.zombies
@@ -340,7 +340,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             {
                 if self.brushesInWorld <= 2
                 {
-                    self.brushesInWorld++
+                    self.brushesInWorld += 1
                     
                     NSLog("Brushes In World: %i", self.brushesInWorld)
                     
@@ -361,7 +361,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                     let vanish = SKAction.removeFromParent()
                     let removeBrush = SKAction.runBlock({
                         self.currentBrushes.removeObject(brush)
-                        self.brushesInWorld--
+                        self.brushesInWorld -= 1
                     })
                     let sequence = SKAction.sequence([move, removeBrush, vanish])
                     brush.runAction(sequence)
@@ -437,9 +437,9 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
     {
         self.currentBrushes.removeObject(projectile)
         projectile.removeFromParent()
-        self.brushesInWorld--
+        self.brushesInWorld -= 1
         let monsterSK = monster as! GenericZombie
-        monsterSK.health--
+        monsterSK.health -= 1
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-1"
         healthLostLabel.fontColor = SKColor.redColor()
@@ -481,7 +481,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             
             deadZombie.addChild(sparkEmmiter)
             
-            self.zombiesKilled++
+            self.zombiesKilled += 1
             
             let chance = CGFloat(arc4random()%80)
             if chance == 0
@@ -516,13 +516,13 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         let chance = CGFloat(arc4random()%4)
         if chance == 0
         {
-            self.coins++
+            self.coins += 1
         }
     }
     
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
     {
-        self.princessHealth--
+        self.princessHealth -= 1
         self.healthLostInLastRound += 1.00
         
         let deadZombie = SKSpriteNode(imageNamed: "ash.png")
@@ -970,7 +970,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         if self.scrolled > 0
         {
-            self.scrolled--
+            self.scrolled -= 1
             
             if self.scrolled == 1
             {
@@ -1013,7 +1013,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         if self.scrolled < 2
         {
-            self.scrolled++
+            self.scrolled += 1
             
             if self.scrolled == 1
             {
@@ -1384,11 +1384,11 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             {
                 if aZombie.name == "zombie"
                 {
-                    zombiesAlive++
+                    zombiesAlive += 1
                 }
                 if aZombie.name == "catZombie"
                 {
-                    zombiesAlive++
+                    zombiesAlive += 1
                 }
             }
             
@@ -1406,7 +1406,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                     }
                 }
                 
-                self.wavesCompletedJustToShow++
+                self.wavesCompletedJustToShow += 1
                 self.gameIsRunning = false
                 
                 if let pauseButton = self.childNodeWithName("pauseButton")

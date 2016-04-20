@@ -72,7 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var brushesInWorld = 0
     var justBoughtHealthPack = false
     var pets = NSMutableDictionary()
-    var motionOffset = 0.0
+    var referenceFrame = 0.0
     #if os(iOS)
     lazy var motionManager: CMMotionManager =
     {
@@ -373,7 +373,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 self.controller.motion?.valueChangedHandler = { (motion) -> Void in
                     if self.gamePaused == false && self.toggleTilt == true
                     {
-                        self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat(((self.controller.motion?.gravity.x)!-self.motionOffset)*12))
+                        self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat(((self.controller.motion?.gravity.x)!-self.referenceFrame)*12))
                         //NSLog("%d", (self.controller.motion?.gravity.x)!)
                     }
                 }
@@ -487,11 +487,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             defaults.setObject(NSMutableArray(), forKey: "petUUIDS")
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationDidEnterBackgroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillTerminateNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"saveDataBackground", name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"didEnterFromBackground", name: UIApplicationWillEnterForegroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"changedValues", name: NSUbiquitousKeyValueStoreDidChangeExternallyNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(GameScene.saveDataBackground), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(GameScene.saveDataBackground), name: UIApplicationWillTerminateNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(GameScene.saveDataBackground), name: UIApplicationWillResignActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(GameScene.didEnterFromBackground), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(GameScene.changedValues), name: NSUbiquitousKeyValueStoreDidChangeExternallyNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserverForName(GCControllerDidConnectNotification, object: nil, queue: nil) { note in
             #if os(tvOS)
             
@@ -558,7 +558,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             self.controller.motion?.valueChangedHandler = { (motion) -> Void in
                 if self.gamePaused == false && self.toggleTilt == true
                 {
-                    self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat(((self.controller.motion?.gravity.x)!-self.motionOffset)*12))
+                    self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat(((self.controller.motion?.gravity.x)!-self.referenceFrame)*12))
                     //NSLog("%d", (self.controller.motion?.gravity.x)!)
                 }
             }
@@ -613,6 +613,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func runGame()
     {
+        #if os(tvOS)
+            self.referenceFrame = (self.controller.motion?.gravity.x)!
+        #endif
+        
         if (!backgroundMusicPlayer.playing)
         {
             backgroundMusicPlayer.play()
@@ -790,7 +794,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 zombie1.runAction(SKAction.repeatActionForever(moveBy))
                 self.zombies.insert(zombie1, atIndex: self.zombies.count)
             }
-            zombiesSpawned++
+            zombiesSpawned += 1
         }
         
         for aZombie in self.zombies
@@ -810,7 +814,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if self.brushesInWorld <= 2
                 {
-                    self.brushesInWorld++
+                    self.brushesInWorld += 1
                     
                     NSLog("Brushes In World: %i", self.brushesInWorld)
                     
@@ -831,7 +835,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     let vanish = SKAction.removeFromParent()
                     let removeBrush = SKAction.runBlock({
                         self.currentBrushes.removeObject(brush)
-                        self.brushesInWorld--
+                        self.brushesInWorld -= 1
                     })
                     let sequence = SKAction.sequence([move, removeBrush, vanish])
                     brush.runAction(sequence)
@@ -907,9 +911,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         self.currentBrushes.removeObject(projectile)
         projectile.removeFromParent()
-        self.brushesInWorld--
+        self.brushesInWorld -= 1
         let monsterSK = monster as! GenericZombie
-        monsterSK.health--
+        monsterSK.health -= 1
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-1"
         healthLostLabel.fontColor = SKColor.redColor()
@@ -934,7 +938,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if var zombieKills = defaults.objectForKey("catZombieKills") as? NSInteger
                 {
-                    zombieKills++
+                    zombieKills += 1
                     defaults.setObject(zombieKills, forKey: "catZombieKills")
                 }
                 else
@@ -946,7 +950,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if var zombieKills = defaults.objectForKey("zombieKills") as? NSInteger
                 {
-                    zombieKills++
+                    zombieKills += 1
                     defaults.setObject(zombieKills, forKey: "zombieKills")
                 }
                 else
@@ -976,13 +980,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             
             deadZombie.addChild(sparkEmmiter)
             
-            self.zombiesKilled++
+            self.zombiesKilled += 1
             let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
             if var highScore = defaults.objectForKey("highScore") as? NSInteger
             {
                 if self.zombiesKilled > highScore
                 {
-                    highScore++
+                    highScore += 1
                 }
                 
                 defaults.setObject(highScore, forKey: "highScore")
@@ -1033,7 +1037,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let chance = CGFloat(arc4random()%4)
         if chance == 0
         {
-            self.coins++
+            self.coins += 1
         }
         
         defaults.setObject(self.coins, forKey: "coins")
@@ -1083,7 +1087,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func monsterDidCollideWithPrincess(monster: SKNode, princess1: SKNode)
     {
-        self.princessHealth--
+        self.princessHealth -= 1
         self.healthLostInLastRound += 1.00
         
         let deadZombie = GenericZombie(texture: SKTexture(imageNamed: "ash.png"), size: CGSize(width: 1.0, height: 1.0))
@@ -1101,7 +1105,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if var normalZombiesDied = defaults.objectForKey("zombiesDied") as? NSInteger
                 {
-                    defaults.setObject(normalZombiesDied++, forKey: "zombiesDied")
+                    normalZombiesDied += 1
+                    defaults.setObject(normalZombiesDied, forKey: "zombiesDied")
                 }
                 else
                 {
@@ -1112,7 +1117,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 if var catZombiesDied = defaults.objectForKey("catZombiesDied") as? NSInteger
                 {
-                    defaults.setObject(catZombiesDied++, forKey: "catZombiesDied")
+                    catZombiesDied += 1
+                    defaults.setObject(catZombiesDied, forKey: "catZombiesDied")
                 }
                 else
                 {
@@ -1322,7 +1328,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.brushInWorld = false
         self.brushesInWorld = 0
         #if os(tvOS)
-            self.motionOffset = (self.controller.motion?.gravity.x)!
+            self.referenceFrame = (self.controller.motion?.gravity.x)!
             //self.toggleTilt = !self.toggleTilt
         #endif
     }
@@ -1964,6 +1970,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func resumeGame()
     {
+        #if os(tvOS)
+            self.referenceFrame = (self.controller.motion?.gravity.x)!
+        #endif
         for aZombie in self.zombies
         {
             if aZombie != self.childNodeWithName("ash")
