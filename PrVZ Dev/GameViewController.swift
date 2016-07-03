@@ -36,7 +36,6 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     @IBOutlet var volumeSlider : UISlider!
     @IBOutlet var zombieHealthMultiplierSlider: UISlider!
     var gameCenterAchievements=[String:GKAchievement]()
-    var gameCenterAchievementsReal=NSMutableArray()
     var matchStarted = false
     var multiplayerSceneRef:MultiplayerScene = MultiplayerScene.unarchiveFromFile("MultiplayerScene") as! MultiplayerScene
     var challengeSceneRef:ChallengeScene = ChallengeScene.unarchiveFromFile("ChallengeScene") as! ChallengeScene
@@ -60,6 +59,8 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
                     print((GKLocalPlayer.localPlayer().authenticated))
                     GKLocalPlayer.localPlayer().registerListener(self)
                     self.gameCenter = true
+                    
+                    self.gameCenterLoadAchievements()
                 }
                 else
                 {
@@ -67,8 +68,6 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
                 }
             }
         }
-        
-        self.gameCenterLoadAchievements()
         
         if let scene = TitleScene.unarchiveFromFile("TitleScene") as? TitleScene {
             
@@ -137,12 +136,6 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             }
         }
         
-        for anAchievement in self.gameCenterAchievementsReal
-        {
-            let anAchievementG = anAchievement as! GKAchievement
-            anAchievementG.percentComplete = 0
-        }
-        
         self.gameCenterAchievements.removeAll(keepCapacity: false)
         
         self.gameCenterLoadAchievements()
@@ -187,10 +180,10 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             } else {
                 if retrivedAllAchievements != nil
                 {
+                    print(retrivedAllAchievements)
                     for anAchievement in retrivedAllAchievements!  {
                         if let oneAchievement = anAchievement as GKAchievement! {
                             self.gameCenterAchievements[oneAchievement.identifier!]=oneAchievement
-                            self.gameCenterAchievementsReal.addObject(oneAchievement)
                         }
                     }
                 }
@@ -215,6 +208,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
                     }  // show banner only if achievement is fully granted (progress is 100%)
                     
                     // try to report the progress to the Game Center
+                    
                     GKAchievement.reportAchievements([achievement], withCompletionHandler:  {(error:NSError?) -> Void in
                         if error != nil {
                             print("Couldn't save achievement (\(achievementID)) progress to \(progress) %")

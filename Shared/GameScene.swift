@@ -611,6 +611,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.setUpAudio()
     }
     
+    override func willMoveFromView(view: SKView)
+    {
+        self.saveDataBackground()
+        
+        self.removeAllChildren()
+    }
+    
     func runGame()
     {
         #if os(tvOS)
