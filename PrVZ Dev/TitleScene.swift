@@ -13,7 +13,7 @@ class TitleScene: SKScene
 {
     let start = SKLabelNode(fontNamed: "TimesNewRoman")
     
-    let wait = SKAction.waitForDuration(1.0)
+    let wait = SKAction.wait(forDuration: 1.0)
     let hide = SKAction.hide()
     let unhide = SKAction.unhide()
     var gameViewController1: GameViewController?
@@ -23,30 +23,30 @@ class TitleScene: SKScene
     var slider3: UISlider?
     var slider4: UISlider?
     
-    override func didMoveToView(view: SKView)
+    override func didMove(to view: SKView)
     {        
         self.start.text = "Start"
         self.start.name = "start"
         self.start.fontSize = 85
-        self.start.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
+        self.start.position = CGPoint(x:self.frame.midX, y:self.frame.midY)
         
-        let flash = SKAction.repeatActionForever(SKAction.sequence([hide, wait, unhide, wait]))
-        self.start.runAction(flash)
+        let flash = SKAction.repeatForever(SKAction.sequence([hide, wait, unhide, wait]))
+        self.start.run(flash)
         
         let background = SKSpriteNode(imageNamed: "backgroundg.png")
         background.zPosition = -2
-        background.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+        background.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         
         self.addChild(background)
         self.addChild(self.start)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         self.gameViewController1?.presentTutorialScene()
     }
     
-    override func update(currentTime: CFTimeInterval)
+    override func update(_ currentTime: TimeInterval)
     {
         
     }

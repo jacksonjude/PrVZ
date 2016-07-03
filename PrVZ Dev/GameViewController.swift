@@ -11,13 +11,13 @@ import SpriteKit
 import GameKit
 
 extension SKNode {
-    class func unarchiveFromFile(file : NSString) -> SKNode? {
-        if let path = NSBundle.mainBundle().pathForResource(file as String, ofType: "sks") {
-            let sceneData = try! NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
-            let archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
+    class func unarchiveFromFile(_ file : NSString) -> SKNode? {
+        if let path = Bundle.main().pathForResource(file as String, ofType: "sks") {
+            let sceneData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .dataReadingMappedIfSafe)
+            let archiver = NSKeyedUnarchiver(forReadingWith: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-            let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! SKNode
+            let scene = archiver.decodeObject(forKey: NSKeyedArchiveRootObjectKey) as! SKNode
             archiver.finishDecoding()
             return scene
         }
@@ -50,14 +50,14 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         let localPlayer = GKLocalPlayer.localPlayer()
         localPlayer.authenticateHandler = {(viewController : UIViewController?, error : NSError?) -> Void in
             if ((viewController) != nil) {
-                self.presentViewController(viewController!, animated: true, completion: nil)
+                self.present(viewController!, animated: true, completion: nil)
             }
             else
             {
-                if GKLocalPlayer.localPlayer().authenticated == true
+                if GKLocalPlayer.localPlayer().isAuthenticated == true
                 {
-                    print((GKLocalPlayer.localPlayer().authenticated))
-                    GKLocalPlayer.localPlayer().registerListener(self)
+                    print((GKLocalPlayer.localPlayer().isAuthenticated))
+                    GKLocalPlayer.localPlayer().register(self)
                     self.gameCenter = true
                     
                     self.gameCenterLoadAchievements()
@@ -82,22 +82,22 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             
             scene.slider = self.zombiesToSpawnSlider
-            scene.slider?.hidden = true
+            scene.slider?.isHidden = true
             
             scene.switch1 = self.joystickSwitch
-            scene.switch1?.hidden = true
+            scene.switch1?.isHidden = true
             
             scene.slider2 = self.zombieSpeedSlider
-            scene.slider2?.hidden = true
+            scene.slider2?.isHidden = true
             
             scene.slider3 = self.volumeSlider
-            scene.slider3?.hidden = true
+            scene.slider3?.isHidden = true
             
             scene.slider4 = self.zombieHealthMultiplierSlider
-            scene.slider4?.hidden = true
+            scene.slider4?.isHidden = true
             
             skView.presentScene(scene)
         }
@@ -108,11 +108,11 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         let gcViewController: GKGameCenterViewController = GKGameCenterViewController()
         gcViewController.gameCenterDelegate = self
         
-        gcViewController.viewState = GKGameCenterViewControllerState.Leaderboards
+        gcViewController.viewState = GKGameCenterViewControllerState.leaderboards
         
         gcViewController.leaderboardIdentifier = "zombiesKilled"
         
-        self.showViewController(gcViewController, sender: self)
+        self.show(gcViewController, sender: self)
         self.navigationController?.pushViewController(gcViewController, animated: true)
     }
     
@@ -121,33 +121,33 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         let gcViewController: GKGameCenterViewController = GKGameCenterViewController()
         gcViewController.gameCenterDelegate = self
         
-        gcViewController.viewState = GKGameCenterViewControllerState.Achievements
+        gcViewController.viewState = GKGameCenterViewControllerState.achievements
         
-        self.showViewController(gcViewController, sender: self)
+        self.show(gcViewController, sender: self)
         self.navigationController?.pushViewController(gcViewController, animated: true)
     }
     
     func resetGameCenter()
     {
-        GKAchievement.resetAchievementsWithCompletionHandler { (error: NSError?) -> Void in
+        GKAchievement.resetAchievements { (error: NSError?) -> Void in
             if error != nil
             {
                 print("Error: \(error)")
             }
         }
         
-        self.gameCenterAchievements.removeAll(keepCapacity: false)
+        self.gameCenterAchievements.removeAll(keepingCapacity: false)
         
         self.gameCenterLoadAchievements()
     }
     
-    func submitWin(score: NSInteger)
+    func submitWin(_ score: NSInteger)
     {
         let leaderboardID = "challengesWon"
         let sScore = GKScore(leaderboardIdentifier: leaderboardID)
         sScore.value = Int64(score)
         
-        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+        GKScore.report([sScore], withCompletionHandler: { (error: NSError?) -> Void in
             if error != nil {
                 print(error!.localizedDescription)
             } else {
@@ -156,13 +156,13 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         })
     }
     
-    func submitScore(score: NSInteger)
+    func submitScore(_ score: NSInteger)
     {
         let leaderboardID = "zombiesKilled"
         let sScore = GKScore(leaderboardIdentifier: leaderboardID)
         sScore.value = Int64(score)
         
-        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+        GKScore.report([sScore], withCompletionHandler: { (error: NSError?) -> Void in
             if error != nil {
                 print(error!.localizedDescription)
             } else {
@@ -174,7 +174,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     func gameCenterLoadAchievements(){
         // load all prev. achievements for GameCenter for the user to progress can be added
         
-        GKAchievement.loadAchievementsWithCompletionHandler({ (retrivedAllAchievements, error:NSError?) -> Void in
+        GKAchievement.loadAchievements(completionHandler: { (retrivedAllAchievements, error:NSError?) -> Void in
             if error != nil{
                 print("Game Center: could not load achievements, error: \(error)")
             } else {
@@ -191,7 +191,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         })
     }
     
-    func gameCenterAddProgressToAnAchievement(progress:Double,achievementID:String) {
+    func gameCenterAddProgressToAnAchievement(_ progress:Double,achievementID:String) {
         if gameCenter == true
         {
             let lookupAchievement:GKAchievement? = gameCenterAchievements[achievementID]
@@ -209,7 +209,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
                     
                     // try to report the progress to the Game Center
                     
-                    GKAchievement.reportAchievements([achievement], withCompletionHandler:  {(error:NSError?) -> Void in
+                    GKAchievement.report([achievement], withCompletionHandler:  {(error:NSError?) -> Void in
                         if error != nil {
                             print("Couldn't save achievement (\(achievementID)) progress to \(progress) %")
                         }
@@ -231,9 +231,9 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         }
     }
     
-    func gameCenterViewControllerDidFinish(gcViewController: GKGameCenterViewController)
+    func gameCenterViewControllerDidFinish(_ gcViewController: GKGameCenterViewController)
     {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func findMatchForMultiplayer()
@@ -248,7 +248,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         self.findMatchWithMinPlayers(2, maxPlayers: 2)
     }
     
-    func findMatchWithMinPlayers(minPlayers: NSInteger, maxPlayers: NSInteger)
+    func findMatchWithMinPlayers(_ minPlayers: NSInteger, maxPlayers: NSInteger)
     {
         let request = GKMatchRequest()
         request.minPlayers = minPlayers
@@ -257,39 +257,39 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         let viewControllerMatch = GKMatchmakerViewController(matchRequest: request)
         viewControllerMatch!.matchmakerDelegate = self
         
-        self.showViewController(viewControllerMatch!, sender: self)
+        self.show(viewControllerMatch!, sender: self)
         self.navigationController?.pushViewController(viewControllerMatch!, animated: true)
     }
     
-    func matchmakerViewControllerWasCancelled(viewController: GKMatchmakerViewController)
+    func matchmakerViewControllerWasCancelled(_ viewController: GKMatchmakerViewController)
     {
-        viewController.dismissViewControllerAnimated(true, completion: nil)
+        viewController.dismiss(animated: true, completion: nil)
     }
     
-    func matchmakerViewController(viewController: GKMatchmakerViewController, didFailWithError error: NSError)
+    func matchmakerViewController(_ viewController: GKMatchmakerViewController, didFailWithError error: NSError)
     {
-        viewController.dismissViewControllerAnimated(true, completion: nil)
+        viewController.dismiss(animated: true, completion: nil)
         print("Matching failed with error: \(error)")
     }
     
-    func matchmakerViewController(viewController: GKMatchmakerViewController, didReceiveAcceptFromHostedPlayer playerID: String)
+    func matchmakerViewController(_ viewController: GKMatchmakerViewController, didReceiveAcceptFromHostedPlayer playerID: String)
     {
         print("Game Accepted from player \(playerID)")
     }
     
-    func matchmakerViewController(viewController: GKMatchmakerViewController, didFindPlayers playerIDs: [String])
+    func matchmakerViewController(_ viewController: GKMatchmakerViewController, didFindPlayers playerIDs: [String])
     {
         print("Found Players With Name: \(playerIDs[0])")
     }
     
-    func player(player: GKPlayer, didAcceptInvite invite: GKInvite)
+    func player(_ player: GKPlayer, didAccept invite: GKInvite)
     {
         let mmvc = GKMatchmakerViewController(invite: invite)
         mmvc!.matchmakerDelegate = self
-        self.presentViewController(mmvc!, animated: true, completion: nil)
+        self.present(mmvc!, animated: true, completion: nil)
     }
     
-    func matchmakerViewController(viewController: GKMatchmakerViewController, didFindMatch match: GKMatch)
+    func matchmakerViewController(_ viewController: GKMatchmakerViewController, didFind match: GKMatch)
     {
         if (!self.matchStarted && match.expectedPlayerCount == 0) {
             NSLog("Ready to start match!")
@@ -298,7 +298,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             self.currentMatch = match
             match.delegate = self
             
-            viewController.dismissViewControllerAnimated(true, completion: nil)
+            viewController.dismiss(animated: true, completion: nil)
             
             if self.COOPChallenge == true
             {
@@ -311,11 +311,11 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         }
     }
     
-    func match(match: GKMatch, player playerID: String, didChangeState state: GKPlayerConnectionState)
+    func match(_ match: GKMatch, player playerID: String, didChange state: GKPlayerConnectionState)
     {
         switch (state)
         {
-            case .StateConnected:
+            case .stateConnected:
                 // handle a new player connection.
                 NSLog("Player connected!")
                 
@@ -327,7 +327,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
                 }
                 
                 break
-            case .StateDisconnected:
+            case .stateDisconnected:
                 // a player just disconnected.
                 NSLog("Player disconnected!")
                 self.matchStarted = false
@@ -337,12 +337,12 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         }
     }
     
-    func match(match: GKMatch, shouldReinviteDisconnectedPlayer player: GKPlayer) -> Bool
+    func match(_ match: GKMatch, shouldReinviteDisconnectedPlayer player: GKPlayer) -> Bool
     {
         return true
     }
     
-    func match(matchCurrent: GKMatch, didReceiveData data: NSData, fromRemotePlayer player: GKPlayer)
+    func match(_ matchCurrent: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer)
     {
         if self.COOPChallenge == true
         {
@@ -355,7 +355,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         }
     }
     
-    func match(matchCurrent: GKMatch, didReceiveData data: NSData, fromPlayer playerID: String)
+    func match(_ matchCurrent: GKMatch, didReceive data: Data, fromPlayer playerID: String)
     {
         if self.COOPChallenge == true
         {
@@ -368,10 +368,10 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         }
     }
     
-    func sendData(matchCurrent: GKMatch!, withData data: NSData!)
+    func sendData(_ matchCurrent: GKMatch!, withData data: Data!)
     {
         do {
-            try matchCurrent.sendDataToAllPlayers(data, withDataMode: GKMatchSendDataMode.Unreliable)
+            try matchCurrent.sendData(toAllPlayers: data, with: GKMatchSendDataMode.unreliable)
         } catch _ {
         }
     }
@@ -391,22 +391,22 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             
             scene.slider = self.zombiesToSpawnSlider
-            scene.slider?.hidden = true
+            scene.slider?.isHidden = true
             
             scene.switch1 = self.joystickSwitch
-            scene.switch1?.hidden = true
+            scene.switch1?.isHidden = true
             
             scene.slider2 = self.zombieSpeedSlider
-            scene.slider2?.hidden = true
+            scene.slider2?.isHidden = true
             
             scene.slider3 = self.volumeSlider
-            scene.slider3?.hidden = true
+            scene.slider3?.isHidden = true
             
             scene.slider4 = self.zombieHealthMultiplierSlider
-            scene.slider4?.hidden = true
+            scene.slider4?.isHidden = true
             
             skView.presentScene(scene)
         }
@@ -426,7 +426,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             
             scene.gameViewController1 = self
             
@@ -447,7 +447,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             
             scene.gameViewController1 = self
             scene.volumeSlider = self.volumeSlider
@@ -467,13 +467,13 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         skView.ignoresSiblingOrder = true
         
         /* Set the scale mode to scale to fit the window */
-        self.gameSceneRef!.scaleMode = .AspectFill
+        self.gameSceneRef!.scaleMode = .aspectFill
         
         self.gameSceneRef!.zombiesToSpawnSlider = self.zombiesToSpawnSlider
         self.gameSceneRef!.joystickSwitch = self.joystickSwitch
         self.gameSceneRef!.zombieSpeedSlider = self.zombieSpeedSlider
         self.gameSceneRef!.volumeSlider = self.volumeSlider
-        self.gameSceneRef!.volumeSlider?.hidden = true
+        self.gameSceneRef!.volumeSlider?.isHidden = true
         self.gameSceneRef!.gameViewController1 = self
         
         skView.presentScene(self.gameSceneRef)
@@ -490,7 +490,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         skView.ignoresSiblingOrder = true
         
         /* Set the scale mode to scale to fit the window */
-        self.multiplayerSceneRef.scaleMode = .AspectFill
+        self.multiplayerSceneRef.scaleMode = .aspectFill
         
         self.multiplayerSceneRef.zombiesToSpawnSlider = self.zombiesToSpawnSlider
         self.multiplayerSceneRef.zombieSpeedSlider = self.zombieSpeedSlider
@@ -513,7 +513,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         skView.ignoresSiblingOrder = true
         
         /* Set the scale mode to scale to fit the window */
-        self.challengeSceneRef.scaleMode = .AspectFill
+        self.challengeSceneRef.scaleMode = .aspectFill
         
         self.challengeSceneRef.zombiesToSpawnSlider = self.zombiesToSpawnSlider
         self.challengeSceneRef.zombieSpeedSlider = self.zombieSpeedSlider
@@ -538,7 +538,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .aspectFill
             
             scene.zombiesToSpawnSlider = self.zombiesToSpawnSlider
             scene.joystickSwitch = self.joystickSwitch
@@ -560,10 +560,10 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         return true
     }
     
-    override func motionEnded(motion: UIEventSubtype,
-        withEvent event: UIEvent?)
+    override func motionEnded(_ motion: UIEventSubtype,
+        with event: UIEvent?)
     {
-        if motion == .MotionShake
+        if motion == .motionShake
         {
             self.gameSceneRef?.shakeMotion()
         }
@@ -571,13 +571,13 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
 
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
     {
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone
+        if UIDevice.current().userInterfaceIdiom == .phone
         {
-            return UIInterfaceOrientationMask.Landscape
+            return UIInterfaceOrientationMask.landscape
         }
         else
         {
-            return UIInterfaceOrientationMask.Landscape
+            return UIInterfaceOrientationMask.landscape
         }
     }
 

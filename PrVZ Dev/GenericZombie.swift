@@ -12,41 +12,41 @@ import SpriteKit
 class GenericZombie: SKSpriteNode
 {
     var health: NSInteger = 1
-    var uuid = NSUUID().UUIDString
+    var uuid = UUID().uuidString
     var princess: Princess!
     
     init()
     {
         let zombieTexture = SKTexture(imageNamed: "zombie.png")
         var scaledSize = zombieTexture.size()
-        scaledSize = CGSizeApplyAffineTransform(scaledSize, CGAffineTransformMakeScale(0.1, 0.1))
+        scaledSize = scaledSize.apply(transform: CGAffineTransform(scaleX: 0.1, y: 0.1))
         
         self.princess = nil
         
-        super.init(texture: zombieTexture, color: UIColor.clearColor(), size: scaledSize)
+        super.init(texture: zombieTexture, color: UIColor.clear(), size: scaledSize)
     }
     
     init(texture zombieTexture: SKTexture?, size zombieSize: CGSize)
     {
         var scaledSize = zombieTexture!.size()
-        scaledSize = CGSizeApplyAffineTransform(scaledSize, CGAffineTransformMakeScale(zombieSize.width, zombieSize.height))
+        scaledSize = scaledSize.apply(transform: CGAffineTransform(scaleX: zombieSize.width, y: zombieSize.height))
         
         self.princess = nil
         
-        super.init(texture: zombieTexture, color: UIColor.clearColor(), size: scaledSize)
+        super.init(texture: zombieTexture, color: UIColor.clear(), size: scaledSize)
     }
 
     required init?(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)
         
-        self.health = aDecoder.decodeIntegerForKey("health")
+        self.health = aDecoder.decodeInteger(forKey: "health")
     }
     
-    override func encodeWithCoder(aCoder: NSCoder)
+    override func encode(with aCoder: NSCoder)
     {
-        super.encodeWithCoder(aCoder)
+        super.encode(with: aCoder)
         
-        aCoder.encodeInteger(self.health, forKey: "health")
+        aCoder.encode(self.health, forKey: "health")
     }
 }

@@ -17,45 +17,45 @@ class SKButton: SKNode {
     init(defaultButtonImage: String, activeButtonImage: String, buttonAction: () -> Void) {
         defaultButton = SKSpriteNode(imageNamed: defaultButtonImage)
         activeButton = SKSpriteNode(imageNamed: activeButtonImage)
-        activeButton.hidden = true
+        activeButton.isHidden = true
         action = buttonAction
         
         super.init()
         
-        userInteractionEnabled = true
+        isUserInteractionEnabled = true
         addChild(defaultButton)
         addChild(activeButton)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        activeButton.hidden = false
-        defaultButton.hidden = true
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        activeButton.isHidden = false
+        defaultButton.isHidden = true
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch = touches.first as UITouch!
-        let location: CGPoint = touch.locationInNode(self)
+        let location: CGPoint = touch.location(in: self)
         
-        if defaultButton.containsPoint(location) {
-            activeButton.hidden = false
-            defaultButton.hidden = true
+        if defaultButton.contains(location) {
+            activeButton.isHidden = false
+            defaultButton.isHidden = true
         } else {
-            activeButton.hidden = true
-            defaultButton.hidden = false
+            activeButton.isHidden = true
+            defaultButton.isHidden = false
         }
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch = touches.first as UITouch!
-        let location: CGPoint = touch.locationInNode(self)
+        let location: CGPoint = touch.location(in: self)
         
-        if defaultButton.containsPoint(location) {
+        if defaultButton.contains(location) {
             action()
             pressed = true
         }
         
-        activeButton.hidden = true
-        defaultButton.hidden = false
+        activeButton.isHidden = true
+        defaultButton.isHidden = false
         pressed = false
     }
     

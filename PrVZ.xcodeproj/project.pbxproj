@@ -13,7 +13,6 @@
 		7A1ABCA01BAD230A00D6904C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1ABC9F1BAD230A00D6904C /* GameViewController.swift */; };
 		7A1ABCA51BAD230A00D6904C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A1ABCA31BAD230A00D6904C /* Main.storyboard */; };
 		7A1ABCA71BAD230A00D6904C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1ABCA61BAD230A00D6904C /* Assets.xcassets */; };
-		7A1ABCB21BAD230A00D6904C /* PrVZtvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1ABCB11BAD230A00D6904C /* PrVZtvTests.swift */; };
 		7A1ABCCB1BAD25A500D6904C /* CatZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1ABCC81BAD25A500D6904C /* CatZombie.swift */; };
 		7A1ABCCC1BAD25A500D6904C /* GenericZombie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1ABCC91BAD25A500D6904C /* GenericZombie.swift */; };
 		7A1ABCCD1BAD25A500D6904C /* Princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1ABCCA1BAD25A500D6904C /* Princess.swift */; };
@@ -31,7 +30,6 @@
 		7A4E784519C735B900C5E9B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784319C735B900C5E9B3 /* Main.storyboard */; };
 		7A4E784719C735B900C5E9B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784619C735B900C5E9B3 /* Images.xcassets */; };
 		7A4E784A19C735B900C5E9B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A4E784819C735B900C5E9B3 /* LaunchScreen.xib */; };
-		7A4E785619C735B900C5E9B3 /* PrVZ_DevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */; };
 		7A53A7881AF9CA0600A0A7FA /* ChallengeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7A53A7871AF9CA0600A0A7FA /* ChallengeScene.sks */; };
 		7A53A78A1AF9CA2D00A0A7FA /* ChallengeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A53A7891AF9CA2D00A0A7FA /* ChallengeScene.swift */; };
 		7A656D141BB39EB300A8912F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A656D131BB39EB300A8912F /* GameScene.swift */; };
@@ -226,23 +224,6 @@
 		7AD62DB219E591E700697FE2 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7AD62DB119E591E700697FE2 /* GameScene.sks */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		7A1ABCAE1BAD230A00D6904C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A4E782E19C735B900C5E9B3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7A1ABC961BAD230A00D6904C;
-			remoteInfo = PrVZtv;
-		};
-		7A4E785019C735B900C5E9B3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A4E782E19C735B900C5E9B3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7A4E783519C735B900C5E9B3;
-			remoteInfo = "PrVZ Dev";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		7AF4034B1AEDE75C0099A493 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -268,9 +249,6 @@
 		7A1ABCA41BAD230A00D6904C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7A1ABCA61BAD230A00D6904C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A1ABCA81BAD230A00D6904C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7A1ABCAD1BAD230A00D6904C /* PrVZtvTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrVZtvTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1ABCB11BAD230A00D6904C /* PrVZtvTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrVZtvTests.swift; sourceTree = "<group>"; };
-		7A1ABCB31BAD230A00D6904C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A1ABCC81BAD25A500D6904C /* CatZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatZombie.swift; sourceTree = "<group>"; };
 		7A1ABCC91BAD25A500D6904C /* GenericZombie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericZombie.swift; sourceTree = "<group>"; };
 		7A1ABCCA1BAD25A500D6904C /* Princess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Princess.swift; sourceTree = "<group>"; };
@@ -287,9 +265,6 @@
 		7A4E784419C735B900C5E9B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7A4E784619C735B900C5E9B3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7A4E784919C735B900C5E9B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		7A4E784F19C735B900C5E9B3 /* PrVZTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrVZTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A4E785419C735B900C5E9B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrVZ_DevTests.swift; sourceTree = "<group>"; };
 		7A53A7871AF9CA0600A0A7FA /* ChallengeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ChallengeScene.sks; sourceTree = "<group>"; };
 		7A53A7891AF9CA2D00A0A7FA /* ChallengeScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeScene.swift; sourceTree = "<group>"; };
 		7A656D131BB39EB300A8912F /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = Shared/GameScene.swift; sourceTree = "<group>"; };
@@ -406,13 +381,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A1ABCAA1BAD230A00D6904C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7A4E783319C735B900C5E9B3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -423,13 +391,6 @@
 				7ABE759B1AF440E60094C56B /* GameKit.framework in Frameworks */,
 				7A7933A41ADAF74C009C0272 /* CloudKit.framework in Frameworks */,
 				7ACAA0871ABF30BD002B0F73 /* MultipeerConnectivity.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A4E784C19C735B900C5E9B3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,24 +411,13 @@
 			path = PrVZtv;
 			sourceTree = "<group>";
 		};
-		7A1ABCB01BAD230A00D6904C /* PrVZtvTests */ = {
-			isa = PBXGroup;
-			children = (
-				7A1ABCB11BAD230A00D6904C /* PrVZtvTests.swift */,
-				7A1ABCB31BAD230A00D6904C /* Info.plist */,
-			);
-			path = PrVZtvTests;
-			sourceTree = "<group>";
-		};
 		7A4E782D19C735B900C5E9B3 = {
 			isa = PBXGroup;
 			children = (
 				7A656D0D1BB39DC000A8912F /* Shared */,
 				7A1ABC981BAD230A00D6904C /* PrVZtv */,
-				7A1ABCB01BAD230A00D6904C /* PrVZtvTests */,
 				7A571A941AF56E8000F94A83 /* Frameworks */,
 				7A4E783819C735B900C5E9B3 /* PrVZ */,
-				7A4E785219C735B900C5E9B3 /* PrVZ DevTests */,
 				7A4E783719C735B900C5E9B3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -476,9 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				7A4E783619C735B900C5E9B3 /* PrVZ.app */,
-				7A4E784F19C735B900C5E9B3 /* PrVZTests.xctest */,
 				7A1ABC971BAD230A00D6904C /* PrVZtv.app */,
-				7A1ABCAD1BAD230A00D6904C /* PrVZtvTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -505,23 +453,6 @@
 			isa = PBXGroup;
 			children = (
 				7A4E783A19C735B900C5E9B3 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7A4E785219C735B900C5E9B3 /* PrVZ DevTests */ = {
-			isa = PBXGroup;
-			children = (
-				7A4E785519C735B900C5E9B3 /* PrVZ_DevTests.swift */,
-				7A4E785319C735B900C5E9B3 /* Supporting Files */,
-			);
-			path = "PrVZ DevTests";
-			sourceTree = "<group>";
-		};
-		7A4E785319C735B900C5E9B3 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7A4E785419C735B900C5E9B3 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -796,24 +727,6 @@
 			productReference = 7A1ABC971BAD230A00D6904C /* PrVZtv.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7A1ABCAC1BAD230A00D6904C /* PrVZtvTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7A1ABCB91BAD230A00D6904C /* Build configuration list for PBXNativeTarget "PrVZtvTests" */;
-			buildPhases = (
-				7A1ABCA91BAD230A00D6904C /* Sources */,
-				7A1ABCAA1BAD230A00D6904C /* Frameworks */,
-				7A1ABCAB1BAD230A00D6904C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7A1ABCAF1BAD230A00D6904C /* PBXTargetDependency */,
-			);
-			name = PrVZtvTests;
-			productName = PrVZtvTests;
-			productReference = 7A1ABCAD1BAD230A00D6904C /* PrVZtvTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		7A4E783519C735B900C5E9B3 /* PrVZ */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A4E785919C735B900C5E9B3 /* Build configuration list for PBXNativeTarget "PrVZ" */;
@@ -832,24 +745,6 @@
 			productReference = 7A4E783619C735B900C5E9B3 /* PrVZ.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7A4E784E19C735B900C5E9B3 /* PrVZTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7A4E785C19C735B900C5E9B3 /* Build configuration list for PBXNativeTarget "PrVZTests" */;
-			buildPhases = (
-				7A4E784B19C735B900C5E9B3 /* Sources */,
-				7A4E784C19C735B900C5E9B3 /* Frameworks */,
-				7A4E784D19C735B900C5E9B3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7A4E785119C735B900C5E9B3 /* PBXTargetDependency */,
-			);
-			name = PrVZTests;
-			productName = "PrVZ DevTests";
-			productReference = 7A4E784F19C735B900C5E9B3 /* PrVZTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -858,7 +753,7 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = jackson;
 				TargetAttributes = {
 					7A1ABC961BAD230A00D6904C = {
@@ -876,13 +771,10 @@
 							};
 						};
 					};
-					7A1ABCAC1BAD230A00D6904C = {
-						CreatedOnToolsVersion = 7.1;
-						TestTargetID = 7A1ABC961BAD230A00D6904C;
-					};
 					7A4E783519C735B900C5E9B3 = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = 26Y8AQV29F;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -897,10 +789,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					7A4E784E19C735B900C5E9B3 = {
-						CreatedOnToolsVersion = 6.0;
-						TestTargetID = 7A4E783519C735B900C5E9B3;
 					};
 				};
 			};
@@ -918,9 +806,7 @@
 			projectRoot = "";
 			targets = (
 				7A4E783519C735B900C5E9B3 /* PrVZ */,
-				7A4E784E19C735B900C5E9B3 /* PrVZTests */,
 				7A1ABC961BAD230A00D6904C /* PrVZtv */,
-				7A1ABCAC1BAD230A00D6904C /* PrVZtvTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1021,13 +907,6 @@
 				7A656FF21BB39F1300A8912F /* zombie.png in Resources */,
 				7A1ABCED1BAD296300D6904C /* spark.png in Resources */,
 				7A656FD21BB39F1300A8912F /* saveButtonPressed.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1ABCAB1BAD230A00D6904C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1136,13 +1015,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A4E784D19C735B900C5E9B3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1156,14 +1028,6 @@
 				7A1ABCCC1BAD25A500D6904C /* GenericZombie.swift in Sources */,
 				7A656D151BB39EB300A8912F /* GameScene.swift in Sources */,
 				7A1ABC9A1BAD230A00D6904C /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1ABCA91BAD230A00D6904C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A1ABCB21BAD230A00D6904C /* PrVZtvTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1188,28 +1052,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A4E784B19C735B900C5E9B3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A4E785619C735B900C5E9B3 /* PrVZ_DevTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		7A1ABCAF1BAD230A00D6904C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7A1ABC961BAD230A00D6904C /* PrVZtv */;
-			targetProxy = 7A1ABCAE1BAD230A00D6904C /* PBXContainerItemProxy */;
-		};
-		7A4E785119C735B900C5E9B3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7A4E783519C735B900C5E9B3 /* PrVZ */;
-			targetProxy = 7A4E785019C735B900C5E9B3 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7A1ABCA31BAD230A00D6904C /* Main.storyboard */ = {
@@ -1271,40 +1114,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.jacksonjude.PrVZ;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Release;
-		};
-		7A1ABCB61BAD230A00D6904C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = PrVZtvTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jacksonjude.PrVZtvTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrVZtv.app/PrVZtv";
-				TVOS_DEPLOYMENT_TARGET = 9.0;
-			};
-			name = Debug;
-		};
-		7A1ABCB71BAD230A00D6904C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = PrVZtvTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jacksonjude.PrVZtvTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrVZtv.app/PrVZtv";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
@@ -1332,6 +1143,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1375,6 +1187,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1410,6 +1223,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PrVZ Dev/PrVZ-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1433,43 +1247,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PrVZ Dev/PrVZ-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		7A4E785D19C735B900C5E9B3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "PrVZ DevTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jacksonjude.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = PrVZTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrVZ.app/PrVZ";
-			};
-			name = Debug;
-		};
-		7A4E785E19C735B900C5E9B3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "PrVZ DevTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jacksonjude.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = PrVZTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrVZ.app/PrVZ";
 			};
 			name = Release;
 		};
@@ -1481,15 +1261,6 @@
 			buildConfigurations = (
 				7A1ABCB41BAD230A00D6904C /* Debug */,
 				7A1ABCB51BAD230A00D6904C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7A1ABCB91BAD230A00D6904C /* Build configuration list for PBXNativeTarget "PrVZtvTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7A1ABCB61BAD230A00D6904C /* Debug */,
-				7A1ABCB71BAD230A00D6904C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1508,15 +1279,6 @@
 			buildConfigurations = (
 				7A4E785A19C735B900C5E9B3 /* Debug */,
 				7A4E785B19C735B900C5E9B3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7A4E785C19C735B900C5E9B3 /* Build configuration list for PBXNativeTarget "PrVZTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7A4E785D19C735B900C5E9B3 /* Debug */,
-				7A4E785E19C735B900C5E9B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
