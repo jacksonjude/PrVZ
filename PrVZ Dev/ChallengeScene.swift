@@ -17,7 +17,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     let enemyProjectileCatagory: UInt32 = 1 << 3
     
     var princess1 = Princess()
-    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blue(), joystickRadius:50, joystickColor:SKColor.red())
+    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blue, joystickRadius:50, joystickColor:SKColor.red)
     var brushesInWorld = 0
     var currentBrushes = NSMutableArray()
     var zombies = NSMutableArray()
@@ -79,12 +79,12 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         
         self.scoreLabel.position = CGPoint(x: self.frame.midX-300, y: self.frame.midY+200)
         self.scoreLabel.fontSize = 30
-        self.scoreLabel.fontColor = SKColor.orange()
+        self.scoreLabel.fontColor = SKColor.orange
         self.addChild(scoreLabel)
         
         self.scoreEnemyLabel.position = CGPoint(x: self.frame.midX+300, y: self.frame.midY+200)
         self.scoreEnemyLabel.fontSize = 30
-        self.scoreEnemyLabel.fontColor = SKColor.red()
+        self.scoreEnemyLabel.fontColor = SKColor.red
         self.addChild(scoreEnemyLabel)
         
         self.runGame()
@@ -275,7 +275,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         monsterSK.health -= 1
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-1"
-        healthLostLabel.fontColor = SKColor.red()
+        healthLostLabel.fontColor = SKColor.red
         healthLostLabel.fontSize = 32
         if monster.name == "catZombie"
         {
@@ -300,7 +300,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             self.zombies.add(deadZombie)
             self.addChild(deadZombie)
             
-            let sparkEmmitterPath:NSString = Bundle.main().pathForResource("Smoke", ofType: "sks")!
+            let sparkEmmitterPath:NSString = Bundle.main.path(forResource: "Smoke", ofType: "sks")! as NSString
             
             let sparkEmmiter = NSKeyedUnarchiver.unarchiveObject(withFile: sparkEmmitterPath as String) as! SKEmitterNode
             
@@ -328,12 +328,12 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             {
                 let Win = SKLabelNode(fontNamed: "TimesNewRoman")
                 Win.fontSize = 85
-                Win.fontColor = SKColor.orange()
+                Win.fontColor = SKColor.orange
                 Win.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                 Win.text = "You Win! GG!"
                 self.addChild(Win)
                 
-                let defaults: UserDefaults = UserDefaults.standard()
+                let defaults: UserDefaults = UserDefaults.standard
                 if var wins = defaults.object(forKey: "gamesWon") as? NSInteger
                 {
                     wins += 1
@@ -375,7 +375,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         self.princessHealth -= 0.25
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-0.25"
-        healthLostLabel.fontColor = SKColor.red()
+        healthLostLabel.fontColor = SKColor.red
         healthLostLabel.fontSize = 32
         healthLostLabel.position = CGPoint(x: princess1.position.x, y: princess1.position.y+100)
         healthLostLabel.run(SKAction.moveTo(y: healthLostLabel.position.y+20, duration: 0.4))
@@ -401,7 +401,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         
         for aZombie in self.zombies
         {
-            aZombie.removeFromParent()
+            (aZombie as AnyObject).removeFromParent()
         }
         
         self.zombies.removeAllObjects()
@@ -415,7 +415,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         
         let Lose = SKLabelNode(fontNamed: "TimesNewRoman")
         Lose.fontSize = 85
-        Lose.fontColor = SKColor.red()
+        Lose.fontColor = SKColor.red
         Lose.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         Lose.text = "You Lose! GG!"
         self.addChild(Lose)
@@ -426,7 +426,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
     func saveDataRecived(_ data: Data!, fromMatch match: GKMatch!, fromPlayer playerID: String!)
     {
         let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
-        let message: AnyObject? = unarchiver.decodeObject(forKey: "message")
+        let message: AnyObject? = unarchiver.decodeObject(forKey: "message") as AnyObject?
         let messageString = message as? NSString
         
         if messageString == "zombies"
@@ -437,7 +437,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
             {
                 let Lose = SKLabelNode(fontNamed: "TimesNewRoman")
                 Lose.fontSize = 85
-                Lose.fontColor = SKColor.red()
+                Lose.fontColor = SKColor.red
                 Lose.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                 Lose.text = "You Lose! GG!"
                 self.addChild(Lose)
@@ -450,12 +450,12 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         {
             let Win = SKLabelNode(fontNamed: "TimesNewRoman")
             Win.fontSize = 85
-            Win.fontColor = SKColor.orange()
+            Win.fontColor = SKColor.orange
             Win.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
             Win.text = "You Win! GG!"
             self.addChild(Win)
             
-            let defaults: UserDefaults = UserDefaults.standard()
+            let defaults: UserDefaults = UserDefaults.standard
             if var wins = defaults.object(forKey: "gamesWon") as? NSInteger
             {
                 wins += 1
@@ -479,7 +479,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         
         for zombie in self.zombies
         {
-            zombie.removeFromParent()
+            (zombie as AnyObject).removeFromParent()
             self.zombies.remove(zombie)
         }
         
@@ -520,7 +520,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         var zombiesAlive = 0
         for aZombie in self.zombies
         {
-            if aZombie.name == "zombie" || aZombie.name == "catZombie"
+            if (aZombie as AnyObject).name == "zombie" || (aZombie as AnyObject).name == "catZombie"
             {
                 zombiesAlive += 1
             }
@@ -530,7 +530,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         {
             for zombie in self.zombies
             {
-                zombie.removeFromParent()
+                (zombie as AnyObject).removeFromParent()
                 self.zombies.remove(zombie)
             }
             

@@ -20,7 +20,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     let princessDisplayCategory: UInt32 =  1 << 5
     
     var princess1 = Princess()
-    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blue(), joystickRadius:50, joystickColor:SKColor.red())
+    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blue, joystickRadius:50, joystickColor:SKColor.red)
     var buttons = SKNode()
     var gameViewController1: GameViewController?
     var wavesCompleted = 0
@@ -49,9 +49,9 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         
         let wallEnd = SKShapeNode()
         let path = CGMutablePath()
-        path.addRect(nil, rect: CGRect(x: 0, y: 0, width: 60, height: 3000))
+        path.addRect(CGRect(x: 0, y: 0, width: 60, height: 3000))
         wallEnd.path = path
-        wallEnd.fillColor = SKColor.gray()
+        wallEnd.fillColor = SKColor.gray
         wallEnd.position = CGPoint(x: self.frame.midX-450, y: self.frame.midY-400)
         wallEnd.name = "wallEnd"
         self.addChild(wallEnd)
@@ -101,7 +101,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         
         let bar = SKShapeNode()
         bar.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 235), transform: nil)
-        bar.fillColor = SKColor.gray()
+        bar.fillColor = SKColor.gray
         bar.name = "bar"
         bar.position = CGPoint(x: 0, y: self.frame.midY+125)
         self.addChild(bar)
@@ -243,15 +243,15 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
             {
                 let aZombie = aZombieNot as! GenericZombie
                 let zombie = NSMutableDictionary()
-                zombie.setObject(aZombie.health, forKey: "health")
+                zombie.setObject(aZombie.health, forKey: "health" as NSCopying)
                 NSLog("  Health: %i", aZombie.health)
-                zombie.setObject(aZombie.position.x, forKey: "posx")
+                zombie.setObject(aZombie.position.x, forKey: "posx" as NSCopying)
                 NSLog("  Posx: %f", Float(aZombie.position.x))
-                zombie.setObject(aZombie.position.y, forKey: "posy")
+                zombie.setObject(aZombie.position.y, forKey: "posy" as NSCopying)
                 NSLog("  Posy: %f", Float(aZombie.position.y))
-                zombie.setObject(aZombie.name!, forKey: "name")
+                zombie.setObject(aZombie.name!, forKey: "name" as NSCopying)
                 NSLog("  Name: %@", aZombie.name!)
-                zombie.setObject(aZombie.uuid, forKey: "uuid")
+                zombie.setObject(aZombie.uuid, forKey: "uuid" as NSCopying)
                 NSLog("  uuid: %@", aZombie.uuid)
                 
                 self.addChild(aZombie as SKNode)
@@ -358,7 +358,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         monsterSK.health -= 1
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-1"
-        healthLostLabel.fontColor = SKColor.red()
+        healthLostLabel.fontColor = SKColor.red
         healthLostLabel.fontSize = 32
         if monster.name == "catZombie"
         {
@@ -409,7 +409,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         self.princessHealth -= 0.25
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-0.25"
-        healthLostLabel.fontColor = SKColor.red()
+        healthLostLabel.fontColor = SKColor.red
         healthLostLabel.fontSize = 32
         healthLostLabel.position = CGPoint(x: princess1.position.x, y: princess1.position.y+100)
         healthLostLabel.run(SKAction.moveTo(y: healthLostLabel.position.y+20, duration: 0.4))
@@ -448,7 +448,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         self.princessDisplayHealth -= 0.25
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-0.25"
-        healthLostLabel.fontColor = SKColor.red()
+        healthLostLabel.fontColor = SKColor.red
         healthLostLabel.fontSize = 32
         healthLostLabel.position = CGPoint(x: princess1.position.x, y: princess1.position.y+100)
         healthLostLabel.run(SKAction.moveTo(y: healthLostLabel.position.y+20, duration: 0.4))
@@ -474,13 +474,13 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         
         let zombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         zombiesKilledLabel.name = "zombiesKilledLabel"
-        zombiesKilledLabel.fontColor = SKColor.red()
+        zombiesKilledLabel.fontColor = SKColor.red
         zombiesKilledLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         self.addChild(zombiesKilledLabel)
         
         for zombie in self.zombies
         {
-            zombie.removeFromParent()
+            (zombie as AnyObject).removeFromParent()
             self.zombies.remove(zombie)
         }
     }
@@ -499,7 +499,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
     func saveDataRecived(_ data: Data!, fromMatch match: GKMatch!, fromPlayer playerID: String!)
     {
         let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
-        let message: AnyObject? = unarchiver.decodeObject(forKey: "message")
+        let message: AnyObject? = unarchiver.decodeObject(forKey: "message") as AnyObject?
         let messageString = message as? NSString
         if messageString == "princessMove"
         {
@@ -619,12 +619,12 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
             {
                 let aZombie = aZombieNot as? GenericZombie
                 let uuid = aZombie?.uuid
-                if uuid == zombieUUID
+                if uuid! == zombieUUID as String
                 {
                     aZombie?.health -= 1
                     let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
                     healthLostLabel.text = "-1"
-                    healthLostLabel.fontColor = SKColor.red()
+                    healthLostLabel.fontColor = SKColor.red
                     healthLostLabel.fontSize = 32
                     if aZombie?.name == "catZombie"
                     {
@@ -643,7 +643,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
                         healthLostLabel.removeFromParent()
                     })]))
                     self.addChild(healthLostLabel)
-                    if aZombie?.health < 1
+                    if (aZombie?.health)! < 1
                     {
                         let deadZombie = SKSpriteNode(imageNamed: "ash.png")
                         deadZombie.name = "ash"
@@ -708,7 +708,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         var zombiesAlive = 0
         for aZombie in self.zombies
         {
-            if aZombie.name == "zombie" || aZombie.name == "catZombie"
+            if (aZombie as AnyObject).name == "zombie" || (aZombie as AnyObject).name == "catZombie"
             {
                 zombiesAlive += 1
             }
@@ -718,7 +718,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         {
             for zombie in self.zombies
             {
-                zombie.removeFromParent()
+                (zombie as AnyObject).removeFromParent()
                 self.zombies.remove(zombie)
             }
             

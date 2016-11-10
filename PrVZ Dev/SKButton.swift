@@ -14,7 +14,7 @@ class SKButton: SKNode {
     var action: () -> Void
     var pressed = Bool()
     
-    init(defaultButtonImage: String, activeButtonImage: String, buttonAction: () -> Void) {
+    init(defaultButtonImage: String, activeButtonImage: String, buttonAction: @escaping () -> Void) {
         defaultButton = SKSpriteNode(imageNamed: defaultButtonImage)
         activeButton = SKSpriteNode(imageNamed: activeButtonImage)
         activeButton.isHidden = true

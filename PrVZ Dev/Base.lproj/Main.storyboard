@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="15G19a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11103.10"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Game View Controller-->
@@ -13,46 +15,41 @@
                         <viewControllerLayoutGuide type="bottom" id="khH-OB-KpY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qzt-LO-zHB">
-                                <rect key="frame" x="172" y="419" width="51" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="1Es-CL-VXd"/>
                                     <constraint firstAttribute="height" constant="31" id="EBk-xd-fzc"/>
                                 </constraints>
                             </switch>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7u1-Bc-DKQ">
-                                <rect key="frame" x="241" y="420" width="118" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Suv-oP-lFb"/>
                                     <constraint firstAttribute="width" constant="114" id="a5l-0x-uGg"/>
                                 </constraints>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="c4z-Fr-Qvl">
-                                <rect key="frame" x="363" y="420" width="118" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="114" id="fwB-Hl-rT0"/>
                                     <constraint firstAttribute="height" constant="30" id="mM8-j5-cac"/>
                                 </constraints>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="U18-fG-sh1">
-                                <rect key="frame" x="241" y="285" width="118" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="8eq-uZ-cic"/>
                                     <constraint firstAttribute="width" constant="114" id="BvM-HG-CC5"/>
                                 </constraints>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="pEm-k9-dif">
-                                <rect key="frame" x="241" y="354" width="118" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="5G6-8X-2c3"/>
                                     <constraint firstAttribute="width" constant="114" id="Anu-4g-7ty"/>
                                 </constraints>
                             </slider>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="pEm-k9-dif" secondAttribute="centerX" id="2x9-2i-HnE"/>
                             <constraint firstItem="khH-OB-KpY" firstAttribute="top" secondItem="Qzt-LO-zHB" secondAttribute="bottom" constant="150" id="4DY-fs-i7x"/>
@@ -66,7 +63,6 @@
                             <constraint firstItem="c4z-Fr-Qvl" firstAttribute="leading" secondItem="7u1-Bc-DKQ" secondAttribute="trailing" constant="8" id="gQp-Em-cBZ"/>
                         </constraints>
                     </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="joystickSwitch" destination="Qzt-LO-zHB" id="zgt-aA-ETp"/>
                         <outlet property="volumeSlider" destination="U18-fG-sh1" id="1Ji-4a-ty1"/>

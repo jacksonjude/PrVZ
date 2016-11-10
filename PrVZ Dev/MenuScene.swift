@@ -40,7 +40,7 @@ class MenuScene: SKScene
         multiplayerButton.position = CGPoint(x: self.frame.midX-300, y: self.frame.midY-200)
         self.addChild(multiplayerButton)
         
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         if let currentScore = defaults.object(forKey: "currentScore") as? NSInteger
         {
             self.zombiesKilled = currentScore
@@ -53,7 +53,7 @@ class MenuScene: SKScene
         
         let title = SKLabelNode(fontNamed: "TimesNewRoman")
         title.fontSize = 64
-        title.fontColor = SKColor.red()
+        title.fontColor = SKColor.red
         title.text = "Menu"
         title.position = CGPoint(x: self.frame.midX, y: self.frame.midY+100)
         self.addChild(title)
@@ -102,18 +102,18 @@ class MenuScene: SKScene
         
         let backGround = SKShapeNode(circleOfRadius: 10)
         backGround.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 720), transform: nil)
-        backGround.fillColor = SKColor.gray()
+        backGround.fillColor = SKColor.gray
         backGround.name = "bg"
         backGround.position = CGPoint(x: 0, y: 0)
         backGround.zPosition = 5
         stats.addChild(backGround)
         
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         if let highScore = defaults.object(forKey: "highScore") as? NSInteger
         {
             
             let highScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-            highScoreLabel.fontColor = SKColor.orange()
+            highScoreLabel.fontColor = SKColor.orange
             highScoreLabel.name = "highScoreLabel"
             highScoreLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY+200)
             highScoreLabel.zPosition = 6
@@ -125,7 +125,7 @@ class MenuScene: SKScene
         let levelsCompletedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         
         levelsCompletedLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY+100)
-        levelsCompletedLabel.fontColor = SKColor.blue()
+        levelsCompletedLabel.fontColor = SKColor.blue
         levelsCompletedLabel.zPosition = 6
         
         if let levels = defaults.object(forKey: "levels") as? NSInteger
@@ -139,7 +139,7 @@ class MenuScene: SKScene
         stats.addChild(levelsCompletedLabel)
         
         let currentScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        currentScoreLabel.fontColor = SKColor.red()
+        currentScoreLabel.fontColor = SKColor.red
         currentScoreLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY+150)
         currentScoreLabel.zPosition = 6
         
@@ -148,7 +148,7 @@ class MenuScene: SKScene
         stats.addChild(currentScoreLabel)
         
         let zombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        zombiesKilledLabel.fontColor = SKColor.blue()
+        zombiesKilledLabel.fontColor = SKColor.blue
         zombiesKilledLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY+30)
         zombiesKilledLabel.zPosition = 6
         
@@ -164,7 +164,7 @@ class MenuScene: SKScene
         stats.addChild(zombiesKilledLabel)
         
         let zombiesDiedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        zombiesDiedLabel.fontColor = SKColor.red()
+        zombiesDiedLabel.fontColor = SKColor.red
         zombiesDiedLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY+5)
         zombiesDiedLabel.zPosition = 6
         
@@ -180,7 +180,7 @@ class MenuScene: SKScene
         stats.addChild(zombiesDiedLabel)
         
         let catZombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        catZombiesKilledLabel.fontColor = SKColor.blue()
+        catZombiesKilledLabel.fontColor = SKColor.blue
         catZombiesKilledLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY-30)
         catZombiesKilledLabel.zPosition = 6
         
@@ -196,7 +196,7 @@ class MenuScene: SKScene
         stats.addChild(catZombiesKilledLabel)
         
         let catZombiesDiedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        catZombiesDiedLabel.fontColor = SKColor.red()
+        catZombiesDiedLabel.fontColor = SKColor.red
         catZombiesDiedLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY-55)
         catZombiesDiedLabel.zPosition = 6
         
@@ -212,7 +212,7 @@ class MenuScene: SKScene
         stats.addChild(catZombiesDiedLabel)
         
         let version = SKLabelNode(fontNamed: "TimesNewRoman")
-        version.fontColor = SKColor.green()
+        version.fontColor = SKColor.green
         version.position = CGPoint(x: self.frame.midX, y: self.frame.midY-150)
         version.zPosition = 6
         version.text = NSString(format: "Version: %.2f", self.version) as String
@@ -239,7 +239,7 @@ class MenuScene: SKScene
         self.gameViewController1!.findMatchForChallenge()
     }
     
-    func addButton(_ pos: CGPoint, type: NSString, InMenu: NSString, WithAction: () -> Void, WithName: NSString) -> SKButton
+    func addButton(_ pos: CGPoint, type: NSString, InMenu: NSString, WithAction: @escaping () -> Void, WithName: NSString) -> SKButton
     {
         var posOverride = CGPoint(x: 0, y: 0)
         if type == "back" && InMenu != "default"
@@ -278,7 +278,7 @@ class MenuScene: SKScene
         
         let backGround = SKShapeNode(circleOfRadius: 10)
         backGround.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 720), transform: nil)
-        backGround.fillColor = SKColor.gray()
+        backGround.fillColor = SKColor.gray
         backGround.name = "bg"
         backGround.position = CGPoint(x: 0, y: 0)
         backGround.zPosition = 5
@@ -295,7 +295,7 @@ class MenuScene: SKScene
         
         let muteDisplay = SKLabelNode(fontNamed: "TimesNewRoman")
         muteDisplay.fontSize = 24
-        muteDisplay.fontColor = SKColor.red()
+        muteDisplay.fontColor = SKColor.red
         muteDisplay.position = CGPoint(x: self.frame.midX, y: self.frame.midY-100)
         muteDisplay.name = "muteDisplay"
         muteDisplay.zPosition = 10
@@ -334,7 +334,7 @@ class MenuScene: SKScene
     
     func hideVolumeSettings()
     {
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         if muted == false
         {
             defaults.set(volumeSlider?.value, forKey: "volume")
@@ -382,7 +382,7 @@ class MenuScene: SKScene
         {
             let muteDisplay = self.childNode(withName: "muteDisplay")
             let muteDisplaySK = muteDisplay as? SKLabelNode
-            muteDisplaySK?.text = NSString(format: "Muted: %i", Int(self.muted)) as String
+            muteDisplaySK?.text = NSString(format: "Muted: %@", String(self.muted)) as String
             if self.muted == true
             {
                 volumeSlider?.setValue(0, animated: true)

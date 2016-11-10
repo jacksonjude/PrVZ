@@ -23,12 +23,12 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
     var gameIsRunning = false
     var zombiesAlive = 0
     var zombieSpeed = 1.0
-    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blue(), joystickRadius:50, joystickColor:SKColor.red())
+    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blue, joystickRadius:50, joystickColor:SKColor.red)
     var gameViewController1: GameViewController?
     
     override func didMove(to view: SKView)
     {
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         if let doneWave = defaults.object(forKey: "Tutorial") as? NSInteger
         {
             if doneWave == 1
@@ -61,7 +61,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         bubble.isHidden = true
         self.addChild(bubble)
         
-        let color = SKColor.black()
+        let color = SKColor.black
         text1.text = "Welcome. I am the King"
         text1.fontColor = color
         text1.position = CGPoint(x: self.frame.midX-130, y: self.frame.midY+250)
@@ -96,9 +96,9 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         
         let wallEnd = SKShapeNode()
         let path = CGMutablePath()
-        path.addRect(nil, rect: CGRect(x: 0, y: 0, width: 60, height: 3000))
+        path.addRect(CGRect(x: 0, y: 0, width: 60, height: 3000))
         wallEnd.path = path
-        wallEnd.fillColor = SKColor.gray()
+        wallEnd.fillColor = SKColor.gray
         wallEnd.position = CGPoint(x: self.frame.midX-450, y: self.frame.midY-400)
         wallEnd.name = "wallEnd"
         wallEnd.physicsBody = SKPhysicsBody(circleOfRadius:20/2)
@@ -192,7 +192,7 @@ class TutorialScene: SKScene, SKPhysicsContactDelegate
         
         let textForInfo = SKLabelNode(fontNamed: "TimesNewRoman")
         textForInfo.text = "Touch Here to Continue"
-        textForInfo.fontColor = SKColor.black()
+        textForInfo.fontColor = SKColor.black
         textForInfo.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         textForInfo.name = "textForInfo"
         self.addChild(textForInfo)

@@ -32,7 +32,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
     var gameIsRunning = false
     var canPressButtons = true
     var zombieSpeed: CGFloat = 1.0
-    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blue(), joystickRadius:50, joystickColor:SKColor.red())
+    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blue, joystickRadius:50, joystickColor:SKColor.red)
     var joystickBool = true
     var buttons = SKNode()
     var brushInWorld = false
@@ -81,9 +81,9 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         let wallEnd = SKShapeNode()
         let path = CGMutablePath()
-        path.addRect(nil, rect: CGRect(x: 0, y: 0, width: 60, height: 3000))
+        path.addRect(CGRect(x: 0, y: 0, width: 60, height: 3000))
         wallEnd.path = path
-        wallEnd.fillColor = SKColor.gray()
+        wallEnd.fillColor = SKColor.gray
         wallEnd.position = CGPoint(x: self.frame.midX-450, y: self.frame.midY-400)
         wallEnd.name = "wallEnd"
         self.addChild(wallEnd)
@@ -133,7 +133,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         let bar = SKShapeNode()
         bar.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 235), transform: nil)
-        bar.fillColor = SKColor.gray()
+        bar.fillColor = SKColor.gray
         bar.name = "bar"
         bar.position = CGPoint(x: 0, y: self.frame.midY+125)
         bar.zPosition = -1
@@ -158,7 +158,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         self.zombieHealthMultiplierSlider?.maximumValue = 5
         
         self.coinsLabel.position = CGPoint(x: self.frame.midX+300, y: self.frame.midY+90)
-        self.coinsLabel.fontColor = SKColor.red()
+        self.coinsLabel.fontColor = SKColor.red
         self.addChild(self.coinsLabel)
         let coinsImage = SKSpriteNode(imageNamed: "coin.png")
         coinsImage.position = CGPoint(x: coinsImage.position.x-40, y: coinsImage.position.y+10)
@@ -182,7 +182,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                 self.princessHealth += 0.5
                 let healthGainedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
                 healthGainedLabel.text = "+0.5"
-                healthGainedLabel.fontColor = SKColor.green()
+                healthGainedLabel.fontColor = SKColor.green
                 healthGainedLabel.fontSize = 32
                 healthGainedLabel.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+100)
                 healthGainedLabel.run(SKAction.moveTo(y: healthGainedLabel.position.y+20, duration: 0.4))
@@ -197,7 +197,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                 {
                     let healthGainedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
                     healthGainedLabel.text = NSString(format: "+0.25", self.healthLostInLastRound) as String
-                    healthGainedLabel.fontColor = SKColor.green()
+                    healthGainedLabel.fontColor = SKColor.green
                     healthGainedLabel.fontSize = 32
                     healthGainedLabel.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+75)
                     healthGainedLabel.run(SKAction.moveTo(y: healthGainedLabel.position.y+20, duration: 0.4))
@@ -442,7 +442,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         monsterSK.health -= 1
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-1"
-        healthLostLabel.fontColor = SKColor.red()
+        healthLostLabel.fontColor = SKColor.red
         healthLostLabel.fontSize = 32
         if monster.name == "catZombie"
         {
@@ -467,7 +467,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             self.zombies.add(deadZombie)
             self.addChild(deadZombie)
             
-            let sparkEmmitterPath:NSString = Bundle.main().pathForResource("Smoke", ofType: "sks")!
+            let sparkEmmitterPath:NSString = Bundle.main.path(forResource: "Smoke", ofType: "sks")! as NSString
             
             let sparkEmmiter = NSKeyedUnarchiver.unarchiveObject(withFile: sparkEmmitterPath as String) as! SKEmitterNode
             
@@ -492,14 +492,14 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                 {
                     case 0:
                         let petCat = NSMutableDictionary()
-                        petCat.setObject(0, forKey: "type")
-                        petCat.setObject(1, forKey: "level")
-                        self.pets.setObject(petCat, forKey: uuid)
+                        petCat.setObject(0, forKey: "type" as NSCopying)
+                        petCat.setObject(1, forKey: "level" as NSCopying)
+                        self.pets.setObject(petCat, forKey: uuid as NSCopying)
                     case 1:
                         let petDog = NSMutableDictionary()
-                        petDog.setObject(1, forKey: "type")
-                        petDog.setObject(1, forKey: "level")
-                        self.pets.setObject(petDog, forKey: uuid)
+                        petDog.setObject(1, forKey: "type" as NSCopying)
+                        petDog.setObject(1, forKey: "level" as NSCopying)
+                        self.pets.setObject(petDog, forKey: uuid as NSCopying)
                     default:
                         _ = "WHYAPPLE???? WHY????"
                 }
@@ -507,7 +507,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                 if let uuids = self.pets.object(forKey: "petUUIDs") as? NSMutableArray
                 {
                     uuids.add(uuid)
-                    self.pets.setObject(uuids, forKey: "petUUIDs")
+                    self.pets.setObject(uuids, forKey: "petUUIDs" as NSCopying)
                 }
             }
             
@@ -545,7 +545,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         self.healthLostInLastRound += 0.25
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-0.25"
-        healthLostLabel.fontColor = SKColor.red()
+        healthLostLabel.fontColor = SKColor.red
         healthLostLabel.fontSize = 32
         healthLostLabel.position = CGPoint(x: princess1.position.x, y: princess1.position.y+100)
         healthLostLabel.run(SKAction.moveTo(y: healthLostLabel.position.y+20, duration: 0.4))
@@ -576,14 +576,14 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         for aZombie in self.zombies
         {
-            aZombie.removeFromParent()
+            (aZombie as AnyObject).removeFromParent()
         }
         
         self.zombies.removeAllObjects()
         
         let zombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         zombiesKilledLabel.name = "zombiesKilledLabel"
-        zombiesKilledLabel.fontColor = SKColor.red()
+        zombiesKilledLabel.fontColor = SKColor.red
         zombiesKilledLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         self.addChild(zombiesKilledLabel)
         
@@ -603,7 +603,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         let backGround = SKShapeNode(circleOfRadius: 10)
         backGround.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 720), transform: nil)
-        backGround.fillColor = SKColor.gray()
+        backGround.fillColor = SKColor.gray
         backGround.name = "bg"
         backGround.position = CGPoint(x: 0, y: 0)
         backGround.zPosition = 5
@@ -642,13 +642,13 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         settingsNode.addChild(menuButton)
         
         self.levelsCompletedLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY+100)
-        self.levelsCompletedLabel.fontColor = SKColor.blue()
+        self.levelsCompletedLabel.fontColor = SKColor.blue
         self.levelsCompletedLabel.zPosition = 6
         self.levelsCompletedLabel.text = NSString(format: "Levels Completed In Dev Mode: %i", self.wavesCompletedJustToShow) as String
         self.addChild(self.levelsCompletedLabel)
         
         let currentScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        currentScoreLabel.fontColor = SKColor.red()
+        currentScoreLabel.fontColor = SKColor.red
         currentScoreLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY+150)
         currentScoreLabel.zPosition = 6
         currentScoreLabel.text = NSString(format: "Curent Score: %i", self.zombiesKilled) as String
@@ -667,7 +667,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         self.brushesInWorld = 0
     }
     
-    func addButton(_ pos: CGPoint, type: NSString, InMenu: NSString, WithAction: () -> Void, WithName: NSString) -> SKButton
+    func addButton(_ pos: CGPoint, type: NSString, InMenu: NSString, WithAction: @escaping () -> Void, WithName: NSString) -> SKButton
     {
         var posOverride = CGPoint(x: 0, y: 0)
         if type == "back" && InMenu != "default"
@@ -703,7 +703,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
     {
         let backGround2 = SKShapeNode(circleOfRadius: 10)
         backGround2.path = CGPath(rect: CGRect(x: self.frame.midX-300, y: self.frame.midY-200, width: 600, height: 400), transform: nil)
-        backGround2.fillColor = SKColor.gray()
+        backGround2.fillColor = SKColor.gray
         backGround2.name = "background2"
         backGround2.position = CGPoint(x: 0, y: 0)
         backGround2.zPosition = 10
@@ -718,7 +718,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         self.zombieSpeedSlider?.isUserInteractionEnabled = false
         
         let textReset = SKLabelNode(fontNamed: "TimesNewRoman")
-        textReset.fontColor = SKColor.red()
+        textReset.fontColor = SKColor.red
         textReset.fontSize = 64
         textReset.text = "Are you SURE"
         textReset.position = CGPoint(x: self.frame.midX, y: self.frame.midY+150)
@@ -726,7 +726,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         backGround2.addChild(textReset)
         
         let textReset2 = SKLabelNode(fontNamed: "TimesNewRoman")
-        textReset2.fontColor = SKColor.red()
+        textReset2.fontColor = SKColor.red
         textReset2.fontSize = 64
         textReset2.text = "you want to reset?"
         textReset2.position = CGPoint(x: self.frame.midX, y: self.frame.midY+100)
@@ -848,7 +848,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         let backGround = SKShapeNode(circleOfRadius: 10)
         backGround.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 720), transform: nil)
-        backGround.fillColor = SKColor.gray()
+        backGround.fillColor = SKColor.gray
         backGround.name = "bg"
         backGround.position = CGPoint(x: 0, y: 0)
         backGround.zPosition = 5
@@ -880,7 +880,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         let infiniteBrushLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         infiniteBrushLabel.text = "Infinite Brush"
         infiniteBrushLabel.fontSize = 64
-        infiniteBrushLabel.fontColor = SKColor.red()
+        infiniteBrushLabel.fontColor = SKColor.red
         infiniteBrushLabel.position = CGPoint(x: infiniteBrushLabel.position.x, y: infiniteBrushLabel.position.y+50)
         infiniteBrush.addChild(infiniteBrushLabel)
         let infiniteBrushBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemInfBrush)
@@ -890,7 +890,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         let coinsCost = SKLabelNode(fontNamed: "TimesNewRoman")
         coinsCost.text = "40"
         coinsCost.fontSize = 24
-        coinsCost.fontColor = SKColor.orange()
+        coinsCost.fontColor = SKColor.orange
         coinsCost.position = CGPoint(x: infiniteBrushBuyButton.position.x-30, y: infiniteBrushBuyButton.position.y)
         coinsCost.zPosition = 8
         infiniteBrushBuyButton.addChild(coinsCost)
@@ -911,7 +911,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         let coinsCost2 = SKLabelNode(fontNamed: "TimesNewRoman")
         coinsCost2.text = "60"
         coinsCost2.fontSize = 24
-        coinsCost2.fontColor = SKColor.orange()
+        coinsCost2.fontColor = SKColor.orange
         coinsCost2.position = CGPoint(x: HealthPackBuyButton.position.x-30, y: HealthPackBuyButton.position.y)
         coinsCost2.zPosition = 8
         HealthPackBuyButton.addChild(coinsCost2)
@@ -1034,7 +1034,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                 let healthPackLabel = SKLabelNode(fontNamed: "TimesNewRoman")
                 healthPackLabel.text = "Health Pack"
                 healthPackLabel.fontSize = 64
-                healthPackLabel.fontColor = SKColor.red()
+                healthPackLabel.fontColor = SKColor.red
                 healthPackLabel.position = CGPoint(x: 0, y: 100)
                 healthPack?.addChild(healthPackLabel)
             }
@@ -1074,7 +1074,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         {
             let healthGainedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
             healthGainedLabel.text = "+1"
-            healthGainedLabel.fontColor = SKColor.green()
+            healthGainedLabel.fontColor = SKColor.green
             healthGainedLabel.fontSize = 32
             healthGainedLabel.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+75)
             healthGainedLabel.run(SKAction.moveTo(y: healthGainedLabel.position.y+20, duration: 1))
@@ -1093,7 +1093,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         let backGround = SKShapeNode(circleOfRadius: 10)
         backGround.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 720), transform: nil)
-        backGround.fillColor = SKColor.gray()
+        backGround.fillColor = SKColor.gray
         backGround.name = "bg"
         backGround.position = CGPoint(x: 0, y: 0)
         backGround.zPosition = 5
@@ -1134,9 +1134,9 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         for aZombie in self.zombies
         {
-            if aZombie.name == "catZombie"
+            if (aZombie as AnyObject).name == "catZombie"
             {
-                if let hairball = aZombie.childNode(withName: "hairball")
+                if let hairball = (aZombie as AnyObject).childNode(withName: "hairball")
                 {
                     hairball.removeFromParent()
                 }
@@ -1163,7 +1163,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             {
                 let aZombieSK = aZombie as! SKSpriteNode
                 aZombieSK.run(SKAction.repeatForever(SKAction.moveBy(x: CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)))
-                if aZombie.name == "catZombie"
+                if (aZombie as AnyObject).name == "catZombie"
                 {
                     let sequence = SKAction.sequence([SKAction.run({
                         let hairball = SKSpriteNode(imageNamed: "hairball")
@@ -1279,7 +1279,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             {
                 let healthLabel = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
                 healthLabel.fontSize = 48
-                healthLabel.fontColor = SKColor.red()
+                healthLabel.fontColor = SKColor.red
                 healthLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY-250)
                 healthLabel.text = NSString(format: "Health: %f", self.princessHealth) as String
                 healthLabel.name = "healthLabel"
@@ -1382,11 +1382,11 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             var zombiesAlive = 0
             for aZombie in self.zombies
             {
-                if aZombie.name == "zombie"
+                if (aZombie as AnyObject).name == "zombie"
                 {
                     zombiesAlive += 1
                 }
-                if aZombie.name == "catZombie"
+                if (aZombie as AnyObject).name == "catZombie"
                 {
                     zombiesAlive += 1
                 }
@@ -1418,13 +1418,13 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                 for innerZombie in self.zombies
                 {
                     self.zombies.remove(innerZombie)
-                    innerZombie.removeFromParent()
+                    (innerZombie as AnyObject).removeFromParent()
                     
                 }
                 if self.wavesCompletedJustToShow == 15
                 {
                     let gotBlowDryer = SKLabelNode(fontNamed: "TimesNewRoman")
-                    gotBlowDryer.fontColor = SKColor.orange()
+                    gotBlowDryer.fontColor = SKColor.orange
                     gotBlowDryer.fontSize = 32
                     gotBlowDryer.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                     gotBlowDryer.text = "Recived Blow Dryer!"

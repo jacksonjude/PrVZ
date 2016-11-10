@@ -19,21 +19,21 @@ class GenericZombie: SKSpriteNode
     {
         let zombieTexture = SKTexture(imageNamed: "zombie.png")
         var scaledSize = zombieTexture.size()
-        scaledSize = scaledSize.apply(transform: CGAffineTransform(scaleX: 0.1, y: 0.1))
+        scaledSize = scaledSize.applying(CGAffineTransform(scaleX: 0.1, y: 0.1))
         
         self.princess = nil
         
-        super.init(texture: zombieTexture, color: UIColor.clear(), size: scaledSize)
+        super.init(texture: zombieTexture, color: UIColor.clear, size: scaledSize)
     }
     
     init(texture zombieTexture: SKTexture?, size zombieSize: CGSize)
     {
         var scaledSize = zombieTexture!.size()
-        scaledSize = scaledSize.apply(transform: CGAffineTransform(scaleX: zombieSize.width, y: zombieSize.height))
+        scaledSize = scaledSize.applying(CGAffineTransform(scaleX: zombieSize.width, y: zombieSize.height))
         
         self.princess = nil
         
-        super.init(texture: zombieTexture, color: UIColor.clear(), size: scaledSize)
+        super.init(texture: zombieTexture, color: UIColor.clear, size: scaledSize)
     }
 
     required init?(coder aDecoder: NSCoder)

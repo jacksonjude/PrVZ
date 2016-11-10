@@ -31,7 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var canPressButtons = true
     var zombieSpeed: CGFloat = 1.0
     #if os(iOS)
-    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blue(), joystickRadius:50, joystickColor:SKColor.red())
+    var joystick = JCJoystick(controlRadius:50, baseRadius:68, baseColor:SKColor.blue, joystickRadius:50, joystickColor:SKColor.red)
     #endif
     var joystickBool = true
     var buttons = SKNode()
@@ -87,13 +87,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     deinit
     {
-        NotificationCenter.default().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didMove(to view: SKView)
     {
         let keyStore = NSUbiquitousKeyValueStore.default()
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         defaults.set(1, forKey: "Tutorial")
         
         if let backgroundNumber = defaults.object(forKey: "background") as? NSInteger
@@ -213,7 +213,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             let userDictionary = NSMutableDictionary()
             let uuid = UUID().uuidString
-            userDictionary.setObject(uuid, forKey: "uuid")
+            userDictionary.setObject(uuid, forKey: "uuid" as NSCopying)
             keyStore.set(userDictionary, forKey: "playerData")
             keyStore.synchronize()
             print("Added User")
@@ -237,9 +237,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         let wallEnd = SKShapeNode()
         let path = CGMutablePath()
-        path.addRect(nil, rect: CGRect(x: 0, y: 0, width: 60, height: 3000))
+        path.addRect(CGRect(x: 0, y: 0, width: 60, height: 3000))
         wallEnd.path = path
-        wallEnd.fillColor = SKColor.gray()
+        wallEnd.fillColor = SKColor.gray
         wallEnd.position = CGPoint(x: self.frame.midX-450, y: self.frame.midY-400)
         wallEnd.name = "wallEnd"
         self.addChild(wallEnd)
@@ -255,59 +255,75 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.addChild(self.princess1)
         
         #if os(iOS)
-        let pauseButton = SKButton(defaultButtonImage: "pause", activeButtonImage: "pause", buttonAction: pauseGame)
-        pauseButton.position = CGPoint(x: self.frame.midX+400, y: self.frame.midY+100)
-        pauseButton.name = "pauseButton"
-        pauseButton.isHidden = true
-        pauseButton.isUserInteractionEnabled = false
-        self.addChild(pauseButton)
-        
-        let fireButton = SKButton(defaultButtonImage: "fireButton", activeButtonImage: "fireButtonPressed", buttonAction: self.addBrush)
-        fireButton.position = CGPoint(x: self.frame.midX+400, y: self.frame.midY-200)
-        fireButton.name = "fire"
-        self.addChild(fireButton)
-        
-        self.joystick?.position = CGPoint(x: self.frame.midX-400, y: self.frame.midY-200)
-        self.joystick?.name = "joystick"
-        self.addChild(joystick!)
-        
-        let startButton = SKButton(defaultButtonImage: "startButtonGame", activeButtonImage: "startButtonGamePressed", buttonAction: runGame)
-        startButton.position = CGPoint(x: self.frame.midX-300, y: self.frame.midY+200)
-        startButton.name = "start"
-        self.buttons.addChild(startButton)
-        
-        let storeButton = SKButton(defaultButtonImage: "storeButton", activeButtonImage: "storeButtonPressed", buttonAction: store)
-        storeButton.position = CGPoint(x: self.frame.midX+300, y: self.frame.midY+200)
-        storeButton.name = "store"
-        self.buttons.addChild(storeButton)
-        
-        let settingsButton = SKButton(defaultButtonImage: "settingsButton", activeButtonImage: "settingsButtonPressed", buttonAction: settings)
-        settingsButton.position = CGPoint(x: self.frame.midX, y: self.frame.midY+200)
-        settingsButton.name = "settingsButton"
-        self.buttons.addChild(settingsButton)
-        
-        self.addChild(self.buttons)
-        
-        let bar = SKShapeNode()
-        bar.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 235), transform: nil)
-        bar.fillColor = SKColor.gray()
-        bar.name = "bar"
-        bar.position = CGPoint(x: 0, y: self.frame.midY+125)
-        bar.zPosition = -1
-        self.addChild(bar)
-        
-        self.zombiesToSpawnSlider?.isHidden = true
-        self.zombiesToSpawnSlider?.isUserInteractionEnabled = false
-        self.zombiesToSpawnSlider?.maximumValue = 9
-        self.zombiesToSpawnSlider?.minimumValue = 3
-        
-        self.joystickSwitch?.isHidden = true
-        self.joystickSwitch?.isUserInteractionEnabled = false
-        
-        self.zombieSpeedSlider?.isHidden = true
-        self.zombieSpeedSlider?.isUserInteractionEnabled = false
-        self.zombieSpeedSlider?.minimumValue = 1
-        self.zombieSpeedSlider?.maximumValue = 4
+            let pauseButton = SKButton(defaultButtonImage: "pause", activeButtonImage: "pause", buttonAction: pauseGame)
+            pauseButton.position = CGPoint(x: self.frame.midX+400, y: self.frame.midY+100)
+            pauseButton.name = "pauseButton"
+            pauseButton.isHidden = true
+            pauseButton.isUserInteractionEnabled = false
+            self.addChild(pauseButton)
+            
+            let fireButton = SKButton(defaultButtonImage: "fireButton", activeButtonImage: "fireButtonPressed", buttonAction: self.addBrush)
+            fireButton.position = CGPoint(x: self.frame.midX+400, y: self.frame.midY-200)
+            fireButton.name = "fire"
+            self.addChild(fireButton)
+            
+            self.joystick?.position = CGPoint(x: self.frame.midX-400, y: self.frame.midY-200)
+            self.joystick?.name = "joystick"
+            self.addChild(joystick!)
+            
+            let startButton = SKButton(defaultButtonImage: "startButtonGame", activeButtonImage: "startButtonGamePressed", buttonAction: runGame)
+            startButton.position = CGPoint(x: self.frame.midX-300, y: self.frame.midY+200)
+            startButton.name = "start"
+            self.buttons.addChild(startButton)
+            
+            let storeButton = SKButton(defaultButtonImage: "storeButton", activeButtonImage: "storeButtonPressed", buttonAction: store)
+            storeButton.position = CGPoint(x: self.frame.midX+300, y: self.frame.midY+200)
+            storeButton.name = "store"
+            self.buttons.addChild(storeButton)
+            
+            let settingsButton = SKButton(defaultButtonImage: "settingsButton", activeButtonImage: "settingsButtonPressed", buttonAction: settings)
+            settingsButton.position = CGPoint(x: self.frame.midX, y: self.frame.midY+200)
+            settingsButton.name = "settingsButton"
+            self.buttons.addChild(settingsButton)
+                
+            let brushSwitchButton = SKButton(defaultButtonImage: "brushSwitchButton", activeButtonImage: "brushSwitchButtonPressed", buttonAction: switchToBrush)
+            brushSwitchButton.position = CGPoint(x: self.frame.midX-450, y: self.frame.midY+50)
+            brushSwitchButton.name = "brushSwitchButton"
+            self.buttons.addChild(brushSwitchButton)
+            
+            brushSwitchButton.isHidden = true
+            brushSwitchButton.isUserInteractionEnabled = false
+                
+            let blowDryerButton = SKButton(defaultButtonImage: "blowDryerButton", activeButtonImage: "blowDryerButtonPressed", buttonAction: switchToDryer)
+            blowDryerButton.position = CGPoint(x: self.frame.midX-450, y: self.frame.midY-50)
+            blowDryerButton.name = "blowDryerButton"
+            self.buttons.addChild(blowDryerButton)
+            
+            blowDryerButton.isHidden = true
+            blowDryerButton.isUserInteractionEnabled = false
+            
+            self.addChild(self.buttons)
+            
+            let bar = SKShapeNode()
+            bar.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 235), transform: nil)
+            bar.fillColor = SKColor.gray
+            bar.name = "bar"
+            bar.position = CGPoint(x: 0, y: self.frame.midY+125)
+            bar.zPosition = -1
+            self.addChild(bar)
+            
+            self.zombiesToSpawnSlider?.isHidden = true
+            self.zombiesToSpawnSlider?.isUserInteractionEnabled = false
+            self.zombiesToSpawnSlider?.maximumValue = 9
+            self.zombiesToSpawnSlider?.minimumValue = 3
+            
+            self.joystickSwitch?.isHidden = true
+            self.joystickSwitch?.isUserInteractionEnabled = false
+            
+            self.zombieSpeedSlider?.isHidden = true
+            self.zombieSpeedSlider?.isUserInteractionEnabled = false
+            self.zombieSpeedSlider?.minimumValue = 1
+            self.zombieSpeedSlider?.maximumValue = 4
         #else
             if GCController.controllers().first != nil
             {
@@ -387,7 +403,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         #endif
         
         self.coinsLabel.position = CGPoint(x: self.frame.midX+300, y: self.frame.midY+90)
-        self.coinsLabel.fontColor = SKColor.red()
+        self.coinsLabel.fontColor = SKColor.red
         self.addChild(self.coinsLabel)
         let coinsImage = SKSpriteNode(imageNamed: "coin.png")
         coinsImage.position = CGPoint(x: coinsImage.position.x-40, y: coinsImage.position.y+10)
@@ -423,7 +439,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 let userDictionary = user as NSDictionary
                 let userDictionaryMutable = userDictionary.mutableCopy() as! NSMutableDictionary
-                userDictionaryMutable.setObject(highScore, forKey: "highScore")
+                userDictionaryMutable.setObject(highScore, forKey: "highScore" as NSCopying)
                 keyStore.set(userDictionaryMutable, forKey: "playerData")
                 keyStore.synchronize()
             }
@@ -436,7 +452,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 let userDictionary = user as NSDictionary
                 let userDictionaryMutable = userDictionary.mutableCopy() as! NSMutableDictionary
-                userDictionaryMutable.setObject(0, forKey: "highScore")
+                userDictionaryMutable.setObject(0, forKey: "highScore" as NSCopying)
                 keyStore.set(userDictionaryMutable, forKey: "playerData")
                 keyStore.synchronize()
             }
@@ -487,12 +503,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             defaults.set(NSMutableArray(), forKey: "petUUIDS")
         }
         
-        NotificationCenter.default().addObserver(self, selector:#selector(GameScene.saveDataBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        NotificationCenter.default().addObserver(self, selector:#selector(GameScene.saveDataBackground), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
-        NotificationCenter.default().addObserver(self, selector:#selector(GameScene.saveDataBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
-        NotificationCenter.default().addObserver(self, selector:#selector(GameScene.didEnterFromBackground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default().addObserver(self, selector:#selector(GameScene.changedValues), name: NSUbiquitousKeyValueStore.didChangeExternallyNotification, object: nil)
-        NotificationCenter.default().addObserver(forName: NSNotification.Name.GCControllerDidConnect, object: nil, queue: nil) { note in
+        NotificationCenter.default.addObserver(self, selector:#selector(GameScene.saveDataBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(GameScene.saveDataBackground), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(GameScene.saveDataBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(GameScene.didEnterFromBackground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(GameScene.changedValues), name: NSUbiquitousKeyValueStore.didChangeExternallyNotification, object: nil)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.GCControllerDidConnect, object: nil, queue: nil) { note in
             #if os(tvOS)
             
             NSLog("GCControllerDidConnectNotification")
@@ -641,7 +657,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 self.princessHealth += 0.5
                 let healthGainedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
                 healthGainedLabel.text = "+0.5"
-                healthGainedLabel.fontColor = SKColor.green()
+                healthGainedLabel.fontColor = SKColor.green
                 healthGainedLabel.fontSize = 32
                 healthGainedLabel.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+100)
                 healthGainedLabel.run(SKAction.moveTo(y: healthGainedLabel.position.y+20, duration: 0.4))
@@ -656,7 +672,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 {
                     let healthGainedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
                     healthGainedLabel.text = NSString(format: "+0.25", self.healthLostInLastRound) as String
-                    healthGainedLabel.fontColor = SKColor.green()
+                    healthGainedLabel.fontColor = SKColor.green
                     healthGainedLabel.fontSize = 32
                     healthGainedLabel.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+75)
                     healthGainedLabel.run(SKAction.moveTo(y: healthGainedLabel.position.y+20, duration: 0.4))
@@ -679,7 +695,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             pauseButton.isUserInteractionEnabled = true
         }
         
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         if let volume = defaults.object(forKey: "volume") as? Float
         {
             backgroundMusicPlayer.volume = volume / 10
@@ -923,7 +939,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         monsterSK.health -= 1
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-1"
-        healthLostLabel.fontColor = SKColor.red()
+        healthLostLabel.fontColor = SKColor.red
         healthLostLabel.fontSize = 32
         if monster.name == "catZombie"
         {
@@ -938,7 +954,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             healthLostLabel.removeFromParent()
         })]))
         self.addChild(healthLostLabel)
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         if monsterSK.health < 1
         {
             if monsterSK.name == "catZombie"
@@ -973,7 +989,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             self.zombies.insert(deadZombie, at: self.zombies.count)
             self.addChild(deadZombie)
             
-            let sparkEmmitterPath:NSString = Bundle.main().pathForResource("Smoke", ofType: "sks")!
+            let sparkEmmitterPath:NSString = Bundle.main.path(forResource: "Smoke", ofType: "sks")! as NSString
             
             let sparkEmmiter = NSKeyedUnarchiver.unarchiveObject(withFile: sparkEmmitterPath as String) as! SKEmitterNode
             
@@ -988,7 +1004,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             deadZombie.addChild(sparkEmmiter)
             
             self.zombiesKilled += 1
-            let defaults: UserDefaults = UserDefaults.standard()
+            let defaults: UserDefaults = UserDefaults.standard
             if var highScore = defaults.object(forKey: "highScore") as? NSInteger
             {
                 if self.zombiesKilled > highScore
@@ -1020,14 +1036,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 {
                 case 0:
                     let petCat = NSMutableDictionary()
-                    petCat.setObject(0, forKey: "type")
-                    petCat.setObject(1, forKey: "level")
-                    self.pets.setObject(petCat, forKey: uuid)
+                    petCat.setObject(0, forKey: "type" as NSCopying)
+                    petCat.setObject(1, forKey: "level" as NSCopying)
+                    self.pets.setObject(petCat, forKey: uuid as NSCopying)
                 case 1:
                     let petDog = NSMutableDictionary()
-                    petDog.setObject(1, forKey: "type")
-                    petDog.setObject(1, forKey: "level")
-                    self.pets.setObject(petDog, forKey: uuid)
+                    petDog.setObject(1, forKey: "type" as NSCopying)
+                    petDog.setObject(1, forKey: "level" as NSCopying)
+                    self.pets.setObject(petDog, forKey: uuid as NSCopying)
                 default:
                     _ = "WHYAPPLE???? WHY????"
                 }
@@ -1035,7 +1051,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 if let uuids = self.pets.object(forKey: "petUUIDs") as? NSMutableArray
                 {
                     uuids.add(uuid)
-                    self.pets.setObject(uuids, forKey: "petUUIDs")
+                    self.pets.setObject(uuids, forKey: "petUUIDs" as NSCopying)
                 }
             }
             
@@ -1107,7 +1123,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         if princessHealth <= 0
         {
-            let defaults: UserDefaults = UserDefaults.standard()
+            let defaults: UserDefaults = UserDefaults.standard
             if monster.name == "zombie"
             {
                 if var normalZombiesDied = defaults.object(forKey: "zombiesDied") as? NSInteger
@@ -1143,7 +1159,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.healthLostInLastRound += 0.25
         let healthLostLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         healthLostLabel.text = "-0.25"
-        healthLostLabel.fontColor = SKColor.red()
+        healthLostLabel.fontColor = SKColor.red
         healthLostLabel.fontSize = 32
         healthLostLabel.position = CGPoint(x: princess1.position.x, y: princess1.position.y+100)
         healthLostLabel.run(SKAction.moveTo(y: healthLostLabel.position.y+20, duration: 0.4))
@@ -1153,7 +1169,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.addChild(healthLostLabel)
         if princessHealth <= 0
         {
-            let defaults: UserDefaults = UserDefaults.standard()
+            let defaults: UserDefaults = UserDefaults.standard
             
             if var catZombiesDied = defaults.object(forKey: "catZombiesDied") as? NSInteger
             {
@@ -1174,7 +1190,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func setUpAudio()
     {
         if (backgroundMusicPlayer == nil) {
-            let backgroundMusicURL = Bundle.main().urlForResource(backgroundMusicSound, withExtension: nil)
+            let backgroundMusicURL = Bundle.main.url(forResource: backgroundMusicSound, withExtension: nil)
             backgroundMusicPlayer = try? AVAudioPlayer(contentsOf: backgroundMusicURL!)
             backgroundMusicPlayer.numberOfLoops = -1
         }
@@ -1202,11 +1218,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         let zombiesKilledLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         zombiesKilledLabel.name = "zombiesKilledLabel"
-        zombiesKilledLabel.fontColor = SKColor.red()
+        zombiesKilledLabel.fontColor = SKColor.red
         zombiesKilledLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         self.addChild(zombiesKilledLabel)
         
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         zombiesKilledLabel.text = NSString(format: "Zombies Killed: %i", self.zombiesKilled) as String
         
         if let _ = defaults.object(forKey: "currentScore")
@@ -1253,7 +1269,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         let backGround = SKShapeNode(circleOfRadius: 10)
         backGround.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 720), transform: nil)
-        backGround.fillColor = SKColor.gray()
+        backGround.fillColor = SKColor.gray
         backGround.name = "bg"
         backGround.position = CGPoint(x: 0, y: 0)
         backGround.zPosition = 5
@@ -1288,12 +1304,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         menuButton.zPosition = 6
         settingsNode.addChild(menuButton)
         
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         if let highScore = defaults.object(forKey: "highScore") as? NSInteger
         {
             
             let highScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-            highScoreLabel.fontColor = SKColor.orange()
+            highScoreLabel.fontColor = SKColor.orange
             highScoreLabel.name = "highScoreLabel"
             highScoreLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY+200)
             highScoreLabel.zPosition = 6
@@ -1303,7 +1319,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         
         self.levelsCompletedLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY+100)
-        self.levelsCompletedLabel.fontColor = SKColor.blue()
+        self.levelsCompletedLabel.fontColor = SKColor.blue
         self.levelsCompletedLabel.zPosition = 6
         
         if let levels = defaults.object(forKey: "levels") as? NSInteger
@@ -1317,7 +1333,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.addChild(self.levelsCompletedLabel)
         
         let currentScoreLabel = SKLabelNode(fontNamed: "TimesNewRoman")
-        currentScoreLabel.fontColor = SKColor.red()
+        currentScoreLabel.fontColor = SKColor.red
         currentScoreLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY+150)
         currentScoreLabel.zPosition = 6
         currentScoreLabel.text = NSString(format: "Curent Score: %i", self.zombiesKilled) as String
@@ -1342,7 +1358,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     }
     
     #if os(iOS)
-    func addButton(_ pos: CGPoint, type: NSString, InMenu: NSString, WithAction: () -> Void, WithName: NSString) -> SKButton
+    func addButton(_ pos: CGPoint, type: NSString, InMenu: NSString, WithAction: @escaping () -> Void, WithName: NSString) -> SKButton
     {
         var posOverride = CGPoint(x: 0, y: 0)
         if type == "back" && InMenu != "default"
@@ -1378,7 +1394,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         let backGround2 = SKShapeNode(circleOfRadius: 10)
         backGround2.path = CGPath(rect: CGRect(x: self.frame.midX-300, y: self.frame.midY-200, width: 600, height: 400), transform: nil)
-        backGround2.fillColor = SKColor.gray()
+        backGround2.fillColor = SKColor.gray
         backGround2.name = "background2"
         backGround2.position = CGPoint(x: 0, y: 0)
         backGround2.zPosition = 10
@@ -1393,7 +1409,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         self.zombieSpeedSlider?.isUserInteractionEnabled = false
         
         let textReset = SKLabelNode(fontNamed: "TimesNewRoman")
-        textReset.fontColor = SKColor.red()
+        textReset.fontColor = SKColor.red
         textReset.fontSize = 64
         textReset.text = "Are you SURE"
         textReset.position = CGPoint(x: self.frame.midX, y: self.frame.midY+150)
@@ -1401,7 +1417,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         backGround2.addChild(textReset)
         
         let textReset2 = SKLabelNode(fontNamed: "TimesNewRoman")
-        textReset2.fontColor = SKColor.red()
+        textReset2.fontColor = SKColor.red
         textReset2.fontSize = 64
         textReset2.text = "you want to reset?"
         textReset2.position = CGPoint(x: self.frame.midX, y: self.frame.midY+100)
@@ -1419,7 +1435,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func resetYes()
     {
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         defaults.set(0, forKey: "Tutorial")
         defaults.set(0, forKey: "highScore")
         defaults.set(0, forKey: "levels")
@@ -1452,8 +1468,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func presentMenuScene()
     {
-        hideSettings()
-        saveData()
+        self.hideSettings()
+        self.saveData()
         self.gameViewController1?.presentMenuScene()
     }
     #endif
@@ -1537,7 +1553,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         let backGround = SKShapeNode(circleOfRadius: 10)
         backGround.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 720), transform: nil)
-        backGround.fillColor = SKColor.gray()
+        backGround.fillColor = SKColor.gray
         backGround.name = "bg"
         backGround.position = CGPoint(x: 0, y: 0)
         backGround.zPosition = 5
@@ -1569,7 +1585,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let infiniteBrushLabel = SKLabelNode(fontNamed: "TimesNewRoman")
         infiniteBrushLabel.text = "Infinite Brush"
         infiniteBrushLabel.fontSize = 64
-        infiniteBrushLabel.fontColor = SKColor.red()
+        infiniteBrushLabel.fontColor = SKColor.red
         infiniteBrushLabel.position = CGPoint(x: infiniteBrushLabel.position.x, y: infiniteBrushLabel.position.y+50)
         infiniteBrush.addChild(infiniteBrushLabel)
         let infiniteBrushBuyButton = SKButton(defaultButtonImage: "buyButton", activeButtonImage: "buyButtonPressed", buttonAction: buyItemInfBrush)
@@ -1579,7 +1595,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let coinsCost = SKLabelNode(fontNamed: "TimesNewRoman")
         coinsCost.text = "40"
         coinsCost.fontSize = 24
-        coinsCost.fontColor = SKColor.orange()
+        coinsCost.fontColor = SKColor.orange
         coinsCost.position = CGPoint(x: infiniteBrushBuyButton.position.x-30, y: infiniteBrushBuyButton.position.y)
         coinsCost.zPosition = 8
         infiniteBrushBuyButton.addChild(coinsCost)
@@ -1600,7 +1616,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         let coinsCost2 = SKLabelNode(fontNamed: "TimesNewRoman")
         coinsCost2.text = "60"
         coinsCost2.fontSize = 24
-        coinsCost2.fontColor = SKColor.orange()
+        coinsCost2.fontColor = SKColor.orange
         coinsCost2.position = CGPoint(x: HealthPackBuyButton.position.x-30, y: HealthPackBuyButton.position.y)
         coinsCost2.zPosition = 8
         HealthPackBuyButton.addChild(coinsCost2)
@@ -1727,7 +1743,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 let healthPackLabel = SKLabelNode(fontNamed: "TimesNewRoman")
                 healthPackLabel.text = "Health Pack"
                 healthPackLabel.fontSize = 64
-                healthPackLabel.fontColor = SKColor.red()
+                healthPackLabel.fontColor = SKColor.red
                 healthPackLabel.position = CGPoint(x: 0, y: 100)
                 healthPack?.addChild(healthPackLabel)
             }
@@ -1767,7 +1783,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             let healthGainedLabel = SKLabelNode(fontNamed: "TimesNewRoman")
             healthGainedLabel.text = "+1"
-            healthGainedLabel.fontColor = SKColor.green()
+            healthGainedLabel.fontColor = SKColor.green
             healthGainedLabel.fontSize = 32
             healthGainedLabel.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+75)
             healthGainedLabel.run(SKAction.moveTo(y: healthGainedLabel.position.y+20, duration: 1))
@@ -1786,7 +1802,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         let backGround = SKShapeNode(circleOfRadius: 10)
         backGround.path = CGPath(rect: CGRect(x: 32, y: 0, width: 960, height: 720), transform: nil)
-        backGround.fillColor = SKColor.gray()
+        backGround.fillColor = SKColor.gray
         backGround.name = "bg"
         backGround.position = CGPoint(x: 0, y: 0)
         backGround.zPosition = 5
@@ -1798,7 +1814,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func saveData()
     {
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         
         let defaultsGroup: UserDefaults = UserDefaults(suiteName: "group.com.jacksonjude.PrVZ")!
         
@@ -1878,7 +1894,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 aZombie.removeAllActions()
             }
             
-            let defaults: UserDefaults = UserDefaults.standard()
+            let defaults: UserDefaults = UserDefaults.standard
             
             let zombieData = NSKeyedArchiver.archivedData(withRootObject: self.zombies)
             defaults.set(zombieData, forKey: "zombies")
@@ -1890,7 +1906,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     func didEnterFromBackground()
     {
-        let defaults: UserDefaults = UserDefaults.standard()
+        let defaults: UserDefaults = UserDefaults.standard
         
         if let didComeBackFromBackground = defaults.object(forKey: "didComeBackFromBackground") as? Bool
         {
@@ -2137,7 +2153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             {
                 let healthLabel = SKLabelNode(fontNamed: "HelveticaNeue-Bold")
                 healthLabel.fontSize = 48
-                healthLabel.fontColor = SKColor.red()
+                healthLabel.fontColor = SKColor.red
                 healthLabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY-250)
                 healthLabel.text = NSString(format: "Health: %f", self.princessHealth) as String
                 healthLabel.name = "healthLabel"
@@ -2150,7 +2166,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             let healthLabel = self.childNode(withName: "healthLabel")
             healthLabel?.zPosition = 0
             
-            let defaults: UserDefaults = UserDefaults.standard()
+            let defaults: UserDefaults = UserDefaults.standard
             
             let tempArray = NSMutableArray()
             
@@ -2492,7 +2508,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     let background2Bool = NSLocationInRange(self.wavesCompleted, range)
                     if background2Bool
                     {
-                        let defaults: UserDefaults = UserDefaults.standard()
+                        let defaults: UserDefaults = UserDefaults.standard
                         defaults.set(2, forKey: "background")
                         if let background = self.childNode(withName: "background")
                         {
@@ -2507,7 +2523,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         if self.wavesCompleted == 15
                         {
                             let gotBlowDryer = SKLabelNode(fontNamed: "TimesNewRoman")
-                            gotBlowDryer.fontColor = SKColor.orange()
+                            gotBlowDryer.fontColor = SKColor.orange
                             gotBlowDryer.fontSize = 32
                             gotBlowDryer.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                             gotBlowDryer.text = "Recived Blow Dryer!"
@@ -2518,15 +2534,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                                 gotBlowDryer.removeFromParent()
                             })]))
                             
-                            /*var brushButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)), type: "button", InMenu: "default", WithAction: self.switchToBrush, WithName: "brushSwitch")
-                            var blowdryerButton = self.addButton(CGPoint(x: CGRectGetMidX(self.frame)+400, y: CGRectGetMidY(self.frame)-140), type: "button", InMenu: "default", WithAction: self.switchToDryer, WithName: "dryerSwitch")*/
+                            let brushSwitchButton = self.buttons.childNode(withName: "brushSwitchButton")!
+                            let blowDryerSwitchButton = self.buttons.childNode(withName: "blowDryerSwitchButton")!
+                            
+                            brushSwitchButton.isHidden = false
+                            brushSwitchButton.isUserInteractionEnabled = true
+                            
+                            blowDryerSwitchButton.isHidden = false
+                            blowDryerSwitchButton.isUserInteractionEnabled = true
                         }
                     }
                     
                     let background3Bool = NSLocationInRange(self.wavesCompleted, range2)
                     if background3Bool
                     {
-                        let defaults: UserDefaults = UserDefaults.standard()
+                        let defaults: UserDefaults = UserDefaults.standard
                         defaults.set(3, forKey: "background")
                         if let background = self.childNode(withName: "background")
                         {
@@ -2542,7 +2564,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     let background4Bool = NSLocationInRange(self.wavesCompleted, range3)
                     if background4Bool
                     {
-                        let defaults: UserDefaults = UserDefaults.standard()
+                        let defaults: UserDefaults = UserDefaults.standard
                         defaults.set(4, forKey: "background")
                         if let background = self.childNode(withName: "background")
                         {

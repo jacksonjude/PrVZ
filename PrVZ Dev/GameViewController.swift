@@ -12,8 +12,8 @@ import GameKit
 
 extension SKNode {
     class func unarchiveFromFile(_ file : NSString) -> SKNode? {
-        if let path = Bundle.main().pathForResource(file as String, ofType: "sks") {
-            let sceneData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .dataReadingMappedIfSafe)
+        if let path = Bundle.main.path(forResource: file as String, ofType: "sks") {
+            let sceneData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
             let archiver = NSKeyedUnarchiver(forReadingWith: sceneData)
             
             archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
@@ -48,7 +48,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         super.viewDidLoad()
         
         let localPlayer = GKLocalPlayer.localPlayer()
-        localPlayer.authenticateHandler = {(viewController : UIViewController?, error : NSError?) -> Void in
+        localPlayer.authenticateHandler = {(viewController : UIViewController?, error : Error?) -> Void in
             if ((viewController) != nil) {
                 self.present(viewController!, animated: true, completion: nil)
             }
@@ -129,7 +129,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     
     func resetGameCenter()
     {
-        GKAchievement.resetAchievements { (error: NSError?) -> Void in
+        GKAchievement.resetAchievements { (error: Error?) -> Void in
             if error != nil
             {
                 print("Error: \(error)")
@@ -147,7 +147,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         let sScore = GKScore(leaderboardIdentifier: leaderboardID)
         sScore.value = Int64(score)
         
-        GKScore.report([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+        GKScore.report([sScore], withCompletionHandler: { (error: Error?) -> Void in
             if error != nil {
                 print(error!.localizedDescription)
             } else {
@@ -162,7 +162,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         let sScore = GKScore(leaderboardIdentifier: leaderboardID)
         sScore.value = Int64(score)
         
-        GKScore.report([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+        GKScore.report([sScore], withCompletionHandler: { (error: Error?) -> Void in
             if error != nil {
                 print(error!.localizedDescription)
             } else {
@@ -174,13 +174,13 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     func gameCenterLoadAchievements(){
         // load all prev. achievements for GameCenter for the user to progress can be added
         
-        GKAchievement.loadAchievements(completionHandler: { (retrivedAllAchievements, error:NSError?) -> Void in
+        GKAchievement.loadAchievements(completionHandler: { (retrivedAllAchievements, error:Error?) -> Void in
             if error != nil{
                 print("Game Center: could not load achievements, error: \(error)")
             } else {
                 if retrivedAllAchievements != nil
                 {
-                    print(retrivedAllAchievements)
+                    print(retrivedAllAchievements as Any)
                     for anAchievement in retrivedAllAchievements!  {
                         if let oneAchievement = anAchievement as GKAchievement! {
                             self.gameCenterAchievements[oneAchievement.identifier!]=oneAchievement
@@ -209,7 +209,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
                     
                     // try to report the progress to the Game Center
                     
-                    GKAchievement.report([achievement], withCompletionHandler:  {(error:NSError?) -> Void in
+                    GKAchievement.report([achievement], withCompletionHandler:  {(error:Error?) -> Void in
                         if error != nil {
                             print("Couldn't save achievement (\(achievementID)) progress to \(progress) %")
                         }
@@ -266,7 +266,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         viewController.dismiss(animated: true, completion: nil)
     }
     
-    func matchmakerViewController(_ viewController: GKMatchmakerViewController, didFailWithError error: NSError)
+    func matchmakerViewController(_ viewController: GKMatchmakerViewController, didFailWithError error: Error)
     {
         viewController.dismiss(animated: true, completion: nil)
         print("Matching failed with error: \(error)")
@@ -554,11 +554,6 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     {
         self.presentDevelopmentScene()
     }
-
-    override func shouldAutorotate() -> Bool
-    {
-        return true
-    }
     
     override func motionEnded(_ motion: UIEventSubtype,
         with event: UIEvent?)
@@ -569,9 +564,9 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
         }
     }
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask
     {
-        if UIDevice.current().userInterfaceIdiom == .phone
+        if UIDevice.current.userInterfaceIdiom == .phone
         {
             return UIInterfaceOrientationMask.landscape
         }
@@ -585,10 +580,5 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GKMa
     {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
-    }
-
-    override func prefersStatusBarHidden() -> Bool
-    {
-        return true
     }
 }
