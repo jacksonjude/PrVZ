@@ -21,16 +21,16 @@ class GameViewController: UIViewController, GKLocalPlayerListener, GKMatchDelega
         super.viewDidLoad()
         
         let localPlayer = GKLocalPlayer.localPlayer()
-        localPlayer.authenticateHandler = {(viewController : UIViewController?, error : NSError?) -> Void in
+        localPlayer.authenticateHandler = {(viewController : UIViewController?, error : Error?) -> Void in
             if ((viewController) != nil) {
-                self.presentViewController(viewController!, animated: true, completion: nil)
+                self.present(viewController!, animated: true, completion: nil)
             }
             else
             {
-                if GKLocalPlayer.localPlayer().authenticated == true
+                if GKLocalPlayer.localPlayer().isAuthenticated == true
                 {
-                    print((GKLocalPlayer.localPlayer().authenticated))
-                    GKLocalPlayer.localPlayer().registerListener(self)
+                    print((GKLocalPlayer.localPlayer().isAuthenticated))
+                    GKLocalPlayer.localPlayer().register(self)
                     self.gameCenter = true
                 }
                 else
@@ -53,7 +53,7 @@ class GameViewController: UIViewController, GKLocalPlayerListener, GKMatchDelega
         skView.ignoresSiblingOrder = true
         
         /* Set the scale mode to scale to fit the window */
-        self.gameScene!.scaleMode = .AspectFill
+        self.gameScene!.scaleMode = .aspectFill
         
         skView.presentScene(self.gameScene)        
     }
@@ -61,7 +61,7 @@ class GameViewController: UIViewController, GKLocalPlayerListener, GKMatchDelega
     func gameCenterLoadAchievements(){
         // load all prev. achievements for GameCenter for the user to progress can be added
         
-        GKAchievement.loadAchievementsWithCompletionHandler({ (retrivedAllAchievements, error:NSError?) -> Void in
+        GKAchievement.loadAchievements(completionHandler: { (retrivedAllAchievements, error:Error?) -> Void in
             if error != nil{
                 print("Game Center: could not load achievements, error: \(error)")
             } else {
@@ -70,7 +70,7 @@ class GameViewController: UIViewController, GKLocalPlayerListener, GKMatchDelega
                     for anAchievement in retrivedAllAchievements!  {
                         if let oneAchievement = anAchievement as GKAchievement! {
                             self.gameCenterAchievements[oneAchievement.identifier!]=oneAchievement
-                            self.gameCenterAchievementsReal.addObject(oneAchievement)
+                            self.gameCenterAchievementsReal.add(oneAchievement)
                         }
                     }
                 }
@@ -78,13 +78,13 @@ class GameViewController: UIViewController, GKLocalPlayerListener, GKMatchDelega
         })
     }
     
-    func submitScore(score: NSInteger)
+    func submitScore(_ score: NSInteger)
     {
         let leaderboardID = "zombiesKilled"
         let sScore = GKScore(leaderboardIdentifier: leaderboardID)
         sScore.value = Int64(score)
         
-        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+        GKScore.report([sScore], withCompletionHandler: { (error: Error?) -> Void in
             if error != nil {
                 print(error!.localizedDescription)
             } else {
@@ -93,7 +93,7 @@ class GameViewController: UIViewController, GKLocalPlayerListener, GKMatchDelega
         })
     }
     
-    func gameCenterAddProgressToAnAchievement(progress:Double,achievementID:String) {
+    func gameCenterAddProgressToAnAchievement(_ progress:Double,achievementID:String) {
         if gameCenter == true
         {
             let lookupAchievement:GKAchievement? = gameCenterAchievements[achievementID]
@@ -110,7 +110,7 @@ class GameViewController: UIViewController, GKLocalPlayerListener, GKMatchDelega
                     }  // show banner only if achievement is fully granted (progress is 100%)
                     
                     // try to report the progress to the Game Center
-                    GKAchievement.reportAchievements([achievement], withCompletionHandler:  {(error:NSError?) -> Void in
+                    GKAchievement.report([achievement], withCompletionHandler:  {(error:Error?) -> Void in
                         if error != nil {
                             print("Couldn't save achievement (\(achievementID)) progress to \(progress) %")
                         }
@@ -132,15 +132,15 @@ class GameViewController: UIViewController, GKLocalPlayerListener, GKMatchDelega
         }
     }
     
-    func gameCenterViewControllerDidFinish(gcViewController: GKGameCenterViewController)
+    func gameCenterViewControllerDidFinish(_ gcViewController: GKGameCenterViewController)
     {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    override func motionEnded(motion: UIEventSubtype,
-        withEvent event: UIEvent?)
+    override func motionEnded(_ motion: UIEventSubtype,
+        with event: UIEvent?)
     {
-        if motion == .MotionShake
+        if motion == .motionShake
         {
             self.gameScene?.shakeMotion()
         }

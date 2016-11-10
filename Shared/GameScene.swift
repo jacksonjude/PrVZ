@@ -347,7 +347,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                                 self.calibratePrincess()
                             }
                         }
-                        if element == self.controller.microGamepad?.buttonX && self.controller.microGamepad?.buttonX.pressed == false
+                        if element == self.controller.microGamepad?.buttonX && self.controller.microGamepad?.buttonX.isPressed == false
                         {
                             if self.gameIsRunning == false
                             {
@@ -368,12 +368,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         }
                         if element == self.controller.microGamepad?.dpad && self.gamePaused == false && self.toggleTilt == false
                         {
-                            if self.controller.microGamepad?.dpad.left.value > 0.0
+                            if self.controller.microGamepad!.dpad.left.value > Float(0.0)
                             {
                                 self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+CGFloat((self.controller.microGamepad?.dpad.left.value)!*5))
                             }
                             
-                            if self.controller.microGamepad?.dpad.right.value > 0.0
+                            if self.controller.microGamepad!.dpad.right.value > Float(0.0)
                             {
                                 self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat((self.controller.microGamepad?.dpad.right.value)!*5))
                             }
@@ -396,7 +396,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             }
             else
             {
-                GCController.startWirelessControllerDiscoveryWithCompletionHandler { () -> Void in
+                GCController.startWirelessControllerDiscovery { () -> Void in
                     NSLog("Done with wireless discovery")
                 }
             }
@@ -532,7 +532,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                             self.calibratePrincess()
                         }
                     }
-                    if element == self.controller.microGamepad?.buttonX && self.controller.microGamepad?.buttonX.pressed == false
+                    
+                    print(element)
+                    
+                    if element == self.controller.microGamepad!.buttonX && self.controller.microGamepad!.buttonX.isPressed == false
                     {
                         if self.gameIsRunning == false
                         {
@@ -553,12 +556,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     }
                     if element == self.controller.microGamepad?.dpad && self.gamePaused == false && self.toggleTilt == false
                     {
-                        if self.controller.microGamepad?.dpad.left.value > 0.0
+                        if self.controller.microGamepad!.dpad.left.value > Float(0.0)
                         {
                             self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y+CGFloat((self.controller.microGamepad?.dpad.left.value)!*5))
                         }
                         
-                        if self.controller.microGamepad?.dpad.right.value > 0.0
+                        if self.controller.microGamepad!.dpad.right.value > Float(0.0)
                         {
                             self.princess1.position = CGPoint(x: self.princess1.position.x, y: self.princess1.position.y-CGFloat((self.controller.microGamepad?.dpad.right.value)!*5))
                         }
@@ -2309,7 +2312,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     
                     if self.coins >= 100
                     {
-                        if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                        if let coinsImage = self.coinsLabel.childNode(withName: "coinsImage")
                         {
                             if self.movedCoinsImage == false
                             {
@@ -2321,7 +2324,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     
                     if self.coins >= 1000
                     {
-                        if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                        if let coinsImage = self.coinsLabel.childNode(withName: "coinsImage")
                         {
                             if self.movedCoinsImage == false
                             {
@@ -2333,7 +2336,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     
                     if self.coins >= 10000
                     {
-                        if let coinsImage = self.coinsLabel.childNodeWithName("coinsImage")
+                        if let coinsImage = self.coinsLabel.childNode(withName: "coinsImage")
                         {
                             if self.movedCoinsImage == false
                             {
@@ -2346,15 +2349,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     self.wavesCompleted += 1
                     self.gameIsRunning = false
                     
-                    if let pauseButton = self.childNodeWithName("pauseButton")
+                    if let pauseButton = self.childNode(withName: "pauseButton")
                     {
-                        pauseButton.hidden = true
-                        pauseButton.userInteractionEnabled = false
+                        pauseButton.isHidden = true
+                        pauseButton.isUserInteractionEnabled = false
                     }
                     
                     for innerZombie in self.zombies
                     {
-                        self.zombies.removeAtIndex(self.zombies.indexOf(innerZombie)!)
+                        self.zombies.remove(at: self.zombies.index(of: innerZombie)!)
                         innerZombie.removeFromParent()
                     }
                     
@@ -2364,14 +2367,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     let background2Bool = NSLocationInRange(self.wavesCompleted, range)
                     if background2Bool
                     {
-                        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                        defaults.setObject(2, forKey: "background")
-                        if let background = self.childNodeWithName("background")
+                        let defaults: UserDefaults = UserDefaults.standard
+                        defaults.set(2, forKey: "background")
+                        if let background = self.childNode(withName: "background")
                         {
                             background.removeFromParent()
                         }
                         let background2 = SKSpriteNode(imageNamed: "background2")
-                        background2.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        background2.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                         background2.zPosition = -2
                         background2.name = "background"
                         self.addChild(background2)
@@ -2379,14 +2382,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         if self.wavesCompleted == 15
                         {
                             let gotBlowDryer = SKLabelNode(fontNamed: "TimesNewRoman")
-                            gotBlowDryer.fontColor = SKColor.orangeColor()
+                            gotBlowDryer.fontColor = SKColor.orange
                             gotBlowDryer.fontSize = 32
-                            gotBlowDryer.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                            gotBlowDryer.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                             gotBlowDryer.text = "Recived Blow Dryer!"
                             self.addChild(gotBlowDryer)
                             
-                            gotBlowDryer.runAction(SKAction.moveToY(gotBlowDryer.position.y+40, duration: 3))
-                            gotBlowDryer.runAction(SKAction.sequence([SKAction.fadeOutWithDuration(3), SKAction.runBlock({
+                            gotBlowDryer.run(SKAction.moveTo(y: gotBlowDryer.position.y+40, duration: 3))
+                            gotBlowDryer.run(SKAction.sequence([SKAction.fadeOut(withDuration: 3), SKAction.run({
                                 gotBlowDryer.removeFromParent()
                             })]))
                             
@@ -2397,14 +2400,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     let background3Bool = NSLocationInRange(self.wavesCompleted, range2)
                     if background3Bool
                     {
-                        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                        defaults.setObject(3, forKey: "background")
-                        if let background = self.childNodeWithName("background")
+                        let defaults: UserDefaults = UserDefaults.standard
+                        defaults.set(3, forKey: "background")
+                        if let background = self.childNode(withName: "background")
                         {
                             background.removeFromParent()
                         }
                         let background3 = SKSpriteNode(imageNamed: "background3")
-                        background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        background3.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                         background3.zPosition = -2
                         background3.name = "background"
                         self.addChild(background3)
@@ -2413,14 +2416,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     let background4Bool = NSLocationInRange(self.wavesCompleted, range3)
                     if background4Bool
                     {
-                        let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-                        defaults.setObject(4, forKey: "background")
-                        if let background = self.childNodeWithName("background")
+                        let defaults: UserDefaults = UserDefaults.standard
+                        defaults.set(4, forKey: "background")
+                        if let background = self.childNode(withName: "background")
                         {
                             background.removeFromParent()
                         }
                         let background3 = SKSpriteNode(imageNamed: "background4")
-                        background3.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
+                        background3.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
                         background3.zPosition = -2
                         background3.name = "background"
                         self.addChild(background3)
@@ -2433,9 +2436,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     
                     self.saveData()
                     
-                    let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+                    let defaults: UserDefaults = UserDefaults.standard
                     
-                    if let didComeBackFromBackground = defaults.objectForKey("didComeBackFromBackground") as? Bool
+                    if let didComeBackFromBackground = defaults.object(forKey: "didComeBackFromBackground") as? Bool
                     {
                         if didComeBackFromBackground == false
                         {
