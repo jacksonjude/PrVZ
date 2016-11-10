@@ -401,7 +401,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         
         for aZombie in self.zombies
         {
-            (aZombie as AnyObject).removeFromParent()
+            (aZombie as! SKSpriteNode).removeFromParent()
         }
         
         self.zombies.removeAllObjects()
@@ -479,7 +479,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         
         for zombie in self.zombies
         {
-            (zombie as AnyObject).removeFromParent()
+            (zombie as! SKSpriteNode).removeFromParent()
             self.zombies.remove(zombie)
         }
         
@@ -520,7 +520,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         var zombiesAlive = 0
         for aZombie in self.zombies
         {
-            if (aZombie as AnyObject).name == "zombie" || (aZombie as AnyObject).name == "catZombie"
+            if (aZombie as! SKSpriteNode).name == "zombie" || (aZombie as! SKSpriteNode).name == "catZombie"
             {
                 zombiesAlive += 1
             }
@@ -530,7 +530,7 @@ class ChallengeScene: SKScene, SKPhysicsContactDelegate {
         {
             for zombie in self.zombies
             {
-                (zombie as AnyObject).removeFromParent()
+                (zombie as! SKSpriteNode).removeFromParent()
                 self.zombies.remove(zombie)
             }
             

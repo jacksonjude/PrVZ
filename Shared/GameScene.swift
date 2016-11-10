@@ -150,6 +150,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         {
             self.coins += coinsUser
         }
+        else
+        {
+            self.coins = 0
+        }
         
         if let itemsBoughtInStore = defaults.object(forKey: "items") as? NSMutableArray
         {
@@ -2537,14 +2541,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                                 gotBlowDryer.removeFromParent()
                             })]))
                             
-                            let brushSwitchButton = self.buttons.childNode(withName: "brushSwitchButton")!
-                            let blowDryerSwitchButton = self.buttons.childNode(withName: "blowDryerSwitchButton")!
+                            //let brushSwitchButton = self.buttons.childNode(withName: "brushSwitchButton")!
                             
-                            brushSwitchButton.isHidden = false
-                            brushSwitchButton.isUserInteractionEnabled = true
-                            
-                            blowDryerSwitchButton.isHidden = false
-                            blowDryerSwitchButton.isUserInteractionEnabled = true
+                            //brushSwitchButton.isHidden = false
+                            //brushSwitchButton.isUserInteractionEnabled = true
                         }
                     }
                     
@@ -2601,6 +2601,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         #endif
         
         self.coinsLabel.text = NSString(format: "%i", self.coins) as String
+        //print(self.coins)
         
         if self.infBrushItem == false
         {

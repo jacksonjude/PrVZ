@@ -576,7 +576,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         for aZombie in self.zombies
         {
-            (aZombie as AnyObject).removeFromParent()
+            (aZombie as! SKSpriteNode).removeFromParent()
         }
         
         self.zombies.removeAllObjects()
@@ -1134,9 +1134,9 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
         
         for aZombie in self.zombies
         {
-            if (aZombie as AnyObject).name == "catZombie"
+            if (aZombie as! SKSpriteNode).name == "catZombie"
             {
-                if let hairball = (aZombie as AnyObject).childNode(withName: "hairball")
+                if let hairball = (aZombie as! SKSpriteNode).childNode(withName: "hairball")
                 {
                     hairball.removeFromParent()
                 }
@@ -1163,7 +1163,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             {
                 let aZombieSK = aZombie as! SKSpriteNode
                 aZombieSK.run(SKAction.repeatForever(SKAction.moveBy(x: CGFloat(-self.zombieSpeed), y: 0, duration: 0.1)))
-                if (aZombie as AnyObject).name == "catZombie"
+                if (aZombie as! SKSpriteNode).name == "catZombie"
                 {
                     let sequence = SKAction.sequence([SKAction.run({
                         let hairball = SKSpriteNode(imageNamed: "hairball")
@@ -1382,11 +1382,11 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
             var zombiesAlive = 0
             for aZombie in self.zombies
             {
-                if (aZombie as AnyObject).name == "zombie"
+                if (aZombie as! SKSpriteNode).name == "zombie"
                 {
                     zombiesAlive += 1
                 }
-                if (aZombie as AnyObject).name == "catZombie"
+                if (aZombie as! SKSpriteNode).name == "catZombie"
                 {
                     zombiesAlive += 1
                 }
@@ -1418,7 +1418,7 @@ class DevelopmentScene: SKScene, SKPhysicsContactDelegate
                 for innerZombie in self.zombies
                 {
                     self.zombies.remove(innerZombie)
-                    (innerZombie as AnyObject).removeFromParent()
+                    (innerZombie as! SKSpriteNode).removeFromParent()
                     
                 }
                 if self.wavesCompletedJustToShow == 15

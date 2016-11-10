@@ -480,7 +480,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         
         for zombie in self.zombies
         {
-            (zombie as AnyObject).removeFromParent()
+            (zombie as! SKSpriteNode).removeFromParent()
             self.zombies.remove(zombie)
         }
     }
@@ -708,7 +708,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         var zombiesAlive = 0
         for aZombie in self.zombies
         {
-            if (aZombie as AnyObject).name == "zombie" || (aZombie as AnyObject).name == "catZombie"
+            if (aZombie as! SKSpriteNode).name == "zombie" || (aZombie as! SKSpriteNode).name == "catZombie"
             {
                 zombiesAlive += 1
             }
@@ -718,7 +718,7 @@ class MultiplayerScene: SKScene, SKPhysicsContactDelegate
         {
             for zombie in self.zombies
             {
-                (zombie as AnyObject).removeFromParent()
+                (zombie as! SKSpriteNode).removeFromParent()
                 self.zombies.remove(zombie)
             }
             

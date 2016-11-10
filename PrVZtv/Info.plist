@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>20151106</string>
+	<string>20161109</string>
 	<key>GCSupportedGameControllers</key>
 	<array>
 		<dict>
